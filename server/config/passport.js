@@ -2,7 +2,11 @@
 import passport from 'passport';
 import local from './passport/local';
 import google from './passport/google';
-import { passport as dbPassport } from '../db';
+import github from './passport/github';
+import {
+  passport as dbPassport
+}
+from '../db';
 import unsupportedMessage from '../db/unsupportedMessage';
 
 export default () => {
@@ -20,11 +24,13 @@ export default () => {
     });
 
     passport.deserializeUser(dbPassport.deserializeUser);
-  } else {
+  }
+  else {
     console.warn(unsupportedMessage('(de)serialize User'));
   }
 
   // use the following strategies
   local(passport);
   google(passport);
+  github(passport);
 };

@@ -1,8 +1,20 @@
-import React, { Component, PropTypes } from 'react';
+import React, {
+  Component,
+  PropTypes
+}
+from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames/bind';
-import { connect } from 'react-redux';
-import { manualLogin, signUp, toggleLoginMode } from '../actions/users';
+import {
+  connect
+}
+from 'react-redux';
+import {
+  manualLogin,
+  signUp,
+  toggleLoginMode
+}
+from '../actions/users';
 import styles from '../css/components/login';
 import hourGlassSvg from '../images/hourglass.svg';
 
@@ -22,19 +34,37 @@ class LoginOrRegister extends Component {
   handleOnSubmit(event) {
     event.preventDefault();
 
-    const { manualLogin, signUp, user: { isLogin } } = this.props;
+    const {
+      manualLogin,
+      signUp,
+      user: {
+        isLogin
+      }
+    } = this.props;
     const email = ReactDOM.findDOMNode(this.refs.email).value;
     const password = ReactDOM.findDOMNode(this.refs.password).value;
 
     if (isLogin) {
-      manualLogin({ email, password });
-    } else {
-      signUp({ email, password });
+      manualLogin({
+        email,
+        password
+      });
+    }
+    else {
+      signUp({
+        email,
+        password
+      });
     }
   }
 
   renderHeader() {
-    const { user: { isLogin }, toggleLoginMode } = this.props;
+    const {
+      user: {
+        isLogin
+      },
+      toggleLoginMode
+    } = this.props;
     if (isLogin) {
       return (
         <div className={cx('header')}>
@@ -65,7 +95,11 @@ class LoginOrRegister extends Component {
   }
 
   render() {
-    const { isWaiting, message, isLogin } = this.props.user;
+    const {
+      isWaiting,
+      message,
+      isLogin
+    } = this.props.user;
 
     return (
       <div
@@ -104,11 +138,18 @@ class LoginOrRegister extends Component {
                 value={isLogin ? 'Login' : 'Register'} />
             </form>
           </div>
+          <div>
+            <h1>Or</h1>
+          </div>
           <div className={cx('google-container')}>
-            <h1 className={cx('heading')}>Google Login Demo</h1>
             <a
               className={cx('button')}
               href="/auth/google">Login with Google</a>
+          </div>
+          <div className={cx('github-container')}>
+            <a
+              className={cx('button')}
+              href="/auth/github">Login with Github</a>
           </div>
         </div>
       </div>
@@ -125,7 +166,9 @@ LoginOrRegister.propTypes = {
 
 // Function passed in to `connect` to subscribe to Redux store updates.
 // Any time it updates, mapStateToProps is called.
-function mapStateToProps({user}) {
+function mapStateToProps({
+  user
+}) {
   return {
     user
   };
@@ -134,5 +177,8 @@ function mapStateToProps({user}) {
 // Connects React component to the redux store
 // It does not modify the component class passed to it
 // Instead, it returns a new, connected component class, for you to use.
-export default connect(mapStateToProps, { manualLogin, signUp, toggleLoginMode })(LoginOrRegister);
-
+export default connect(mapStateToProps, {
+  manualLogin,
+  signUp,
+  toggleLoginMode
+})(LoginOrRegister);
