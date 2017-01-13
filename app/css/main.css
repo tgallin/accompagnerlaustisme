@@ -6,7 +6,6 @@
 
 body {
   margin: 0;
-  font-family: var(--fontMontserrat);
 }
 
 .app {
@@ -18,6 +17,7 @@ body {
 
 
 /* Add your global styles below... */
+
 
 /* ex:
 

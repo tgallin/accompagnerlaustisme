@@ -1,16 +1,28 @@
 import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { Provider } from 'react-redux';
-import { RouterContext } from 'react-router';
+import {
+  renderToString
+}
+from 'react-dom/server';
+import {
+  Provider
+}
+from 'react-redux';
+import {
+  RouterContext
+}
+from 'react-router';
 import Helmet from 'react-helmet';
-import { trackingID } from '../config/app';
+import {
+  trackingID
+}
+from '../config/app';
 
 /*
  * Consider async script loading if you support IE9+
  * https://developers.google.com/analytics/devguides/collection/analyticsjs/
  */
 const createTrackingScript = trackingID =>
-`<script>
+  `<script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -28,10 +40,18 @@ const createApp = (store, props) => renderToString(
 );
 
 const createScriptTags = () => {
-  return `${analyticsScript}<script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>`;
+  return `${analyticsScript}
+  <script type="text/javascript" charset="utf-8" src="/assets/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="/assets/bootstrap.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>`;
 };
 
-const buildPage = ({ componentHTML, initialState, headAssets, analyticsScript }) => {
+const buildPage = ({
+  componentHTML,
+  initialState,
+  headAssets,
+  analyticsScript
+}) => {
   return `
 <!doctype html>
 <html>
@@ -52,6 +72,10 @@ export default (store, props) => {
   const initialState = store.getState();
   const componentHTML = createApp(store, props);
   const headAssets = Helmet.rewind();
-  return buildPage({ componentHTML, initialState, headAssets, analyticsScript });
+  return buildPage({
+    componentHTML,
+    initialState,
+    headAssets,
+    analyticsScript
+  });
 };
-

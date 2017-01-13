@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React, {
+  Component
+}
+from 'react';
 import Page from '../pages/Page';
-import DashboardContainer from '../containers/Dashboard';
+import SearchContainer from '../containers/Search';
 
-class Dashboard extends Component {
+class Search extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,13 +15,14 @@ class Dashboard extends Component {
   }
 
   pageTitle() {
-    return 'Dashboard | Nightlife Coordinator';
+    return 'Search | Nightlife Coordinator';
   }
 
   pageMeta() {
-    return [
-      { name: 'description', content: 'Dashboard' }
-    ];
+    return [{
+      name: 'description',
+      content: 'Search page'
+    }];
   }
 
   pageLink() {
@@ -28,11 +32,10 @@ class Dashboard extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <DashboardContainer {...this.props} />
+        <SearchContainer {...this.props} />
       </Page>
     );
   }
 }
 
-export default Dashboard;
-
+export default Search;

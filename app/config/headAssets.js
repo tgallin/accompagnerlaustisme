@@ -1,21 +1,30 @@
 /* Based on the template in Web Starter Kit :
 https://github.com/google/web-starter-kit/blob/master/app/index.html
 */
-import chromeFavicon from '../images/chrome-ninja192-precomposed.png';
-import appleFavicon from '../images/apple-ninja152-precomposed.png';
-import msFavicon from '../images/ms-ninja144-precomposed.png';
-import favicon from '../images/favicon.png';
-import { isDev } from '../config/app';
+import favicon16 from '../images/favicon-16x16.png';
+import favicon32 from '../images/favicon-32x32.png';
+
+import {
+  isDev
+}
+from '../config/app';
 
 const metaAssets = () => {
-  return [
-    { charset: 'utf-8' },
+  return [{
+      charset: 'utf-8'
+    },
     // Meta descriptions are commonly used on search engine result pages to
     // display preview snippets for a given page.
-    { name: 'description', content: 'Your One-Stop solution for a full-stack universal Redux App' },
+    {
+      name: 'description',
+      content: 'Nightlife coordinator app by tgallin - freeCodeCamp challenge'
+    },
     // Setting IE=edge tells Internet Explorer to use the latest engine to
     //  render the page and execute Javascript
-    { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
+    {
+      'http-equiv': 'X-UA-Compatible',
+      content: 'IE=edge'
+    },
     // Using the viewport tag allows you to control the width and scaling of
     // the browser's viewport:
     // - include width=device-width to match the screen's width in
@@ -23,28 +32,38 @@ const metaAssets = () => {
     // - include initial-scale=1 to establish 1:1 relationship between css pixels
     // and device-independent pixels
     // - ensure your page is accessible by not disabling user scaling.
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1'
+    },
     // Disable tap highlight on IE
-    { name: 'msapplication-tap-highlight', content: 'no' },
+    {
+      name: 'msapplication-tap-highlight',
+      content: 'no'
+    },
     // Add to homescreen for Chrome on Android
-    { name: 'mobile-web-app-capable', content: 'yes' },
+    {
+      name: 'mobile-web-app-capable',
+      content: 'yes'
+    },
     // Add to homescreen for Safari on IOS
-    { name: 'apple-mobile-web-app-capable', content: 'yes' },
-    { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
-    { name: 'apple-mobile-web-app-title', content: 'reactGo' },
-    // Tile icon for Win8 (144x144 + tile color)
-    { name: 'msapplication-TileImage', content: msFavicon },
-    { name: 'msapplication-TileColor', content: '#3372DF' }
+    {
+      name: 'apple-mobile-web-app-capable',
+      content: 'yes'
+    }, {
+      name: 'apple-mobile-web-app-status-bar-style',
+      content: 'black'
+    }, {
+      name: 'apple-mobile-web-app-title',
+      content: 'NightlifeCoordinator'
+    }
   ];
 };
 
 const linkAssets = () => {
   const links = [
-    // Add to homescreen for Chrome on Android
-    { rel: 'icon', href: favicon },
-    { rel: 'icon', sizes: '192x192', href: chromeFavicon },
-    // Add to homescreen for Safari on IOS
-    { rel: 'apple-touch-icon', sizes: '152x152', href: appleFavicon },
+    { rel: 'icon', sizes: '16x16', href: favicon16, type: 'image/png'}, 
+    { rel: 'icon', sizes: '32x32', href: favicon32, type: 'image/png'},
     { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'},
     { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'},
     { rel: 'stylesheet', href: '/assets/styles/main.css' }
@@ -55,6 +74,6 @@ const linkAssets = () => {
   return isDev() ? links.filter(l => l.rel !== 'stylesheet' || l.href.substr(0,4)==='http') : links;
 };
 
-export const title = 'reactGo - just ship it';
+export const title = 'Nightlife Coordinator App - freeCodeCamp challenge';
 export const meta = metaAssets();
 export const link = linkAssets();

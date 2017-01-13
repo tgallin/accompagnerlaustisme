@@ -12,12 +12,12 @@ class About extends Component {
   }
 
   pageTitle() {
-    return 'About | reactGo';
+    return 'About | Nightlife Coordinator';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'A reactGo example of life' }
+      { name: 'description', content: 'A Nightlife Coordinator application based on the reactGo boilerpolate project.' }
     ];
   }
 

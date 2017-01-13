@@ -11,20 +11,17 @@ const cx = classNames.bind(styles);
  */
 const About = () => {
   return (
-    <div className={cx('about')}>
-      <h1 className={cx('header')}>About Ninja Ocean</h1>
-      <div className={cx('description')}>
-        <p>Imagine an ocean of ninjas. Now think of it as a metaphor.<br />
-          Seriously, we love good tech. React, redux, scala, Haskell, machine learning, you name it!
-        </p>
-      </div>
-      <div className={cx('contribute')}>
-        <p>Want to contribute? Help us out!
-          If you think the code on &nbsp;
-          <a target="_blank" href="https://github.com/choonkending/react-webpack-node">this repo</a>
-        &nbsp;could be improved, please create an issue&nbsp;
-          <a target="_blank" href="https://github.com/choonkending/react-webpack-node/issues">here</a>!
-        </p>
+    <div>
+      <h1>About this Nightlife Coordinator application</h1>
+      <div>
+        <span>This voting app is built by <a href="http://freecodecamp.com/tgallin">@tgallin</a> of freecodecamp,</span>
+        <br/>
+        <span>following the instructions of  <a href="https://www.freecodecamp.com/challenges/build-a-nightlife-coordination-app" target="_blank">"Build a Nightlife Coordination App | Free Code Camp"</a>.</span>
+        <br/>
+        <span>Github repository: <a href="https://github.com/tgallin/nightlife-coordinator">tgallin/nightlife-coordinator</a></span>
+        <br/>
+        <span>based on <a href="https://github.com/reactGo/reactGo">reactGo</a>, a boilerplate solution for a full-stack app with ES6/ES2015 React.js 
+        featuring universal Redux, React Router, React Router Redux Hot reloading, CSS modules, Express 4.x and multiple ORMs</span>
       </div>
     </div>
   );

@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import React, {
+  Component
+}
+from 'react';
 import Page from '../pages/Page';
 import VoteContainer from '../containers/Vote';
 
@@ -12,13 +15,14 @@ class Vote extends Component {
   }
 
   pageTitle() {
-    return 'Vote | reactGo';
+    return 'Vote | Nightlife Coordinator';
   }
 
   pageMeta() {
-    return [
-      { name: 'description', content: 'A reactGo example of a voting page' }
-    ];
+    return [{
+      name: 'description',
+      content: 'Vote page'
+    }];
   }
 
   pageLink() {
@@ -35,4 +39,3 @@ class Vote extends Component {
 }
 
 export default Vote;
-
