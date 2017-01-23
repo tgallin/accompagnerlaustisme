@@ -1,0 +1,23 @@
+@import '../common/typography';
+@import '../common/colors';
+@import '../common/layout';
+
+.bar-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bar {
+  @apply --flexNotMoreThan200;
+  font-size: var(--fontMedium);
+}
+
+.button {
+  font-size: var(--fontMedium);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  margin: 0 28px;
+  color: #fff;
+}

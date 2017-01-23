@@ -3,14 +3,11 @@
  */
 import passport from 'passport';
 import unsupportedMessage from '../db/unsupportedMessage';
-import {
-  controllers,
-  passport as passportConfig
-}
-from '../db';
+import { controllers, passport as passportConfig } from '../db';
 
 const usersController = controllers && controllers.users;
 const topicsController = controllers && controllers.topics;
+const goingsController = controllers && controllers.goings;
 
 export default (app) => {
   // user routes
@@ -73,5 +70,14 @@ export default (app) => {
   }
   else {
     console.warn(unsupportedMessage('topics routes'));
+  }
+  
+    // goings routes
+  if (goingsController) {
+    app.get('/going', goingsController.howManyAreGoing);
+    app.get('/going/:id', goingsController.updateGoing);
+  }
+  else {
+    console.warn(unsupportedMessage('goings routes'));
   }
 };

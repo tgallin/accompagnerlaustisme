@@ -3,7 +3,7 @@ import React, {
 }
 from 'react';
 import classNames from 'classnames/bind';
-import SearchBarsTextInput from '../components/SearchBarsTextInput';
+import TopicTextInput from '../components/TopicTextInput';
 import styles from '../css/components/entrybox';
 
 const cx = classNames.bind(styles);
@@ -13,28 +13,28 @@ const cx = classNames.bind(styles);
 // to grandchild. To make it cleaner, you could consider:
 // 1. moving `connect` down to this component so you could mapStateToProps and dispatch
 // 2. Move SearchBarsTextInput up to EntryBox so it's less confusing
-const EntryBox = ({
+const TopicEntryBox = ({
   onEntryChange,
-  onBarsSearch,
-  location
+  onEntrySave,
+  topic
 }) => {
   return (
     <div className={cx('entrybox')}>
-      <h1 className={cx('header')}>See which bars are around you and tell the others you are going!</h1>
-      <SearchBarsTextInput
+      <h1 className={cx('header')}>Vote for your top hack idea</h1>
+      <TopicTextInput
         className={cx('input')}
-        value={location}
-        placeholder="Where you at?"
+        value={topic}
+        placeholder="Suggest a hackday idea"
         onEntryChange={onEntryChange}
-        onBarsSearch={onBarsSearch} />
+        onEntrySave={onEntrySave} />
     </div>
   );
 };
 
-EntryBox.propTypes = {
-  location: PropTypes.string,
+TopicEntryBox.propTypes = {
+  topic: PropTypes.string,
   onEntryChange: PropTypes.func.isRequired,
-  onBarsSearch: PropTypes.func.isRequired
+  onEntrySave: PropTypes.func.isRequired
 };
 
-export default EntryBox;
+export default TopicEntryBox;

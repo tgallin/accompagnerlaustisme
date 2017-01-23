@@ -8,72 +8,55 @@ import {
 }
 from 'react-redux';
 import classNames from 'classnames/bind';
-import EntryBox from '../components/EntryBox';
-import MainSection from '../components/MainSection';
-import Scoreboard from '../components/Scoreboard';
-import {
-  createTopic,
-  typing,
-  incrementCount,
-  decrementCount,
-  destroyTopic
-}
-from '../actions/topics';
-import styles from '../css/components/vote';
+import SearchEntryBox from '../components/SearchEntryBox';
+import SearchResults from '../components/SearchResults';
+import { getBars, typing, going } from '../actions/bars';
+import styles from '../css/components/search';
 
 const cx = classNames.bind(styles);
 
 class Search extends Component {
   render() {
     const {
-      newTopic,
-      topics,
+      newLocation,
+      bars,
       typing,
-      createTopic,
-      destroyTopic,
-      incrementCount,
-      decrementCount
+      getBars,
+      going
     } = this.props;
     return (
-      <div className={cx('vote')}>
-        <EntryBox
-          location={newTopic}
+      <div className={cx('search')}>
+        <SearchEntryBox
+          location={newLocation}
           onEntryChange={typing}
-          onBarsSearch={createTopic} />
-        <MainSection
-          topics={topics}
-          onIncrement={incrementCount}
-          onDecrement={decrementCount}
-          onDestroy={destroyTopic} />
-        <Scoreboard topics={topics} />
+          onBarsSearch={getBars} />
+        <SearchResults
+          bars={bars}
+          updateGoing={going} />
       </div>
     );
   }
 }
 
 Search.propTypes = {
-  topics: PropTypes.array.isRequired,
+  bars: PropTypes.array.isRequired,
   typing: PropTypes.func.isRequired,
-  createTopic: PropTypes.func.isRequired,
-  destroyTopic: PropTypes.func.isRequired,
-  incrementCount: PropTypes.func.isRequired,
-  decrementCount: PropTypes.func.isRequired,
-  newTopic: PropTypes.string
+  getBars: PropTypes.func.isRequired,
+  going: PropTypes.func.isRequired,
+  newLocation: PropTypes.string
 };
 
 function mapStateToProps(state) {
   return {
-    topics: state.topic.topics,
-    newTopic: state.topic.newTopic
+    bars: state.bar.bars,
+    newLocation: state.bar.newLocation
   };
 }
 
 // Read more about where to place `connect` here:
 // https://github.com/rackt/react-redux/issues/75#issuecomment-135436563
 export default connect(mapStateToProps, {
-  createTopic,
+  getBars,
   typing,
-  incrementCount,
-  decrementCount,
-  destroyTopic
+  going,
 })(Search);

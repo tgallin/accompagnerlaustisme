@@ -41,8 +41,6 @@ const createApp = (store, props) => renderToString(
 
 const createScriptTags = () => {
   return `${analyticsScript}
-  <script type="text/javascript" charset="utf-8" src="/assets/jquery.min.js"></script>
-  <script type="text/javascript" charset="utf-8" src="/assets/bootstrap.min.js"></script>
   <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>`;
 };
 

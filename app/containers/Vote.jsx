@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
-import EntryBox from '../components/EntryBox';
+import TopicEntryBox from '../components/TopicEntryBox';
 import MainSection from '../components/MainSection';
 import Scoreboard from '../components/Scoreboard';
 import { createTopic, typing, incrementCount,
@@ -15,7 +15,7 @@ class Vote extends Component {
     const {newTopic, topics, typing, createTopic, destroyTopic, incrementCount, decrementCount } = this.props;
     return (
       <div className={cx('vote')}>
-        <EntryBox
+        <TopicEntryBox
           topic={newTopic}
           onEntryChange={typing}
           onEntrySave={createTopic} />

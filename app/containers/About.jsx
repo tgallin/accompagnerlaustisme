@@ -22,6 +22,8 @@ const About = () => {
         <br/>
         <span>based on <a href="https://github.com/reactGo/reactGo">reactGo</a>, a boilerplate solution for a full-stack app with ES6/ES2015 React.js 
         featuring universal Redux, React Router, React Router Redux Hot reloading, CSS modules, Express 4.x and multiple ORMs</span>
+        <br/>
+        <span>It is using the Yelp API to search businesses around a location</span>
       </div>
     </div>
   );

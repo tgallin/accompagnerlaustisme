@@ -52,16 +52,20 @@ export default class SearchBarsTextInput extends Component {
       location
     } = this.props;
     return (
-      <div>
-      <input
-        className={className}
-        placeholder={placeholder}
-        onChange={this.onChange}
-        onKeyDown={this.onKeyDown}
-        value={location}
-        autoFocus />
-        <button className="btn btn-success" onClick={this.onSearch}>Search</button>
+      <div className="row">
+        <div className="col-xs-10">
+          <input
+            className={className}
+            placeholder={placeholder}
+            onChange={this.onChange}
+            onKeyDown={this.onKeyDown}
+            value={location}
+            autoFocus />
         </div>
+        <div className="col-xs-2">
+          <button className="btn btn-success" onClick={this.onSearch}>Search</button>
+        </div>
+      </div>
     );
   }
 }

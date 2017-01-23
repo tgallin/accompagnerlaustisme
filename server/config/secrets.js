@@ -14,8 +14,14 @@ export const github = {
   callbackURL: process.env.GITHUB_CALLBACK || '/auth/github/callback'
 };
 
+export const yelp = {
+appID: process.env.YELP_APPID || 'mqBvAXMHQnup85cepxPXZg',
+appSecret: process.env.YELP_SECRET || 'N3boOCNq3pyCTJrYlHxFTdNRahVWoxOie9Lj9kwGJzAR6MdJt065wWENUz7lIF3t'
+}
+
 export default {
   sessionSecret,
   google,
   github
 };
+
