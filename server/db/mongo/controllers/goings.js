@@ -5,7 +5,7 @@ import Going from '../models/goings';
  * return the number of people going to a list of bars
  */
 export function howManyAreGoing(req, res) {
-  var ids = req.params.ids.split(",");
+  var ids = req.query.ids.split(",");
   var query = [
     {$group: {
       _id: "$barId",

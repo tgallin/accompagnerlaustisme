@@ -14,7 +14,7 @@ const About = () => {
     <div>
       <h1>About this Nightlife Coordinator application</h1>
       <div>
-        <span>This voting app is built by <a href="http://freecodecamp.com/tgallin">@tgallin</a> of freecodecamp,</span>
+        <span>This nightlife coordinator app is built by <a href="http://freecodecamp.com/tgallin">@tgallin</a> of freecodecamp,</span>
         <br/>
         <span>following the instructions of  <a href="https://www.freecodecamp.com/challenges/build-a-nightlife-coordination-app" target="_blank">"Build a Nightlife Coordination App | Free Code Camp"</a>.</span>
         <br/>
@@ -23,7 +23,7 @@ const About = () => {
         <span>based on <a href="https://github.com/reactGo/reactGo">reactGo</a>, a boilerplate solution for a full-stack app with ES6/ES2015 React.js 
         featuring universal Redux, React Router, React Router Redux Hot reloading, CSS modules, Express 4.x and multiple ORMs</span>
         <br/>
-        <span>It is using the Yelp API to search businesses around a location</span>
+        <span>It is using the Foursquare API to search venues near a location</span>
       </div>
     </div>
   );

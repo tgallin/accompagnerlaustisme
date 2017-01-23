@@ -15,7 +15,6 @@ const SearchResults = ({ bars, updateGoing }) => {
         key={key}
         name={bar.name}
         going={bar.going}
-        imageUrl={bar.imageUrl}
         updateGoing={updateGoing} />);
   });
 

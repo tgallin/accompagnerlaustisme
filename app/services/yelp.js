@@ -1,87 +1,126 @@
-import axios from 'axios';
-import querystring from 'querystring';
-import { yelpConfig } from '../config/secrets';
+"use strict";
 
-var baseUrl = 'https://api.yelp.com/v3/';
+var request = require('request');
+
+const baseUrl = 'https://api.yelp.com/v3/';
 
 class Yelpv3 {
-  
-  constructor() {
-    
+
+  constructor(opts) {
+    this.appId = opts.app_id;
+    this.appSecret = opts.app_secret;
+    this.accessToken;
   }
 
- /* getAccessToken() {
-    axios.post('https://api.yelp.com/oauth2/token',
-        querystring.stringify({
-          'client_id': yelpConfig.appId,
-          'client_secret': yelpConfig.appSecret,
-          'grant_type': 'client_credentials'
-        }), {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        })
-      .then(res => {
-        this.accessToken = res.data.access_token;
-        console.log('success ' + this.accessToken);
-      })
-      .catch(function(error) {
-        if (error.response) {
-          // The request was made, but the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+  getAccessToken(cb) {
+    const promise = new Promise((resolve, reject) => {
+      request.post({
+        url: 'https://api.yelp.com/oauth2/token',
+        form: {
+          client_id: this.appId,
+          client_secret: this.appSecret,
+          grant_type: 'client_credentials'
         }
-        else {
-          // Something happened in setting up the request that triggered an Error
-          console.log('Error', error.message);
+      }, (err, response, data) => {
+        console.log(response);
+        if (!err && response.statusCode == 200) {
+          this.accessToken = JSON.parse(data).access_token;
+          resolve(data);
         }
-        console.log(error.config);
+        reject(err);
       });
-  };*/
+    });
 
-  get(api, params) {
+    if (typeof cb === 'function') {
+      promise
+        .then((res) => cb(null, res))
+        .catch(cb);
+      return null;
+    }
 
-    return axios.post('//api.yelp.com/oauth2/token',
-        querystring.stringify({
-          'client_id': yelpConfig.appID,
-          'client_secret': yelpConfig.appSecret,
-          'grant_type': 'client_credentials'
-        }), {
+    return promise;
+  }
+
+  get(resource, params, callback) {
+    params = (typeof params === 'undefined') ? {} : params;
+
+    const promise = new Promise((resolve, reject) => {
+      if (this.accessToken) {
+        request.get({
+          url: baseUrl + resource + jsonToQueryString(params),
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Authorization': 'Bearer ' + this.accessToken
           }
-        })
-      .then(res => {
-        return axios.get(baseUrl + api, {
-          params: params,
-          headers: {
-            'Authorization': 'Bearer ' + res.data.access_token
+        }, (err, response, data) => {
+          if (!err && response.statusCode == 200) {
+            resolve(data);
           }
         });
-      })
-      .catch(function(error) {
-        if (error.response) {
-          // The request was made, but the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-        else {
-          // Something happened in setting up the request that triggered an Error
-          console.log('Error', error.message);
-        }
-        console.log(error.config);
-        return [];
-      });
+      } else {
+        this.getAccessToken().then((data) => {
+          request.get({
+            url: baseUrl + resource + jsonToQueryString(params),
+            headers: {
+              'Authorization': 'Bearer ' + this.accessToken
+            }
+          }, (err, response, data) => {
+            if (!err && response.statusCode == 200) {
+              resolve(data);
+            }
+            reject(err);
+          });
+        }).catch((err) => {
+          reject(err);
+        });
+      }
+    });
+
+    if (typeof callback === 'function') {
+      promise
+        .then((res) => callback(null, res))
+        .catch((err) => callback(err));
+      return null;
+    }
+
+    return promise;
   }
 
-  search(params) {
-    return this.get('businesses/search', params);
+  search(params, callback) {
+    return this.get('businesses/search', params, callback);
   }
 
+  phoneSearch(params, callback) {
+    return this.get('businesses/search/phone', params, callback);
+  }
+
+  transactionSearch(transactionType, params, callback) {
+    return this.get(`transactions/${transactionType}/search`, params, callback);
+  }
+
+  business(id, callback) {
+    return this.get(`business/${id}`, undefined, callback);
+  }
+
+  reviews(id, callback) {
+    return this.get(`business/${id}/reviews`, undefined, callback);
+  }
+
+  autocomplete(params, callback) {
+    return this.get('autocomplete', params, callback);
+  }
+
+}
+
+function jsonToQueryString(json) {
+  return '?' +
+    Object.keys(json).map(function(key) {
+      if (key !== "price") {
+        return encodeURIComponent(key) + '=' +
+          encodeURIComponent(json[key]);
+      } else {
+        return key + "=" + json[key];
+      }
+    }).join('&');
 }
 
 module.exports = Yelpv3;

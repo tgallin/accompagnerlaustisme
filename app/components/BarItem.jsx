@@ -4,16 +4,13 @@ import styles from '../css/components/bar-item';
 
 const cx = classNames.bind(styles);
 
-const BarItem = ({ name, id, imageUrl, going, updateGoing }) => {
+const BarItem = ({ name, id, going, updateGoing }) => {
   const onUpdateGoing = () => {
     updateGoing(id);
   };
 
   return (
     <div className={cx('barc-item')} key={id}>
-      <div className="thumbnail">
-        <img src={imageUrl}/>
-      </div>
       <div className="info">
         <div className="title">
           <span>{name}</span>
@@ -29,7 +26,6 @@ const BarItem = ({ name, id, imageUrl, going, updateGoing }) => {
 BarItem.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
   going: PropTypes.number.isRequired,
   updateGoing: PropTypes.func.isRequired
 };
