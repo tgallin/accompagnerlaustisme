@@ -122,8 +122,10 @@ export function getBars(text) {
             ids: barIds
           })
             .then(res => {
-              bars = bars.forEach(b => res.data.bars[b.id] ? b.going = res.data.bars[b.id] : 0);
-              return dispatch(requestBarsSuccess(res.bars));
+              if (res.status === 200) {
+                bars = bars.forEach(b => res.data.bars[b.id] ? b.going = res.data.bars[b.id] : 0);
+                return dispatch(requestBarsSuccess(res.bars));
+              }
             })
             .catch(() => {
               return dispatch(requestBarsFailure({

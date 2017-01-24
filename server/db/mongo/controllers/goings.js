@@ -20,7 +20,7 @@ export function howManyAreGoing(req, res) {
       return res.status(500).send('Something went wrong trying to get the number of people going to bars');
     }
 
-    return results;
+    return res.status(200).send(results);
   });
 }
 
