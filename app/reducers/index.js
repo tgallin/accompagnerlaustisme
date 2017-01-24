@@ -9,9 +9,12 @@ import * as types from '../types';
 const isFetching = (state = false, action) => {
   switch (action.type) {
     case types.CREATE_REQUEST:
+    case types.REQUEST_BARS:
       return true;
     case types.REQUEST_SUCCESS:
     case types.REQUEST_FAILURE:
+    case types.REQUEST_BARS_SUCCESS:
+    case types.REQUEST_BARS_FAILURE:
       return false;
     default:
       return state;

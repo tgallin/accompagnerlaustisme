@@ -29,7 +29,7 @@ const bars = (
     case types.REQUEST_BARS:
       return [];
     case types.REQUEST_BARS_SUCCESS:
-      return [...state, action.bars];
+      return action.bars;
     case types.INCREMENT_GOING:
     case types.DECREMENT_GOING:
       return state.map(b => bar(b, action));

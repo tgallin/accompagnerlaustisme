@@ -123,8 +123,9 @@ export function getBars(text) {
           })
             .then(res => {
               if (res.status === 200) {
-                bars = bars.forEach(b => res.data.bars[b.id] ? b.going = res.data.bars[b.id] : 0);
-                return dispatch(requestBarsSuccess(res.bars));
+                console.log(res.data);
+                //bars = bars.forEach(b => res.data[b.id] ? b.going = res.data[b.id] : 0);
+                return dispatch(requestBarsSuccess(bars));
               }
             })
             .catch(() => {
