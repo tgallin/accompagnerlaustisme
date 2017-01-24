@@ -44,7 +44,15 @@ module.exports = {
     new webpack.DefinePlugin({
       __DEVCLIENT__: false,
       __DEVSERVER__: true,
-      'process.env.MONGODB_URI': '"mongodb://localhost:27017/nightlifecoordinator"'
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.MONGODB_URI': JSON.stringify(process.env.MONGODB_URI || "mongodb://localhost:27017/nightlifecoordinator"),
+      'process.env.SESSION_SECRET': JSON.stringify(process.env.SESSION_SECRET),
+      'process.env.GITHUB_CALLBACK': JSON.stringify(process.env.GITHUB_CALLBACK),
+      'process.env.GITHUB_CLIENTID': JSON.stringify(process.env.GITHUB_CLIENTID),
+      'process.env.GITHUB_SECRET': JSON.stringify(process.env.GITHUB_SECRET),
+      'process.env.GOOGLE_CALLBACK': JSON.stringify(process.env.GOOGLE_CALLBACK),
+      'process.env.GOOGLE_CLIENTID': JSON.stringify(process.env.GOOGLE_CLIENTID),
+      'process.env.GOOGLE_SECRET': JSON.stringify(process.env.GOOGLE_SECRET)
     }),
     new webpack.IgnorePlugin(/vertx/),
     new webpack.BannerPlugin(

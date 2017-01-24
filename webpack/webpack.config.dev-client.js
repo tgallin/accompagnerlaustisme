@@ -88,7 +88,11 @@ module.exports = {
         new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
           __DEVCLIENT__: true,
-          __DEVSERVER__: false
+          __DEVSERVER__: false,
+          'process.env.FOURSQUARE_APPID': JSON.stringify(process.env.FOURSQUARE_APPID),
+          'process.env.FOURSQUARE_SECRET': JSON.stringify(process.env.FOURSQUARE_SECRET),
+          'process.env.YELP_APPID': JSON.stringify(process.env.YELP_APPID),
+          'process.env.YELP_SECRET': JSON.stringify(process.env.YELP_SECRET)
         }),
         new styleLintPlugin({
           configFile: path.join(__dirname, '..', '.stylelintrc'),
