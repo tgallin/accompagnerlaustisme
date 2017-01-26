@@ -1,3 +1,5 @@
 import voteService from './topics';
+import foursquareService from './foursquare';
+import localStorageService from './localStorage';
 
-export default { voteService };
+export { voteService, foursquareService, localStorageService };

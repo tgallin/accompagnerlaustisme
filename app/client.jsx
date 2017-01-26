@@ -7,10 +7,15 @@ import createRoutes from './routes';
 import * as types from './types';
 import configureStore from './store/configureStore';
 import preRenderMiddleware from './middlewares/preRenderMiddleware';
+import { localStorageService } from './services';
+import { typing, getBars } from './actions/bars';
+
+  
 
 // Grab the state from a global injected into
 // server-generated HTML
 const initialState = window.__INITIAL_STATE__;
+
 
 const store = configureStore(initialState, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
@@ -27,6 +32,11 @@ function onUpdate() {
   // still trigger a fetch data.
   // Read more: https://github.com/choonkending/react-webpack-node/pull/203#discussion_r60839356
   if (window.__INITIAL_STATE__ !== null) {
+    var location = localStorageService.retrieve();
+    if (location && location !== '') {
+      store.dispatch(typing(location));
+      store.dispatch(getBars(location));
+    }
     window.__INITIAL_STATE__ = null;
     return;
   }
