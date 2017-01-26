@@ -4,14 +4,6 @@
 @import '../common/button';
 @import '../common/input';
 
-.login {
-  width: 420px;
-  margin: 0 auto;
-  background-color: var(--colorAthensGray);
-  border: 2px solid var(--colorMercury);
-  border-radius: var(--globalRadius);
-}
-
 .waiting {
   .loading {
     display: block;
@@ -19,7 +11,6 @@
 }
 
 .alternative {
-  background: var(--colorWhite);
   padding: 12px 8px;
   font-size: var(--fontMedium);
   text-align: center;
@@ -29,6 +20,7 @@
   color: var(--colorDodgerBlue);
   font-weight: bold;
   cursor: pointer;
+  padding-left: 20px;
 }
 
 .loading {
@@ -40,10 +32,6 @@
 .email-container {
   padding: 16px 12px;
   border-bottom: 2px solid var(--colorMercury);
-}
-
-.google-container {
-  padding: 16px 12px;
 }
 
 .header {}
@@ -63,11 +51,52 @@
   font-size: var(--fontSmall);
 }
 
-.button {
-  @apply --greenButton;
-}
-
 .hint {
   @apply --small;
   color: var(--colorBombay);
+}
+
+.btn-github {
+  color: #fff;
+  background-color: #444;
+  border-color: rgba(0,0,0,0.2);
+}
+
+.btn-github:hover {
+  color: #fff;
+  background-color: #2b2b2b;
+  border-color: rgba(0,0,0,0.2);
+}
+
+.btn-google {
+  color: #fff;
+  background-color: #dd4b39;
+  border-color: rgba(0,0,0,0.2);
+}
+
+.btn-google:hover {
+  color: #fff;
+  background-color: #c23321;
+  border-color: rgba(0,0,0,0.2);
+}
+
+.btn-social {
+  position: relative;
+  padding-left: 44px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-social>:first-child {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  line-height: 34px;
+  font-size: 1.6em;
+  text-align: center;
+  border-right: 1px solid rgba(0,0,0,0.2);
 }

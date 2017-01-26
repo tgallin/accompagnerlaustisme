@@ -3,21 +3,23 @@
 @import '../common/layout';
 
 .bar-item {
-  display: flex;
-  justify-content: space-between;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin-top: 5px;
 }
 
-.bar {
+.title {
   @apply --flexNotMoreThan200;
   font-size: var(--fontMedium);
 }
 
-.button {
-  font-size: var(--fontMedium);
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: none;
-  margin: 0 28px;
-  color: #fff;
+.btn-going {
+  height: 20px;
+  line-height: 12px;
+  margin-left: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
+

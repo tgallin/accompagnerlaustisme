@@ -10,16 +10,16 @@ const BarItem = ({ name, id, going, updateGoing }) => {
   };
 
   return (
-    <div className={cx('barc-item')} key={id}>
+    <li className={cx('bar-item')} key={id}>
       <div className="info">
-        <div className="title">
-          <span>{name}</span>
-        </div>
-      <button
-        className={cx('button', 'increment')}
+        <div className={cx('title')}>
+          <span>{name}</span><button
+        className={'btn btn-info ' + cx('btn-going')}
         onClick={onUpdateGoing}>{going} going</button>
+        </div>
+
       </div>
-    </div>
+    </li>
   );
 };
 

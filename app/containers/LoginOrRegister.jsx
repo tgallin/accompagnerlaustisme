@@ -102,55 +102,56 @@ class LoginOrRegister extends Component {
     } = this.props.user;
 
     return (
-      <div
-        className={cx('login', {
-          waiting: isWaiting
-        })}
-      >
-        <div className={cx('container')}>
-          { this.renderHeader() }
-          <img className={cx('loading')} alt="loading" src={hourGlassSvg} />
-          <div className={cx('email-container')}>
-            <form onSubmit={this.handleOnSubmit}>
-              <input
-                className={cx('input')}
-                type="email"
-                ref="email"
-               placeholder="email"
-              />
-              <input
-                className={cx('input')}
-                type="password"
-               ref="password"
-                placeholder="password"
-              />
-              <div className={cx('hint')}>
-                <div>Hint</div>
-                <div>email: example@ninja.com password: ninja</div>
+      <div className='container'>
+        <div className={'row ' + cx({waiting: isWaiting})}>
+          <div className="col-xs-3"></div>
+          <div className="col-xs-6 well">
+            { this.renderHeader() }
+            <img className={cx('loading')} alt="loading" src={hourGlassSvg} />
+            <div className={cx('email-container')}>
+              <form onSubmit={this.handleOnSubmit}>
+                <input
+                  className={cx('input')}
+                  type="email"
+                  ref="email"
+                 placeholder="email"
+                />
+                <input
+                  className={cx('input')}
+                  type="password"
+                 ref="password"
+                  placeholder="password"
+                />
+                <div className={cx('hint')}>
+                  <div>Hint</div>
+                  <div>email: example@ninja.com password: ninja</div>
+                </div>
+                <p
+                  className={cx('message', {
+                  'message-show': message && message.length > 0
+                })}>{message}</p>
+                <div className="text-center">
+                  <input
+                    className="btn btn-success"
+                    type="submit"
+                    value={isLogin ? 'Login' : 'Register'} />
+                </div>
+              </form>
+            </div>
+            <div>
+              <h3>Or</h3>
+            </div>
+            <div className="row">
+              <div className="col-xs-3"></div>
+              <div className="col-xs-6">
+              <a className={'btn btn-block ' + cx('btn-social', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span>Sign in with Google</a>
+              <br/>
+              <a className={'btn btn-block ' + cx('btn-social', 'btn-github')} href='/auth/github'><span className="fa fa-github"></span>Sign in with GitHhub</a>
               </div>
-              <p
-                className={cx('message', {
-                'message-show': message && message.length > 0
-              })}>{message}</p>
-              <input
-                className={cx('button')}
-                type="submit"
-                value={isLogin ? 'Login' : 'Register'} />
-            </form>
+              <div className="col-xs-3"></div>
+            </div>
           </div>
-          <div>
-            <h1>Or</h1>
-          </div>
-          <div className={cx('google-container')}>
-            <a
-              className={cx('button')}
-              href="/auth/google">Login with Google</a>
-          </div>
-          <div className={cx('github-container')}>
-            <a
-              className={cx('button')}
-              href="/auth/github">Login with Github</a>
-          </div>
+          <div className="col-xs-3"></div>
         </div>
       </div>
     );
