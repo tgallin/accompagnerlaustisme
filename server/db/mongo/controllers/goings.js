@@ -7,11 +7,11 @@ import Going from '../models/goings';
 export function howManyAreGoing(req, res) {
   var ids = req.query.ids.split(",");
   var query = [
+    { $match: { barId: { $in: ids } } },
     {$group: {
       _id: "$barId",
       going: {$sum: 1}
-    }},
-    { $match: { barId: { $in: ids } } }
+    }}
   ];
   
   Going.aggregate(query, function(err, results) {
