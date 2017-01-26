@@ -2,13 +2,8 @@
 import { polyfill } from 'es6-promise';
 import axios from 'axios';
 import * as types from '../types';
-import { foursquareConfig } from '../config/secrets';
-import FoursquareApiCaller from '../services/foursquare';
-
-var foursquareApiCaller = new FoursquareApiCaller({
-  app_id: foursquareConfig.appID,
-  app_secret: foursquareConfig.appSecret
-});
+import { foursquareService, localStorageService } from '../services';
+import { push } from 'react-router-redux';
 
 const category_bars = 'bars';
 
@@ -75,19 +70,35 @@ export function updateGoingFailure(data) {
 }
 
 export function going(id) {
-  return dispatch => {
-    dispatch(updateGoing(id));
-    
-    return makeGoingRequest(id)
-      .then(res => {
-        if (res.data === 'added')
-        {
-          dispatch(incrementGoing(id));
-        } else {
-          dispatch(decrementGoing(id));
-        }
-      })
-      .catch(() => dispatch(updateGoingFailure({id, error: 'Oops! Something went wrong trying to add you to the bar'})));
+  return (dispatch, getState) => {
+
+    // Redux thunk's middleware receives the store methods `dispatch`
+    // and `getState` as parameters
+    const { user, bar } = getState();
+
+    // Conditional dispatch
+    // If the user isn't authenticated they must login first
+    if (!user.authenticated) {
+      localStorageService.persist(bar.newLocation);
+      dispatch(push('/login'));
+    }
+    else {
+      dispatch(updateGoing(id));
+
+      return makeGoingRequest(id)
+        .then(res => {
+          if (res.data === 'added') {
+            dispatch(incrementGoing(id));
+          }
+          else {
+            dispatch(decrementGoing(id));
+          }
+        })
+        .catch(() => dispatch(updateGoingFailure({
+          id,
+          error: 'Oops! Something went wrong trying to add you to the bar'
+        })));
+    }
   };
 }
 
@@ -111,7 +122,7 @@ export function getBars(text) {
     // First dispatch the action to tell we requested bars
     dispatch(requestBars(text));
 
-    return foursquareApiCaller.searchVenues(text)
+    return foursquareService.searchVenues(text)
       .then(res => {
         if (res.status === 200) {
           
@@ -123,8 +134,13 @@ export function getBars(text) {
           })
             .then(res => {
               if (res.status === 200) {
-                console.log(res.data);
-                //bars = bars.forEach(b => res.data[b.id] ? b.going = res.data[b.id] : 0);
+                //res.data something like [{_id : "123456789", going: 1}, ...]
+                
+                var goingsByBar = {};
+                res.data.forEach(function (g) {
+                  goingsByBar[g._id] = g.going;
+                });
+                bars.forEach(b => goingsByBar[b.id] ? b.going = goingsByBar[b.id] : 0);
                 return dispatch(requestBarsSuccess(bars));
               }
             })
