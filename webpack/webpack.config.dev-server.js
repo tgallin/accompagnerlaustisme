@@ -45,7 +45,7 @@ module.exports = {
       __DEVCLIENT__: false,
       __DEVSERVER__: true,
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'process.env.MONGODB_URI': JSON.stringify(process.env.MONGODB_URI || "mongodb://localhost:27017/nightlifecoordinator"),
+      'process.env.MONGODB_URI': JSON.stringify(process.env.MONGODB_URI || "mongodb://localhost:27017/accompagnerlautisme"),
       'process.env.SESSION_SECRET': JSON.stringify(process.env.SESSION_SECRET),
       'process.env.GITHUB_CALLBACK': JSON.stringify(process.env.GITHUB_CALLBACK),
       'process.env.GITHUB_CLIENTID': JSON.stringify(process.env.GITHUB_CLIENTID),

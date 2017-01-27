@@ -2,7 +2,6 @@
 import passport from 'passport';
 import local from './passport/local';
 import google from './passport/google';
-import github from './passport/github';
 import {
   passport as dbPassport
 }
@@ -32,5 +31,4 @@ export default () => {
   // use the following strategies
   local(passport);
   google(passport);
-  github(passport);
 };
