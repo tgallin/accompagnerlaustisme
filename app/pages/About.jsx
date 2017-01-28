@@ -12,12 +12,12 @@ class About extends Component {
   }
 
   pageTitle() {
-    return 'About | Nightlife Coordinator';
+    return 'Qui sommes nous';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'A Nightlife Coordinator application based on the reactGo boilerpolate project.' }
+      { name: 'description', content: 'Présentation de l\'assocation accompagner autisme' }
     ];
   }
 

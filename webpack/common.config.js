@@ -47,6 +47,10 @@ module.exports = {
         name: '[hash].[ext]',
         limit: 10000,
       }
+    },
+    {
+      test: /\.ico$/,
+      loader: 'file-loader?name=[name].[ext]'
     }
   ],
   externals: externalNodeModules,

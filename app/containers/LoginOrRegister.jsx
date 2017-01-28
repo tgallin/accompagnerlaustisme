@@ -68,13 +68,13 @@ class LoginOrRegister extends Component {
     if (isLogin) {
       return (
         <div className={cx('header')}>
-          <h1 className={cx('heading')}>Login with Email</h1>
+          <h1 className={cx('heading')}>Connectez-vous</h1>
           <div className={cx('alternative')}>
-            Not what you want?
+            Vous n'avez pas encore de compte ?
             <a
               className={cx('alternative-link')}
               onClick={toggleLoginMode}
-            >Register an Account</a>
+            >Je m'enregistre</a>
           </div>
         </div>
       );
@@ -82,13 +82,13 @@ class LoginOrRegister extends Component {
 
     return (
       <div className={cx('header')}>
-        <h1 className={cx('heading')}>Register with Email</h1>
+        <h1 className={cx('heading')}>Créez votre compte</h1>
         <div className={cx('alternative')}>
-          Already have an account?
+          Vous avez déjà un compte ?
           <a
             className={cx('alternative-link')}
             onClick={toggleLoginMode}
-          >Login</a>
+          >Je me connecte</a>
         </div>
       </div>
     );
@@ -113,18 +113,18 @@ class LoginOrRegister extends Component {
                 <input
                   className={cx('input')}
                   type="email"
-                  ref="email"
+                  ref={(input) => { this.email = input; }}
                  placeholder="email"
                 />
                 <input
                   className={cx('input')}
                   type="password"
-                 ref="password"
-                  placeholder="password"
+                 ref={(input) => { this.password = input; }}
+                  placeholder="mot de passe"
                 />
                 <div className={cx('hint')}>
-                  <div>Hint</div>
-                  <div>email: example@ninja.com password: ninja</div>
+                  <div>Exemple</div>
+                  <div>email: nom.prenom@abcd.fr, mot de passe: 1234</div>
                 </div>
                 <p
                   className={cx('message', {
@@ -134,19 +134,17 @@ class LoginOrRegister extends Component {
                   <input
                     className="btn btn-success"
                     type="submit"
-                    value={isLogin ? 'Login' : 'Register'} />
+                    value={isLogin ? 'Se connecter' : 'Créer'} />
                 </div>
               </form>
             </div>
             <div>
-              <h3>Or</h3>
+              <h3>Ou</h3>
             </div>
             <div className="row">
               <div className="col-xs-3"></div>
               <div className="col-xs-6">
-              <a className={'btn btn-block ' + cx('btn-social', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span>Sign in with Google</a>
-              <br/>
-              <a className={'btn btn-block ' + cx('btn-social', 'btn-github')} href='/auth/github'><span className="fa fa-github"></span>Sign in with GitHhub</a>
+              <a className={'btn btn-block ' + cx('btn-social', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span>Utiliser mon compte Google</a>
               </div>
               <div className="col-xs-3"></div>
             </div>

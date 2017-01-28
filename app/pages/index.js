@@ -1,4 +1,5 @@
 export { default as App } from 'pages/App';
+export { default as Home } from 'pages/Home';
 export { default as Vote} from 'pages/Vote';
 export { default as Search} from 'pages/Search';
 export { default as Dashboard} from 'pages/Dashboard';

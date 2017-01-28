@@ -71,11 +71,7 @@ module.exports = [
         }),
         new webpack.DefinePlugin({
           __DEVCLIENT__: false,
-          __DEVSERVER__: false,
-          'process.env.FOURSQUARE_APPID': JSON.stringify(process.env.FOURSQUARE_APPID),
-          'process.env.FOURSQUARE_SECRET': JSON.stringify(process.env.FOURSQUARE_SECRET),
-          'process.env.YELP_APPID': JSON.stringify(process.env.YELP_APPID),
-          'process.env.YELP_SECRET': JSON.stringify(process.env.YELP_SECRET)
+          __DEVSERVER__: false
         }),
         new InlineEnviromentVariablesPlugin({ NODE_ENV: 'production' })
     ],
@@ -122,9 +118,6 @@ module.exports = [
           __DEVSERVER__: false,
           'process.env.MONGODB_URI': JSON.stringify(process.env.MONGODB_URI || "mongodb://localhost:27017/accompagnerlautisme"),
           'process.env.SESSION_SECRET': JSON.stringify(process.env.SESSION_SECRET),
-          'process.env.GITHUB_CALLBACK': JSON.stringify(process.env.GITHUB_CALLBACK),
-          'process.env.GITHUB_CLIENTID': JSON.stringify(process.env.GITHUB_CLIENTID),
-          'process.env.GITHUB_SECRET': JSON.stringify(process.env.GITHUB_SECRET),
           'process.env.GOOGLE_CALLBACK': JSON.stringify(process.env.GOOGLE_CALLBACK),
           'process.env.GOOGLE_CLIENTID': JSON.stringify(process.env.GOOGLE_CLIENTID),
           'process.env.GOOGLE_SECRET': JSON.stringify(process.env.GOOGLE_SECRET)

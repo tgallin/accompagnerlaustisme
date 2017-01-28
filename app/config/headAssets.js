@@ -1,8 +1,7 @@
 /* Based on the template in Web Starter Kit :
 https://github.com/google/web-starter-kit/blob/master/app/index.html
 */
-import favicon16 from '../images/favicon-16x16.png';
-import favicon32 from '../images/favicon-32x32.png';
+import favicon from '../images/favicon.ico';
 
 import {
   isDev
@@ -17,7 +16,7 @@ const metaAssets = () => {
     // display preview snippets for a given page.
     {
       name: 'description',
-      content: 'Nightlife coordinator app by tgallin - freeCodeCamp challenge'
+      content: 'Site de l\'Association Accompagner l\'Autisme'
     },
     // Setting IE=edge tells Internet Explorer to use the latest engine to
     //  render the page and execute Javascript
@@ -35,35 +34,13 @@ const metaAssets = () => {
     {
       name: 'viewport',
       content: 'width=device-width, initial-scale=1'
-    },
-    // Disable tap highlight on IE
-    {
-      name: 'msapplication-tap-highlight',
-      content: 'no'
-    },
-    // Add to homescreen for Chrome on Android
-    {
-      name: 'mobile-web-app-capable',
-      content: 'yes'
-    },
-    // Add to homescreen for Safari on IOS
-    {
-      name: 'apple-mobile-web-app-capable',
-      content: 'yes'
-    }, {
-      name: 'apple-mobile-web-app-status-bar-style',
-      content: 'black'
-    }, {
-      name: 'apple-mobile-web-app-title',
-      content: 'NightlifeCoordinator'
     }
   ];
 };
 
 const linkAssets = () => {
   const links = [
-    { rel: 'icon', sizes: '16x16', href: favicon16, type: 'image/png'}, 
-    { rel: 'icon', sizes: '32x32', href: favicon32, type: 'image/png'},
+    { rel: 'icon', href: favicon, type: 'image/x-icon'}, 
     { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'},
     { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'},
     { rel: 'stylesheet', href: '/assets/styles/main.css' }
@@ -74,6 +51,6 @@ const linkAssets = () => {
   return isDev() ? links.filter(l => l.rel !== 'stylesheet' || l.href.substr(0,4)==='http') : links;
 };
 
-export const title = 'Nightlife Coordinator App - freeCodeCamp challenge';
+export const title = 'Association Accompagner l\'Autisme';
 export const meta = metaAssets();
 export const link = linkAssets();

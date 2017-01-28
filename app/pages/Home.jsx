@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Page from '../pages/Page';
-import LoginOrRegisterContainer from '../containers/LoginOrRegister';
+import DashboardContainer from '../containers/Home';
 
-class LoginOrRegister extends Component {
+class Dashboard extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class LoginOrRegister extends Component {
   }
 
   pageTitle() {
-    return 'Page de connexion';
+    return 'Page d\'accueil et News';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Formulaire de connexion' }
+      { name: 'description', content: 'Acceuil et News' }
     ];
   }
 
@@ -28,10 +28,11 @@ class LoginOrRegister extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <LoginOrRegisterContainer {...this.props} />
+        <DashboardContainer {...this.props} />
       </Page>
     );
   }
 }
 
-export default LoginOrRegister;
+export default Dashboard;
+
