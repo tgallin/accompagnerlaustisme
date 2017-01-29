@@ -13,15 +13,20 @@ const Navigation = ({ user, logOut }) => {
         <Link
           to="/"
           className={cx('item', 'logo')}
-          activeClassName={cx('active')}>Acceuil</Link>
-          { user.authenticated ? (
-            <Link
-              onClick={logOut}
-              className={cx('item')} to="/">Me déconnecter</Link>
-          ) : (
-            <Link className={cx('item')} to="/login">Se connecter</Link>
-          )}
+          activeClassName={cx('active')}>Accueil</Link>
+        <Link to="/formations" className={cx('item')} activeClassName={cx('active')}>Formations</Link>
+        <Link to="/reseau" className={cx('item')} activeClassName={cx('active')}>Réseau accompagnement</Link>
+        <Link to="/ludotheque" className={cx('item')} activeClassName={cx('active')}>Ludothèque</Link>
         <Link to="/about" className={cx('item')} activeClassName={cx('active')}>Qui sommes nous</Link>
+        <Link to="/contact" className={cx('item')} activeClassName={cx('active')}>Contact</Link>
+        <Link to="/liens" className={cx('item')} activeClassName={cx('active')}>Liens</Link>
+        { user.authenticated ? (
+          <Link
+            onClick={logOut}
+            className={cx('item')} to="/">Me déconnecter</Link>
+        ) : (
+          <Link className={cx('item')} to="/login">Se connecter</Link>
+        )}
       </nav>
     );
 };

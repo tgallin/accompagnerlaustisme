@@ -1,7 +1,9 @@
 export { default as App } from 'pages/App';
 export { default as Home } from 'pages/Home';
-export { default as Vote} from 'pages/Vote';
-export { default as Search} from 'pages/Search';
-export { default as Dashboard} from 'pages/Dashboard';
-export { default as LoginOrRegister} from 'pages/LoginOrRegister';
+export { default as Formations } from 'pages/Formations';
+export { default as Reseau } from 'pages/Reseau';
+export { default as Ludotheque } from 'pages/Ludotheque';
 export { default as About} from 'pages/About';
+export { default as Contact } from 'pages/Contact';
+export { default as Liens } from 'pages/Liens';
+export { default as LoginOrRegister} from 'pages/LoginOrRegister';
