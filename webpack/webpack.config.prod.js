@@ -1,7 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var InlineEnviromentVariablesPlugin = require('inline-environment-variables-webpack-plugin');
 
 var commonConfig = require('./common.config');
 var commonLoaders = commonConfig.commonLoaders;
@@ -69,11 +68,7 @@ module.exports = [
             warnings: false
           }
         }),
-        new webpack.DefinePlugin({
-          __DEVCLIENT__: false,
-          __DEVSERVER__: false
-        }),
-        new InlineEnviromentVariablesPlugin({ NODE_ENV: 'production' })
+        new webpack.EnvironmentPlugin(['NODE_ENV'])
     ],
     postcss: postCSSConfig
   }, {
@@ -113,17 +108,8 @@ module.exports = [
         // This saves space, because often referenced modules
         // and chunks get smaller ids.
         new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.DefinePlugin({
-          __DEVCLIENT__: false,
-          __DEVSERVER__: false,
-          'process.env.MONGODB_URI': JSON.stringify(process.env.MONGODB_URI || "mongodb://localhost:27017/accompagnerlautisme"),
-          'process.env.SESSION_SECRET': JSON.stringify(process.env.SESSION_SECRET),
-          'process.env.GOOGLE_CALLBACK': JSON.stringify(process.env.GOOGLE_CALLBACK),
-          'process.env.GOOGLE_CLIENTID': JSON.stringify(process.env.GOOGLE_CLIENTID),
-          'process.env.GOOGLE_SECRET': JSON.stringify(process.env.GOOGLE_SECRET)
-        }),
+        new webpack.EnvironmentPlugin(['NODE_ENV', 'MONGODB_URI', 'SESSION_SECRET', 'GOOGLE_CALLBACK', 'GOOGLE_CLIENTID', 'GOOGLE_SECRET']),
         new webpack.IgnorePlugin(/vertx/),
-        new InlineEnviromentVariablesPlugin({ NODE_ENV: 'production' }),
         new webpack.optimize.UglifyJsPlugin({
           compressor: {
             warnings: false

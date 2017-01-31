@@ -1,8 +1,7 @@
 /* Based on the template in Web Starter Kit :
 https://github.com/google/web-starter-kit/blob/master/app/index.html
 */
-
-import { isDev } from '../config/app';
+import { isProduction } from '../../config/app';
 
 var faviconUrl = require("file-loader?name=[name].[ext]!../../static/images/favicon.ico");
 
@@ -42,11 +41,10 @@ const linkAssets = () => {
   ];
   const staticLinks = [
     { rel: 'icon', href: faviconUrl, type: 'image/x-icon'}, 
-    { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'},
+    { rel: 'stylesheet', href: '/assets/bootstrap.min.css'},
     { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'},
-    { rel: 'stylesheet', href: '/assets/styles/main.css' }
   ];
-  if (isDev()) {
+  if (!isProduction) {
     links = links.filter(l => l.rel !== 'stylesheet');
   }
   return links.concat(staticLinks);

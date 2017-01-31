@@ -1,5 +1,5 @@
 import { Strategy as GitHubStrategy } from 'passport-github';
-import { github } from '../secrets';
+import { github } from '../../../secrets';
 import unsupportedMessage from '../../db/unsupportedMessage';
 import { passport as dbPassport } from '../../db';
 

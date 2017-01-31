@@ -1,3 +1,54 @@
+2.2.6
+===
+- PR #811
+  - Move and rename app/server.jsx -> server/render/middleware.js
+  - Move createScripts -> server/render/
+  - Move pageRenderer -> server/render/
+
+2.2.5
+===
+- PR #803 - Minor spelling fixes
+- PR #805 - Update README with new demo site (https://demo-reactgo.herokuapp.com)
+- PR #807 - Rename middlewares/preRenderMiddleware -> utils/fetchDataForRoute
+
+2.2.4
+===
+- PR #802
+  - Add `npm run build` as part of `npm start`
+  - Remove postinstall command - we no longer need it! (Running `npm start` or
+    `npm run dev` both build the app respectively
+  - Remove greenkeeper command in package.json as we no longer use it
+
+2.2.3
+===
+- PR #800
+   - Rename server/config into server/init
+   - Move passport.js into passport/index.js
+
+2.2.2
+===
+- PR #798 - Fix incorrect exclusion of binary files in webpack
+`bit` -> `bin`
+
+2.2.1
+===
+- PR #795 - Convert tracking ID for google analytics into a environment variable
+With this change, we also extracted createScript files from pageRenderer
+
+2.2.0
+===
+- PR #792 - Centralize /config
+Having config/ folders in app and server with shared functionality makes it harder to understand and maintain our app.
+
+With this change, we move our config/ to the root level.
+
+2.1.1
+===
+- PR #786 - Fixed failed imports with named export
+- PR #780 - Eslint fix
+- Replace external inline-environment-variables-webpack-plugin with
+  webpack.EvnrionmentPlugin
+
 2.1
 ===
 - #766

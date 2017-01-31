@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { createMemoryHistory, match } from 'react-router';
-import createRoutes from './routes';
-import configureStore from './store/configureStore';
-import * as types from './types';
-import preRenderMiddleware from './middlewares/preRenderMiddleware';
-import { host, port } from './config/app';
-import pageRenderer from './utils/pageRenderer';
+import createRoutes from '../../app/routes';
+import configureStore from '../../app/store/configureStore';
+import * as types from '../../app/types';
+import { baseURL } from '../../config/app';
+import pageRenderer from './pageRenderer';
+import fetchDataForRoute from '../../app/utils/fetchDataForRoute';
 
 // configure baseURL for axios requests (for serverside API calls)
-axios.defaults.baseURL = `http://${host}:${port}`;
+axios.defaults.baseURL = baseURL;
 
 /*
  * Export render function to be used in server/config/routes.js
@@ -38,11 +38,11 @@ export default function render(req, res) {
    * The function will create a `history` for you, passing additional `options` to create it.
    * These options can include `basename` to control the base name for URLs, as well as the pair
    * of `parseQueryString` and `stringifyQuery` to control query string parsing and serializing.
-   * You can also pass in an already instantiated `history` object, which can be constructured
+   * You can also pass in an already instantiated `history` object, which can be constructed
    * however you like.
    *
    * The three arguments to the callback function you pass to `match` are:
-   * - err:       A javascript Error object if an error occured, `undefined` otherwise.
+   * - err:       A javascript Error object if an error occurred, `undefined` otherwise.
    * - redirect:  A `Location` object if the route is a redirect, `undefined` otherwise
    * - props:     The props you should pass to the routing context if the route matched,
    *              `undefined` otherwise.
@@ -58,16 +58,16 @@ export default function render(req, res) {
       // This method waits for all render component
       // promises to resolve before returning to browser
       store.dispatch({ type: types.CREATE_REQUEST });
-      preRenderMiddleware(props)
-      .then(data => {
-        store.dispatch({ type: types.REQUEST_SUCCESS, data });
-        const html = pageRenderer(store, props);
-        res.status(200).send(html);
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).json(err);
-      });
+      fetchDataForRoute(props)
+        .then(data => {
+          store.dispatch({ type: types.REQUEST_SUCCESS, data });
+          const html = pageRenderer(store, props);
+          res.status(200).send(html);
+        })
+        .catch(err => {
+          console.error(err);
+          res.status(500).json(err);
+        });
     } else {
       res.sendStatus(404);
     }
