@@ -7,3 +7,4 @@ export { default as About} from 'pages/About';
 export { default as Contact } from 'pages/Contact';
 export { default as Liens } from 'pages/Liens';
 export { default as LoginOrRegister} from 'pages/LoginOrRegister';
+export { default as Mentions} from 'pages/Mentions';

@@ -1,12 +1,10 @@
 /* Based on the template in Web Starter Kit :
 https://github.com/google/web-starter-kit/blob/master/app/index.html
 */
-import favicon from '../images/favicon.ico';
 
-import {
-  isDev
-}
-from '../config/app';
+import { isDev } from '../config/app';
+
+var faviconUrl = require("file-loader?name=[name].[ext]!../../static/images/favicon.ico");
 
 const metaAssets = () => {
   return [{
@@ -39,17 +37,21 @@ const metaAssets = () => {
 };
 
 const linkAssets = () => {
-  const links = [
-    { rel: 'icon', href: favicon, type: 'image/x-icon'}, 
+  var links = [
+    { rel: 'stylesheet', href: '/assets/styles/main.css' }
+  ];
+  const staticLinks = [
+    { rel: 'icon', href: faviconUrl, type: 'image/x-icon'}, 
     { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'},
     { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'},
     { rel: 'stylesheet', href: '/assets/styles/main.css' }
-    // SEO: If your mobile URL is different from the desktop URL,
-    // add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones
-    // { 'rel': 'canonical', 'href': 'http://www.example.com/' }
   ];
-  return isDev() ? links.filter(l => l.rel !== 'stylesheet' || l.href.substr(0,4)==='http') : links;
+  if (isDev()) {
+    links = links.filter(l => l.rel !== 'stylesheet');
+  }
+  return links.concat(staticLinks);
 };
+
 
 export const title = 'Association Accompagner l\'Autisme';
 export const meta = metaAssets();

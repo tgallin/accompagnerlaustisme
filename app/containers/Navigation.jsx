@@ -9,25 +9,36 @@ const cx = classNames.bind(styles);
 
 const Navigation = ({ user, logOut }) => {
     return (
-      <nav className={cx('navigation')} role="navigation">
-        <Link
-          to="/"
-          className={cx('item', 'logo')}
-          activeClassName={cx('active')}>Accueil</Link>
-        <Link to="/formations" className={cx('item')} activeClassName={cx('active')}>Formations</Link>
-        <Link to="/reseau" className={cx('item')} activeClassName={cx('active')}>Réseau accompagnement</Link>
-        <Link to="/ludotheque" className={cx('item')} activeClassName={cx('active')}>Ludothèque</Link>
-        <Link to="/about" className={cx('item')} activeClassName={cx('active')}>Qui sommes nous</Link>
-        <Link to="/contact" className={cx('item')} activeClassName={cx('active')}>Contact</Link>
-        <Link to="/liens" className={cx('item')} activeClassName={cx('active')}>Liens</Link>
-        { user.authenticated ? (
-          <Link
-            onClick={logOut}
-            className={cx('item')} to="/">Me déconnecter</Link>
-        ) : (
-          <Link className={cx('item')} to="/login">Se connecter</Link>
-        )}
-      </nav>
+    <nav className="navbar navbar-default navbar-fixed-top">
+      <div className="container">
+        <div className="navbar-header">
+          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span className="sr-only">Inverser</span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+          </button>
+          <Link to="/" className='navbar-brand'activeClassName='active'>Accueil</Link>
+        </div>
+        <div id="navbar" className="navbar-collapse collapse">
+          <ul className="nav navbar-nav">
+            <li><Link to="/formations" activeClassName='active'>Formations</Link></li>
+            <li><Link to="/reseau"activeClassName='active'>Réseau accompagnement</Link></li>
+            <li><Link to="/ludotheque"activeClassName='active'>Ludothèque</Link></li>
+            <li><Link to="/about" activeClassName='active'>Qui sommes nous</Link></li>
+            <li><Link to="/contact" activeClassName='active'>Contact</Link></li>
+            <li><Link to="/liens" activeClassName='active'>Liens</Link></li>
+          </ul>
+          <ul className="nav navbar-nav navbar-right">
+            <li>{ user.authenticated ? (
+              <Link onClick={logOut} to="/">Me déconnecter</Link>
+            ) : (
+              <Link to="/login">Se connecter</Link>
+            )}</li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     );
 };
 

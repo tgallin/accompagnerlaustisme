@@ -16,7 +16,6 @@ import {
 }
 from '../actions/users';
 import styles from '../css/components/login';
-import hourGlassSvg from '../images/hourglass.svg';
 
 const cx = classNames.bind(styles);
 
@@ -103,11 +102,10 @@ class LoginOrRegister extends Component {
 
     return (
       <div className='container'>
-        <div className={'row ' + cx({waiting: isWaiting})}>
+        <div className='row '>
           <div className="col-xs-3"></div>
           <div className="col-xs-6 well">
             { this.renderHeader() }
-            <img className={cx('loading')} alt="loading" src={hourGlassSvg} />
             <div className={cx('email-container')}>
               <form onSubmit={this.handleOnSubmit}>
                 <input

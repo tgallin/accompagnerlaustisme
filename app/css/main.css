@@ -4,18 +4,26 @@
 
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
+@-ms-viewport     { width: device-width; }
+@-o-viewport      { width: device-width; }
+@viewport         { width: device-width; }
+
 * { box-sizing: border-box; }
 
-body {
-  font-family: var(--fontMontserrat);
-  margin: 0;
+html {
+  position: relative;
+  min-height: 100%;
 }
 
-.app {
+body {
+  @apply --normal;
+  font-family: var(--fontMontserrat);
+  padding-top: 70px;
+  margin-bottom: 60px;
+}
+
+body > .container {
   @apply --box;
-  height: 100%;
-  font-weight: normal;
-  font-smoothing: antialiased;
 }
 
 

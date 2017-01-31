@@ -10,8 +10,6 @@ import preRenderMiddleware from './middlewares/preRenderMiddleware';
 import { localStorageService } from './services';
 import { typing, getBars } from './actions/bars';
 
-  
-
 // Grab the state from a global injected into
 // server-generated HTML
 const initialState = window.__INITIAL_STATE__;

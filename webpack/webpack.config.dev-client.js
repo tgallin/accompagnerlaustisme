@@ -23,7 +23,7 @@ var commonLoaders = [
       plugins: ['transform-decorators-legacy']
     },
     include: path.join(__dirname, '..', 'app'),
-    exclude: path.join(__dirname, '..', 'node_modules')
+    exclude: [path.join(__dirname, '..', 'node_modules'), path.join(__dirname, '..', 'static')]
   },
   {
     test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
@@ -31,11 +31,8 @@ var commonLoaders = [
     query: {
         name: '[hash].[ext]',
         limit: 10000,
-    }
-  },
-  {
-    test: /\.ico$/,
-    loader: 'file-loader?name=[name].[ext]'
+    },
+    exclude: [path.join(__dirname, '..', 'static')]
   }
 ];
 
