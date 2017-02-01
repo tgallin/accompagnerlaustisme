@@ -22,7 +22,7 @@ var commonLoaders = [
       presets: ['react-hmre', 'es2015', 'react', 'stage-0'],
       plugins: ['transform-decorators-legacy']
     },
-    exclude: [path.join(__dirname, '..', 'node_modules'), path.join(__dirname, '..', 'static')]
+    exclude: [path.join(__dirname, '..', 'node_modules')]
   },
   {
     test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
@@ -30,8 +30,7 @@ var commonLoaders = [
     query: {
         name: '[hash].[ext]',
         limit: 10000,
-    },
-    exclude: [path.join(__dirname, '..', 'static')]
+    }
   }
 ];
 

@@ -3,7 +3,7 @@ https://github.com/google/web-starter-kit/blob/master/app/index.html
 */
 import { isProduction } from '../../config/app';
 
-var faviconUrl = require("file-loader?name=[name].[ext]!../../static/images/favicon.ico");
+var faviconUrl = require("file-loader?name=[name].[ext]!../images/favicon.ico");
 
 const metaAssets = () => {
   return [{
@@ -41,8 +41,8 @@ const linkAssets = () => {
   ];
   const staticLinks = [
     { rel: 'icon', href: faviconUrl, type: 'image/x-icon'}, 
-    { rel: 'stylesheet', href: '/assets/bootstrap.min.css'},
-    { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'},
+    { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity: 'sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin: 'anonymous'},
+    { rel: 'stylesheet', href:'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', integrity: 'sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN', crossorigin: 'anonymous'},
   ];
   if (!isProduction) {
     links = links.filter(l => l.rel !== 'stylesheet');

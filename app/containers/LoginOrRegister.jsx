@@ -103,8 +103,8 @@ class LoginOrRegister extends Component {
     return (
       <div className='container'>
         <div className='row '>
-          <div className="col-xs-3"></div>
-          <div className="col-xs-6 well">
+          <div className="col-xs-1"></div>
+          <div className="col-xs-10 well">
             { this.renderHeader() }
             <div className={cx('email-container')}>
               <form onSubmit={this.handleOnSubmit}>
@@ -139,15 +139,11 @@ class LoginOrRegister extends Component {
             <div>
               <h3>Ou</h3>
             </div>
-            <div className="row">
-              <div className="col-xs-3"></div>
-              <div className="col-xs-6">
-              <a className={'btn btn-block ' + cx('btn-social', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span>Utiliser mon compte Google</a>
-              </div>
-              <div className="col-xs-3"></div>
+            <div className="text-center">
+              <a className={'btn ' + cx('btn-social', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span>Utiliser mon compte Google</a>
             </div>
           </div>
-          <div className="col-xs-3"></div>
+          <div className="col-xs-1"></div>
         </div>
       </div>
     );

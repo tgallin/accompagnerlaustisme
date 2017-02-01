@@ -37,7 +37,7 @@ module.exports = {
           'transform-react-inline-elements'
         ]
       },
-      exclude: [path.join(__dirname, '..', 'node_modules'), path.join(__dirname, '..', 'static')]
+      exclude: [path.join(__dirname, '..', 'node_modules')]
     },
     { test: /\.json$/, loader: 'json-loader' },
     {
@@ -46,8 +46,7 @@ module.exports = {
       query: {
         name: '[hash].[ext]',
         limit: 10000,
-      },
-      exclude: [path.join(__dirname, '..', 'static')]
+      }
     }
   ],
   externals: externalNodeModules,

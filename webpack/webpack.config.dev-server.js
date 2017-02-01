@@ -32,8 +32,7 @@ module.exports = {
     module: {
       loaders: commonLoaders.concat({
         test: /\.css$/,
-        loader: 'css/locals?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader',
-        exclude: [path.join(__dirname, '..', 'static')]
+        loader: 'css/locals?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
       })
     },
     resolve: {
