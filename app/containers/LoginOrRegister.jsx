@@ -137,10 +137,11 @@ class LoginOrRegister extends Component {
               </form>
             </div>
             <div>
-              <h3>Ou</h3>
+              <h4>Ou utilisez un de vos comptes externes :</h4>
             </div>
             <div className="text-center">
-              <a className={'btn ' + cx('btn-social', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span>Utiliser mon compte Google</a>
+              <a alt="google" title="google" className={'btn ' + cx('btn-social', 'btn-social-round', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span></a>
+              <a alt="google" title="facebook" className={'btn ' + cx('btn-social', 'btn-social-square', 'btn-facebook')} href='#'><span className="fa fa-facebook"></span></a>
             </div>
           </div>
           <div className="col-xs-1"></div>
