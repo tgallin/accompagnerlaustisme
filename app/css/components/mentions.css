@@ -1,9 +1,9 @@
 @import '../common/typography';
 
-.mentions-header {
+.header {
   @apply --subHeading;
   padding-top: 30px;
   padding-bottom: 15px;
 }
 
-.mentions-content { @apply --small; }
+.content { @apply --small; }

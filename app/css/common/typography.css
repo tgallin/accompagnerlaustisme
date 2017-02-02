@@ -1,6 +1,9 @@
+@import 'colors';
+
 :root {
   
   --fontMontserrat: 'Montserrat', Helvetica, Arial, sans-serif;
+  --fontTangerine: 'Tangerine', cursive;
   
   --fontSmall: 12px;
   --fontMedium: 16px;
@@ -8,8 +11,11 @@
   --fontHuge: 28px;
   
   --heading {
-    font-size: 28px;
+    font-family: var(--fontTangerine);
+    color: var(--colorDarkBlue);
+    font-size: 58px;
     font-weight: 700;
+    font-style: normal;
     line-height: 48px;
   }
   

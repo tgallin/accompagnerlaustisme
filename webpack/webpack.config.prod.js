@@ -108,7 +108,10 @@ module.exports = [
         // This saves space, because often referenced modules
         // and chunks get smaller ids.
         new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.EnvironmentPlugin(['NODE_ENV', 'MONGODB_URI', 'SESSION_SECRET', 'GOOGLE_CALLBACK', 'GOOGLE_CLIENTID', 'GOOGLE_SECRET']),
+        new webpack.EnvironmentPlugin(['NODE_ENV', 'MONGODB_URI', 
+        'SESSION_SECRET', 
+        'GOOGLE_CALLBACK', 'GOOGLE_CLIENTID', 'GOOGLE_SECRET', 
+        'FACEBOOK_CALLBACK', 'FACEBOOK_CLIENTID', 'FACEBOOK_SECRET']),
         new webpack.IgnorePlugin(/vertx/),
         new webpack.optimize.UglifyJsPlugin({
           compressor: {

@@ -141,7 +141,7 @@ class LoginOrRegister extends Component {
             </div>
             <div className="text-center">
               <a alt="google" title="google" className={'btn ' + cx('btn-social', 'btn-social-round', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span></a>
-              <a alt="google" title="facebook" className={'btn ' + cx('btn-social', 'btn-social-square', 'btn-facebook')} href='#'><span className="fa fa-facebook"></span></a>
+              <a alt="google" title="facebook" className={'btn ' + cx('btn-social', 'btn-social-square', 'btn-facebook')} href='/auth/facebook'><span className="fa fa-facebook"></span></a>
             </div>
           </div>
           <div className="col-xs-1"></div>

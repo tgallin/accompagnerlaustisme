@@ -31,6 +31,14 @@ var commonLoaders = [
         name: '[hash].[ext]',
         limit: 10000,
     }
+  },
+  { test: /\.ttf$/, 
+    loader: 'url',
+    query: {
+        name: '[hash].[ext]',
+        limit: 10240,
+        mimetype: 'application/x-font-ttf'
+    }
   }
 ];
 

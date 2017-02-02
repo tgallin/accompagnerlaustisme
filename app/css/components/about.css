@@ -2,8 +2,30 @@
 
 .header {
   @apply --heading;
-  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 15px;
 }
 
-.description { @apply --normal; }
-.contribute { @apply --small; }
+.subheader {
+  @apply --subHeading;
+  padding-bottom: 15px;
+}
+
+.paddingBottom {
+  padding-bottom: 15px;
+}
+
+.content { @apply --small; }
+
+ul.list {
+  list-style-type: none;
+  @apply --small;
+}
+
+.list-item { 
+  padding-bottom: 5px;
+}
+
+.list-item::before { 
+  content: "-  ";
+}

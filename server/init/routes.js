@@ -44,6 +44,24 @@ export default (app) => {
       })
     );
   }
+  
+    if (passportConfig && passportConfig.facebook) {
+    // facebook auth
+    // Redirect the user to Facebook for authentication. When complete, Facebook
+    // will redirect the user back to the application at
+    // /auth/facebook/callback
+    app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
+
+    // Google will redirect the user to this URL after authentication. Finish the
+    // process by verifying the assertion. If valid, the user will be logged in.
+    // Otherwise, the authentication has failed.
+    app.get('/auth/facebook/callback',
+      passport.authenticate('facebook', {
+        successRedirect: '/',
+        failureRedirect: '/login'
+      })
+    );
+  }
 
   if (passportConfig && passportConfig.github) {
     // github auth
