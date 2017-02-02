@@ -6,4 +6,4 @@
   padding-bottom: 15px;
 }
 
-.content { @apply --small; }
+.content { @apply --normal; }

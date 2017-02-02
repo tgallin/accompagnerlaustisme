@@ -19,11 +19,11 @@
   padding-bottom: 80px;
 }
 
-.content { @apply --small; }
+.content { @apply --normal; }
 
 ul.list {
   list-style-type: none;
-  @apply --small;
+  @apply --normal;
 }
 
 .list-item { 
