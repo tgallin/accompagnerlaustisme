@@ -59,7 +59,7 @@ const About = () => {
  
       <p className={'text-justify ' + cx('content', 'paddingBottom')}>Merci de votre soutien.</p>
  
-      <p className={'text-right ' + cx('content', 'paddingBottom')}>Josselin MONTAGU, président d’Accompagner l’Autisme</p>
+      <p className={'text-right ' + cx('content', 'lastPaddingBottom')}>Josselin MONTAGU, président d’Accompagner l’Autisme</p>
     </div>
   );
 };
