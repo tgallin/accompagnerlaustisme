@@ -17,8 +17,6 @@ const cx = classNames.bind(styles);
 class LoginOrRegister extends Component {
 
   handleSubmit = (values) => {
-    // Do something with the form values
-    window.alert('Data submitted! ' + JSON.stringify(values));
     const {
       manualLogin,
       signUp,
