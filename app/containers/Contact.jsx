@@ -9,15 +9,17 @@ const cx = classNames.bind(styles);
  *  i.e. We should keep this as the container that does the data-fetching
  *  and dispatching of actions if you decide to have any sub-components.
  */
-const Contact = () => {
-  return (
+class Contact extends React.Component {
+
+  render() {
+    return (
     <div>
         <h3>Association Accompagner l'Autisme</h3>
         <div className={cx('address-line')}>6, rue Jean Hupeau</div>
         <div className={cx('address-line')}>45000 Orléans</div>
         <div className={cx('address-line')}><a href="mailto:accompagner.autisme@gmail.com" target="_top">accompagner.autisme@gmail.com</a></div>
-    </div>
-  );
+    </div>);
+  }
 };
 
 export default Contact;

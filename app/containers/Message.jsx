@@ -6,11 +6,25 @@ import styles from '../css/components/message';
 
 const cx = classNames.bind(styles);
 
+function getClass(type) {
+  switch (type) {
+    case 'SUCCESS':
+      return 'alert-success ';
+    case 'INFO':
+      return 'alert-info ';
+    case 'WARNING':
+      return 'alert-warning ';
+    case 'ERROR':
+      return 'alert-danger ';
+    default:
+      return 'alert-info ';
+  }
+}
+
 const Message = ({message, type, dismissMessage}) => (
-  <div
-    className={cx('message', {
-      show: message && message.length > 0,
-      success: type === 'SUCCESS'
+  <div role="alert"
+    className={'alert '+ getClass(type) + cx('hide', {
+      show: message && message.length > 0
     })}
     onClick={dismissMessage}>{message}</div>
 );

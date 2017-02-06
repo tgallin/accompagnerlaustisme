@@ -4,7 +4,4 @@
     padding: 60px 15px 0;
   }
 
-  --flexNotMoreThan200 {
-    flex: 0 1 200px;
-  }
 }

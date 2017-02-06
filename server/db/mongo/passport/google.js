@@ -5,7 +5,7 @@ export default (req, accessToken, refreshToken, profile, done) => {
   if (req.user) {
     return User.findOne({ google: profile.id }, (findOneErr, existingUser) => {
       if (existingUser) {
-        return done(null, false, { message: 'There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
+        return done(null, false, { message: 'Il y a déjà un compte Google qui vous appartient.' });
       }
       return User.findById(req.user.id, (findByIdErr, user) => {
         user.google = profile.id;
@@ -14,7 +14,7 @@ export default (req, accessToken, refreshToken, profile, done) => {
         user.profile.gender = user.profile.gender || profile._json.gender;
         user.profile.picture = user.profile.picture || profile._json.picture;
         user.save((err) => {
-          done(err, user, { message: 'Google account has been linked.' });
+          done(err, user, { message: 'Le compte Google a été lié.' });
         });
       });
     });
@@ -23,7 +23,7 @@ export default (req, accessToken, refreshToken, profile, done) => {
     if (existingUser) return done(null, existingUser);
     return User.findOne({ email: profile._json.emails[0].value }, (findByEmailErr, existingEmailUser) => {
       if (existingEmailUser) {
-        return done(null, false, { message: 'There is already an account using this email address. Sign in to that account and link it with Google manually from Account Settings.' });
+        return done(null, false, { message: 'Il y a déjà un compte qui utilise cette adresse email.' });
       }
       const user = new User();
       user.email = profile._json.emails[0].value;

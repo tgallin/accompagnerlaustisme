@@ -56,8 +56,11 @@ export function beginLogout() {
   return { type: types.LOGOUT_USER};
 }
 
-export function logoutSuccess() {
-  return { type: types.LOGOUT_SUCCESS_USER };
+export function logoutSuccess(message) {
+  return { 
+    type: types.LOGOUT_SUCCESS_USER,
+    message
+  };
 }
 
 export function logoutError() {
@@ -113,7 +116,7 @@ export function logOut() {
     return makeUserRequest('post', null, '/logout')
       .then(response => {
         if (response.status === 200) {
-          dispatch(logoutSuccess());
+          dispatch(logoutSuccess('Vous êtes maintenant déconnecté.'));
         } else {
           dispatch(logoutError());
         }

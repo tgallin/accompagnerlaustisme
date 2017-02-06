@@ -1,14 +1,6 @@
 @import '../settings';
 @import '../common/typography';
 @import '../common/colors';
-@import '../common/button';
-@import '../common/input';
-
-.waiting {
-  .loading {
-    display: block;
-  }
-}
 
 .alternative {
   padding: 12px 8px;
@@ -17,72 +9,39 @@
 }
 
 .alternative-link {
-  color: var(--colorDodgerBlue);
   font-weight: bold;
   cursor: pointer;
   padding-left: 20px;
 }
 
-.loading {
-  display: none;
-  text-align: center;
-  margin: 24px auto;
-}
-
-.email-container {
+.local-container {
   padding: 16px 12px;
-  border-bottom: 2px solid var(--colorMercury);
+  border-bottom: 2px solid var(--separationLine);
 }
-
-.header {}
 
 .heading {
   @apply --subHeading;
   padding: 16px 12px;
   text-align: center;
 }
-
-.input {
-  @apply --input;
-}
-
-.message {
-  color: var(--colorCrimson);
-  font-size: var(--fontSmall);
-}
-
-.hint {
-  @apply --small;
-  color: var(--colorBombay);
-}
-.btn-github {
-  color: #fff;
-  background-color: #444;
-  border-color: rgba(0,0,0,0.2);
-}
-.btn-github:hover {
-  color: #fff;
-  background-color: #2b2b2b;
-  border-color: rgba(0,0,0,0.2);
-}
 .btn-google {
-  color: #fff;
-  background-color: #dd4b39;
+  color: var(--white);
+  background-color: var(--googleBtn);
   border-color: rgba(0,0,0,0.2);
 }
 .btn-google:hover {
-  color: #fff;
-  background-color: #c23321;
+  color: var(--white);
+  background-color: var(--googleBtnHover);
   border-color: rgba(0,0,0,0.2);
 }
 .btn-facebook {
-  color: #fff;
-  background-color: #3b5998;
+  color: var(--white);
+  background-color: var(--facebookBtn);
   border-color: rgba(0,0,0,0.2);
 }
 .btn-facebook:hover {
-  color: #fff;
-  background-color:#2d4373;
+  color: var(--white);
+  background-color: var(--facebookBtnHover);
   border-color: rgba(0,0,0,0.2);
 }
 .btn-social {

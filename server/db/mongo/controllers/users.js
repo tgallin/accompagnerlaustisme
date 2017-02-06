@@ -6,7 +6,7 @@ import User from '../models/user';
  */
 export function login(req, res, next) {
   // Do email and password validation for the server
-  passport.authenticate('local', (authErr, user, info) => {
+  passport.authenticate('local', { badRequestMessage : 'Email ou mot de passe manquants'}, (authErr, user, info) => {
     if (authErr) return next(authErr);
     if (!user) {
       return res.status(401).json({ message: info.message });
@@ -16,7 +16,7 @@ export function login(req, res, next) {
     return req.logIn(user, (loginErr) => {
       if (loginErr) return res.status(401).json({ message: loginErr });
       return res.status(200).json({
-        message: 'You have been successfully logged in.'
+        message: 'Vous vous êtes connecté avec succès.'
       });
     });
   })(req, res, next);
@@ -43,7 +43,7 @@ export function signUp(req, res, next) {
 
   User.findOne({ email: req.body.email }, (findErr, existingUser) => {
     if (existingUser) {
-      return res.status(409).json({ message: 'Account with this email address already exists!' });
+      return res.status(409).json({ message: 'Un compte avec cette adresse email existe déjà !' });
     }
 
     return user.save((saveErr) => {
@@ -51,7 +51,7 @@ export function signUp(req, res, next) {
       return req.logIn(user, (loginErr) => {
         if (loginErr) return res.status(401).json({ message: loginErr });
         return res.status(200).json({
-          message: 'You have been successfully logged in.'
+          message: 'Vous vous êtes connecté avec succès.'
         });
       });
     });

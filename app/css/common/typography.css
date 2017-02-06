@@ -12,7 +12,7 @@
   
   --heading {
     font-family: var(--fontTangerine);
-    color: var(--colorDarkBlue);
+    color: var(--heading);
     font-size: 58px;
     font-weight: 700;
     font-style: normal;

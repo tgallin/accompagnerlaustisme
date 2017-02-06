@@ -1,14 +1,9 @@
-import React, {
-  Component,
-  PropTypes
-}
-from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component, PropTypes } from 'react';
+import Loading from '../components/Loading';
+import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 import classNames from 'classnames/bind';
-import {
-  connect
-}
-from 'react-redux';
+import { connect } from 'react-redux';
 import {
   manualLogin,
   signUp,
@@ -20,19 +15,10 @@ import styles from '../css/components/login';
 const cx = classNames.bind(styles);
 
 class LoginOrRegister extends Component {
-  /*
-   * This replaces getInitialState. Likewise getDefaultProps and propTypes are just
-   * properties on the constructor
-   * Read more here: https://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html#es6-classes
-   */
-  constructor(props) {
-    super(props);
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-  }
 
-  handleOnSubmit(event) {
-    event.preventDefault();
-
+  handleSubmit = (values) => {
+    // Do something with the form values
+    window.alert('Data submitted! ' + JSON.stringify(values));
     const {
       manualLogin,
       signUp,
@@ -40,8 +26,8 @@ class LoginOrRegister extends Component {
         isLogin
       }
     } = this.props;
-    const email = ReactDOM.findDOMNode(this.refs.email).value;
-    const password = ReactDOM.findDOMNode(this.refs.password).value;
+    const email = values.email;
+    const password = values.password;
 
     if (isLogin) {
       manualLogin({
@@ -57,7 +43,7 @@ class LoginOrRegister extends Component {
     }
   }
 
-  renderHeader() {
+  renderForm(message) {
     const {
       user: {
         isLogin
@@ -66,29 +52,35 @@ class LoginOrRegister extends Component {
     } = this.props;
     if (isLogin) {
       return (
-        <div className={cx('header')}>
-          <h1 className={cx('heading')}>Connectez-vous</h1>
-          <div className={cx('alternative')}>
-            Vous n'avez pas encore de compte ?
-            <a
-              className={cx('alternative-link')}
-              onClick={toggleLoginMode}
-            >Je m'enregistre</a>
+        <div>
+          <div className={cx('header')}>
+            <h1 className={cx('heading')}>Connectez-vous</h1>
+            <div className={cx('alternative')}>
+              Vous n'avez pas encore de compte ?
+              <a
+                className={cx('alternative-link')}
+                onClick={toggleLoginMode}
+              >Je m'enregistre</a>
+            </div>
           </div>
+          <LoginForm onSubmit={this.handleSubmit} message={message} />
         </div>
       );
     }
 
     return (
-      <div className={cx('header')}>
-        <h1 className={cx('heading')}>Créez votre compte</h1>
-        <div className={cx('alternative')}>
-          Vous avez déjà un compte ?
-          <a
-            className={cx('alternative-link')}
-            onClick={toggleLoginMode}
-          >Je me connecte</a>
+      <div>
+        <div className={cx('header')}>
+          <h1 className={cx('heading')}>Créez votre compte</h1>
+          <div className={cx('alternative')}>
+            Vous avez déjà un compte ?
+            <a
+              className={cx('alternative-link')}
+              onClick={toggleLoginMode}
+            >Je me connecte</a>
+          </div>
         </div>
+        <RegisterForm onSubmit={this.handleSubmit} message={message} />
       </div>
     );
   }
@@ -101,52 +93,25 @@ class LoginOrRegister extends Component {
     } = this.props.user;
 
     return (
-      <div className='container'>
-        <div className='row '>
-          <div className="col-xs-1"></div>
-          <div className="col-xs-10 well">
-            { this.renderHeader() }
-            <div className={cx('email-container')}>
-              <form onSubmit={this.handleOnSubmit}>
-                <input
-                  className={cx('input')}
-                  type="email"
-                  ref={(input) => { this.email = input; }}
-                 placeholder="email"
-                />
-                <input
-                  className={cx('input')}
-                  type="password"
-                 ref={(input) => { this.password = input; }}
-                  placeholder="mot de passe"
-                />
-                <div className={cx('hint')}>
-                  <div>Exemple</div>
-                  <div>email: nom.prenom@abcd.fr, mot de passe: 1234</div>
-                </div>
-                <p
-                  className={cx('message', {
-                  'message-show': message && message.length > 0
-                })}>{message}</p>
-                <div className="text-center">
-                  <input
-                    className="btn btn-success"
-                    type="submit"
-                    value={isLogin ? 'Se connecter' : 'Créer'} />
-                </div>
-              </form>
-            </div>
-            <div>
+      <Loading isLoading={isWaiting}>
+        <div className='container'>
+          <div className='row'>
+            <div className="col-xs-1"></div>
+            <div className="col-xs-10 well">
+              <div className={cx('local-container')}>
+                { this.renderForm(message) }
+
+              </div>
               <h4>Ou utilisez un de vos comptes externes :</h4>
+                <div className="text-center">
+                <a alt="google" title="google" className={'btn ' + cx('btn-social', 'btn-social-round', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span></a>
+                <a alt="google" title="facebook" className={'btn ' + cx('btn-social', 'btn-social-square', 'btn-facebook')} href='/auth/facebook'><span className="fa fa-facebook"></span></a>
+                </div>
             </div>
-            <div className="text-center">
-              <a alt="google" title="google" className={'btn ' + cx('btn-social', 'btn-social-round', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span></a>
-              <a alt="google" title="facebook" className={'btn ' + cx('btn-social', 'btn-social-square', 'btn-facebook')} href='/auth/facebook'><span className="fa fa-facebook"></span></a>
-            </div>
+            <div className="col-xs-1"></div>
           </div>
-          <div className="col-xs-1"></div>
         </div>
-      </div>
+      </Loading>
     );
   }
 }
