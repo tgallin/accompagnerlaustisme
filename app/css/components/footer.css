@@ -6,14 +6,27 @@
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 60px;
+  height: 40px;
   background-color: var(--footerBackground);
 }
 
+.leftCol {
+  float: left;
+  width:25%;
+  line-height: 28px;
+}
+
+.middleCol {
+  text-align: center;
+  line-height: 28px;
+}
+
+.rightCol {
+  float: right;
+}
+
 .footer-content {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin: 20px 0;
+  margin: 5px 0;
   color: var(--footerContent);
   @apply --small;
 }

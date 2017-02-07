@@ -1,8 +1,12 @@
 @import '../common/colors';
 
+.block {
+  text-align: center;
+}
+
 .ouro {
   position: relative;
-  display:inline-block;
+  display: inline-block;
   height: 46px;
   width: 46px;
   margin: 1em;
@@ -22,7 +26,7 @@
   height: 28px;
   width: 28px;
   background: none repeat scroll 0 0;
-  background-color: var(--loadingInnerCircle);
+  background-color: var(--white);
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(0,0,0,.1);
 }
@@ -87,4 +91,34 @@
   -webkit-animation-delay: 1.5s;
   animation-name: ui-spinner-rotate-right;
   animation-delay: 1.5s;
+}
+
+@keyframes ui-spinner-rotate-right{
+  0%{transform:rotate(0deg);}
+  25%{transform:rotate(180deg);}
+  50%{transform:rotate(180deg);}
+  75%{transform:rotate(360deg);}
+  100%{transform:rotate(360deg);}
+}
+@keyframes ui-spinner-rotate-left{
+  0%{transform:rotate(0deg);}
+  25%{transform:rotate(0deg);}
+  50%{transform:rotate(180deg);}
+  75%{transform:rotate(180deg);}
+  100%{transform:rotate(360deg);}
+}
+
+@-webkit-keyframes ui-spinner-rotate-right{
+  0%{-webkit-transform:rotate(0deg);}
+  25%{-webkit-transform:rotate(180deg);}
+  50%{-webkit-transform:rotate(180deg);}
+  75%{-webkit-transform:rotate(360deg);}
+  100%{-webkit-transform:rotate(360deg);}
+}
+@-webkit-keyframes ui-spinner-rotate-left{
+  0%{-webkit-transform:rotate(0deg);}
+  25%{-webkit-transform:rotate(0deg);}
+  50%{-webkit-transform:rotate(180deg);}
+  75%{-webkit-transform:rotate(180deg);}
+  100%{-webkit-transform:rotate(360deg);}
 }

@@ -86,27 +86,21 @@ class LoginOrRegister extends Component {
   render() {
     const {
       isWaiting,
-      message,
-      isLogin
+      message
     } = this.props.user;
 
     return (
       <Loading isLoading={isWaiting}>
         <div className='container'>
-          <div className='row'>
-            <div className="col-xs-1"></div>
-            <div className="col-xs-10 well">
-              <div className={cx('local-container')}>
-                { this.renderForm(message) }
-
-              </div>
-              <h4>Ou utilisez un de vos comptes externes :</h4>
-                <div className="text-center">
-                <a alt="google" title="google" className={'btn ' + cx('btn-social', 'btn-social-round', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span></a>
-                <a alt="google" title="facebook" className={'btn ' + cx('btn-social', 'btn-social-square', 'btn-facebook')} href='/auth/facebook'><span className="fa fa-facebook"></span></a>
-                </div>
+          <div className="well">
+            <div className={cx('local-container')}>
+              { this.renderForm(message) }
             </div>
-            <div className="col-xs-1"></div>
+            <h4>Ou utilisez un de vos comptes externes :</h4>
+              <div className="text-center">
+              <a alt="google" title="google" className={cx('btn-social', 'btn-social-round', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span></a>
+              <a alt="google" title="facebook" className={cx('btn-social', 'btn-social-square', 'btn-facebook')} href='/auth/facebook'><span className="fa fa-facebook"></span></a>
+            </div>
           </div>
         </div>
       </Loading>

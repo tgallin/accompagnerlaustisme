@@ -10,10 +10,15 @@ class Loading extends React.Component {
 
     if (isLoading) {
       return (
-        <span className="ouro ouro3">
-          <span className="left"><span className="anim"></span></span>
-          <span className="right"><span className="anim"></span></span>
-        </span>
+        <div>
+          <div className={cx('block')}>
+            <span className={cx('ouro','ouro3')}>
+              <span className={cx('left')}><span className={cx('anim')}></span></span>
+              <span className={cx('right')}><span className={cx('anim')}></span></span>
+            </span>
+          </div>
+          {children || null}
+        </div>
       );
     }
     else {
