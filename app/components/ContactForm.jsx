@@ -1,26 +1,9 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import contactValidation from '../js/contactValidation';
-
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-  <div className={'form-group' + (error && touched ? ' has-error' : '')}>
-    <label htmlFor={input.name} className="col-sm-2 control-label">{label}</label>
-    <div className="col-sm-10">
-      <input {...input} type={type} className="form-control" id={input.name} placeholder={label} />
-      {touched && error && <div className="text-danger">{error}</div>}
-    </div>
-  </div>
-);
-
-const renderTextarea = ({ input, label, meta: { touched, error } }) => (
-  <div className={'form-group' + (error && touched ? ' has-error' : '')}>
-    <label htmlFor={input.name} className="col-sm-2 control-label">{label}</label>
-    <div className="col-sm-10">
-      <textarea {...input} className="form-control" id={input.name} placeholder={label} />
-      {touched && error && <div className="text-danger">{error}</div>}
-    </div>
-  </div>
-);
+import Captcha from '../components/Captcha.jsx';
+import RenderField from '../components/RenderField.jsx';
+import RenderTextarea from '../components/RenderTextarea.jsx';
 
 const ContactForm = (props) => {
   const { message, authenticated, handleSubmit, submitting } = props;
@@ -29,13 +12,15 @@ const ContactForm = (props) => {
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
       {!authenticated ?
         (<div>
-          <Field name="firstname" type="text" component={renderField} label="Prénom"/>
-          <Field name="surname" type="text" component={renderField} label="Nom"/>
-          <Field name="email" type="email" component={renderField} label="Email"/>
+          <Field name="firstname" type="text" component={RenderField} label="Prénom"/>
+          <Field name="surname" type="text" component={RenderField} label="Nom"/>
+          <Field name="email" type="email" component={RenderField} label="Email"/>
           </div>) : ''
       }
 
-        <Field name="body" component={renderTextarea} label="Message"/>
+        <Field name="subject" component={RenderField} label="Sujet"/>
+        <Field name="body" component={RenderTextarea} label="Message"/>
+        <Field name='captcharesponse' component={Captcha}/>
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10">
             <button type="submit" className="btn btn-default" disabled={submitting}>Envoyer</button>

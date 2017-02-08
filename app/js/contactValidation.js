@@ -6,6 +6,8 @@ const registerValidation = createValidator({
   surname: [required, maxLength(20)],
   email: [required, email],
   password: [required],
-  body: [required, maxLength(2000)]
+  subject: [required, maxLength(100)],
+  body: [required, maxLength(2000)],
+  captcharesponse : [required]
 });
 export default memoize(10)(registerValidation);

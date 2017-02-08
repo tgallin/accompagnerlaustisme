@@ -17,7 +17,7 @@ const Footer = () => {
             <div className={cx('footer-content')}>
               <div className={cx('leftCol')}><Link to="/mentionslegales" className={cx('footer-link')} activeClassName='active'>Mentions légales</Link></div>
               <div className={cx('rightCol')}>Retrouvez nous sur <a href="https://www.facebook.com\accompagnerlautisme" target="_blank"><img src={facebookLogo}/></a></div>
-              <div className={cx('middleCol')}>6, rue Jean Hupeau 45000 Orléans</div>
+              <div className={cx('middleCol')}> </div>
             </div>
           </div>
         </footer>

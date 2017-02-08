@@ -16,8 +16,6 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
  */
 class Contact extends React.Component {
 
-
-
 handleSubmit = (values) => {
   return sleep(1000) // simulate server latency
     .then(() => {
