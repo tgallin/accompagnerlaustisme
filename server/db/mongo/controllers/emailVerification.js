@@ -176,8 +176,6 @@ export function sendVerificationEmail(email, url, callback) {
       callback = options.verifySendMailCallback;
     }
     
-    console.log(mailOptions);
-    console.log(transporter);
     transporter.sendMail(mailOptions, callback);
   };
 
