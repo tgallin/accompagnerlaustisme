@@ -68,7 +68,8 @@ module.exports = [
             warnings: false
           }
         }),
-        new webpack.EnvironmentPlugin(['NODE_ENV'])
+        new webpack.EnvironmentPlugin(['NODE_ENV',
+        'RECAPTCHA_SITE_KEY', 'RECAPTCHA_SECRET_KEY'])
     ],
     postcss: postCSSConfig
   }, {
