@@ -10,7 +10,7 @@ export default (req, accessToken, refreshToken, profile, done) => {
       return User.findById(req.user.id, (findByIdErr, user) => {
         user.facebook = profile.id;
         user.tokens.push({ kind: 'facebook', accessToken });
-        user.profile.name = user.profile.name || profile.displayName;
+        user.profile.displayName = user.profile.displayName || profile.displayName;
         user.profile.gender = user.profile.gender || profile._json.gender;
         user.profile.picture = user.profile.picture || (profile.photos ? profile.photos[0].value : '');
         user.save((err) => {
@@ -29,7 +29,7 @@ export default (req, accessToken, refreshToken, profile, done) => {
       user.email = profile._json.email;
       user.facebook = profile.id;
       user.tokens.push({ kind: 'facebook', accessToken });
-      user.profile.name = profile.displayName;
+      user.profile.displayName = profile.displayName;
       user.profile.gender = profile._json.gender;
       user.profile.picture = profile.photos ? profile.photos[0].value : '';
       return user.save((err) => {

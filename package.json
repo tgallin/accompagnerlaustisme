@@ -97,6 +97,7 @@
     "postcss-import": "^9.0.0",
     "postcss-loader": "^1.2.1",
     "postcss-reporter": "^3.0.0",
+    "rand-token": "^0.3.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-google-recaptcha": "^0.5.4",

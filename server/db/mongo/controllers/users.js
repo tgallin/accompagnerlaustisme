@@ -1,5 +1,14 @@
 import passport from 'passport';
 import User from '../models/user';
+import request from 'axios';
+import { recaptcha } from '../../../../config/secrets';
+import { createTempUser, sendVerificationEmail, options as senderOptions, confirmTempUser } from './emailVerification';
+
+
+export function verifyCaptchaRequest(data) {
+  return request.post('https://www.google.com/recaptcha/api/siteverify', data);
+}
+
 
 /**
  * POST /login
@@ -33,33 +42,100 @@ export function logout(req, res) {
 
 /**
  * POST /signup
- * Create a new local account
+ * Create a new temp local account
  */
 export function signUp(req, res, next) {
-  const user = new User({
-    email: req.body.email,
-    password: req.body.password
-  });
+  
+  var captchaData = {
+    secret: recaptcha.secretKey,
+    response: req.body.captcharesponse
+  };
 
-  User.findOne({ email: req.body.email }, (findErr, existingUser) => {
-    if (existingUser) {
-      return res.status(409).json({ message: 'Un compte avec cette adresse email existe déjà !' });
-    }
+  verifyCaptchaRequest(captchaData)
+      .then(response => {
+        if (response.status === 200) {
+          
+          var email = req.body.email;
 
-    return user.save((saveErr) => {
-      if (saveErr) return next(saveErr);
-      return req.logIn(user, (loginErr) => {
-        if (loginErr) return res.status(401).json({ message: loginErr });
-        return res.status(200).json({
-          message: 'Vous vous êtes connecté avec succès.'
-        });
+          var userData = {};
+          userData[senderOptions.firstnameFieldName] = req.body.firstname;
+          userData[senderOptions.surnameFieldName] = req.body.surname;
+          userData[senderOptions.emailFieldName] = email;
+          userData[senderOptions.passwordFieldName] = req.body.password;
+          
+          createTempUser(userData, function(err, existingPersistentUser, newTempUser) {
+
+            // user already exists in persistent collection... 
+            if (existingPersistentUser) {
+              return res.status(409).json({ message: 'Un compte avec cette adresse email existe déjà !' });
+            }
+ 
+            // a new user 
+            if (newTempUser) {
+                var URL = newTempUser[senderOptions.URLFieldName];
+                sendVerificationEmail(email, URL, function(err, info) {
+                    if (err)
+                      return res.status(500).json({ message: 'Problème lors de l\'envoi de l\'email de confirmation.'});
+         
+                    return res.status(200).json({ message: 'Un email de confirmation a été envoyé !' });
+                });
+            // user already exists in temporary collection... 
+            } else {
+                return res.status(409).json({ message: 'Un compte temporaire avec cette adresse email existe déjà !' });
+            }
+          });
+        } else {
+          return res.status(401).json({ message: 'recaptcha invalide' });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        return res.status(500).json({ message: 'Problème lors de la vérification du recaptcha'});
       });
-    });
+}
+
+/**
+ * GET /user/confirm
+ * Confirm a temp local account
+ * by moving the user from the temporary storage to 'persistent' storage
+ */
+export function confirm(req, res) {
+  
+  confirmTempUser(req.params.url, function(err, user) {
+      if (err)
+      {
+        // return res.status(500).json({ message: 'Il y a eu un problème lors de la confirmation de votre compte.' });
+        return res.redirect('/login');
+      }
+          
+   
+      // user was found! 
+      if (user) {
+          return req.logIn(user, (loginErr) => {
+            if (loginErr) {
+              // return res.status(401).json({ message: loginErr });
+              return res.redirect('/login');
+            }
+            
+            
+            /*return res.status(200).json({
+              message: 'Vous avez confirmé la création de votre compte avec succès'
+            });*/
+            return res.redirect('/dashboard');
+          });
+      }
+      // user's data probably expired... 
+      else {
+        return res.status(401).json({ message: 'Il y a eu un problème lors de la confirmation de votre compte. Vous avez attendu trop longtemps avant de valider votre email.' });
+        return res.redirect('/login');
+      } 
+          
   });
 }
 
 export default {
   login,
   logout,
-  signUp
+  signUp,
+  confirm
 };

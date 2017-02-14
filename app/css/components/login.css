@@ -44,7 +44,6 @@
   -ms-user-select: none;
   user-select: none;
   background-image: none;
-  border: 1px solid rgba(0,0,0,0.2);
 }
 
 .btn-google {
@@ -69,7 +68,7 @@
   border-radius: 25px;
 }
 .btn-social-square {
-  border-radius: 2px;
+  border-radius: 4px;
 }
 .btn-social>:first-child {
   width: 20px;

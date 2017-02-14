@@ -17,12 +17,15 @@ const UserSchema = new mongoose.Schema({
   password: String,
   tokens: Array,
   profile: {
-    name: { type: String, default: '' },
+    displayName: { type: String, default: '' },
+    firstname: { type: String, default: '' },
+    surname: { type: String, default: '' },
     gender: { type: String, default: '' },
     location: { type: String, default: '' },
     website: { type: String, default: '' },
     picture: { type: String, default: '' }
   },
+  admin: { type: Boolean, default: false },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   google: {},

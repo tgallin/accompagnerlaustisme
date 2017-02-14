@@ -5,3 +5,7 @@
       };
   });
 })();
+
+window.recaptchaOptions = {
+  lang: 'fr'
+}

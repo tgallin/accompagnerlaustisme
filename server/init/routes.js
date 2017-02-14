@@ -15,6 +15,7 @@ export default (app) => {
     app.post('/login', usersController.login);
     app.post('/signup', usersController.signUp);
     app.post('/logout', usersController.logout);
+    app.get('/user/confirm/:url', usersController.confirm);
   }
   else {
     console.warn(unsupportedMessage('users routes'));
@@ -39,7 +40,7 @@ export default (app) => {
     // Otherwise, the authentication has failed.
     app.get('/auth/google/callback',
       passport.authenticate('google', {
-        successRedirect: '/',
+        successRedirect: '/dashboard',
         failureRedirect: '/login'
       })
     );
@@ -57,7 +58,7 @@ export default (app) => {
     // Otherwise, the authentication has failed.
     app.get('/auth/facebook/callback',
       passport.authenticate('facebook', {
-        successRedirect: '/',
+        successRedirect: '/dashboard',
         failureRedirect: '/login'
       })
     );
@@ -74,7 +75,7 @@ export default (app) => {
     // process by verifying the assertion. If valid, the user will be logged in.
     // Otherwise, the authentication has failed.
     app.get('/auth/github/callback', passport.authenticate('github', {
-      successRedirect: '/',
+      successRedirect: '/dashboard',
       failureRedirect: '/login'
     }));
   }

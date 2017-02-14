@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Page from '../pages/Page';
-import DashboardContainer from '../containers/Dashboard';
+import ConfirmationContainer from '../containers/Confirmation';
 
-class Dashboard extends Component {
+class Confirmation extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class Dashboard extends Component {
   }
 
   pageTitle() {
-    return 'Mon compte';
+    return 'Confirmation';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Mes jeux, mes formations, mes infos personnelles' }
+      { name: 'description', content: 'Message de confirmation' }
     ];
   }
 
@@ -28,11 +28,11 @@ class Dashboard extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <DashboardContainer {...this.props} />
+        <ConfirmationContainer {...this.props} />
       </Page>
     );
   }
 }
 
-export default Dashboard;
+export default Confirmation;
 

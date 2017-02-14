@@ -4,7 +4,6 @@ import {createValidator, required, minLength, maxLength, email, integer, match} 
 const registerValidation = createValidator({
   firstname: [required, maxLength(20)],
   surname: [required, maxLength(20)],
-  age: [integer],
   email: [required, email],
   password: [required, minLength(6)],
   confirmPassword: [required, match('password')],

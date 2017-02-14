@@ -60,11 +60,12 @@ const authenticated = (
 ) => {
   switch (action.type) {
     case types.LOGIN_SUCCESS_USER:
-    case types.SIGNUP_SUCCESS_USER:
     case types.LOGOUT_ERROR_USER:
+    case types.CONFIRM_SUCCESS_USER:
       return true;
     case types.LOGIN_ERROR_USER:
     case types.SIGNUP_ERROR_USER:
+    case types.CONFIRM_ERROR_USER:
     case types.LOGOUT_SUCCESS_USER:
       return false;
     default:

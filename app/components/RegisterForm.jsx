@@ -12,7 +12,6 @@ const RegisterForm = (props) => {
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
         <Field name="firstname" type="text" component={RenderField} label="Prénom"/>
         <Field name="surname" type="text" component={RenderField} label="Nom"/>
-        <Field name="age" type="number" component={RenderField} label="Age"/>
         <Field name="email" type="email" component={RenderField} label="Email"/>
         <Field name="password" type="password" component={RenderField} label="Mot de passe"/>
         <Field name="confirmPassword" type="password" component={RenderField} label="Confirmez votre mot de passe"/>

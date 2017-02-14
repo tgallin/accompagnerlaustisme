@@ -93,8 +93,7 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-        new webpack.EnvironmentPlugin(['NODE_ENV',
-        'RECAPTCHA_SITE_KEY', 'RECAPTCHA_SECRET_KEY']),
+        new webpack.EnvironmentPlugin(['NODE_ENV']),
         new styleLintPlugin({
           configFile: path.join(__dirname, '..', '.stylelintrc'),
           context: path.join(__dirname, '..', 'app'),

@@ -9,8 +9,10 @@ import {
   Ludotheque,
   About,
   Contact,
+  Dashboard,
   Liens,
   LoginOrRegister,
+  Confirmation,
   Mentions
 }
 from './pages';
@@ -50,10 +52,12 @@ export default (store) => {
       <Route path="about" component={About} />
       <Route path="contact" component={Contact} />
       <Route path="liens" component={Liens} />
+      <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
       <Route path="login" component={LoginOrRegister} onEnter={redirectAuth} />
       <Route path="mentionslegales" component={Mentions} />
+      <Route path="confirmation" component={Confirmation} />
     </Route>
   );
   // <IndexRoute component={Vote} fetchData={fetchVoteData} />
-  // <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
+  // 
 };

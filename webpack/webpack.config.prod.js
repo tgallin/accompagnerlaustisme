@@ -68,8 +68,7 @@ module.exports = [
             warnings: false
           }
         }),
-        new webpack.EnvironmentPlugin(['NODE_ENV',
-        'RECAPTCHA_SITE_KEY', 'RECAPTCHA_SECRET_KEY'])
+        new webpack.EnvironmentPlugin(['NODE_ENV'])
     ],
     postcss: postCSSConfig
   }, {
@@ -113,7 +112,8 @@ module.exports = [
         'SESSION_SECRET', 
         'GOOGLE_CALLBACK', 'GOOGLE_CLIENTID', 'GOOGLE_SECRET', 
         'FACEBOOK_CALLBACK', 'FACEBOOK_CLIENTID', 'FACEBOOK_SECRET',
-        'RECAPTCHA_SITE_KEY', 'RECAPTCHA_SECRET_KEY']),
+        'RECAPTCHA_SITE_KEY', 'RECAPTCHA_SECRET_KEY',
+        'GMAIL_CLIENTID', 'GMAIL_SECRET', 'GMAIL_REFRESH_TOKEN']),
         new webpack.IgnorePlugin(/vertx/),
         new webpack.optimize.UglifyJsPlugin({
           compressor: {

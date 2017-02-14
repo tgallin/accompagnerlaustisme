@@ -34,9 +34,15 @@ class LoginOrRegister extends Component {
       });
     }
     else {
+      const firstname = values.firstname;
+      const surname = values.surname;
+      const captcharesponse = values.captcharesponse;
       signUp({
+        firstname,
+        surname,
         email,
-        password
+        password,
+        captcharesponse
       });
     }
   }
@@ -98,8 +104,8 @@ class LoginOrRegister extends Component {
             </div>
             <h4>Ou utilisez un de vos comptes externes :</h4>
               <div className="text-center">
-              <a alt="google" title="google" className={cx('btn-social', 'btn-social-round', 'btn-google')} href='/auth/google'><span className="fa fa-google-plus"></span></a>
-              <a alt="google" title="facebook" className={cx('btn-social', 'btn-social-square', 'btn-facebook')} href='/auth/facebook'><span className="fa fa-facebook"></span></a>
+              <a alt="google" title="google" className={cx('btn-social', 'btn-social-round', 'btn-google')} href='/auth/google'><i className="fa fa-google-plus" aria-hidden="true"></i></a>
+              <a alt="google" title="facebook" className={cx('btn-social', 'btn-social-square', 'btn-facebook')} href='/auth/facebook'><i className="fa fa-facebook" aria-hidden="true"></i></a>
             </div>
           </div>
         </div>

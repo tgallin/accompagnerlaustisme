@@ -12,7 +12,7 @@ const LoginForm = (props) => {
         <Field name="password" type="password" component={RenderField} label="Mot de passe"/>
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10">
-            <button type="submit" className="btn btn-default" disabled={submitting}>Me connecter</button>
+            <button type="submit" className="btn btn-info" disabled={submitting}>Me connecter</button>
           </div>
         </div>
       </form>

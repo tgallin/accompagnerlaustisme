@@ -8,3 +8,5 @@ export { default as Contact } from 'pages/Contact';
 export { default as Liens } from 'pages/Liens';
 export { default as LoginOrRegister} from 'pages/LoginOrRegister';
 export { default as Mentions} from 'pages/Mentions';
+export { default as Confirmation} from 'pages/Confirmation';
+export { default as Dashboard} from 'pages/Dashboard';
