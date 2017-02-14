@@ -159,14 +159,14 @@ export function createTempUser(userData, callback) {
    * @param {string} url - the unique url generated for the user.
    * @param {function} callback - the callback to pass to Nodemailer's transporter
    */
-export function sendVerificationEmail(urlPrefix, email, url, callback) {
+export function sendVerificationEmail(host, email, url, callback) {
     
     var r = /\$\{URL\}/g;
 
     // inject newly-created URL into the email's body and FIRE
     // stringify --> parse is used to deep copy
     
-    var URL = urlPrefix + options.verificationURLSuffix.replace(r, url);
+    var URL = 'https://' + host + options.verificationURLSuffix.replace(r, url);
     var mailOptions = JSON.parse(JSON.stringify(options.verifyMailOptions));
 
     mailOptions.to = email;
@@ -239,7 +239,7 @@ export function confirmTempUser(url, callback) {
             if (options.shouldSendConfirmation) {
               sendConfirmationEmail(savedUser.email, null);
             }
-            return callback(null, savedUser);
+            return callback(null, user);
           });
         });
 

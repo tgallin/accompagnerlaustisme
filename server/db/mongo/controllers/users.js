@@ -73,10 +73,8 @@ export function signUp(req, res, next) {
             // a new user 
             if (newTempUser) {
               
-                var urlPrefix = req.protocol + '://' + req.hostname;
-              
                 var URL = newTempUser[senderOptions.URLFieldName];
-                sendVerificationEmail(urlPrefix, email, URL, function(err, info) {
+                sendVerificationEmail(req.hostname, email, URL, function(err, info) {
                     if (err)
                       return res.status(500).json({ message: 'Problème lors de l\'envoi de l\'email de confirmation.'});
          
@@ -129,7 +127,7 @@ export function confirm(req, res) {
       }
       // user's data probably expired... 
       else {
-        return res.status(401).json({ message: 'Il y a eu un problème lors de la confirmation de votre compte. Vous avez attendu trop longtemps avant de valider votre email.' });
+        //return res.status(401).json({ message: 'Il y a eu un problème lors de la confirmation de votre compte. Vous avez attendu trop longtemps avant de valider votre email.' });
         return res.redirect('/login');
       } 
           
