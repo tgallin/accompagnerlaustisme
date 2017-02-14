@@ -32,7 +32,7 @@ var randtoken = require('rand-token');
 
   // default options
   export var options = {
-    verificationURL: 'https://accompagnerlautisme-tgallin.c9users.io/user/confirm/${URL}',
+    verificationURLSuffix: '/user/confirm/${URL}',
     URLLength: 48,
 
     // mongo-stuff
@@ -159,14 +159,15 @@ export function createTempUser(userData, callback) {
    * @param {string} url - the unique url generated for the user.
    * @param {function} callback - the callback to pass to Nodemailer's transporter
    */
-export function sendVerificationEmail(email, url, callback) {
+export function sendVerificationEmail(urlPrefix, email, url, callback) {
     
     var r = /\$\{URL\}/g;
 
     // inject newly-created URL into the email's body and FIRE
     // stringify --> parse is used to deep copy
-    var URL = options.verificationURL.replace(r, url),
-      mailOptions = JSON.parse(JSON.stringify(options.verifyMailOptions));
+    
+    var URL = urlPrefix + options.verificationURLSuffix.replace(r, url);
+    var mailOptions = JSON.parse(JSON.stringify(options.verifyMailOptions));
 
     mailOptions.to = email;
     mailOptions.html = mailOptions.html.replace(r, URL);

@@ -72,8 +72,11 @@ export function signUp(req, res, next) {
  
             // a new user 
             if (newTempUser) {
+              
+                var urlPrefix = req.protocol + '://' + req.hostname;
+              
                 var URL = newTempUser[senderOptions.URLFieldName];
-                sendVerificationEmail(email, URL, function(err, info) {
+                sendVerificationEmail(urlPrefix, email, URL, function(err, info) {
                     if (err)
                       return res.status(500).json({ message: 'Problème lors de l\'envoi de l\'email de confirmation.'});
          
