@@ -2,10 +2,6 @@
 @import '../common/typography';
 @import '../common/colors';
 
-.bottomMarginWell {
-  margin-bottom: 80px;
-}
-
 .alternative {
   padding: 12px 8px;
   font-size: var(--fontMedium);

@@ -1,6 +1,10 @@
 export { default as App } from 'pages/App';
 export { default as Home } from 'pages/Home';
 export { default as Formations } from 'pages/Formations';
+export { default as Formation1} from 'pages/Formation1';
+export { default as Formation2} from 'pages/Formation2';
+export { default as Formation3} from 'pages/Formation3';
+export { default as Formation4} from 'pages/Formation4';
 export { default as Reseau } from 'pages/Reseau';
 export { default as Ludotheque } from 'pages/Ludotheque';
 export { default as About} from 'pages/About';

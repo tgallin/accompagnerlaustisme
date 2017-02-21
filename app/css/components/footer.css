@@ -1,13 +1,6 @@
 @import '../common/colors';
 @import '../common/typography';
 
-
-@media screen and (max-width: 1020px) {
-  .footer {
-    width: auto;
-  }
-}
-
 .footer {
   width: 1170px;
   margin-left: auto;
@@ -15,6 +8,12 @@
   /* Set the fixed height of the footer here */
   height: 40px;
   background-color: var(--footerBackground);
+}
+
+@media (max-width: 1200px) {
+  .footer {
+    width: auto;
+  }
 }
 
 .leftCol {

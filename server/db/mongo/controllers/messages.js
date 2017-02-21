@@ -23,7 +23,7 @@ export function add(req, res) {
     displayName = req.body.firstname + ' ' + req.body.surname;
   }
  
-   // setup email data with unicode symbols
+   // setup email data
   var mailOptions = {
       from: '"'+ displayName +' (' + email +')" <'+ email + '>', // sender address
       to: 'accompagner.autisme@gmail.com', // list of receivers

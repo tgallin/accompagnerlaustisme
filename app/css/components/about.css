@@ -16,7 +16,7 @@
 }
 
 .lastPaddingBottom {
-  padding-bottom: 80px;
+  padding-bottom: 25px;
 }
 
 .content { @apply --normal; }

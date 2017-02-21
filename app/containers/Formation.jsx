@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
  *  i.e. We should keep this as the container that does the data-fetching
  *  and dispatching of actions if you decide to have any sub-components.
  */
-const Formations = () => {
+const Formation = () => {
   return (
     <div>
       <div className='text-center'><img src={logo} alt="logo"/></div>
@@ -28,16 +28,16 @@ const Formations = () => {
       
       <div className={cx('header')}>Agenda 2017</div>
       
-      <p className={'text-justify ' + cx('content', 'paddingBottom')}>14 & 15 janvier : <Link to="/formations/formation1">Apprendre à lire et écrire</Link></p>
+      <p className={'text-justify ' + cx('content', 'paddingBottom')}>14 & 15 janvier : Apprendre à lire et écrire</p>
       
-      <p className={'text-justify ' + cx('content', 'paddingBottom')}>25 & 26 Mars : <Link to="#">Numération de base</Link></p>
+      <p className={'text-justify ' + cx('content', 'paddingBottom')}>25 & 26 Mars : Numération de base</p>
       
-      <p className={'text-justify ' + cx('content', 'paddingBottom')}>7 avril : <Link to="#">Projection du film “Enfants autistes : Bienvenu à l'École”</Link></p>
+      <p className={'text-justify ' + cx('content', 'paddingBottom')}>7 avril : Projection du film “Enfants autistes : Bienvenu à l'École”</p>
       
-      <p className={'text-justify ' + cx('content', 'paddingBottom')}>8 & 9 avril 2017 : <Link to="#">Entraînement aux Réponses Pivots</Link> (PRT)</p>
+      <p className={'text-justify ' + cx('content', 'paddingBottom')}>8 & 9 avril 2017 : Entraînement aux Réponses Pivots (PRT)</p>
       
     </div>
   );
 };
 
-export default Formations;
+export default Formation;

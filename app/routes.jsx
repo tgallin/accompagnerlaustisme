@@ -5,6 +5,10 @@ import {
   App,
   Home,
   Formations,
+  Formation1,
+  Formation2,
+  Formation3,
+  Formation4,
   Reseau,
   Ludotheque,
   About,
@@ -46,16 +50,20 @@ export default (store) => {
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
-      <Route path="formations" component={Formations} />
-      <Route path="reseau" component={Reseau} />
-      <Route path="ludotheque" component={Ludotheque} />
-      <Route path="about" component={About} />
-      <Route path="contact" component={Contact} />
-      <Route path="liens" component={Liens} />
-      <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
-      <Route path="login" component={LoginOrRegister} onEnter={redirectAuth} />
-      <Route path="mentionslegales" component={Mentions} />
-      <Route path="confirmation" component={Confirmation} />
+      <Route path="/formations" component={Formations} />
+      <Route path="/formations/formation1" component={Formation1} />
+      <Route path="/formations/formation2" component={Formation2} />
+      <Route path="/formations/formation3" component={Formation3} />
+      <Route path="/formations/formation4" component={Formation4} />
+      <Route path="/reseau" component={Reseau} />
+      <Route path="/ludotheque" component={Ludotheque} />
+      <Route path="/about" component={About} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/liens" component={Liens} />
+      <Route path="/dashboard" component={Dashboard} onEnter={requireAuth} />
+      <Route path="/login" component={LoginOrRegister} onEnter={redirectAuth} />
+      <Route path="/mentionslegales" component={Mentions} />
+      <Route path="/confirmation" component={Confirmation} />
     </Route>
   );
   // <IndexRoute component={Vote} fetchData={fetchVoteData} />

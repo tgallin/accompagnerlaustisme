@@ -36,7 +36,7 @@ class Navigation extends Component {
         <div id="navbar" className="navbar-collapse collapse">
           <ul className="nav navbar-nav">
             <li><Link to="/formations" activeClassName='active'>Formations</Link></li>
-            <li><Link to="/reseau"activeClassName='active'>Réseau accompagnement</Link></li>
+            <li><Link to="/reseau"activeClassName='active'>Réseau</Link></li>
             <li><Link to="/ludotheque"activeClassName='active'>Ludothèque</Link></li>
             <li><Link to="/about" activeClassName='active'>Qui sommes nous</Link></li>
             <li><Link to="/contact" activeClassName='active'>Contact</Link></li>

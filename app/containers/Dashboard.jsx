@@ -17,6 +17,7 @@ const Dashboard = () => {
           <ul className={'nav ' + cx('nav-sidebar')}>
             <li><a href="#">Formations</a></li>
             <li><a href="#">News</a></li>
+            <li><a href="#">Utilisateurs</a></li>
           </ul>
         </div>
         <div className={'col-sm-9 col-md-10 ' + cx('main')}>
