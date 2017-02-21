@@ -139,23 +139,27 @@ export function confirm(req, res) {
  * GET /user
  */
 export function find(req, res, next) {
-  try {
-    return getUser(req.user.email);
-  } catch(err) {
-    console.log('Error trying to find user');
-    return res.status(500).send('Problème lors de la récupération des caractéristiques de l\'utilisateur');
-  }
+  getUser(req.user.email, function (err, user) {
+    if (err) {
+      console.log('Error trying to find user');
+      return res.status(500).send('Problème lors de la récupération des caractéristiques de l\'utilisateur');
+    }
+    return res.status(200).json(user);
+  });
+
 }
 
-export function getUser(email) {
-  const query = { 'email': email };
-  
+export function getUser(email, callback) {
+  const query = {
+    'email': email
+  };
+
   User.findOne(query, function(err, existingUser) {
     if (err) {
-      throw err;
+      return callback(err, null);
     }
 
-    return existingUser;
+    return callback(null, existingUser);
   });
 }
 
