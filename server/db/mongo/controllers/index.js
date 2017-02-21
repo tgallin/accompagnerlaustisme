@@ -1,11 +1,13 @@
-import topics from './topics';
+import events from './events';
+import news from './news';
 import users from './users';
-import goings from './goings'
+import messages from './messages';
 
-export { topics, users, goings };
+export { events, news, users, messages };
 
 export default {
-  topics,
+  events,
+  news,
   users,
-  goings
+  messages
 };

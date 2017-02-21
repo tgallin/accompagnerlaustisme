@@ -7,7 +7,7 @@ import { controllers, passport as passportConfig } from '../db';
 
 const usersController = controllers && controllers.users;
 const topicsController = controllers && controllers.topics;
-const goingsController = controllers && controllers.goings;
+const messagesController = controllers && controllers.messages;
 
 export default (app) => {
   // user routes
@@ -19,6 +19,13 @@ export default (app) => {
   }
   else {
     console.warn(unsupportedMessage('users routes'));
+  }
+  
+  if (messagesController) {
+    app.post('/message', messagesController.add);
+  }
+  else {
+    console.warn(unsupportedMessage('messages routes'));
   }
 
   if (passportConfig && passportConfig.google) {
@@ -91,12 +98,4 @@ export default (app) => {
     console.warn(unsupportedMessage('topics routes'));
   }
   
-    // goings routes
-  if (goingsController) {
-    app.get('/going', goingsController.howManyAreGoing);
-    app.get('/going/:id', goingsController.updateGoing);
-  }
-  else {
-    console.warn(unsupportedMessage('goings routes'));
-  }
 };

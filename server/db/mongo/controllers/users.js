@@ -105,6 +105,7 @@ export function confirm(req, res) {
   confirmTempUser(req.params.url, function(err, user) {
       if (err)
       {
+        console.log(err);
         // return res.status(500).json({ message: 'Il y a eu un problème lors de la confirmation de votre compte.' });
         return res.redirect('/login');
       }
@@ -134,9 +135,34 @@ export function confirm(req, res) {
   });
 }
 
+/**
+ * GET /user
+ */
+export function find(req, res, next) {
+  try {
+    return getUser(req.user.email);
+  } catch(err) {
+    console.log('Error trying to find user');
+    return res.status(500).send('Problème lors de la récupération des caractéristiques de l\'utilisateur');
+  }
+}
+
+export function getUser(email) {
+  const query = { 'email': email };
+  
+  User.findOne(query, function(err, existingUser) {
+    if (err) {
+      throw err;
+    }
+
+    return existingUser;
+  });
+}
+
 export default {
   login,
   logout,
   signUp,
-  confirm
+  confirm,
+  find
 };

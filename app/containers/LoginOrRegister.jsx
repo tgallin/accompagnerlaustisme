@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import Loading from '../components/Loading';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import classNames from 'classnames/bind';
@@ -91,25 +90,22 @@ class LoginOrRegister extends Component {
 
   render() {
     const {
-      isWaiting,
       message
     } = this.props.user;
 
     return (
-      <Loading isLoading={isWaiting}>
-        <div className='container'>
-          <div className="well">
-            <div className={cx('local-container')}>
-              { this.renderForm(message) }
-            </div>
-            <h4>Ou utilisez un de vos comptes externes :</h4>
-              <div className="text-center">
-              <a alt="google" title="google" className={cx('btn-social', 'btn-social-round', 'btn-google')} href='/auth/google'><i className="fa fa-google-plus" aria-hidden="true"></i></a>
-              <a alt="google" title="facebook" className={cx('btn-social', 'btn-social-square', 'btn-facebook')} href='/auth/facebook'><i className="fa fa-facebook" aria-hidden="true"></i></a>
-            </div>
+      <div className='container'>
+        <div className={'well ' + cx('bottomMarginWell')}>
+          <div className={cx('local-container')}>
+            { this.renderForm(message) }
+          </div>
+          <h4>Ou utilisez un de vos comptes externes :</h4>
+          <div className={cx('social-buttons')}>
+            <a alt="google" title="google" className={cx('btn-social', 'btn-social-round', 'btn-google')} href='/auth/google'><i className="fa fa-google-plus" aria-hidden="true"></i></a>
+            <a alt="google" title="facebook" className={cx('btn-social', 'btn-social-square', 'btn-facebook')} href='/auth/facebook'><i className="fa fa-facebook" aria-hidden="true"></i></a>
           </div>
         </div>
-      </Loading>
+      </div>
     );
   }
 }

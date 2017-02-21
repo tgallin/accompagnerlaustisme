@@ -2,12 +2,10 @@ import React, { PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import styles from 'css/components/contact';
 import ContactForm from '../components/ContactForm';
-import Loading from '../components/Loading';
 import { connect } from 'react-redux';
+import { sendMessage } from '../actions/contact';
 
 const cx = classNames.bind(styles);
-
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 /*
  * Note: This is kept as a container-level component,
@@ -17,30 +15,51 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 class Contact extends React.Component {
 
 handleSubmit = (values) => {
-  return sleep(1000) // simulate server latency
-    .then(() => {
-      window.alert(`Valeurs à envoyer par email:\n\n${JSON.stringify(values, null, 2)}`);
-    });
+  
+  setTimeout(() => {  // simulate server latency
+      window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
+    }, 500);
+    
+  const {
+    sendMessage,
+    user: {
+      authenticated
+    }
+  } = this.props;
+  
+  var subject = values.subject;
+  var message = values.message;
+  var firstname;
+  var surname;
+  var email;
+  var captcharesponse;
+  if (!authenticated) {
+    firstname = values.firstname;
+    surname = values.surname;
+    email = values.email;
+    captcharesponse = values.captcharesponse;
+  }
+  sendMessage({firstname, surname, email, subject, message, captcharesponse});
 }
 
   render() {
     const {
-      isWaiting,
       authenticated,
       message
     } = this.props.user;
     
     return (
-    <Loading isLoading={isWaiting}>
+      <div>
         <h3>Association Accompagner l'Autisme</h3>
         <div className={cx('address-line')}>6, rue Jean Hupeau</div>
         <div className={cx('address-line')}>45000 Orléans</div>
         <br/>
-        <div className='container well'>
-        <h3>Laissez nous un message : </h3>
-        <ContactForm onSubmit={this.handleSubmit} message={message} authenticated={authenticated} />
+        <div className='well'>
+          <h3>Laissez nous un message : </h3>
+          <ContactForm onSubmit={this.handleSubmit} message={message} authenticated={authenticated} />
         </div>
-    </Loading>);
+      </div>
+      );
   }
 };
 
@@ -61,4 +80,6 @@ function mapStateToProps({
 // Connects React component to the redux store
 // It does not modify the component class passed to it
 // Instead, it returns a new, connected component class, for you to use.
-export default connect(mapStateToProps)(Contact);
+export default connect(mapStateToProps, {
+  sendMessage
+})(Contact);

@@ -32,24 +32,6 @@ const UserSchema = new mongoose.Schema({
   facebook: {}
 });
 
-function encryptPassword(next) {
-  const user = this;
-  if (!user.isModified('password')) return next();
-  return bcrypt.genSalt(5, (saltErr, salt) => {
-    if (saltErr) return next(saltErr);
-    return bcrypt.hash(user.password, salt, null, (hashErr, hash) => {
-      if (hashErr) return next(hashErr);
-      user.password = hash;
-      return next();
-    });
-  });
-}
-
-/**
- * Password hash middleware.
- */
-UserSchema.pre('save', encryptPassword);
-
 /*
  Defining our own custom document instance method
  */

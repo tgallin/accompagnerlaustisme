@@ -2,6 +2,10 @@
 @import '../common/typography';
 @import '../common/colors';
 
+.bottomMarginWell {
+  margin-bottom: 80px;
+}
+
 .alternative {
   padding: 12px 8px;
   font-size: var(--fontMedium);
@@ -22,6 +26,10 @@
 .heading {
   @apply --subHeading;
   padding: 16px 12px;
+  text-align: center;
+}
+
+.social-buttons {
   text-align: center;
 }
 

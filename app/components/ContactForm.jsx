@@ -19,8 +19,10 @@ const ContactForm = (props) => {
       }
 
         <Field name="subject" component={RenderField} label="Sujet"/>
-        <Field name="body" component={RenderTextarea} label="Message"/>
-        <Field name='captcharesponse' component={Captcha}/>
+        <Field name="message" component={RenderTextarea} label="Message"/>
+        
+      {!authenticated ? (<Field name='captcharesponse' component={Captcha}/>) : ''}
+        
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10">
             <button type="submit" className="btn btn-default" disabled={submitting}>Envoyer</button>
@@ -33,4 +35,5 @@ const ContactForm = (props) => {
 export default reduxForm({
   form: 'contact',  // a unique identifier for this form
   validate: contactValidation,                // <--- validation function given to redux-form
+  destroyOnUnmount: false
 })(ContactForm);

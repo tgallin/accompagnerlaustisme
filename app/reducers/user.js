@@ -22,11 +22,14 @@ const message = (
     case types.MANUAL_LOGIN_USER:
     case types.SIGNUP_USER:
     case types.LOGOUT_USER:
+    case types.SEND_MESSAGE:
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
+    case types.SEND_MESSAGE_SUCCESS:
       return '';
     case types.LOGIN_ERROR_USER:
     case types.SIGNUP_ERROR_USER:
+    case types.SEND_MESSAGE_ERROR:
       return action.message;
     default:
       return state;
@@ -41,13 +44,16 @@ const isWaiting = (
     case types.MANUAL_LOGIN_USER:
     case types.SIGNUP_USER:
     case types.LOGOUT_USER:
+    case types.SEND_MESSAGE:
       return true;
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
     case types.LOGOUT_SUCCESS_USER:
+    case types.SEND_MESSAGE_SUCCESS:
     case types.LOGIN_ERROR_USER:
     case types.SIGNUP_ERROR_USER:
     case types.LOGOUT_ERROR_USER:
+    case types.SEND_MESSAGE_ERROR:
       return false;
     default:
       return state;

@@ -22,4 +22,5 @@ const LoginForm = (props) => {
 export default reduxForm({
   form: 'login',  // a unique identifier for this form
   validate: loginValidation,                // <--- validation function given to redux-form
+  destroyOnUnmount: false
 })(LoginForm);

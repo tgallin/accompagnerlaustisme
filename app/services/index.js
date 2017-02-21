@@ -1,5 +1,6 @@
-import voteService from './topics';
-import foursquareService from './foursquare';
+import eventService from './events';
+import newsService from './news';
+import messageService from './messages';
 import localStorageService from './localStorage';
 
-export { voteService, foursquareService, localStorageService };
+export { eventService, newsService, messageService, localStorageService };

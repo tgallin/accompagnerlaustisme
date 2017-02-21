@@ -3,7 +3,7 @@
 import User from '../models/user';
 import TempUser from '../models/tempUser';
 import { accountConfirmationHtml, accountConfirmationText } from '../../../email/constants';
-import { transporter } from '../../../email/transporter';
+import { sendMail } from '../../../email/sender';
 
 var randtoken = require('rand-token');
 
@@ -177,7 +177,7 @@ export function sendVerificationEmail(host, email, url, callback) {
       callback = options.verifySendMailCallback;
     }
     
-    transporter.sendMail(mailOptions, callback);
+    sendMail(mailOptions, callback);
   };
 
   /**
@@ -194,7 +194,7 @@ export function sendConfirmationEmail(email, callback) {
       if (!callback) {
         callback = options.confirmSendMailCallback;
       }
-      transporter.sendMail(mailOptions, callback);
+      sendMail(mailOptions, callback);
     }
   };
 

@@ -1,6 +1,5 @@
 import { polyfill } from 'es6-promise';
 import request from 'axios';
-import { push } from 'react-router-redux';
 
 import * as types from '../types';
 
@@ -8,117 +7,44 @@ polyfill();
 
 const getMessage = res => res.response && res.response.data && res.response.data.message;
 
-function makeUserRequest(method, data, api = '/login') {
+function makeSendMessageRequest(method, data, api = '/message') {
   return request[method](api, data);
 }
 
-// Log In Action Creators
-export function beginLogin() {
-  return { type: types.MANUAL_LOGIN_USER };
+// Action Creators
+export function beginSend() {
+  return { type: types.SEND_MESSAGE };
 }
 
-export function loginSuccess(message) {
+export function sendSuccess(message) {
   return {
-    type: types.LOGIN_SUCCESS_USER,
+    type: types.SEND_MESSAGE_SUCCESS,
     message
   };
 }
 
-export function loginError(message) {
+export function sendError(message) {
   return {
-    type: types.LOGIN_ERROR_USER,
+    type: types.SEND_MESSAGE_ERROR,
     message
   };
 }
 
-// Sign Up Action Creators
-export function signUpError(message) {
-  return {
-    type: types.SIGNUP_ERROR_USER,
-    message
-  };
-}
-
-export function beginSignUp() {
-  return { type: types.SIGNUP_USER };
-}
-
-export function signUpSuccess(message) {
-  return {
-    type: types.SIGNUP_SUCCESS_USER,
-    message
-  };
-}
-
-// Log Out Action Creators
-export function beginLogout() {
-  return { type: types.LOGOUT_USER};
-}
-
-export function logoutSuccess(message) {
-  return { 
-    type: types.LOGOUT_SUCCESS_USER,
-    message
-  };
-}
-
-export function logoutError() {
-  return { type: types.LOGOUT_ERROR_USER };
-}
-
-export function toggleLoginMode() {
-  return { type: types.TOGGLE_LOGIN_MODE };
-}
-
-export function manualLogin(data) {
+export function sendMessage(data) {
   return dispatch => {
-    dispatch(beginLogin());
+    dispatch(beginSend());
 
-    return makeUserRequest('post', data, '/login')
+    return makeSendMessageRequest('post', data, '/message')
       .then(response => {
         if (response.status === 200) {
-          dispatch(loginSuccess(response.data.message));
-          dispatch(push('/dashboard'));
+          dispatch(sendSuccess('Merci ! Votre message a bien été envoyé.'));
         } else {
-          dispatch(loginError('Oops! Something went wrong!'));
+          dispatch(sendError('Il y a eu un problème lors de l\'envoi de votre message.'));
         }
       })
       .catch(err => {
-        dispatch(loginError(getMessage(err)));
+        dispatch(sendError(getMessage(err)));
       });
   };
 }
 
-export function signUp(data) {
-  return dispatch => {
-    dispatch(beginSignUp());
-
-    return makeUserRequest('post', data, '/signup')
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(signUpSuccess(response.data.message));
-          dispatch(push('/confirmation'));
-        } else {
-          dispatch(signUpError('Oops! Something went wrong'));
-        }
-      })
-      .catch(err => {
-        dispatch(signUpError(getMessage(err)));
-      });
-  };
-}
-
-export function logOut() {
-  return dispatch => {
-    dispatch(beginLogout());
-
-    return makeUserRequest('post', null, '/logout')
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(logoutSuccess('Vous êtes maintenant déconnecté.'));
-        } else {
-          dispatch(logoutError());
-        }
-      });
-  };
-}
