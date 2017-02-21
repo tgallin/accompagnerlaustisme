@@ -26,7 +26,7 @@ export function add(req, res) {
    // setup email data with unicode symbols
   var mailOptions = {
       from: '"'+ displayName +' (' + email +')" <'+ email + '>', // sender address
-      to: 'accompagnerlautisme@gmail.com', // list of receivers
+      to: 'accompagner.autisme@gmail.com', // list of receivers
       subject: req.body.subject, // Subject line
       text: req.body.message, // plain text body
   };
