@@ -16,7 +16,7 @@ const EnrollForm = (props) => {
         <Field name='captcharesponse' component={Captcha}/>
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10">
-            <button type="submit" className="btn btn-default" disabled={submitting}>M'inscrire</button>
+            <button type="submit" className="btn btn-info" disabled={submitting}>M'inscrire</button>
           </div>
         </div>
       </form>

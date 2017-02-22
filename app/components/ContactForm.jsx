@@ -25,7 +25,7 @@ const ContactForm = (props) => {
         
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10">
-            <button type="submit" className="btn btn-default" disabled={submitting}>Envoyer</button>
+            <button type="submit" className="btn btn-info" disabled={submitting}>Envoyer</button>
           </div>
         </div>
       </form>
