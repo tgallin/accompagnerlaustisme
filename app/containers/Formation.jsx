@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import classNames from 'classnames/bind';
-import styles from 'css/components/about';
+import styles from 'css/components/formations';
 import logo from '../images/logoAAA_180.png';
 
 const cx = classNames.bind(styles);

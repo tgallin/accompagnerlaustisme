@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import classNames from 'classnames/bind';
-import styles from 'css/components/about';
+import styles from 'css/components/formations';
 import logo from '../images/logoAAA_180.png';
 
 const cx = classNames.bind(styles);
@@ -30,11 +30,11 @@ const Formations = () => {
       
       <p className={'text-justify ' + cx('content', 'paddingBottom')}>14 & 15 janvier : <Link to="/formations/formation1">Apprendre à lire et écrire</Link></p>
       
-      <p className={'text-justify ' + cx('content', 'paddingBottom')}>25 & 26 Mars : <Link to="#">Numération de base</Link></p>
+      <p className={'text-justify ' + cx('content', 'paddingBottom')}>25 & 26 Mars : <Link to="/formations/formation2">Numération de base</Link></p>
       
-      <p className={'text-justify ' + cx('content', 'paddingBottom')}>7 avril : <Link to="#">Projection du film “Enfants autistes : Bienvenu à l'École”</Link></p>
+      <p className={'text-justify ' + cx('content', 'paddingBottom')}>7 avril : <Link to="/formations/formation3">Projection du film “Enfants autistes : bienvenue à l'école !”</Link></p>
       
-      <p className={'text-justify ' + cx('content', 'paddingBottom')}>8 & 9 avril 2017 : <Link to="#">Entraînement aux Réponses Pivots</Link> (PRT)</p>
+      <p className={'text-justify ' + cx('content', 'lastPaddingBottom')}>8 & 9 avril 2017 : <Link to="/formations/formation4">Entraînement aux Réponses Pivots</Link> (PRT)</p>
       
     </div>
   );
