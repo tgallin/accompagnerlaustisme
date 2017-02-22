@@ -1,3 +1,22 @@
+3.0.0
+===
+- PR #822 Webpack is here!!! Hooray!
+  - There have been significant changes to our webpack configuration files
+```js
+- webpack/
+   - rules/
+   plugins
+   externals
+   resolve
+```
+
+2.2.7
+===
+- PR #814
+  - Remove babel-plugin-transform-decorators-legacy
+- PR #819
+  - Fix unit tests breaking due to failed import directory
+
 2.2.6
 ===
 - PR #811
