@@ -47,16 +47,16 @@ const Formation3 = () => {
       
       <div className={cx('header')}>Programme</div>
       <div className="row">
-        <div className="col-xs-1">18h30</div>
-        <div className="col-xs-11">Ouverture des portes</div>
+        <div className="col-xs-2 col-md-1">18h30</div>
+        <div className="col-xs-10 col-md-11">Ouverture des portes</div>
       </div>
       <div className="row">
-        <div className="col-xs-1">19h15</div>
-        <div className="col-xs-11">Projection du film</div>
+        <div className="col-xs-2 col-md-1">19h15</div>
+        <div className="col-xs-10 col-md-11">Projection du film</div>
       </div>
       <div className="row">
-        <div className="col-xs-1">21h00</div>
-        <div className="col-xs-11">Débat avec la réalisatrice, des inspecteurs de l’education nationale, des enseignants, des professionnels, des parents...</div>
+        <div className="col-xs-2 col-md-1">21h00</div>
+        <div className="col-xs-10 col-md-11">Débat avec la réalisatrice, des inspecteurs de l’education nationale, des enseignants, des professionnels, des parents...</div>
       </div>
       
       <div className={cx('header')}>Modalités pédagogiques</div>
