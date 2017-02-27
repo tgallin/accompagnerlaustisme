@@ -6,7 +6,7 @@ import React from 'react';
  *  and dispatching of actions if you decide to have any sub-components.
  */
 const Confirmation = () => (
-    <div className="container">
+    <div>
         <div className="text-center"><h3>
             Plus qu'une étape<br/>
             pour confirmer votre compte</h3>

@@ -26,10 +26,16 @@ const message = (
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
     case types.SEND_MESSAGE_SUCCESS:
+    case types.INIT_RESET_PASSWORD:
+    case types.COMPLETE_RESET_PASSWORD:
+    case types.INIT_RESET_PASSWORD_SUCCESS:
+    case types.COMPLETE_RESET_PASSWORD_SUCCESS:
       return '';
     case types.LOGIN_ERROR_USER:
     case types.SIGNUP_ERROR_USER:
     case types.SEND_MESSAGE_ERROR:
+    case types.INIT_RESET_PASSWORD_ERROR:
+    case types.COMPLETE_RESET_PASSWORD_ERROR:
       return action.message;
     default:
       return state;
@@ -45,15 +51,21 @@ const isWaiting = (
     case types.SIGNUP_USER:
     case types.LOGOUT_USER:
     case types.SEND_MESSAGE:
+    case types.INIT_RESET_PASSWORD:
+    case types.COMPLETE_RESET_PASSWORD:
       return true;
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
     case types.LOGOUT_SUCCESS_USER:
     case types.SEND_MESSAGE_SUCCESS:
+    case types.INIT_RESET_PASSWORD_SUCCESS:
+    case types.COMPLETE_RESET_PASSWORD_SUCCESS:
     case types.LOGIN_ERROR_USER:
     case types.SIGNUP_ERROR_USER:
     case types.LOGOUT_ERROR_USER:
     case types.SEND_MESSAGE_ERROR:
+    case types.INIT_RESET_PASSWORD_ERROR:
+    case types.COMPLETE_RESET_PASSWORD_ERROR:
       return false;
     default:
       return state;

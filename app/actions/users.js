@@ -70,6 +70,43 @@ export function toggleLoginMode() {
   return { type: types.TOGGLE_LOGIN_MODE };
 }
 
+
+export function beginInitResetPassword() {
+  return { type: types.INIT_RESET_PASSWORD };
+}
+
+export function initResetPasswordSuccess(message) {
+  return {
+    type: types.INIT_RESET_PASSWORD_SUCCESS,
+    message
+  };
+}
+
+export function initResetPasswordError(message) {
+  return {
+    type: types.INIT_RESET_PASSWORD_ERROR,
+    message
+  };
+}
+
+export function beginCompleteResetPassword() {
+  return { type: types.COMPLETE_RESET_PASSWORD };
+}
+
+export function completeResetPasswordSuccess(message) {
+  return {
+    type: types.COMPLETE_RESET_PASSWORD_SUCCESS,
+    message
+  };
+}
+
+export function completeResetPasswordError(message) {
+  return {
+    type: types.COMPLETE_RESET_PASSWORD_ERROR,
+    message
+  };
+}
+
 export function manualLogin(data) {
   return dispatch => {
     dispatch(beginLogin());
@@ -119,6 +156,46 @@ export function logOut() {
         } else {
           dispatch(logoutError());
         }
+      });
+  };
+}
+
+
+export function initResetPassword(data) {
+  return dispatch => {
+    dispatch(beginInitResetPassword());
+
+    return makeUserRequest('post', data, '/initResetPassword')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(initResetPasswordSuccess(response.data.message));
+        } else {
+          dispatch(initResetPasswordError('Oops! Something went wrong'));
+        }
+      })
+      .catch(err => {
+        dispatch(initResetPasswordError(getMessage(err)));
+      });
+  };
+}
+
+export function completeResetPassword(token, data) {
+  return dispatch => {
+    dispatch(beginCompleteResetPassword());
+
+    console.log(token);
+
+    return makeUserRequest('post', data, '/completeResetPassword/' + token)
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(completeResetPasswordSuccess(response.data.message));
+          dispatch(push('/dashboard'));
+        } else {
+          dispatch(completeResetPasswordError('Oops! Something went wrong'));
+        }
+      })
+      .catch(err => {
+        dispatch(completeResetPasswordError(getMessage(err)));
       });
   };
 }

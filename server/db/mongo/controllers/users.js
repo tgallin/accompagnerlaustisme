@@ -3,6 +3,7 @@ import User from '../models/user';
 import request from 'axios';
 import { recaptcha } from '../../../../config/secrets';
 import { createTempUser, sendVerificationEmail, options as senderOptions, confirmTempUser } from './emailVerification';
+import { initResetPasswordTokenForUser, sendResetPasswordEmail, completeResetPasswordTokenForUser } from './resetPassword';
 
 
 export function verifyCaptchaRequest(data) {
@@ -90,7 +91,6 @@ export function signUp(req, res, next) {
         }
       })
       .catch(err => {
-        console.log(err);
         return res.status(500).json({ message: 'Problème lors de la vérification du recaptcha'});
       });
 }
@@ -102,10 +102,9 @@ export function signUp(req, res, next) {
  */
 export function confirm(req, res) {
   
-  confirmTempUser(req.params.url, function(err, user) {
+  confirmTempUser(req.params.token, function(err, user) {
       if (err)
       {
-        console.log(err);
         // return res.status(500).json({ message: 'Il y a eu un problème lors de la confirmation de votre compte.' });
         return res.redirect('/login');
       }
@@ -136,12 +135,58 @@ export function confirm(req, res) {
 }
 
 /**
+ * POST initResetPassword
+ * assigns a reset password token valid for an hour for the provided email
+ */
+export function initResetPassword(req, res) {
+  
+  var email = req.body.email;
+
+  initResetPasswordTokenForUser(email, function(err, user, info) {
+
+    if (!user)
+      return res.status(500).json({ message: info });
+
+    sendResetPasswordEmail(req.hostname, email, user.resetPasswordToken, function(err, info) {
+        if (err)
+          return res.status(500).json({ message: 'Problème lors de l\'envoi de l\'email.'});
+
+        return res.status(200).json({ message: 'Une demande de réinitialisation de votre mot de passe a été envoyée !' });
+    });
+  });
+}
+
+/**
+ * POST completeResetPassword
+ * checks that the reset password token is valid
+ * then updates the old password with the one provided
+ */
+export function completeResetPassword(req, res) {
+  
+  completeResetPasswordTokenForUser(req.params.token, req.body.password,  function(err, user, info) {
+      if (!user)
+      {
+        return res.status(500).json(info);
+      }
+
+      return req.logIn(user, (loginErr) => {
+        if (loginErr) {
+          return res.status(500).json({ message: 'Problème lors de la connexion automatique à votre compte' });
+        }
+        
+        return res.status(200).json({
+          message: 'Vous avez réinitialisé votre mot de passe avec succès'
+        });
+      });
+  });
+}
+
+/**
  * GET /user
  */
 export function find(req, res, next) {
   getUser(req.user.email, function (err, user) {
     if (err) {
-      console.log('Error trying to find user');
       return res.status(500).send('Problème lors de la récupération des caractéristiques de l\'utilisateur');
     }
     return res.status(200).json(user);
@@ -168,5 +213,7 @@ export default {
   logout,
   signUp,
   confirm,
-  find
+  find,
+  initResetPassword,
+  completeResetPassword
 };

@@ -14,6 +14,8 @@ export default function message(state = {
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
     case types.SEND_MESSAGE_SUCCESS:
+    case types.INIT_RESET_PASSWORD_SUCCESS:
+    case types.COMPLETE_RESET_PASSWORD_SUCCESS:
       return {...state, message: action.message, type: 'SUCCESS'};
     case types.LOGOUT_SUCCESS_USER:
       return {...state, message: action.message, type: 'INFO'};

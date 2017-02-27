@@ -15,7 +15,9 @@ export default (app) => {
     app.post('/login', usersController.login);
     app.post('/signup', usersController.signUp);
     app.post('/logout', usersController.logout);
-    app.get('/user/confirm/:url', usersController.confirm);
+    app.post('/initResetPassword', usersController.initResetPassword);
+    app.post('/completeResetPassword/:token', usersController.completeResetPassword);
+    app.get('/user/confirm/:token', usersController.confirm);
   }
   else {
     console.warn(unsupportedMessage('users routes'));

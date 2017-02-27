@@ -3,8 +3,9 @@
  * Code modified from https://github.com/sahat/hackathon-starter
  */
 
-import bcrypt from 'bcrypt-nodejs';
+
 import mongoose from 'mongoose';
+import { encrypt } from '../../../crypto';
 
 // Other oauthtypes to be added
 
@@ -23,13 +24,10 @@ const TempUserSchema = new mongoose.Schema({
 function encryptPassword(next) {
   const user = this;
   if (!user.isModified('password')) return next();
-  return bcrypt.genSalt(5, (saltErr, salt) => {
-    if (saltErr) return next(saltErr);
-    return bcrypt.hash(user.password, salt, null, (hashErr, hash) => {
-      if (hashErr) return next(hashErr);
-      user.password = hash;
-      return next();
-    });
+  return encrypt(user.password, function (err, hash) {
+    if (err) return next(err);
+    user.password = hash;
+    return next();
   });
 }
 

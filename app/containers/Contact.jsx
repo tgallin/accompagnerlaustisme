@@ -16,10 +16,6 @@ class Contact extends React.Component {
 
 handleSubmit = (values) => {
   
-  setTimeout(() => {  // simulate server latency
-      window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
-    }, 500);
-    
   const {
     sendMessage,
     user: {

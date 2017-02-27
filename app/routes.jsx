@@ -16,6 +16,8 @@ import {
   Dashboard,
   Liens,
   LoginOrRegister,
+  ForgotPassword,
+  ResetPassword,
   Confirmation,
   Mentions
 }
@@ -62,8 +64,10 @@ export default (store) => {
       <Route path="/liens" component={Liens} />
       <Route path="/dashboard" component={Dashboard} onEnter={requireAuth} />
       <Route path="/login" component={LoginOrRegister} onEnter={redirectAuth} />
-      <Route path="/mentionslegales" component={Mentions} />
       <Route path="/confirmation" component={Confirmation} />
+      <Route path="/forgotPassword" component={ForgotPassword} />
+      <Route path="/resetPassword/:token" component={ResetPassword} />
+      <Route path="/mentionslegales" component={Mentions} />
     </Route>
   );
   // <IndexRoute component={Vote} fetchData={fetchVoteData} />

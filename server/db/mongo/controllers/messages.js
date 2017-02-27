@@ -1,7 +1,6 @@
 import request from 'axios';
 import { recaptcha } from '../../../../config/secrets';
 import { sendMail } from '../../../email/sender';
-import { getUser } from './users';
 
 export function verifyCaptchaRequest(data) {
   return request.post('https://www.google.com/recaptcha/api/siteverify', data);
