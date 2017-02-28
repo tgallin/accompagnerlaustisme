@@ -145,7 +145,7 @@ export function initResetPassword(req, res) {
   initResetPasswordTokenForUser(email, function(err, user, info) {
 
     if (!user)
-      return res.status(500).json({ message: info });
+      return res.status(500).json(info);
 
     sendResetPasswordEmail(req.hostname, email, user.resetPasswordToken, function(err, info) {
         if (err)

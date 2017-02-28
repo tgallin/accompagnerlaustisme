@@ -30,6 +30,7 @@ const message = (
     case types.COMPLETE_RESET_PASSWORD:
     case types.INIT_RESET_PASSWORD_SUCCESS:
     case types.COMPLETE_RESET_PASSWORD_SUCCESS:
+    case types.CREATE_REQUEST:
       return '';
     case types.LOGIN_ERROR_USER:
     case types.SIGNUP_ERROR_USER:

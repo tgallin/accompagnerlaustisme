@@ -20,6 +20,7 @@ export default function message(state = {
     case types.LOGOUT_SUCCESS_USER:
       return {...state, message: action.message, type: 'INFO'};
     case types.DISMISS_MESSAGE:
+    case types.CREATE_REQUEST:
       return {...state, message: '', type: 'SUCCESS'};
     default:
       return state;
