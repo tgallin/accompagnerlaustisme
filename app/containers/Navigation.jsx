@@ -1,7 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 import { connect } from 'react-redux';
 import { logOut } from '../actions/users';
+import classNames from 'classnames/bind';
+import styles from 'css/components/navigation';
+
+const cx = classNames.bind(styles);
 
 class Navigation extends Component {
   
@@ -16,7 +20,7 @@ class Navigation extends Component {
         <li><Link onClick={logOut} to="/"><i className="fa fa-power-off" aria-hidden="true"></i></Link></li>
       </ul>);
     } else {
-      return (<ul className="nav navbar-nav navbar-right"><li><Link to="/login">Se connecter</Link></li></ul>);
+      return (<ul className="nav navbar-nav navbar-right"><li><Link to="/login" activeClassName={cx('active')}>Se connecter</Link></li></ul>);
     }
   }
 
@@ -31,16 +35,16 @@ class Navigation extends Component {
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <Link to="/" className='navbar-brand'activeClassName='active'><i className="fa fa-home fa-2" aria-hidden="true"></i></Link>
+          <IndexLink to="/" className='navbar-brand'activeClassName='active'><i className="fa fa-home fa-2" aria-hidden="true"></i></IndexLink>
         </div>
         <div id="navbar" className="navbar-collapse collapse">
           <ul className="nav navbar-nav">
-            <li><Link to="/formations" activeClassName='active'>Formations</Link></li>
-            <li><Link to="/reseau"activeClassName='active'>Réseau</Link></li>
-            <li><Link to="/ludotheque"activeClassName='active'>Ludothèque</Link></li>
-            <li><Link to="/about" activeClassName='active'>Qui sommes nous</Link></li>
-            <li><Link to="/contact" activeClassName='active'>Contact</Link></li>
-            <li><Link to="/liens" activeClassName='active'>Liens</Link></li>
+            <li><Link to="/formations" activeClassName={cx('active')}>Formations</Link></li>
+            <li><Link to="/reseau"activeClassName={cx('active')}>Réseau</Link></li>
+            <li><Link to="/ludotheque"activeClassName={cx('active')}>Ludothèque</Link></li>
+            <li><Link to="/about" activeClassName={cx('active')}>Qui sommes nous</Link></li>
+            <li><Link to="/contact" activeClassName={cx('active')}>Contact</Link></li>
+            <li><Link to="/liens" activeClassName={cx('active')}>Liens</Link></li>
           </ul>
             { this.renderRightNav() }
         </div>

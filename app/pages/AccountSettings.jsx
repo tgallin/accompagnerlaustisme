@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Page from '../pages/Page';
-import DashboardContainer from '../containers/Dashboard';
+import AccountSettingsContainer from '../containers/AccountSettings';
 
-class Dashboard extends Component {
+class AccountSettings extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class Dashboard extends Component {
   }
 
   pageTitle() {
-    return 'Mon espace personnel';
+    return 'Mes infos personnelles';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Mes jeux, mes formations, mes infos personnelles' }
+      { name: 'description', content: 'Configuration de mes infos personnelles' }
     ];
   }
 
@@ -28,11 +28,11 @@ class Dashboard extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <DashboardContainer {...this.props} />
+        <AccountSettingsContainer {...this.props} />
       </Page>
     );
   }
 }
 
-export default Dashboard;
+export default AccountSettings;
 

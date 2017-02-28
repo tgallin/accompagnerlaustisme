@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Page from '../pages/Page';
-import DashboardContainer from '../containers/Dashboard';
+import AdminNewsContainer from '../containers/AdminNews';
 
-class Dashboard extends Component {
+class AdminNews extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class Dashboard extends Component {
   }
 
   pageTitle() {
-    return 'Mon espace personnel';
+    return 'Administration des news';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Mes jeux, mes formations, mes infos personnelles' }
+      { name: 'description', content: 'Administration des news' }
     ];
   }
 
@@ -28,11 +28,11 @@ class Dashboard extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <DashboardContainer {...this.props} />
+        <AdminNewsContainer {...this.props} />
       </Page>
     );
   }
 }
 
-export default Dashboard;
+export default AdminNews;
 

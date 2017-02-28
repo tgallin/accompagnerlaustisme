@@ -14,6 +14,10 @@ import {
   About,
   Contact,
   Dashboard,
+  AccountSettings,
+  AdminNews,
+  AdminEvents,
+  AdminUsers,
   Liens,
   LoginOrRegister,
   ForgotPassword,
@@ -62,7 +66,12 @@ export default (store) => {
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
       <Route path="/liens" component={Liens} />
-      <Route path="/dashboard" component={Dashboard} onEnter={requireAuth} />
+      <Route path="/dashboard" component={Dashboard} onEnter={requireAuth}>
+        <IndexRoute component={AccountSettings} />
+        <Route path="/dashboard/news" component={AdminNews} />
+        <Route path="/dashboard/events" component={AdminEvents} />
+        <Route path="/dashboard/users" component={AdminUsers} />
+      </Route>
       <Route path="/login" component={LoginOrRegister} onEnter={redirectAuth} />
       <Route path="/confirmation" component={Confirmation} />
       <Route path="/forgotPassword" component={ForgotPassword} />

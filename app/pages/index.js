@@ -15,4 +15,8 @@ export { default as ForgotPassword} from 'pages/ForgotPassword';
 export { default as ResetPassword} from 'pages/ResetPassword';
 export { default as Confirmation} from 'pages/Confirmation';
 export { default as Dashboard} from 'pages/Dashboard';
+export { default as AccountSettings} from 'pages/AccountSettings';
+export { default as AdminNews} from 'pages/AdminNews';
+export { default as AdminEvents} from 'pages/AdminEvents';
+export { default as AdminUsers} from 'pages/AdminUsers';
 export { default as Mentions} from 'pages/Mentions';

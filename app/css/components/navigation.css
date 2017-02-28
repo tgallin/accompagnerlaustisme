@@ -1,0 +1,8 @@
+@import '../common/colors';
+
+a.active,
+a.active:focus,
+a.active:hover {
+    color: var(--navbarActiveColor) !important;
+    background-color:var(--navbarActiveBackground) !important;
+}
