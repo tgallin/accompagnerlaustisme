@@ -92,10 +92,58 @@ const authenticated = (
   }
 };
 
+const email = (
+  state = '',
+  action
+) => {
+  switch (action.type) {
+    case types.REQUEST_SUCCESS:
+      if (action.data && action.data.user) return action.data.user.email;
+      return state;
+    case types.LOGOUT_SUCCESS_USER:
+      return '';
+    default:
+      return state;
+  }
+};
+
+const profile = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case types.REQUEST_SUCCESS:
+      if (action.data && action.data.user) return action.data.user.profile;
+      return state;
+    case types.LOGOUT_SUCCESS_USER:
+      return {};
+    default:
+      return state;
+  }
+};
+
+const isAdmin = (
+  state = false,
+  action
+) => {
+  switch (action.type) {
+    case types.REQUEST_SUCCESS:
+      if (action.data && action.data.user) return action.data.user.admin;
+      return state;
+    case types.LOGOUT_SUCCESS_USER:
+      return false;
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   isLogin,
   isWaiting,
   authenticated,
+  email,
+  isAdmin,
+  profile,
   message
 });
 

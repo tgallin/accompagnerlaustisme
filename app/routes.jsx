@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
-//import { fetchVoteData } from './fetch-data';
+import { Route, IndexRoute, IndexRedirect } from 'react-router';
+import { fetchUserData } from './fetch-data';
 import {
   App,
   Home,
@@ -15,6 +15,9 @@ import {
   Contact,
   Dashboard,
   AccountSettings,
+  PersonalData,
+  ContactDetails,
+  LoginDetails,
   AdminNews,
   AdminEvents,
   AdminUsers,
@@ -66,8 +69,14 @@ export default (store) => {
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
       <Route path="/liens" component={Liens} />
-      <Route path="/dashboard" component={Dashboard} onEnter={requireAuth}>
-        <IndexRoute component={AccountSettings} />
+      <Route path="/dashboard" component={Dashboard} onEnter={requireAuth} >
+        <IndexRedirect to="/dashboard/accountSettings" />
+        <Route path="/dashboard/accountSettings" component={AccountSettings}>
+          <IndexRedirect to="/dashboard/accountSettings/personalData" />
+          <Route path="/dashboard/accountSettings/personalData" component={PersonalData} fetchData={fetchUserData} />
+          <Route path="/dashboard/accountSettings/contactDetails" component={ContactDetails} />
+          <Route path="/dashboard/accountSettings/loginDetails" component={LoginDetails} />
+        </Route>
         <Route path="/dashboard/news" component={AdminNews} />
         <Route path="/dashboard/events" component={AdminEvents} />
         <Route path="/dashboard/users" component={AdminUsers} />
@@ -79,6 +88,4 @@ export default (store) => {
       <Route path="/mentionslegales" component={Mentions} />
     </Route>
   );
-  // <IndexRoute component={Vote} fetchData={fetchVoteData} />
-  // 
 };

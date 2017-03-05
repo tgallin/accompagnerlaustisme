@@ -185,13 +185,24 @@ export function completeResetPassword(req, res) {
  * GET /user
  */
 export function find(req, res, next) {
-  getUser(req.user.email, function (err, user) {
-    if (err) {
-      return res.status(500).send('Problème lors de la récupération des caractéristiques de l\'utilisateur');
-    }
-    return res.status(200).json(user);
-  });
-
+  if (req.user) {
+    getUser(req.user.email, function (err, user) {
+      if (err) {
+        return res.status(500).send('Problème lors de la récupération des caractéristiques de l\'utilisateur');
+      }
+      var data = {
+        user: {
+          email: user.email,
+          admin: user.admin,
+          profile: user.profile
+        }
+      };
+      
+      return res.status(200).json(data);
+    });
+  } else {
+    res.status(200).json({});
+  }
 }
 
 export function getUser(email, callback) {

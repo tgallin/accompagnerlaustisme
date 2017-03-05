@@ -18,6 +18,7 @@ export default (app) => {
     app.post('/initResetPassword', usersController.initResetPassword);
     app.post('/completeResetPassword/:token', usersController.completeResetPassword);
     app.get('/user/confirm/:token', usersController.confirm);
+    app.get('/user', usersController.find);
   }
   else {
     console.warn(unsupportedMessage('users routes'));

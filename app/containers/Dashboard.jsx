@@ -17,7 +17,7 @@ const Dashboard = ({children}) => {
         <div className={'col-sm-3 col-md-2 '}>
           <DashboardNavigation/>
         </div>
-        <div className={'col-sm-9 col-md-10 ' + cx('main')}>
+        <div className={'col-sm-9 col-md-10 '}>
           {children}
         </div>
       </div>
