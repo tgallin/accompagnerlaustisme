@@ -35,10 +35,14 @@ class PersonalData extends Component {
       initialPersonalData.dateOfBirthMonth = profile.dateOfBirth.getUTCMonth() + 1;
       initialPersonalData.dateOfBirthYear = profile.dateOfBirth.getUTCFullYear();
     }
-
-  return (
+    
+    if (initialPersonalData.firstname) {
+      return (
       <PersonalDataForm onSubmit={this.handleSubmit} message={message} initialValues={initialPersonalData} />
-  );
+      );
+    } else {
+      return (<span/>);
+    }
   }
 }
   
