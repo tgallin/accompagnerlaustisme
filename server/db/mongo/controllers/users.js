@@ -122,7 +122,7 @@ export function confirm(req, res) {
             /*return res.status(200).json({
               message: 'Vous avez confirmé la création de votre compte avec succès'
             });*/
-            return res.redirect('/dashboard');
+            return res.redirect('/');
           });
       }
       // user's data probably expired... 
