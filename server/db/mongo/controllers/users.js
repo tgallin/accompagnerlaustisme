@@ -4,7 +4,7 @@ import request from 'axios';
 import { recaptcha } from '../../../../config/secrets';
 import { createTempUser, sendVerificationEmail, options as senderOptions, confirmTempUser } from './emailVerification';
 import { initResetPasswordTokenForUser, sendResetPasswordEmail, completeResetPasswordTokenForUser } from './resetPassword';
-
+import { encrypt } from '../../../crypto';
 
 export function verifyCaptchaRequest(data) {
   return request.post('https://www.google.com/recaptcha/api/siteverify', data);
@@ -182,13 +182,148 @@ export function completeResetPassword(req, res) {
 }
 
 /**
+ * POST /updatePersonalData Updates the currently logged in users's personal data
+ */
+export function updatePersonalData(req, res) {
+  if (req.user) {
+    
+    const query = {
+      email: req.user.email
+    };
+
+    User.findOne(query, (err, user) => {
+      if (err) {
+        return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+      }
+      
+      user.profile.firstname = req.body.firstname;
+      user.profile.surname = req.body.surname;
+      user.profile.dateOfBirth = req.body.dateOfBirth;
+      
+      user.save(function(err) {
+        if (err) {
+          return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+        }
+        return res.status(200).json({ profile: user.profile, message: 'Infos personnelles mises à jour avec succès' });
+      });
+
+      
+    });
+  
+  }
+}
+
+/**
+ * POST /updateContactDetails Updates the currently logged in users's contact details
+ */
+export function updateContactDetails(req, res) {
+  if (req.user) {
+    
+    const query = {
+      email: req.user.email
+    };
+
+    User.findOne(query, (err, user) => {
+      if (err) {
+        return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+      }
+      
+      user.profile.address = {
+          complement1: req.body.complement1,
+          complement2: req.body.complement2,
+          complement3: req.body.complement3,
+          street: req.body.street,
+          postalCode: req.body.postalCode,
+          city: req.body.city
+        };
+      user.profile.mobile = req.body.mobile;
+      user.profile.landline = req.body.landline;
+      
+      user.save(function(err) {
+        if (err) {
+          return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+        }
+        return res.status(200).json({ profile: user.profile, message: 'Coordonnées mises à jour avec succès' });
+      });
+    });
+  
+  }
+}
+
+/**
+ * POST /updateEmail Updates the currently logged in users's email
+ */
+export function updateEmail(req, res) {
+  if (req.user) {
+    
+    const query = {
+      email: req.user.email
+    };
+    const data = {
+      email: req.body.email
+    };
+    
+    User.findOne(data, (err, user) => {
+      if (err) {
+        return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+      }
+      if (user) {
+        return res.status(500).json({ message: 'Un compte avec cette adresse email existe déjà !' });
+      } else {
+        
+        User.findOneAndUpdate(query, data, (err, user) => {
+          if (err) {
+            return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+          }
+          return res.status(200).json({ email: data.email, message: 'Adresse email mise à jour avec succès' });
+        });
+        
+      }
+    });
+  }
+}
+
+/**
+ * POST /updateEmail Updates the currently logged in users's email
+ */
+export function updatePassword(req, res) {
+  if (req.user) {
+    
+    const query = {
+      email: req.user.email
+    };
+    
+    User.findOne(query, (err, user) => {
+      if (err) {
+        return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+      }
+
+      encrypt(req.body.password, function (err, hash) {
+        if (err) {
+          return res.status(500).json({ message: 'Problème lors de l\'encryption du mot de passe.' });
+        }
+        
+        user.password = hash;
+    
+        user.save(function(err) {
+          if (err) {
+            return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+          }
+          return res.status(200).json({ message: 'Mot de passe mis à jour avec succès' });
+        });
+      });
+    });
+  }
+}
+
+/**
  * GET /user
  */
-export function find(req, res, next) {
+export function getCurrent(req, res) {
   if (req.user) {
-    getUser(req.user.email, function (err, user) {
+    findByEmail(req.user.email, function (err, user) {
       if (err) {
-        return res.status(500).send('Problème lors de la récupération des caractéristiques de l\'utilisateur');
+        return res.status(500).json({ message: 'Problème lors de la récupération des caractéristiques de l\'utilisateur' });
       }
       var data = {
         user: {
@@ -205,9 +340,9 @@ export function find(req, res, next) {
   }
 }
 
-export function getUser(email, callback) {
+export function findByEmail(email, callback) {
   const query = {
-    'email': email
+    email: email
   };
 
   User.findOne(query, function(err, existingUser) {
@@ -219,12 +354,28 @@ export function getUser(email, callback) {
   });
 }
 
+/**
+ * GET /users
+ */
+export function all(req, res) {
+    User.find({}, function (err, users) {
+      if (err) {
+        return res.status(500).json({ message: 'Problème lors de la récupération des utilisateurs' });
+      }
+      return res.status(200).json(users);
+    });
+}
+
 export default {
   login,
   logout,
   signUp,
   confirm,
-  find,
+  getCurrent,
   initResetPassword,
-  completeResetPassword
+  completeResetPassword,
+  updatePersonalData,
+  updateContactDetails,
+  updateEmail,
+  updatePassword
 };

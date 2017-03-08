@@ -20,12 +20,20 @@ const message = (
   switch (action.type) {
     case types.TOGGLE_LOGIN_MODE:
     case types.MANUAL_LOGIN_USER:
+    case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_USER:
+    case types.SIGNUP_SUCCESS_USER:  
     case types.LOGOUT_USER:
     case types.SEND_MESSAGE:
-    case types.LOGIN_SUCCESS_USER:
-    case types.SIGNUP_SUCCESS_USER:
     case types.SEND_MESSAGE_SUCCESS:
+    case types.UPDATE_PERSONAL_DATA:
+    case types.UPDATE_PERSONAL_DATA_SUCCESS:  
+    case types.UPDATE_CONTACT_DETAILS:
+    case types.UPDATE_CONTACT_DETAILS_SUCCESS:
+    case types.UPDATE_EMAIL:
+    case types.UPDATE_EMAIL_SUCCESS:
+    case types.UPDATE_PASSWORD:
+    case types.UPDATE_PASSWORD_SUCCESS:
     case types.INIT_RESET_PASSWORD:
     case types.COMPLETE_RESET_PASSWORD:
     case types.INIT_RESET_PASSWORD_SUCCESS:
@@ -37,6 +45,10 @@ const message = (
     case types.SEND_MESSAGE_ERROR:
     case types.INIT_RESET_PASSWORD_ERROR:
     case types.COMPLETE_RESET_PASSWORD_ERROR:
+    case types.UPDATE_PERSONAL_DATA_ERROR:
+    case types.UPDATE_CONTACT_DETAILS_ERROR:
+    case types.UPDATE_EMAIL_ERROR:
+    case types.UPDATE_PASSWORD_ERROR:
       return action.message;
     default:
       return state;
@@ -54,6 +66,10 @@ const isWaiting = (
     case types.SEND_MESSAGE:
     case types.INIT_RESET_PASSWORD:
     case types.COMPLETE_RESET_PASSWORD:
+    case types.UPDATE_PERSONAL_DATA:
+    case types.UPDATE_CONTACT_DETAILS:
+    case types.UPDATE_EMAIL:
+    case types.UPDATE_PASSWORD:
       return true;
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
@@ -61,12 +77,20 @@ const isWaiting = (
     case types.SEND_MESSAGE_SUCCESS:
     case types.INIT_RESET_PASSWORD_SUCCESS:
     case types.COMPLETE_RESET_PASSWORD_SUCCESS:
+    case types.UPDATE_PERSONAL_DATA_SUCCESS:  
+    case types.UPDATE_CONTACT_DETAILS_SUCCESS:
+    case types.UPDATE_EMAIL_SUCCESS:
+    case types.UPDATE_PASSWORD_SUCCESS:
     case types.LOGIN_ERROR_USER:
     case types.SIGNUP_ERROR_USER:
     case types.LOGOUT_ERROR_USER:
     case types.SEND_MESSAGE_ERROR:
     case types.INIT_RESET_PASSWORD_ERROR:
     case types.COMPLETE_RESET_PASSWORD_ERROR:
+    case types.UPDATE_PERSONAL_DATA_ERROR:
+    case types.UPDATE_CONTACT_DETAILS_ERROR:
+    case types.UPDATE_EMAIL_ERROR:
+    case types.UPDATE_PASSWORD_ERROR:
       return false;
     default:
       return state;
@@ -100,6 +124,8 @@ const email = (
     case types.REQUEST_SUCCESS:
       if (action.data && action.data.user) return action.data.user.email;
       return state;
+    case types.UPDATE_EMAIL_SUCCESS:
+      return action.email;
     case types.LOGOUT_SUCCESS_USER:
       return '';
     default:
@@ -115,6 +141,9 @@ const profile = (
     case types.REQUEST_SUCCESS:
       if (action.data && action.data.user) return action.data.user.profile;
       return state;
+    case types.UPDATE_PERSONAL_DATA_SUCCESS:  
+    case types.UPDATE_CONTACT_DETAILS_SUCCESS:
+      return action.profile;
     case types.LOGOUT_SUCCESS_USER:
       return {};
     default:

@@ -3,7 +3,6 @@ import User from '../models/user';
 /* eslint-disable no-param-reassign */
 export default (req, accessToken, refreshToken, profile, done) => {
   if (req.user) {
-    console.log('already someone in the session');
     return User.findOne({ google: profile.id }, (findOneErr, existingUser) => {
       if (existingUser) {
         return done(null, false, { message: 'Il y a déjà un compte Google qui vous appartient.' });

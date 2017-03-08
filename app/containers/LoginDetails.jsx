@@ -2,30 +2,35 @@ import React, { Component, PropTypes } from 'react';
 import ResetPasswordForm from '../components/ResetPasswordForm';
 import ChangeEmailForm from '../components/ChangeEmailForm';
 import { connect } from 'react-redux';
-import {
-
-}
-from '../actions/users';
+import { updateEmail, updatePassword } from '../actions/users';
 
 class LoginDetails extends Component {
   
-    handleUpdateEmail = (values) => {
+  handleUpdateEmail = (values) => {
+      
+    const {
+      updateEmail
+    } = this.props;
 
     const email = values.email;
 
-/*      updateAccountSettings({
-        email
-      });*/
+    updateEmail({
+      email
+    });
    
   }
   
   handleUpdatePassword = (values) => {
 
+    const {
+      updatePassword
+    } = this.props;
+
     const password = values.password;
 
-/*      updateAccountSettings({
-        password
-      });*/
+    updatePassword({
+      password
+    });
    
   }
 
@@ -41,8 +46,9 @@ class LoginDetails extends Component {
 
   return (
     <div>
-        <ChangeEmailForm onSubmit={this.handleUpdateEmail} message={message} initialValues={initialEmail} />
-        <ResetPasswordForm onSubmit={this.handleUpdatePassword} message={message} />
+        {message && <div className="alert alert-danger" role="alert">{message}</div>}
+        <ChangeEmailForm onSubmit={this.handleUpdateEmail} initialValues={initialEmail} />
+        <ResetPasswordForm onSubmit={this.handleUpdatePassword} />
     </div>
   );
   }
@@ -65,4 +71,4 @@ function mapStateToProps({
 // Connects React component to the redux store
 // It does not modify the component class passed to it
 // Instead, it returns a new, connected component class, for you to use.
-export default connect(mapStateToProps, {})(LoginDetails);
+export default connect(mapStateToProps, {updateEmail, updatePassword})(LoginDetails);

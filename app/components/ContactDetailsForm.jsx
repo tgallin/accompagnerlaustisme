@@ -1,14 +1,18 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import RenderField from '../components/RenderField.jsx';
-import individualAddressValidation from '../js/individualAddressValidation';
+import contactDetailsValidation from '../js/contactDetailsValidation';
 
 
-const IndividualAddressForm = (props) => {
+const ContactDetailsForm = (props) => {
   const { message, handleSubmit, submitting } = props;
   return (
       <form className="form-horizontal" onSubmit={handleSubmit}>
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
+        <h3>Téléphones</h3>
+        <Field name="mobile" type="text" size="4-8" component={RenderField} label="Portable" placeholder="0601234567"/>
+        <Field name="landline" type="text" size="4-8" component={RenderField} label="Fixe" placeholder="0201020304"/>
+        <h3>Adresse postale</h3>
         <Field name="street" type="text" size="4-8" component={RenderField} label="Numéro et libellé de la voie" placeholder="3, rue Jeanne d'Arc"/>
         <Field name="postalCode" type="text" size="4-8" component={RenderField} label="Code postal" placeholder="45000"/>
         <Field name="city" type="text" size="4-8" component={RenderField} label="Ville" placeholder="Orléans"/>
@@ -25,6 +29,6 @@ const IndividualAddressForm = (props) => {
 };
 
 export default reduxForm({
-  form: 'individualAddress',  // a unique identifier for this form
-  validate: individualAddressValidation                // <--- validation function given to redux-form
-})(IndividualAddressForm);
+  form: 'contactDetails',  // a unique identifier for this form
+  validate: contactDetailsValidation                // <--- validation function given to redux-form
+})(ContactDetailsForm);

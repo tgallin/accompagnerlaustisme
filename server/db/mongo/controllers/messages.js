@@ -38,7 +38,6 @@ export function add(req, res) {
   };
   
   if (req.user) {
-    console.log(mailOptions);
     sendMail(mailOptions, callback);
   } else {
     var captchaData = {

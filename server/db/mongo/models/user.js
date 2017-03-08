@@ -14,7 +14,6 @@ import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
-  tempNewEmail: { type: String, unique: true, lowercase: true },
   password: String,
   tokens: Array,
   profile: {
@@ -25,7 +24,9 @@ const UserSchema = new mongoose.Schema({
     gender: { type: String, default: '' },
     website: { type: String, default: '' },
     picture: { type: String, default: '' },
-    address: {}
+    address: {},
+    mobile: String,
+    landline: String 
   },
   admin: { type: Boolean, default: false },
   member: { type: Boolean, default: false },

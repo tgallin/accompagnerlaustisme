@@ -6,12 +6,13 @@ class Loading extends Component {
   
   render() {
     const {
+      isFetching,
       user : {
         isWaiting
       }
     } = this.props;
     
-    if (isWaiting) {
+    if (isFetching || isWaiting) {
       return (
           <LoadingAnim />
       );
@@ -26,7 +27,8 @@ Loading.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    isFectching: state.isFetching
   };
 }
 

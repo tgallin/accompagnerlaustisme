@@ -17,8 +17,12 @@ export default (app) => {
     app.post('/logout', usersController.logout);
     app.post('/initResetPassword', usersController.initResetPassword);
     app.post('/completeResetPassword/:token', usersController.completeResetPassword);
+    app.post('/updatePersonalData', usersController.updatePersonalData);
+    app.post('/updateContactDetails', usersController.updateContactDetails);
+    app.post('/updateEmail', usersController.updateEmail);
+    app.post('/updatePassword', usersController.updatePassword);
     app.get('/user/confirm/:token', usersController.confirm);
-    app.get('/user', usersController.find);
+    app.get('/user', usersController.getCurrent);
   }
   else {
     console.warn(unsupportedMessage('users routes'));

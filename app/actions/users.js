@@ -107,6 +107,73 @@ export function completeResetPasswordError(message) {
   };
 }
 
+export function beginUpdatePersonalData() {
+  return { type: types.UPDATE_PERSONAL_DATA};
+}
+
+export function updatePersonalDataSuccess(data) {
+  return { 
+    type: types.UPDATE_PERSONAL_DATA_SUCCESS,
+    message: data.message,
+    profile: data.profile
+  };
+}
+
+export function updatePersonalDataError(message) {
+  return { type: types.UPDATE_PERSONAL_DATA_ERROR,
+    message };
+}
+
+export function beginUpdateContactDetails() {
+  return { type: types.UPDATE_CONTACT_DETAILS};
+}
+
+export function updateContactDetailsSuccess(data) {
+  return { 
+    type: types.UPDATE_CONTACT_DETAILS_SUCCESS,
+    message: data.message,
+    profile: data.profile
+  };
+}
+
+export function updateContactDetailsError(message) {
+  return { type: types.UPDATE_CONTACT_DETAILS_ERROR,
+    message };
+}
+
+export function beginUpdateEmail() {
+  return { type: types.UPDATE_EMAIL};
+}
+
+export function updateEmailSuccess(data) {
+  return { 
+    type: types.UPDATE_EMAIL_SUCCESS,
+    message: data.message,
+    email: data.email
+  };
+}
+
+export function updateEmailError(message) {
+  return { type: types.UPDATE_EMAIL_ERROR,
+    message };
+}
+
+export function beginUpdatePassword() {
+  return { type: types.UPDATE_PASSWORD};
+}
+
+export function updatePasswordSuccess(message) {
+  return { 
+    type: types.UPDATE_PASSWORD_SUCCESS,
+    message
+  };
+}
+
+export function updatePasswordError(message) {
+  return { type: types.UPDATE_PASSWORD_ERROR,
+    message };
+}
+
 export function manualLogin(data) {
   return dispatch => {
     dispatch(beginLogin());
@@ -183,8 +250,6 @@ export function completeResetPassword(token, data) {
   return dispatch => {
     dispatch(beginCompleteResetPassword());
 
-    console.log(token);
-
     return makeUserRequest('post', data, '/completeResetPassword/' + token)
       .then(response => {
         if (response.status === 200) {
@@ -196,6 +261,78 @@ export function completeResetPassword(token, data) {
       })
       .catch(err => {
         dispatch(completeResetPasswordError(getMessage(err)));
+      });
+  };
+}
+
+export function updatePersonalData(data) {
+  return dispatch => {
+    dispatch(beginUpdatePersonalData());
+
+    return makeUserRequest('post', data, '/updatePersonalData')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(updatePersonalDataSuccess(response.data));
+        } else {
+          dispatch(updatePersonalDataError('Oops! Something went wrong'));
+        }
+      })
+      .catch(err => {
+        dispatch(updatePersonalDataError(getMessage(err)));
+      });
+  };
+}
+
+export function updateContactDetails(data) {
+  return dispatch => {
+    dispatch(beginUpdateContactDetails());
+
+    return makeUserRequest('post', data, '/updateContactDetails')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(updateContactDetailsSuccess(response.data));
+        } else {
+          dispatch(updateContactDetailsError('Oops! Something went wrong'));
+        }
+      })
+      .catch(err => {
+        dispatch(updateContactDetailsError(getMessage(err)));
+      });
+  };
+}
+
+export function updateEmail(data) {
+  return dispatch => {
+    dispatch(beginUpdateEmail());
+
+    return makeUserRequest('post', data, '/updateEmail')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(updateEmailSuccess(response.data));
+        } else {
+          dispatch(updateEmailError('Oops! Something went wrong'));
+        }
+      })
+      .catch(err => {
+        dispatch(updateEmailError(getMessage(err)));
+      });
+  };
+}
+
+export function updatePassword(data) {
+  return dispatch => {
+    dispatch(beginUpdatePassword());
+
+    return makeUserRequest('post', data, '/updatePassword')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(updatePasswordSuccess(response.data.message));
+        } else {
+          dispatch(updatePasswordError('Oops! Something went wrong'));
+        }
+      })
+      .catch(err => {
+        dispatch(updatePasswordError(getMessage(err)));
       });
   };
 }

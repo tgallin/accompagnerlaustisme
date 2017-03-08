@@ -1,22 +1,32 @@
 import React, { Component, PropTypes } from 'react';
 import PersonalDataForm from '../components/PersonalDataForm';
 import { connect } from 'react-redux';
-import {
-
-}
-from '../actions/users';
+import { updatePersonalData } from '../actions/users';
 
 class PersonalData extends Component {
 
   handleSubmit = (values) => {
+    
+    const {
+      updatePersonalData
+    } = this.props;
+    
     const firstname = values.firstname;
     const surname = values.surname;
+    const dateOfBirthDay = values.dateOfBirthDay;
+    const dateOfBirthMonth = values.dateOfBirthMonth;
+    const dateOfBirthYear = values.dateOfBirthYear;
+    
+    var dateOfBirth;
+    if (dateOfBirthDay && dateOfBirthMonth && dateOfBirthYear) {
+      dateOfBirth = new Date(Date.UTC(dateOfBirthYear, dateOfBirthMonth - 1, dateOfBirthDay, 0 , 0, 0));
+    }
 
-
-/*      updateAccountSettings({
-        firstname,
-        surname
-      });*/
+    updatePersonalData({
+      firstname,
+      surname,
+      dateOfBirth
+    });
    
   }
 
@@ -31,9 +41,10 @@ class PersonalData extends Component {
       surname: profile.surname,
     };
     if (profile.dateOfBirth) {
-      initialPersonalData.dateOfBirthDay = profile.dateOfBirth.getUTCDate();
-      initialPersonalData.dateOfBirthMonth = profile.dateOfBirth.getUTCMonth() + 1;
-      initialPersonalData.dateOfBirthYear = profile.dateOfBirth.getUTCFullYear();
+      var dateOfBirth = new Date(profile.dateOfBirth);
+      initialPersonalData.dateOfBirthDay = dateOfBirth.getUTCDate();
+      initialPersonalData.dateOfBirthMonth = dateOfBirth.getUTCMonth() + 1;
+      initialPersonalData.dateOfBirthYear = dateOfBirth.getUTCFullYear();
     }
     
     if (initialPersonalData.firstname) {
@@ -63,4 +74,4 @@ function mapStateToProps({
 // Connects React component to the redux store
 // It does not modify the component class passed to it
 // Instead, it returns a new, connected component class, for you to use.
-export default connect(mapStateToProps, {})(PersonalData);
+export default connect(mapStateToProps, {updatePersonalData})(PersonalData);
