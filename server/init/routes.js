@@ -22,7 +22,7 @@ export default (app) => {
     app.post('/updateEmail', usersController.updateEmail);
     app.post('/updatePassword', usersController.updatePassword);
     app.get('/user/confirm/:token', usersController.confirm);
-    app.get('/user', usersController.getCurrent);
+    app.get('/user', usersController.loadUser);
   }
   else {
     console.warn(unsupportedMessage('users routes'));

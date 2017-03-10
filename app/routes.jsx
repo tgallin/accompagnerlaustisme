@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
-import { fetchUserData } from './fetch-data';
+import { beginLoadUser, loadUserSuccess, loadUserError } from 'actions/users';
+import { userService } from 'services';
 import {
   App,
   Home,
@@ -37,21 +38,39 @@ from './pages';
  */
 export default (store) => {
   const requireAuth = (nextState, replace, callback) => {
-    const { user: { authenticated }} = store.getState();
+    const { user: { authenticated, loaded }} = store.getState();
     if (!authenticated) {
       replace({
         pathname: '/login',
         state: { nextPathname: nextState.location.pathname }
       });
+      callback();
+    } else if (!loaded) {
+      store.dispatch(beginLoadUser());
+  
+      userService.getUser()
+        .then(response => {
+          if (response.status === 200) {
+            store.dispatch(loadUserSuccess(response.data));
+          } else {
+            store.dispatch(loadUserError('Oops! Something went wrong!'));
+          }
+          callback();
+        })
+        .catch(err => {
+          store.dispatch(loadUserError(err.response && err.response.data && err.response.data.message));
+          callback();
+        });
+    } else {
+      callback();
     }
-    callback();
   };
 
   const redirectAuth = (nextState, replace, callback) => {
     const { user: { authenticated }} = store.getState();
     if (authenticated) {
       replace({
-        pathname: '/'
+        pathname: '/dashboard'
       });
     }
     callback();
@@ -73,7 +92,7 @@ export default (store) => {
         <IndexRedirect to="/dashboard/accountSettings" />
         <Route path="/dashboard/accountSettings" component={AccountSettings}>
           <IndexRedirect to="/dashboard/accountSettings/personalData" />
-          <Route path="/dashboard/accountSettings/personalData" component={PersonalData} fetchData={fetchUserData} />
+          <Route path="/dashboard/accountSettings/personalData" component={PersonalData} />
           <Route path="/dashboard/accountSettings/contactDetails" component={ContactDetails} />
           <Route path="/dashboard/accountSettings/loginDetails" component={LoginDetails} />
         </Route>

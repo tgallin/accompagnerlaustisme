@@ -12,15 +12,35 @@ function makeUserRequest(method, data, api = '/login') {
   return request[method](api, data);
 }
 
+// Load user profile Action Creators
+export function beginLoadUser() {
+  return { type: types.LOAD_USER };
+}
+
+export function loadUserSuccess(data) {
+  return {
+    type: types.LOAD_USER_SUCCESS,
+    user: data.user
+  };
+}
+
+export function loadUserError(message) {
+  return {
+    type: types.LOGIN_ERROR_USER,
+    message
+  };
+}
+
 // Log In Action Creators
 export function beginLogin() {
   return { type: types.MANUAL_LOGIN_USER };
 }
 
-export function loginSuccess(message) {
+export function loginSuccess(data) {
   return {
     type: types.LOGIN_SUCCESS_USER,
-    message
+    message: data.message,
+    user: data.user
   };
 }
 
@@ -181,7 +201,7 @@ export function manualLogin(data) {
     return makeUserRequest('post', data, '/login')
       .then(response => {
         if (response.status === 200) {
-          dispatch(loginSuccess(response.data.message));
+          dispatch(loginSuccess(response.data));
           dispatch(push('/dashboard'));
         } else {
           dispatch(loginError('Oops! Something went wrong!'));

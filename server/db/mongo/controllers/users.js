@@ -25,8 +25,17 @@ export function login(req, res, next) {
     // logIn()) that can be used to establish a login session
     return req.logIn(user, (loginErr) => {
       if (loginErr) return res.status(401).json({ message: loginErr });
+      
+      var data = {
+        email: user.email,
+        admin: user.admin,
+        member: user.member,
+        profile: user.profile
+      };
+  
       return res.status(200).json({
-        message: 'Vous vous êtes connecté avec succès.'
+        message: 'Vous vous êtes connecté avec succès.',
+        user: data
       });
     });
   })(req, res, next);
@@ -122,7 +131,7 @@ export function confirm(req, res) {
             /*return res.status(200).json({
               message: 'Vous avez confirmé la création de votre compte avec succès'
             });*/
-            return res.redirect('/');
+            return res.redirect('/dashboard');
           });
       }
       // user's data probably expired... 
@@ -319,39 +328,22 @@ export function updatePassword(req, res) {
 /**
  * GET /user
  */
-export function getCurrent(req, res) {
+export function loadUser(req, res) {
   if (req.user) {
-    findByEmail(req.user.email, function (err, user) {
-      if (err) {
-        return res.status(500).json({ message: 'Problème lors de la récupération des caractéristiques de l\'utilisateur' });
-      }
-      var data = {
-        user: {
-          email: user.email,
-          admin: user.admin,
-          profile: user.profile
-        }
-      };
-      
-      return res.status(200).json(data);
-    });
+    return res.status(200).json(buildUserData(req.user));
   } else {
-    res.status(200).json({});
+    res.status(401).json(null);
   }
 }
 
-export function findByEmail(email, callback) {
-  const query = {
-    email: email
-  };
-
-  User.findOne(query, function(err, existingUser) {
-    if (err) {
-      return callback(err, null);
-    }
-
-    return callback(null, existingUser);
-  });
+function buildUserData(user) {
+  return {
+      user: {
+        email: user.email,
+        admin: user.admin,
+        profile: user.profile
+      }
+    };
 }
 
 /**
@@ -371,7 +363,7 @@ export default {
   logout,
   signUp,
   confirm,
-  getCurrent,
+  loadUser,
   initResetPassword,
   completeResetPassword,
   updatePersonalData,

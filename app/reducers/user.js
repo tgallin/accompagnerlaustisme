@@ -116,13 +116,32 @@ const authenticated = (
   }
 };
 
+const loaded = (
+  state = false,
+  action
+) => {
+  switch (action.type) {
+    case types.LOAD_USER_SUCCESS:
+    case types.LOGIN_SUCCESS_USER:
+    case types.LOGOUT_ERROR_USER:
+      return true;
+    case types.LOAD_USER_ERROR:
+    case types.LOGIN_ERROR_USER:
+    case types.LOGOUT_SUCCESS_USER:
+      return false;
+    default:
+      return state;
+  }
+};
+
 const email = (
   state = '',
   action
 ) => {
   switch (action.type) {
-    case types.REQUEST_SUCCESS:
-      if (action.data && action.data.user) return action.data.user.email;
+    case types.LOAD_USER_SUCCESS:
+    case types.LOGIN_SUCCESS_USER:  
+      if (action.user) return action.user.email;
       return state;
     case types.UPDATE_EMAIL_SUCCESS:
       return action.email;
@@ -138,8 +157,9 @@ const profile = (
   action
 ) => {
   switch (action.type) {
-    case types.REQUEST_SUCCESS:
-      if (action.data && action.data.user) return action.data.user.profile;
+    case types.LOAD_USER_SUCCESS:
+    case types.LOGIN_SUCCESS_USER:  
+      if (action.user) return action.user.profile;
       return state;
     case types.UPDATE_PERSONAL_DATA_SUCCESS:  
     case types.UPDATE_CONTACT_DETAILS_SUCCESS:
@@ -156,8 +176,25 @@ const isAdmin = (
   action
 ) => {
   switch (action.type) {
-    case types.REQUEST_SUCCESS:
-      if (action.data && action.data.user) return action.data.user.admin;
+    case types.LOAD_USER_SUCCESS:
+    case types.LOGIN_SUCCESS_USER:
+      if (action.user) return action.user.admin;
+      return state;
+    case types.LOGOUT_SUCCESS_USER:
+      return false;
+    default:
+      return state;
+  }
+};
+
+const isMember = (
+  state = false,
+  action
+) => {
+  switch (action.type) {
+    case types.LOAD_USER_SUCCESS:
+    case types.LOGIN_SUCCESS_USER:
+      if (action.user) return action.user.member;
       return state;
     case types.LOGOUT_SUCCESS_USER:
       return false;
@@ -170,8 +207,10 @@ const userReducer = combineReducers({
   isLogin,
   isWaiting,
   authenticated,
+  loaded,
   email,
   isAdmin,
+  isMember,
   profile,
   message
 });
