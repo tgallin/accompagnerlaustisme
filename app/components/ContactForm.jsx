@@ -34,6 +34,5 @@ const ContactForm = (props) => {
 
 export default reduxForm({
   form: 'contact',  // a unique identifier for this form
-  validate: contactValidation,                // <--- validation function given to redux-form
-  destroyOnUnmount: false
+  validate: contactValidation                // <--- validation function given to redux-form
 })(ContactForm);
