@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames/bind';
-import DashboardNavigation from '../containers/DashboardNavigation';
+import DashboardNavigation from '../../containers/admin/DashboardNavigation';
 import styles from 'css/components/dashboard';
 
 const cx = classNames.bind(styles);

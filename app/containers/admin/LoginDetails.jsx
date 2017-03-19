@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import ResetPasswordForm from '../components/ResetPasswordForm';
-import ChangeEmailForm from '../components/ChangeEmailForm';
+import ResetPasswordForm from '../../components/ResetPasswordForm';
+import ChangeEmailForm from '../../components/ChangeEmailForm';
 import { connect } from 'react-redux';
-import { updateEmail, updatePassword } from '../actions/users';
+import { updateEmail, updatePassword } from '../../actions/users';
 
 class LoginDetails extends Component {
   
@@ -60,11 +60,9 @@ LoginDetails.propTypes = {
 
 // Function passed in to `connect` to subscribe to Redux store updates.
 // Any time it updates, mapStateToProps is called.
-function mapStateToProps({
-  user
-}) {
+function mapStateToProps(state) {
   return {
-    user
+    user: state.user
   };
 }
 

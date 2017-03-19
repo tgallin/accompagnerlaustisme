@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
     picture: { type: String, default: '' },
     address: {},
     mobile: String,
-    landline: String 
+    landline: String
   },
   admin: { type: Boolean, default: false },
   member: { type: Boolean, default: false },

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Page from '../pages/Page';
-import PersonalDataContainer from '../containers/PersonalData';
+import Page from '../../pages/Page';
+import AdminUsersContainer from '../../containers/admin/AdminUsers';
 
-class PersonalData extends Component {
+class AdminUsers extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class PersonalData extends Component {
   }
 
   pageTitle() {
-    return 'Mes infos personnelles';
+    return 'Administration des utilisateurs';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Configuration de mes infos personnelles' }
+      { name: 'description', content: 'Administration des utilisateurs' }
     ];
   }
 
@@ -28,11 +28,11 @@ class PersonalData extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <PersonalDataContainer {...this.props} />
+        <AdminUsersContainer {...this.props} />
       </Page>
     );
   }
 }
 
-export default PersonalData;
+export default AdminUsers;
 

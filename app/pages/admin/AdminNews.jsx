@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Page from '../pages/Page';
-import ContactDetailsContainer from '../containers/ContactDetails';
+import Page from '../../pages/Page';
+import AdminNewsContainer from '../../containers/admin/AdminNews';
 
-class ContactDetails extends Component {
+class AdminNews extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class ContactDetails extends Component {
   }
 
   pageTitle() {
-    return 'Mes coordonnées';
+    return 'Administration des news';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Configuration de mes coordonnées' }
+      { name: 'description', content: 'Administration des news' }
     ];
   }
 
@@ -28,11 +28,11 @@ class ContactDetails extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <ContactDetailsContainer {...this.props} />
+        <AdminNewsContainer {...this.props} />
       </Page>
     );
   }
 }
 
-export default ContactDetails;
+export default AdminNews;
 

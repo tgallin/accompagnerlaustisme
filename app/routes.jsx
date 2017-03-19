@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { beginLoadUser, loadUserSuccess, loadUserError } from 'actions/users';
+import { fetchUsersData } from './fetch-data';
 import { userService } from 'services';
 import {
   App,
@@ -22,6 +23,7 @@ import {
   AdminNews,
   AdminEvents,
   AdminUsers,
+  AdminUser,
   Liens,
   LoginOrRegister,
   ForgotPassword,
@@ -98,7 +100,9 @@ export default (store) => {
         </Route>
         <Route path="/dashboard/news" component={AdminNews} />
         <Route path="/dashboard/events" component={AdminEvents} />
-        <Route path="/dashboard/users" component={AdminUsers} />
+        <Route path="/dashboard/users" component={AdminUsers} fetchData={fetchUsersData}>
+          <Route path="/dashboard/users/:id" component={AdminUser}/>
+        </Route>
       </Route>
       <Route path="/login" component={LoginOrRegister} onEnter={redirectAuth} />
       <Route path="/confirmation" component={Confirmation} />

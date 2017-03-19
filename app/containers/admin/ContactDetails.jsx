@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import ContactDetailsForm from '../components/ContactDetailsForm';
+import ContactDetailsForm from '../../components/ContactDetailsForm';
 import { connect } from 'react-redux';
-import { updateContactDetails } from '../actions/users';
+import { updateContactDetails } from '../../actions/users';
 
 class ContactDetails extends Component {
 
@@ -64,11 +64,9 @@ ContactDetails.propTypes = {
 
 // Function passed in to `connect` to subscribe to Redux store updates.
 // Any time it updates, mapStateToProps is called.
-function mapStateToProps({
-  user
-}) {
+function mapStateToProps(state) {
   return {
-    user
+    user: state.user
   };
 }
 

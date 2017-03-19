@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link} from 'react-router';
 import classNames from 'classnames/bind';
-import styles from '../css/components/dashboard';
+import styles from 'css/components/dashboard';
 
 const cx = classNames.bind(styles);
 

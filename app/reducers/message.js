@@ -20,6 +20,7 @@ export default function message(state = {
     case types.UPDATE_CONTACT_DETAILS_SUCCESS:
     case types.UPDATE_EMAIL_SUCCESS:
     case types.UPDATE_PASSWORD_SUCCESS:
+    case types.ADMIN_USER_SAVE_SUCCESS:
       return {...state, message: action.message, type: 'SUCCESS'};
     case types.LOGOUT_SUCCESS_USER:
       return {...state, message: action.message, type: 'INFO'};

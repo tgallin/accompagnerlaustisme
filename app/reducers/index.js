@@ -3,6 +3,7 @@ import { routerReducer as routing } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 import user from '../reducers/user';
 import message from '../reducers/message';
+import adminUsers from '../reducers/adminUsers';
 import * as types from '../types';
 
 const isFetching = (state = false, action) => {
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   isFetching,
   user,
   message,
+  adminUsers,
   routing,
   form: formReducer
 });

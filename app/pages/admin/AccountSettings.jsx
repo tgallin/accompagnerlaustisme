@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Page from '../pages/Page';
-import LoginDetailsContainer from '../containers/LoginDetails';
+import Page from '../../pages/Page';
+import AccountSettingsContainer from '../../containers/admin/AccountSettings';
 
-class LoginDetails extends Component {
+class AccountSettings extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class LoginDetails extends Component {
   }
 
   pageTitle() {
-    return 'Mes identifiants';
+    return 'Mes infos personnelles';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Configuration de mes identifiants' }
+      { name: 'description', content: 'Configuration de mes infos personnelles' }
     ];
   }
 
@@ -28,11 +28,11 @@ class LoginDetails extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <LoginDetailsContainer {...this.props} />
+        <AccountSettingsContainer {...this.props} />
       </Page>
     );
   }
 }
 
-export default LoginDetails;
+export default AccountSettings;
 

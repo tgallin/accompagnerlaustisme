@@ -326,6 +326,35 @@ export function updatePassword(req, res) {
 }
 
 /**
+ * POST /saveUser Updates the provided user with provided data
+ */
+export function saveUser(req, res) {
+  if (req.body.userId) {
+    
+    const query = {
+      _id: req.body.userId
+    };
+
+    User.findOne(query, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', (err, user) => {
+      if (err) {
+        return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+      }
+      
+      user.admin = req.body.admin;
+      user.member = req.body.member;
+      
+      user.save(function(err) {
+        if (err) {
+          return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+        }
+        return res.status(200).json({ user: user, message: 'Utilisateur mis à jour avec succès' });
+      });
+    });
+  
+  }
+}
+
+/**
  * GET /user
  */
 export function loadUser(req, res) {
@@ -350,11 +379,11 @@ function buildUserData(user) {
  * GET /users
  */
 export function all(req, res) {
-    User.find({}, function (err, users) {
+    User.find({}, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', function (err, users) {
       if (err) {
         return res.status(500).json({ message: 'Problème lors de la récupération des utilisateurs' });
       }
-      return res.status(200).json(users);
+      return res.status(200).json( { users : users} );
     });
 }
 
@@ -369,5 +398,7 @@ export default {
   updatePersonalData,
   updateContactDetails,
   updateEmail,
-  updatePassword
+  updatePassword,
+  all,
+  saveUser
 };

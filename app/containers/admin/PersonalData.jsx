@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import PersonalDataForm from '../components/PersonalDataForm';
+import PersonalDataForm from '../../components/PersonalDataForm';
 import { connect } from 'react-redux';
-import { updatePersonalData } from '../actions/users';
+import { updatePersonalData } from '../../actions/users';
 
 class PersonalData extends Component {
 
@@ -63,11 +63,9 @@ PersonalData.propTypes = {
 
 // Function passed in to `connect` to subscribe to Redux store updates.
 // Any time it updates, mapStateToProps is called.
-function mapStateToProps({
-  user
-}) {
+function mapStateToProps(state) {
   return {
-    user
+    user: state.user
   };
 }
 

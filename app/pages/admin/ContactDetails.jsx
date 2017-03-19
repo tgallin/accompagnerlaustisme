@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Page from '../pages/Page';
-import AdminEventsContainer from '../containers/AdminEvents';
+import Page from '../../pages/Page';
+import ContactDetailsContainer from '../../containers/admin/ContactDetails';
 
-class AdminEvents extends Component {
+class ContactDetails extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class AdminEvents extends Component {
   }
 
   pageTitle() {
-    return 'Administration des évènements';
+    return 'Mes coordonnées';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Administration des évènements' }
+      { name: 'description', content: 'Configuration de mes coordonnées' }
     ];
   }
 
@@ -28,11 +28,11 @@ class AdminEvents extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <AdminEventsContainer {...this.props} />
+        <ContactDetailsContainer {...this.props} />
       </Page>
     );
   }
 }
 
-export default AdminEvents;
+export default ContactDetails;
 

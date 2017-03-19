@@ -21,8 +21,10 @@ export default (app) => {
     app.post('/updateContactDetails', usersController.updateContactDetails);
     app.post('/updateEmail', usersController.updateEmail);
     app.post('/updatePassword', usersController.updatePassword);
+    app.post('/admin/saveUser', usersController.saveUser);
     app.get('/user/confirm/:token', usersController.confirm);
     app.get('/user', usersController.loadUser);
+    app.get('/users', usersController.all);
   }
   else {
     console.warn(unsupportedMessage('users routes'));

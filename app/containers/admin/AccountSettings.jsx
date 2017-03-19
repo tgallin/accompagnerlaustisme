@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import AccountSettingsTabs from '../containers/AccountSettingsTabs';
+import AccountSettingsTabs from '../../containers/admin/AccountSettingsTabs';
 import classNames from 'classnames/bind';
-import styles from '../css/components/dashboard';
+import styles from 'css/components/dashboard';
 
 const cx = classNames.bind(styles);
 
