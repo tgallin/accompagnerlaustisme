@@ -7,12 +7,10 @@ class Loading extends Component {
   render() {
     const {
       isFetching,
-      user : {
-        isWaiting
-      }
+      isWaiting
     } = this.props;
     
-    if (isFetching || isWaiting) {
+    if (isFetching || isWaiting) {
       return (
           <LoadingAnim />
       );

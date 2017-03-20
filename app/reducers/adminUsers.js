@@ -31,6 +31,21 @@ const users = (
   }
 };
 
+const message = (
+  state = '',
+  action
+) => {
+  switch (action.type) {
+    case types.ADMIN_USER_SAVE_SUCCESS:
+    case types.CREATE_REQUEST:
+      return '';
+    case types.ADMIN_USER_SAVE_ERROR:
+      return action.message;
+    default:
+      return state;
+  }
+};
+
 const page = (
   state = 1,
   action
@@ -47,6 +62,7 @@ const page = (
 
 const adminUsersReducer = combineReducers({
   users,
+  message,
   page
 });
 

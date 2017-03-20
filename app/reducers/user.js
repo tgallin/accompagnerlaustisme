@@ -55,48 +55,6 @@ const message = (
   }
 };
 
-const isWaiting = (
-  state = false,
-  action
-) => {
-  switch (action.type) {
-    case types.MANUAL_LOGIN_USER:
-    case types.SIGNUP_USER:
-    case types.LOGOUT_USER:
-    case types.SEND_MESSAGE:
-    case types.INIT_RESET_PASSWORD:
-    case types.COMPLETE_RESET_PASSWORD:
-    case types.UPDATE_PERSONAL_DATA:
-    case types.UPDATE_CONTACT_DETAILS:
-    case types.UPDATE_EMAIL:
-    case types.UPDATE_PASSWORD:
-      return true;
-    case types.LOGIN_SUCCESS_USER:
-    case types.SIGNUP_SUCCESS_USER:
-    case types.LOGOUT_SUCCESS_USER:
-    case types.SEND_MESSAGE_SUCCESS:
-    case types.INIT_RESET_PASSWORD_SUCCESS:
-    case types.COMPLETE_RESET_PASSWORD_SUCCESS:
-    case types.UPDATE_PERSONAL_DATA_SUCCESS:  
-    case types.UPDATE_CONTACT_DETAILS_SUCCESS:
-    case types.UPDATE_EMAIL_SUCCESS:
-    case types.UPDATE_PASSWORD_SUCCESS:
-    case types.LOGIN_ERROR_USER:
-    case types.SIGNUP_ERROR_USER:
-    case types.LOGOUT_ERROR_USER:
-    case types.SEND_MESSAGE_ERROR:
-    case types.INIT_RESET_PASSWORD_ERROR:
-    case types.COMPLETE_RESET_PASSWORD_ERROR:
-    case types.UPDATE_PERSONAL_DATA_ERROR:
-    case types.UPDATE_CONTACT_DETAILS_ERROR:
-    case types.UPDATE_EMAIL_ERROR:
-    case types.UPDATE_PASSWORD_ERROR:
-      return false;
-    default:
-      return state;
-  }
-};
-
 const authenticated = (
   state = false,
   action
@@ -205,7 +163,6 @@ const isMember = (
 
 const userReducer = combineReducers({
   isLogin,
-  isWaiting,
   authenticated,
   loaded,
   email,

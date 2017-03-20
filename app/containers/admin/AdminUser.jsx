@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
+import _ from 'lodash';
 import UserForm from '../../components/UserForm';
 import { connect } from 'react-redux';
 import {
@@ -19,14 +20,46 @@ handleSubmit = (values) => {
     } = this.props;
     const admin = values.admin;
     const member = values.member;
+    var memberFrom = null;
+    var memberTo = null;
+    if (member) {
+      memberFrom = this.formatToDate(values.memberFrom);
+      memberTo = this.formatToDate(values.memberTo);
+    }
+
     const userId = values.userId;
 
     saveUser({
       userId,
       admin,
-      member
+      member,
+      memberFrom,
+      memberTo
     });
   }
+
+formatToDate(value) {
+  var result = null;
+  if (value && value !== '') {
+    var dateParts = value.split("/");
+    // we want to convert DD/MM/YYYY to YYYY/MM/DD
+    result = new Date(Date.UTC(dateParts[2], dateParts[1] - 1, dateParts[0], 0 , 0, 0));
+  }
+  return result;
+}
+
+formatDateToString(value) {
+  var result = '';
+  if (value && value !== '') {
+    var date = new Date(value);
+    var dateParts = [];
+    dateParts.push(_.padStart(date.getUTCDate().toString(), 2, '0'));
+    dateParts.push(_.padStart((date.getUTCMonth() + 1).toString(), 2, '0'));
+    dateParts.push(date.getUTCFullYear());
+    result = dateParts.join('/');
+  } 
+  return result;
+}
 
   render() {
     
@@ -39,7 +72,12 @@ handleSubmit = (values) => {
         initialUserData.surname = user.profile.surname;
         initialUserData.email = user.email;
         initialUserData.admin = user.admin;
-        initialUserData.member = user.member;
+        if (user.membership) {
+          initialUserData.member = user.membership.member;
+          initialUserData.memberFrom = this.formatDateToString(user.membership.from);
+          initialUserData.memberTo = this.formatDateToString(user.membership.to);
+        }
+        
         if (user.profile.address) {
           initialUserData.address = user.profile.address;
         }

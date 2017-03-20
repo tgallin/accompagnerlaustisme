@@ -1,18 +1,14 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Link } from 'react-router';
+
+import RenderDatePicker from '../components/RenderDatePicker.jsx';
 import classNames from 'classnames/bind';
 
 import styles from '../css/components/user';
 
 const cx = classNames.bind(styles);
-
-const renderField = ({ input, type, meta: { touched, error } }) => (
-  <div>
-    <input {...input} type={type} className="form-control" id={input.name} />
-      {touched && error && <div className="text-danger">{error}</div>}
-  </div>
-);
 
 function createAddress(address) {
   if (address) {
@@ -41,8 +37,8 @@ function createAddress(address) {
   }
 };
 
-const UserForm = (props) => {
-    const { message, handleSubmit, invalid,
+let UserForm = (props) => {
+    const { message, isMember, handleSubmit, invalid,
       pristine, submitting, initialValues } = props;
   return (
       <div>
@@ -74,6 +70,12 @@ const UserForm = (props) => {
             <Field name="member" id="member" component="input" type="checkbox"/>
           </div>
         </div>
+        {isMember && 
+        <div>
+        <Field name="memberFrom" type="text" size="4-8" component={RenderDatePicker} label="Du"/>
+        <Field name="memberTo" type="text" size="4-8" component={RenderDatePicker} label="Au"/>
+        </div>
+        }
         <div className="form-group">
           <div className="col-sm-offset-4 col-sm-8">
             <button className={'btn btn-success ' + cx('paddingRight')} type="submit"
@@ -118,6 +120,21 @@ const UserForm = (props) => {
   );
 };
 
-export default reduxForm({
-  form: 'adminuser'
+// Decorate with redux-form
+UserForm = reduxForm({
+  form: 'adminuser'  // a unique identifier for this form
 })(UserForm);
+
+// Decorate with connect to read form values
+const selector = formValueSelector('adminuser'); // <-- same as form name
+UserForm = connect(
+  state => {
+    // can select values individually
+    const isMember = selector(state, 'member');
+    return {
+      isMember
+    };
+  }
+)(UserForm);
+
+export default UserForm;

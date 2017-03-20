@@ -29,7 +29,11 @@ const UserSchema = new mongoose.Schema({
     landline: String
   },
   admin: { type: Boolean, default: false },
-  member: { type: Boolean, default: false },
+  membership: { 
+    member: { type: Boolean, default: false },
+    from: Date,
+    to: Date
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   google: {},

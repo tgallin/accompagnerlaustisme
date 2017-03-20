@@ -42,7 +42,7 @@ class AdminUsers extends Component {
                       <td>{user.profile.surname}</td>
                       <td>{user.profile.firstname}</td>
                       <td>{user.admin ? 'Oui' : 'Non'}</td>
-                      <td>{user.member ? 'Oui' : 'Non'}</td>
+                      <td>{user.membership && user.membership.member ? 'Oui' : 'Non'}</td>
                       <td>
                         <Link to={'/dashboard/users/' + user._id} className="btn btn-primary"><i className="fa fa-pencil"/> Editer</Link>
                       </td>

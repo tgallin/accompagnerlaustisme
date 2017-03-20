@@ -341,7 +341,11 @@ export function saveUser(req, res) {
       }
       
       user.admin = req.body.admin;
-      user.member = req.body.member;
+      user.membership = {
+        member: req.body.member,
+        from: req.body.memberFrom,
+        to: req.body.memberTo
+      };
       
       user.save(function(err) {
         if (err) {

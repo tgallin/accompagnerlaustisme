@@ -4,6 +4,7 @@ https://github.com/google/web-starter-kit/blob/master/app/index.html
 import { isProduction } from '../../config/app';
 
 var faviconUrl = require("file-loader?name=[name].[ext]!../images/favicon.ico");
+var datePickerCss = require("file-loader?name=datePicker.[ext]!react-date-picker/index.css");
 
 const metaAssets = () => {
   return [{
@@ -42,6 +43,7 @@ const linkAssets = () => {
   const staticLinks = [
     { rel: 'icon', href: faviconUrl, type: 'image/x-icon'}, 
     { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'},
+    { rel: 'stylesheet', href: datePickerCss},
     { rel: 'stylesheet', href:'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'},
   ];
   if (!isProduction) {
