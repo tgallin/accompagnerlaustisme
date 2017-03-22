@@ -20,6 +20,5 @@ const ForgotPasswordForm = (props) => {
 
 export default reduxForm({
   form: 'forgotPassword',  // a unique identifier for this form
-  validate: forgotPasswordValidation,                // <--- validation function given to redux-form
-  destroyOnUnmount: true
+  validate: forgotPasswordValidation                // <--- validation function given to redux-form
 })(ForgotPasswordForm);

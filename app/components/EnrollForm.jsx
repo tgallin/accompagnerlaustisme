@@ -25,6 +25,5 @@ const EnrollForm = (props) => {
 
 export default reduxForm({
   form: 'enroll',  // a unique identifier for this form
-  validate: registerValidation,                // <--- validation function given to redux-form
-  destroyOnUnmount: false
+  validate: registerValidation                // <--- validation function given to redux-form
 })(EnrollForm);
