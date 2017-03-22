@@ -47,7 +47,7 @@ var randtoken = require('rand-token');
     expirationTime: 86400,
 
     verifyMailOptions: {
-        from: 'Accompagner l\'autisme <do_not_reply@accompagnerlautisme.com>',
+        from: 'Accompagner l\'autisme <accompagner.autisme.webmaster@accompagnerlautisme.com>',
         subject: 'Confirmation de votre inscription',
         html: accountConfirmationHtml,
         text: accountConfirmationText
@@ -61,10 +61,10 @@ var randtoken = require('rand-token');
     },
     shouldSendConfirmation: false,
     confirmMailOptions: {
-      from: 'Do Not Reply <user@gmail.com>',
-      subject: 'Successfully verified!',
-      html: '<p>Your account has been successfully verified.</p>',
-      text: 'Your account has been successfully verified.'
+      from: 'Accompagner l\'autisme <accompagner.autisme.webmaster@accompagnerlautisme.com>',
+      subject: 'Adresse email vérifiée avec succès !',
+      html: '<p>Votre compte a été vérifié avec succès.</p>',
+      text: 'Votre compte a été vérifié avec succès.'
     },
     confirmSendMailCallback: function(err, info) {
       if (err) {

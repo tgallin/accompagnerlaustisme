@@ -11,7 +11,7 @@ var randtoken = require('rand-token');
     URLLength: 48,
 
     resetPasswordMailOptions: {
-        from: 'Accompagner l\'autisme <do_not_reply@accompagnerlautisme.com>',
+        from: 'Accompagner l\'autisme <accompagner.autisme.webmaster@accompagnerlautisme.com>',
         subject: 'Demande de réinitialisation de mot de passe',
         html: initResetPasswordHtml,
         text: initResetPasswordText
@@ -25,7 +25,7 @@ var randtoken = require('rand-token');
     },
     shouldSendConfirmation: false,
     confirmMailOptions: {
-      from: 'Accompagner l\'autisme <do_not_reply@accompagnerlautisme.com>',
+      from: 'Accompagner l\'autisme <accompagner.autisme.webmaster@accompagnerlautisme.com>',
       subject: 'Mot de passe changé',
       html: '<p>Votre mot de passe a été changé avec succès.</p>',
       text: 'Votre mot de passe a été changé avec succès.'
