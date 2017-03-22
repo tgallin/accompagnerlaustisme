@@ -9,6 +9,18 @@ const cx = classNames.bind(styles);
 
 class Navigation extends Component {
   
+  
+  renderUserLink() {
+    const {
+      user
+    } = this.props;
+    if (user.profile.picture) {
+      return (<Link to="/dashboard" className={cx('linkWithImage')}><img src={user.profile.picture} className={cx('profilePicture')} /><span className={cx('displayName')}>{user.profile.displayName}</span></Link>);
+    } else {
+      return (<i className="fa fa-user" aria-hidden="true"><span className={cx('displayName')}>{user.profile.displayName}</span></i>);
+    }
+  }
+  
   renderRightNav() {
     const {
       user,
@@ -16,7 +28,7 @@ class Navigation extends Component {
     } = this.props;
     if (user.authenticated) {
       return (<ul className="nav navbar-nav navbar-right">
-        <li><Link to="/dashboard"><i className="fa fa-user" aria-hidden="true"></i>{user.displayName}</Link></li>
+        <li>{ this.renderUserLink() }</li>
         <li><Link onClick={logOut} to="/"><i className="fa fa-power-off" aria-hidden="true"></i></Link></li>
       </ul>);
     } else {

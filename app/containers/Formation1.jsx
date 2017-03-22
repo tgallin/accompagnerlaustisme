@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import ScrollToTopOnMount from '../components/ScrollToTopOnMount';
 import classNames from 'classnames/bind';
 import styles from 'css/components/formations';
 import logoEpsilon from '../images/EpsilonLogo2.png';
@@ -14,7 +15,7 @@ const cx = classNames.bind(styles);
 const Formation1 = () => {
   return (
     <div>
-    
+      <ScrollToTopOnMount/>
       <div className={cx('title')}><h3>Apprendre à lire et à écrire</h3></div>
       <div className={cx('title')}>Inclus dans le cursus CEPRO1</div>
       <div className={cx('title')}>Niveau scolaire de l’enfant : cycles 1 et 2</div>

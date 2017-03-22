@@ -6,3 +6,17 @@ a.active:hover {
     color: var(--navbarActiveColor) !important;
     background-color:var(--navbarActiveBackground) !important;
 }
+
+.displayName {
+    padding-left: 5px;
+}
+
+.profilePicture {
+    border-radius: 50%;
+    width: 32px;
+}
+
+.linkWithImage {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+}

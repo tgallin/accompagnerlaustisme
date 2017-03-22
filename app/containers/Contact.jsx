@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import styles from 'css/components/contact';
+import ScrollToTopOnMount from '../components/ScrollToTopOnMount';
 import ContactForm from '../components/ContactForm';
 import { connect } from 'react-redux';
 import { sendMessage } from '../actions/contact';
@@ -46,6 +47,7 @@ handleSubmit = (values) => {
     
     return (
       <div>
+        <ScrollToTopOnMount/>
         <h3>Association Accompagner l'Autisme</h3>
         <div className={cx('address-line')}>6, rue Jean Hupeau</div>
         <div className={cx('address-line')}>45000 Orléans</div>
@@ -65,11 +67,9 @@ Contact.propTypes = {
 
 // Function passed in to `connect` to subscribe to Redux store updates.
 // Any time it updates, mapStateToProps is called.
-function mapStateToProps({
-  user
-}) {
+function mapStateToProps(state) {
   return {
-    user
+    user: state.user
   };
 }
 

@@ -80,22 +80,6 @@ export default (app) => {
     );
   }
 
-  if (passportConfig && passportConfig.github) {
-    // github auth
-    // Redirect the user to Github for authentication. When complete, Github
-    // will redirect the user back to the application at
-    // /auth/github/callback
-    app.get('/auth/github', passport.authenticate('github'));
-
-    // Github will redirect the user to this URL after authentication. Finish the
-    // process by verifying the assertion. If valid, the user will be logged in.
-    // Otherwise, the authentication has failed.
-    app.get('/auth/github/callback', passport.authenticate('github', {
-      successRedirect: '/dashboard',
-      failureRedirect: '/login'
-    }));
-  }
-
   // topic routes
   if (topicsController) {
     app.get('/topic', topicsController.all);

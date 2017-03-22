@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import ScrollToTopOnMount from '../components/ScrollToTopOnMount';
 import classNames from 'classnames/bind';
 import styles from 'css/components/formations';
 
@@ -13,7 +14,7 @@ const cx = classNames.bind(styles);
 const Formation4 = () => {
   return (
     <div>
-    
+      <ScrollToTopOnMount/>
       <div className={cx('title')}><h3>INITIATION A<br/>L'ENTRAÎNEMENT<br/>AUX RÉPONSES PIVOTS (PRT)</h3></div>
       <div className={cx('title')}><h4>ET SON APPLICATION DANS LE CADRE DE LA COMMUNICATION</h4></div>
     

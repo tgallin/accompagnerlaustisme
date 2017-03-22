@@ -117,11 +117,9 @@ LoginOrRegister.propTypes = {
 
 // Function passed in to `connect` to subscribe to Redux store updates.
 // Any time it updates, mapStateToProps is called.
-function mapStateToProps({
-  user
-}) {
+function mapStateToProps(state) {
   return {
-    user
+    user: state.user
   };
 }
 

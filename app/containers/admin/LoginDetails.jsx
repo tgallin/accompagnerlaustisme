@@ -2,7 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import ResetPasswordForm from '../../components/ResetPasswordForm';
 import ChangeEmailForm from '../../components/ChangeEmailForm';
 import { connect } from 'react-redux';
+import classNames from 'classnames/bind';
+import styles from '../../css/components/login';
 import { updateEmail, updatePassword } from '../../actions/users';
+
+const cx = classNames.bind(styles);
 
 class LoginDetails extends Component {
   

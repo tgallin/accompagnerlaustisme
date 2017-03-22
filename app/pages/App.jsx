@@ -7,12 +7,13 @@ import Footer from '../containers/Footer';
 import { title, meta, link } from './assets';
 
 const App = props => (
-  <Page title={title} meta={meta} link={link}>
-    <Loading />
-    <Navigation />
-    <AppContainer {...props} />
-    <Footer />
-  </Page>
+  
+    <Page title={title} meta={meta} link={link}>
+      <Loading />
+      <Navigation />
+      <AppContainer {...props} />
+      <Footer />
+    </Page>
 );
 
 export default App;

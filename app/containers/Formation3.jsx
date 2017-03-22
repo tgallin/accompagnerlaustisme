@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import ScrollToTopOnMount from '../components/ScrollToTopOnMount';
 import classNames from 'classnames/bind';
 import styles from 'css/components/formations';
 import enfantsAutistesBienvenueEcole from '../images/enfants-autistes-bienvenue-ecole.jpg';
@@ -14,7 +15,7 @@ const cx = classNames.bind(styles);
 const Formation3 = () => {
   return (
     <div>
-    
+     <ScrollToTopOnMount/>
       <div className={cx('title')}><h3>Enfants austistes : bienvenue à l'école !<br/>Inclusion scolaire en maternelle et primaire</h3></div>
       
       <div className={'text-center ' + cx('content', 'paddingBottom')}>Programme vidéo suivi d’un débat avec la réalisatrice Sophie Robert.</div>
