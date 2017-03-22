@@ -8,7 +8,7 @@ export var transporter =
     service: 'Gmail',
     auth: {
       type: 'OAuth2',
-      user: 'thomas.gallin@gmail.com',
+      user: gmail.user,
       clientId: gmail.clientId,
       clientSecret: gmail.clientSecret,
       refreshToken: gmail.refreshToken
