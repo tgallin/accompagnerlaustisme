@@ -20,7 +20,6 @@ export default function render(req, res) {
   
   var userData = {
       authenticated,
-      isWaiting: false,
       message: '',
       isLogin: true
   };
@@ -28,7 +27,7 @@ export default function render(req, res) {
     userData.loaded = true;
     userData.email = req.user.email;
     userData.profile = req.user.profile;
-    userData.isMember = req.user.member;
+    userData.isMember = req.user.membership.member;
     userData.isAdmin = req.user.admin;
   }
   

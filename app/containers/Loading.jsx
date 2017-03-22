@@ -20,12 +20,13 @@ class Loading extends Component {
 }
 
 Loading.propTypes = {
-  user: PropTypes.object
+  isWaiting: PropTypes.bool,
+  isFectching: PropTypes.bool
 };
 
 function mapStateToProps(state) {
   return {
-    user: state.user,
+    isWaiting: state.isWaiting,
     isFectching: state.isFetching
   };
 }

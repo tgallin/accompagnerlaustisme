@@ -29,7 +29,7 @@ export function login(req, res, next) {
       var data = {
         email: user.email,
         admin: user.admin,
-        member: user.member,
+        member: user.membership.member,
         profile: user.profile
       };
   
@@ -374,6 +374,7 @@ function buildUserData(user) {
       user: {
         email: user.email,
         admin: user.admin,
+        member: user.membership.member,
         profile: user.profile
       }
     };

@@ -17,7 +17,6 @@ describe('Users Async Actions', () => {
     const initialState = {
       isLogin: true,
       message: '',
-      isWaiting: false,
       authenticated: false
     };
 
