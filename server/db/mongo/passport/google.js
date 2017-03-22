@@ -12,7 +12,7 @@ export default (req, accessToken, refreshToken, profile, done) => {
         existingEmailUser.profile.displayName = existingEmailUser.profile.displayName || profile.displayName;
         existingEmailUser.profile.gender = existingEmailUser.profile.gender || profile._json.gender;
         existingEmailUser.profile.picture = existingEmailUser.profile.picture || profile._json.picture;
-        return user.save((err) => {
+        return existingEmailUser.save((err) => {
           done(err, existingEmailUser, { message: 'Le compte Google a été lié.' });
         });
       }
