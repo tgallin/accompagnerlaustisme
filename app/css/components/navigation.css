@@ -12,8 +12,8 @@ a.active:hover {
 }
 
 .profilePicture {
-    border-radius: 50%;
-    width: 32px;
+    border-radius: 10px;
+    height: 42px;
 }
 
 .linkWithImage {
