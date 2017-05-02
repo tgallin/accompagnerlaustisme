@@ -17,13 +17,16 @@ class DashboardNavigation extends Component {
     if (user.isAdmin) {
       return (<ul className={'nav ' + cx('nav-sidebar')}>
         <li><Link to="/dashboard/accountSettings" activeClassName={cx('active')}>Mon compte</Link></li>
+        <li><Link to="/dashboard/mytoys" activeClassName={cx('active')}>Mes jeux</Link></li>
         <li><Link to="/dashboard/events" activeClassName={cx('active')}>Evènements </Link></li>
         <li><Link to="/dashboard/users" activeClassName={cx('active')}>Utilisateurs</Link></li>
+        <li><Link to="/dashboard/toyLibrary" activeClassName={cx('active')}>Ludothèque</Link></li>
         </ul>
       );
     } else {
       return (<ul className={'nav ' + cx('nav-sidebar')}>
         <li><Link to="/dashboard/accountSettings" activeClassName={cx('active')}>Mon compte</Link></li>
+        <li><Link to="/dashboard/mytoys" activeClassName={cx('active')}>Mes jeux</Link></li>
       </ul>);
     }
   };

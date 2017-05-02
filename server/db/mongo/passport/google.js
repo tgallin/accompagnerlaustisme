@@ -9,6 +9,8 @@ export default (req, accessToken, refreshToken, profile, done) => {
         
         existingEmailUser.google = profile.id;
         existingEmailUser.tokens.push({ kind: 'google', accessToken });
+        existingEmailUser.profile.firstname = existingEmailUser.profile.firstname || profile.displayName;
+        existingEmailUser.profile.surname = existingEmailUser.profile.surname || '';
         existingEmailUser.profile.displayName = existingEmailUser.profile.displayName || profile.displayName;
         existingEmailUser.profile.gender = existingEmailUser.profile.gender || profile._json.gender;
         existingEmailUser.profile.picture = existingEmailUser.profile.picture || profile._json.picture;
@@ -20,6 +22,8 @@ export default (req, accessToken, refreshToken, profile, done) => {
       user.email = profile._json.emails[0].value;
       user.google = profile.id;
       user.tokens.push({ kind: 'google', accessToken });
+      user.profile.firstname = profile.displayName;
+      user.profile.surname = '';
       user.profile.displayName = profile.displayName;
       user.profile.gender = profile._json.gender;
       user.profile.picture = profile._json.picture;

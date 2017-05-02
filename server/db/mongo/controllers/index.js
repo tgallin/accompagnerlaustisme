@@ -1,13 +1,13 @@
-import events from './events';
-import news from './news';
+//import events from './events';
+//import news from './news';
 import users from './users';
 import messages from './messages';
+import toyLibrary from './toyLibrary';
 
-export { events, news, users, messages };
+export { users, messages, toyLibrary };
 
 export default {
-  events,
-  news,
   users,
-  messages
+  messages,
+  toyLibrary
 };

@@ -1,5 +1,7 @@
 export default function loadModels() {
-  require('./topics');
+  require('./toy');
+  require('./toyCategory');
+  require('./toyTag');
   require('./user');
   require('./tempUser');
 }

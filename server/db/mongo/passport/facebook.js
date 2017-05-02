@@ -10,6 +10,8 @@ export default (req, accessToken, refreshToken, profile, done) => {
         
         existingEmailUser.facebook = profile.id;
         existingEmailUser.tokens.push({ kind: 'facebook', accessToken });
+        existingEmailUser.profile.firstname = existingEmailUser.profile.firstname || profile.displayName;
+        existingEmailUser.profile.surname = existingEmailUser.profile.surname || '';
         existingEmailUser.profile.displayName = existingEmailUser.profile.displayName || profile.displayName;
         existingEmailUser.profile.gender = existingEmailUser.profile.gender || profile._json.gender;
         existingEmailUser.profile.picture = existingEmailUser.profile.picture || (profile.photos ? profile.photos[0].value : '');
@@ -21,6 +23,8 @@ export default (req, accessToken, refreshToken, profile, done) => {
       user.email = profile._json.email;
       user.facebook = profile.id;
       user.tokens.push({ kind: 'facebook', accessToken });
+      user.profile.firstname = profile.displayName;
+      user.profile.surname = '';
       user.profile.displayName = profile.displayName;
       user.profile.gender = profile._json.gender;
       user.profile.picture = profile.photos ? profile.photos[0].value : '';

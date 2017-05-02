@@ -3,54 +3,56 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
-//import styles from 'css/components/adminUsers';
+import styles from 'css/components/toy';
 
-//const cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
-class AdminUsers extends Component {
+class AdminToys extends Component {
 
   render() {
     
-    const {users, error, children } = this.props;
+    const {toys, error, children } = this.props;
     
     return (
       <div>
-        { !children && 
-        <div className="table-responsive">
-          {error &&
+        {error &&
           <div className="alert alert-danger" role="alert">
             <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             {' '}
             {error}
           </div>}
-          {users && users.length > 0 &&
+        { !children && 
+        <div>
+          {toys && toys.length > 0 &&
             
+            <div className="table-responsive">
               <table className="table table-striped">
                 <thead>
                   <tr>
                     <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Admin</th>
-                    <th>Membre</th>
+                    <th>Catégorie</th>
+                    <th>Validé</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
                 {
-                  users.map((user) => 
-                    <tr key={user._id}>
-                      <td>{user.profile.surname}</td>
-                      <td>{user.profile.firstname}</td>
-                      <td>{user.admin ? 'Oui' : 'Non'}</td>
-                      <td>{user.membership && user.membership.member ? 'Oui' : 'Non'}</td>
+                  toys.map((toy) => 
+                    <tr key={toy._id}>
+                      <td>{toy.name}</td>
+                      <td>{toy.category}</td>
+                      <td>{toy.approved ? 'Oui' : 'Non'}</td>
                       <td>
-                        <Link to={'/dashboard/users/' + user._id} className="btn btn-info"><i className="fa fa-pencil"/> Editer</Link>
+                        <Link to={'/dashboard/toys/' + toy._id} className="btn btn-primary"><i className="fa fa-pencil"/> Editer</Link>
                       </td>
                     </tr>)
                 }
                 </tbody>
               </table>
-            
+            </div>
+          }
+          {(!toys || toys.length === 0) &&
+            <div className={cx('paddingAll')}>Aucun jouet</div>
           }
         </div>
         }
@@ -60,18 +62,18 @@ class AdminUsers extends Component {
   };
 }
 
-AdminUsers.propTypes = {
-    users: PropTypes.array,
+AdminToys.propTypes = {
+    toys: PropTypes.array,
     error: PropTypes.string,
     children: PropTypes.object
 };
 
 function mapStateToProps(state) {
   return {
-    users: state.adminUsers.users
+    toys: state.adminToyLibrary.toys
   };
 }
 
 // Read more about where to place `connect` here:
 // https://github.com/rackt/react-redux/issues/75#issuecomment-135436563
-export default connect(mapStateToProps)(AdminUsers);
+export default connect(mapStateToProps)(AdminToys);

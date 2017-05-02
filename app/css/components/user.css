@@ -11,6 +11,14 @@
   text-align: left;
 }
 
-.paddingRight {
+.marginRight {
   margin-right: 10px;
+}
+
+.paddingLeft {
+  padding-left: 10px;
+}
+
+.paddingBottom {
+  padding-bottom: 10px;
 }

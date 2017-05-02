@@ -42,7 +42,6 @@ let UserForm = (props) => {
       pristine, submitting, initialValues } = props;
   return (
       <div>
-      <Link to='dashboard/users'>Retour à la liste</Link>
       <form className="form-horizontal" onSubmit={handleSubmit}>
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
         <Field name="userId" id="userId" component="input" type="hidden"/>
@@ -78,14 +77,14 @@ let UserForm = (props) => {
         }
         <div className="form-group">
           <div className="col-sm-offset-4 col-sm-8">
-            <button className={'btn btn-success ' + cx('paddingRight')} type="submit"
-                    disabled={pristine || invalid || submitting}>
-              <i className={'fa ' + (submitting ? 'fa-cog fa-spin' : 'fa-cloud')}/> Sauvegarder
-            </button>
-            <Link to="dashboard/users" className="btn btn-warning"
+            <Link to="dashboard/users" className={'btn btn-default ' + cx('marginRight')}
               disabled={submitting}>
               <i className="fa fa-ban"/> Annuler
             </Link>
+            <button className={'btn btn-success ' + cx('marginRight')} type="submit"
+                    disabled={pristine || invalid || submitting}>
+              <i className={'fa ' + (submitting ? 'fa-cog fa-spin' : 'fa-cloud')}/> Sauvegarder
+            </button>
           </div>
         </div>
         <div className="form-group">
@@ -116,6 +115,10 @@ let UserForm = (props) => {
           </div>
         </div>
       </form>
+      <div className={cx('paddingBottom')}>
+        <Link to='dashboard/users' ><i className="fa fa-angle-double-left"/><span className={cx('paddingLeft')}>Retour à la liste</span></Link>
+      </div>
+      
       </div>
   );
 };

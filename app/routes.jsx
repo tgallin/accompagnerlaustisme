@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { beginLoadUser, loadUserSuccess, loadUserError } from 'actions/users';
-import { fetchUsersData } from './fetch-data';
+import { fetchUsersData, fetchToys, fetchToyCategoriesAndTags, fetchToyTags  } from './fetch-data';
 import { userService } from 'services';
 import {
   App,
@@ -20,10 +20,17 @@ import {
   PersonalData,
   ContactDetails,
   LoginDetails,
+  MyToys,
   AdminNews,
   AdminEvents,
   AdminUsers,
   AdminUser,
+  AdminToyLibrary,
+  AdminToys,
+  AdminToyCategories,
+  AdminToyCategory,
+  AdminToyTags,
+  AdminToyTag,
   Liens,
   LoginOrRegister,
   ForgotPassword,
@@ -98,10 +105,21 @@ export default (store) => {
           <Route path="/dashboard/accountSettings/contactDetails" component={ContactDetails} />
           <Route path="/dashboard/accountSettings/loginDetails" component={LoginDetails} />
         </Route>
+        <Route path="/dashboard/mytoys" component={MyToys} />
         <Route path="/dashboard/news" component={AdminNews} />
         <Route path="/dashboard/events" component={AdminEvents} />
         <Route path="/dashboard/users" component={AdminUsers} fetchData={fetchUsersData}>
           <Route path="/dashboard/users/:id" component={AdminUser}/>
+        </Route>
+        <Route path="/dashboard/toyLibrary" component={AdminToyLibrary} >
+          <IndexRedirect to="/dashboard/toyLibrary/toys"/>
+          <Route path="/dashboard/toyLibrary/toys" component={AdminToys} fetchData={fetchToys} />
+          <Route path="/dashboard/toyLibrary/categories" component={AdminToyCategories} fetchData={fetchToyCategoriesAndTags}>
+            <Route path="/dashboard/toyLibrary/categories/:id" component={AdminToyCategory} />
+          </Route>
+          <Route path="/dashboard/toyLibrary/tags" component={AdminToyTags} fetchData={fetchToyTags}>
+            <Route path="/dashboard/toyLibrary/tags/:id" component={AdminToyTag} />
+          </Route>
         </Route>
       </Route>
       <Route path="/login" component={LoginOrRegister} onEnter={redirectAuth} />

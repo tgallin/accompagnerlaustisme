@@ -161,6 +161,39 @@ const isMember = (
   }
 };
 
+const toy = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case types.TOY_SAVE_SUCCESS:
+      if (state._id === action.toy._id) {
+        return action.toy;
+      }
+      return state;
+    default:
+      return state;
+  }
+};
+
+const toys = (
+  state = [],
+  action
+) => {
+  switch (action.type) {
+   case types.LOAD_USER_SUCCESS:
+    case types.LOGIN_SUCCESS_USER:
+      if (action.user && action.user.toys) return action.user.toys;
+      return state;
+    case types.TOY_SAVE_SUCCESS:
+      return state.map(t => toy(t, action));
+    case types.LOGOUT_SUCCESS_USER:
+      return [];
+    default:
+      return state;
+  }
+};
+
 const userReducer = combineReducers({
   isLogin,
   authenticated,
@@ -169,6 +202,7 @@ const userReducer = combineReducers({
   isAdmin,
   isMember,
   profile,
+  toys,
   message
 });
 

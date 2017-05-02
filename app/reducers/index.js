@@ -4,6 +4,7 @@ import { reducer as formReducer } from 'redux-form';
 import user from '../reducers/user';
 import message from '../reducers/message';
 import adminUsers from '../reducers/adminUsers';
+import adminToyLibrary from '../reducers/adminToyLibrary';
 import * as types from '../types';
 
 const isFetching = (state = false, action) => {
@@ -34,6 +35,13 @@ const isWaiting = (
     case types.UPDATE_EMAIL:
     case types.UPDATE_PASSWORD:
     case types.ADMIN_USER_SAVE:
+    case types.ADMIN_TOY_SAVE:
+    case types.ADMIN_TOY_CAT_SAVE:
+    case types.ADMIN_TOY_TAG_SAVE:
+    case types.ADMIN_TOY_CAT_DELETE:
+    case types.ADMIN_TOY_TAG_DELETE:
+    case types.TOY_SAVE:
+    case types.TOY_DELETE:
       return true;
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
@@ -46,6 +54,13 @@ const isWaiting = (
     case types.UPDATE_EMAIL_SUCCESS:
     case types.UPDATE_PASSWORD_SUCCESS:
     case types.ADMIN_USER_SAVE_SUCCESS:
+    case types.ADMIN_TOY_SAVE_SUCCESS:
+    case types.ADMIN_TOY_CAT_SAVE_SUCCESS:
+    case types.ADMIN_TOY_TAG_SAVE_SUCCESS:
+    case types.ADMIN_TOY_CAT_DELETE_SUCCESS:
+    case types.ADMIN_TOY_TAG_DELETE_SUCCESS:  
+    case types.TOY_SAVE_SUCCESS:
+    case types.TOY_DELETE_SUCCESS:
     case types.LOGIN_ERROR_USER:
     case types.SIGNUP_ERROR_USER:
     case types.LOGOUT_ERROR_USER:
@@ -57,6 +72,15 @@ const isWaiting = (
     case types.UPDATE_EMAIL_ERROR:
     case types.UPDATE_PASSWORD_ERROR:
     case types.ADMIN_USER_SAVE_ERROR:
+    case types.ADMIN_TOY_SAVE_ERROR:
+    case types.ADMIN_TOY_CAT_DUPLICATE:
+    case types.ADMIN_TOY_CAT_SAVE_ERROR:
+    case types.ADMIN_TOY_CAT_DELETE_ERROR:
+    case types.ADMIN_TOY_TAG_DUPLICATE:
+    case types.ADMIN_TOY_TAG_SAVE_ERROR:
+    case types.ADMIN_TOY_TAG_DELETE_ERROR:
+    case types.TOY_SAVE_ERROR:
+    case types.TOY_DELETE_ERROR:
       return false;
     default:
       return state;
@@ -71,6 +95,7 @@ const rootReducer = combineReducers({
   user,
   message,
   adminUsers,
+  adminToyLibrary,
   routing,
   form: formReducer
 });

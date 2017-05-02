@@ -6,7 +6,7 @@ import unsupportedMessage from '../db/unsupportedMessage';
 import { controllers, passport as passportConfig } from '../db';
 
 const usersController = controllers && controllers.users;
-const topicsController = controllers && controllers.topics;
+const toyLibraryController = controllers && controllers.toyLibrary;
 const messagesController = controllers && controllers.messages;
 
 export default (app) => {
@@ -80,15 +80,22 @@ export default (app) => {
     );
   }
 
-  // topic routes
-  if (topicsController) {
-    app.get('/topic', topicsController.all);
-    app.post('/topic/:id', topicsController.add);
-    app.put('/topic/:id', topicsController.update);
-    app.delete('/topic/:id', topicsController.remove);
+  // toys routes
+  if (toyLibraryController) {
+    app.get('/toys', toyLibraryController.allToys);
+   /* app.get('/toy/:id', toyLibraryController.findToy);
+    app.post('/toy/:id', toyLibraryController.addToy);
+    app.put('/toy/:id', toyLibraryController.updateToy);
+    app.delete('/toy/:id', toyLibraryController.removeToy);*/
+    app.get('/toys/categories', toyLibraryController.allCategories);
+    app.post('/toys/category', toyLibraryController.saveCategory);
+    app.delete('/toys/category/:id', toyLibraryController.removeCategory);
+    app.get('/toys/tags', toyLibraryController.allTags);
+    app.post('/toys/tag', toyLibraryController.saveTag);
+    app.delete('/toys/tag/:id', toyLibraryController.removeTag);
   }
   else {
-    console.warn(unsupportedMessage('topics routes'));
+    console.warn(unsupportedMessage('toys routes'));
   }
   
 };

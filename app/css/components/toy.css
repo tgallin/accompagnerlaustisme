@@ -1,0 +1,66 @@
+
+.control-readvalue {
+  padding-top: 7px;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.control-checkbox {
+  padding-top: 3px;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.marginRight {
+  margin-right: 10px;
+}
+
+.paddingLeft {
+  padding-left: 10px;
+}
+
+.paddingBottom {
+  padding-bottom: 10px;
+}
+
+.paddingAll {
+  padding: 10px;
+}
+
+.hide-checkbox {
+  display: none;
+}
+
+.hide-checkbox:checked + label {
+  display: inline-block;
+  background-color: #5bc0de;
+  border-color: #46b8da;
+  color: #fff;
+}
+
+.hide-checkbox + label {
+  display: block;
+  float: left;
+  padding: 6px 12px;
+  margin: 2px;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #e6e6e6;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid  #adadad;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.3s ease-in-out;
+  -moz-transition: background-color 0.3s ease-in-out;
+  -o-transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}

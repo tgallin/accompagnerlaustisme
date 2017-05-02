@@ -4,7 +4,8 @@
  */
 
 import bcrypt from 'bcrypt-nodejs';
-import mongoose from 'mongoose';
+var mongoose = require('mongoose')
+  , Schema = mongoose.Schema;
 
 // Other oauthtypes to be added
 
@@ -34,6 +35,7 @@ const UserSchema = new mongoose.Schema({
     from: Date,
     to: Date
   },
+  toys: [{ type: Schema.Types.ObjectId, ref: 'Toy' }],
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   google: {},
