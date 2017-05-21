@@ -166,7 +166,7 @@ const toy = (
   action
 ) => {
   switch (action.type) {
-    case types.TOY_SAVE_SUCCESS:
+    case types.TOY_UPDATE_SUCCESS:
       if (state._id === action.toy._id) {
         return action.toy;
       }
@@ -181,12 +181,16 @@ const toys = (
   action
 ) => {
   switch (action.type) {
-   case types.LOAD_USER_SUCCESS:
+    case types.LOAD_USER_SUCCESS:
     case types.LOGIN_SUCCESS_USER:
       if (action.user && action.user.toys) return action.user.toys;
       return state;
-    case types.TOY_SAVE_SUCCESS:
+    case types.TOY_CREATE_SUCCESS:  
+      return [...state, action.toy];
+    case types.TOY_UPDATE_SUCCESS:
       return state.map(t => toy(t, action));
+    case types.TOY_DELETE_SUCCESS:
+      return state.filter(t => t._id !== action.id);
     case types.LOGOUT_SUCCESS_USER:
       return [];
     default:

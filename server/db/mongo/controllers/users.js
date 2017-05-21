@@ -10,7 +10,6 @@ export function verifyCaptchaRequest(data) {
   return request.post('https://www.google.com/recaptcha/api/siteverify', data);
 }
 
-
 /**
  * POST /login
  */
@@ -26,16 +25,20 @@ export function login(req, res, next) {
     return req.logIn(user, (loginErr) => {
       if (loginErr) return res.status(401).json({ message: loginErr });
       
-      var data = {
-        email: user.email,
-        admin: user.admin,
-        member: user.membership.member,
-        profile: user.profile
-      };
-  
-      return res.status(200).json({
-        message: 'Vous vous êtes connecté avec succès.',
-        user: data
+      user
+      .populate('toys', function (err, user) {
+        var data = {
+          email: user.email,
+          admin: user.admin,
+          member: user.membership.member,
+          profile: user.profile,
+          toys: user.toys
+        };
+    
+        return res.status(200).json({
+          message: 'Vous vous êtes connecté avec succès.',
+          user: data
+        });
       });
     });
   })(req, res, next);
@@ -82,17 +85,16 @@ export function signUp(req, res, next) {
  
             // a new user 
             if (newTempUser) {
-              
-                var URL = newTempUser[senderOptions.URLFieldName];
-                sendVerificationEmail(req.hostname, email, URL, function(err, info) {
-                    if (err)
-                      return res.status(500).json({ message: 'Problème lors de l\'envoi de l\'email de confirmation.'});
-         
-                    return res.status(200).json({ message: 'Un email de confirmation a été envoyé !' });
-                });
+              var URL = newTempUser[senderOptions.URLFieldName];
+              sendVerificationEmail(req.hostname, email, URL, function(err, info) {
+                if (err)
+                  return res.status(500).json({ message: 'Problème lors de l\'envoi de l\'email de confirmation.'});
+     
+                return res.status(200).json({ message: 'Un email de confirmation a été envoyé !' });
+              });
             // user already exists in temporary collection... 
             } else {
-                return res.status(409).json({ message: 'Un compte temporaire avec cette adresse email existe déjà !' });
+              return res.status(409).json({ message: 'Un compte temporaire avec cette adresse email existe déjà !' });
             }
           });
         } else {
@@ -112,34 +114,31 @@ export function signUp(req, res, next) {
 export function confirm(req, res) {
   
   confirmTempUser(req.params.token, function(err, user) {
-      if (err)
-      {
-        // return res.status(500).json({ message: 'Il y a eu un problème lors de la confirmation de votre compte.' });
-        return res.redirect('/login');
-      }
-          
-   
-      // user was found! 
-      if (user) {
-          return req.logIn(user, (loginErr) => {
-            if (loginErr) {
-              // return res.status(401).json({ message: loginErr });
-              return res.redirect('/login');
-            }
-            
-            
-            /*return res.status(200).json({
-              message: 'Vous avez confirmé la création de votre compte avec succès'
-            });*/
-            return res.redirect('/dashboard');
-          });
-      }
-      // user's data probably expired... 
-      else {
-        //return res.status(401).json({ message: 'Il y a eu un problème lors de la confirmation de votre compte. Vous avez attendu trop longtemps avant de valider votre email.' });
-        return res.redirect('/login');
-      } 
-          
+    if (err)
+    {
+      // return res.status(500).json({ message: 'Il y a eu un problème lors de la confirmation de votre compte.' });
+      return res.redirect('/login');
+    }
+
+    // user was found! 
+    if (user) {
+      return req.logIn(user, (loginErr) => {
+        if (loginErr) {
+          // return res.status(401).json({ message: loginErr });
+          return res.redirect('/login');
+        }
+        
+        /*return res.status(200).json({
+          message: 'Vous avez confirmé la création de votre compte avec succès'
+        });*/
+        return res.redirect('/dashboard');
+      });
+    }
+    // user's data probably expired... 
+    else {
+      //return res.status(401).json({ message: 'Il y a eu un problème lors de la confirmation de votre compte. Vous avez attendu trop longtemps avant de valider votre email.' });
+      return res.redirect('/login');
+    } 
   });
 }
 
@@ -215,10 +214,7 @@ export function updatePersonalData(req, res) {
         }
         return res.status(200).json({ profile: user.profile, message: 'Infos personnelles mises à jour avec succès' });
       });
-
-      
     });
-  
   }
 }
 
@@ -238,13 +234,13 @@ export function updateContactDetails(req, res) {
       }
       
       user.profile.address = {
-          complement1: req.body.complement1,
-          complement2: req.body.complement2,
-          complement3: req.body.complement3,
-          street: req.body.street,
-          postalCode: req.body.postalCode,
-          city: req.body.city
-        };
+        complement1: req.body.complement1,
+        complement2: req.body.complement2,
+        complement3: req.body.complement3,
+        street: req.body.street,
+        postalCode: req.body.postalCode,
+        city: req.body.city
+      };
       user.profile.mobile = req.body.mobile;
       user.profile.landline = req.body.landline;
       
@@ -255,7 +251,6 @@ export function updateContactDetails(req, res) {
         return res.status(200).json({ profile: user.profile, message: 'Coordonnées mises à jour avec succès' });
       });
     });
-  
   }
 }
 
@@ -286,7 +281,6 @@ export function updateEmail(req, res) {
           }
           return res.status(200).json({ email: data.email, message: 'Adresse email mise à jour avec succès' });
         });
-        
       }
     });
   }
@@ -354,7 +348,6 @@ export function saveUser(req, res) {
         return res.status(200).json({ user: user, message: 'Utilisateur mis à jour avec succès' });
       });
     });
-  
   }
 }
 
@@ -371,25 +364,26 @@ export function loadUser(req, res) {
 
 function buildUserData(user) {
   return {
-      user: {
-        email: user.email,
-        admin: user.admin,
-        member: user.membership.member,
-        profile: user.profile
-      }
-    };
+    user: {
+      email: user.email,
+      admin: user.admin,
+      member: user.membership.member,
+      profile: user.profile,
+      toys: user.toys
+    }
+  };
 }
 
 /**
  * GET /users
  */
 export function all(req, res) {
-    User.find({}, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', function (err, users) {
-      if (err) {
-        return res.status(500).json({ message: 'Problème lors de la récupération des utilisateurs' });
-      }
-      return res.status(200).json( { users : users} );
-    });
+  User.find({}, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', {sort: {'profile.surname': 1}}, function (err, users) {
+    if (err) {
+      return res.status(500).json({ message: 'Problème lors de la récupération des utilisateurs' });
+    }
+    return res.status(200).json( { users : users} );
+  });
 }
 
 export default {

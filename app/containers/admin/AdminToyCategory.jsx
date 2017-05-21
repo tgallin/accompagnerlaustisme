@@ -3,10 +3,9 @@ import classNames from 'classnames/bind';
 
 import ToyCategoryForm from '../../components/ToyCategoryForm';
 import { connect } from 'react-redux';
-import {
-  saveToyCategory
-}
-from '../../actions/toyLibrary';
+import { saveToyCategory } from '../../actions/toyLibrary';
+import _ from 'lodash';
+
 //import styles from 'css/components/adminUsers';
 
 //const cx = classNames.bind(styles);
@@ -23,11 +22,14 @@ handleSubmit = (values) => {
     const name = values.name;
 
     var suggestedTags = [];
-    for (var key in values) {
-       if (key.startsWith('tag') && values[key]) {
-         suggestedTags.push(key.split('_')[1]);
-       }
-    }
+    values.tags.forEach((tag) => {
+        for (var key in tag) {
+         if (tag[key]) {
+           suggestedTags.push(key);
+         }
+        }
+      }
+    );
     
     saveToyCategory({
       toyCatId,
@@ -46,19 +48,19 @@ handleSubmit = (values) => {
       if (toyCat) {
         initialtoyCatData.toyCatId = toyCat._id;
         initialtoyCatData.name = toyCat.name;
-        if (toyCat.suggestedTags && toyCat.suggestedTags.length > 0) {
-          toyCat.suggestedTags.forEach(tagId => {
-            initialtoyCatData['tag_' + tagId] = true;
-          });
-        }
+        initialtoyCatData.tags = [];
+        toyTags.forEach(t => {
+          var tag = {};
+          tag[t._id] = _.isNil(_.find(toyCat.suggestedTags, ['_id', t._id]));
+          initialtoyCatData.tags.push(tag);
+        });
       }
-      console.log(initialtoyCatData);
       return initialtoyCatData;
     };
     
     const {toyCategories, toyTags, toyCatId, message} = this.props;
     
-    var toyCat = toyCategories.find(tc => tc._id === toyCatId);
+    var toyCat = _.find(toyCategories, ['_id', toyCatId]);
     
     return (
         <ToyCategoryForm initialValues={getToyCatInitialData(toyCat)} tags={toyTags} message={message} onSubmit={this.handleSubmit}/>
@@ -69,6 +71,7 @@ handleSubmit = (values) => {
 AdminToyCategory.propTypes = {
     toyCategories: PropTypes.array,
     toyCatId: PropTypes.string,
+    toyTags: PropTypes.array,
     message: PropTypes.string,
     saveToyCategory: PropTypes.func.isRequired
 };

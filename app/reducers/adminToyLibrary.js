@@ -6,7 +6,8 @@ const toy = (
   action
 ) => {
   switch (action.type) {
-    case types.ADMIN_TOY_SAVE_SUCCESS:
+    case types.ADMIN_TOY_UPDATE_SUCCESS:
+    case types.TOY_UPDATE_SUCCESS:
       if (state._id === action.toy._id) {
         return action.toy;
       }
@@ -24,8 +25,13 @@ const toys = (
     case types.REQUEST_SUCCESS:
       if (action.data && action.data.toys) return action.data.toys;
       return state;
-    case types.ADMIN_TOY_SAVE_SUCCESS:
+    case types.TOY_CREATE_SUCCESS:  
+      return [...state, action.toy];
+    case types.ADMIN_TOY_UPDATE_SUCCESS:
+    case types.TOY_UPDATE_SUCCESS:
       return state.map(t => toy(t, action));
+    case types.TOY_DELETE_SUCCESS:
+      return state.filter(t => t._id !== action.id);
     default:
       return state;
   }
@@ -36,7 +42,7 @@ const category = (
   action
 ) => {
   switch (action.type) {
-    case types.ADMIN_TOY_CAT_SAVE_SUCCESS:
+    case types.ADMIN_TOY_CAT_UPDATE_SUCCESS:
       if (state._id === action.category._id) {
         return action.category;
       }
@@ -54,7 +60,9 @@ const categories = (
     case types.REQUEST_SUCCESS:
       if (action.data && action.data.categories) return action.data.categories;
       return state;
-    case types.ADMIN_TOY_CAT_SAVE_SUCCESS:
+    case types.ADMIN_TOY_CAT_CREATE_SUCCESS:  
+      return [...state, action.category];
+    case types.ADMIN_TOY_CAT_UPDATE_SUCCESS:
       return state.map(t => category(t, action));
     case types.ADMIN_TOY_CAT_DELETE_SUCCESS:
       return state.filter(c => c._id !== action.id);
@@ -68,7 +76,7 @@ const tag = (
   action
 ) => {
   switch (action.type) {
-    case types.ADMIN_TOY_TAG_SAVE_SUCCESS:
+    case types.ADMIN_TOY_TAG_UPDATE_SUCCESS:
       if (state._id === action.tag._id) {
         return action.tag;
       }
@@ -86,7 +94,9 @@ const tags = (
     case types.REQUEST_SUCCESS:
       if (action.data && action.data.tags) return action.data.tags;
       return state;
-    case types.ADMIN_TOY_TAG_SAVE_SUCCESS:
+    case types.ADMIN_TOY_CAT_CREATE_SUCCESS:  
+      return [...state, action.tag];
+    case types.ADMIN_TOY_TAG_UPDATE_SUCCESS:
       return state.map(t => tag(t, action));
     case types.ADMIN_TOY_TAG_DELETE_SUCCESS:
       return state.filter(t => t._id !== action.id);  
@@ -100,9 +110,12 @@ const message = (
   action
 ) => {
   switch (action.type) {
-    case types.ADMIN_TOY_SAVE_SUCCESS:
-    case types.ADMIN_TOY_CAT_SAVE_SUCCESS:
-    case types.ADMIN_TOY_TAG_SAVE_SUCCESS:
+    case types.ADMIN_TOY_CREATE_SUCCESS:
+    case types.ADMIN_TOY_CAT_CREATE_SUCCESS:
+    case types.ADMIN_TOY_TAG_CREATE_SUCCESS:
+    case types.ADMIN_TOY_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_CAT_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_TAG_UPDATE_SUCCESS:  
     case types.ADMIN_TOY_CAT_DELETE_SUCCESS:
     case types.ADMIN_TOY_TAG_DELETE_SUCCESS:
     case types.CREATE_REQUEST:

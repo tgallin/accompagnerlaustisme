@@ -2,12 +2,43 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { deleteToy } from '../../actions/toyLibrary';
 
 import styles from 'css/components/toy';
 
 const cx = classNames.bind(styles);
 
 class MyToys extends Component {
+
+  confirmDeleteToy = (id) => {
+    
+    const {
+      deleteToy
+    } = this.props;
+    
+    /* global bootbox */
+    bootbox.confirm({
+      message: "Etes-vous sûr de vouloir supprimer ce jeu ?",
+      size: 'small',
+      backdrop: true,
+      closeButton: false,
+      buttons: {
+          confirm: {
+              label: 'Oui',
+              className: 'btn-danger'
+          },
+          cancel: {
+              label: 'Non',
+              className: 'btn-default'
+          }
+      },
+      callback: function (confirmedDelete) {
+        if (confirmedDelete) {
+          deleteToy(id);
+        }
+      }
+    });
+  }
 
   render() {
     
@@ -34,19 +65,24 @@ class MyToys extends Component {
                     <th>Validé</th>
                     <th>En ligne</th>
                     <th>Disponible</th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                 {
                   toys.map((toy) => 
                     <tr key={toy._id}>
-                      <td>{toy.name}</td>
-                      <td>{toy.pictures && toy.pictures.length > 0 ? toy.pictures[0] : ''}</td>
-                      <td>{toy.approved ? 'Oui' : 'Non'}</td>
-                      <td>{toy.online ? 'Oui' : 'Non'}</td>
-                      <td>{toy.available ? 'Oui' : 'Non'}</td>
-                      <td>
-                        <Link to={'/dashboard/toys/' + toy._id} className="btn btn-info"><i className="fa fa-pencil"/> Editer</Link>
+                      <td className="col-md-2">{toy.name}</td>
+                      <td className="col-md-2">{toy.pictures && toy.pictures.length > 0 ? toy.pictures[0] : ''}</td>
+                      <td className="col-md-2">{toy.approved ? 'Oui' : 'Non'}</td>
+                      <td className="col-md-2">{toy.online ? 'Oui' : 'Non'}</td>
+                      <td className="col-md-2">{toy.available ? 'Oui' : 'Non'}</td>
+                      <td className="col-md-1">
+                        <Link to={'/dashboard/mytoys/' + toy._id} className="btn btn-info"><i className="fa fa-pencil"/> Editer</Link>
+                      </td>
+                      <td className="col-md-1">
+                        <a href="#" onClick={() => this.confirmDeleteToy(toy._id)} className="btn btn-danger"><i className="fa fa-trash"/> Supprimer</a>
                       </td>
                     </tr>)
                 }
@@ -59,7 +95,7 @@ class MyToys extends Component {
               <div className={cx('paddingAll')}>Aucun jouet</div>
             </div>
           }
-          <Link to='/dashboard/createToy' className="btn btn-info"><i className="fa fa-plus"/> Ajouter un jouet</Link>
+          <Link to='/dashboard/mytoys/0' className="btn btn-info"><i className="fa fa-plus"/> Ajouter un jouet</Link>
         </div>
         }
         {children}
@@ -71,7 +107,8 @@ class MyToys extends Component {
 MyToys.propTypes = {
     toys: PropTypes.array,
     error: PropTypes.string,
-    children: PropTypes.object
+    children: PropTypes.object,
+    deleteToy: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -82,4 +119,4 @@ function mapStateToProps(state) {
 
 // Read more about where to place `connect` here:
 // https://github.com/rackt/react-redux/issues/75#issuecomment-135436563
-export default connect(mapStateToProps)(MyToys);
+export default connect(mapStateToProps, {deleteToy})(MyToys);

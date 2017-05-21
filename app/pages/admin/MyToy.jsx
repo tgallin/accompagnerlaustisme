@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Page from '../../pages/Page';
-import MyToysContainer from '../../containers/admin/MyToys';
+import MyToyContainer from '../../containers/admin/MyToy';
 
-class MyToys extends Component {
+class MyToy extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class MyToys extends Component {
   }
 
   pageTitle() {
-    return 'Ma liste de jouets';
+    return 'Configuration d\'un jouet';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Ma liste de jouets' }
+      { name: 'description', content: 'Configuration d\'un jouet' }
     ];
   }
 
@@ -28,11 +28,11 @@ class MyToys extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <MyToysContainer {...this.props} />
+        <MyToyContainer {...this.props} />
       </Page>
     );
   }
 }
 
-export default MyToys;
+export default MyToy;
 

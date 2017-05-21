@@ -3,10 +3,7 @@ import classNames from 'classnames/bind';
 import _ from 'lodash';
 import UserForm from '../../components/UserForm';
 import { connect } from 'react-redux';
-import {
-  saveUser
-}
-from '../../actions/adminUsers';
+import { saveUser } from '../../actions/adminUsers';
 //import styles from 'css/components/adminUsers';
 
 //const cx = classNames.bind(styles);
@@ -90,7 +87,7 @@ formatDateToString(value) {
     
     const {users, userId, message} = this.props;
     
-    var user = users.find(u => u._id === userId);
+    var user = _.find(users, ['_id', userId]);
     
     if (user) {
       return (

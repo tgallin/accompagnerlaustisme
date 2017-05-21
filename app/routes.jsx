@@ -21,11 +21,13 @@ import {
   ContactDetails,
   LoginDetails,
   MyToys,
+  MyToy,
   AdminNews,
   AdminEvents,
   AdminUsers,
   AdminUser,
   AdminToyLibrary,
+  AdminToy,
   AdminToys,
   AdminToyCategories,
   AdminToyCategory,
@@ -97,7 +99,7 @@ export default (store) => {
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
       <Route path="/liens" component={Liens} />
-      <Route path="/dashboard" component={Dashboard} onEnter={requireAuth} >
+      <Route path="/dashboard" component={Dashboard} onEnter={requireAuth}>
         <IndexRedirect to="/dashboard/accountSettings" />
         <Route path="/dashboard/accountSettings" component={AccountSettings}>
           <IndexRedirect to="/dashboard/accountSettings/personalData" />
@@ -105,7 +107,9 @@ export default (store) => {
           <Route path="/dashboard/accountSettings/contactDetails" component={ContactDetails} />
           <Route path="/dashboard/accountSettings/loginDetails" component={LoginDetails} />
         </Route>
-        <Route path="/dashboard/mytoys" component={MyToys} />
+        <Route path="/dashboard/mytoys" component={MyToys} fetchData={fetchToyCategoriesAndTags}>
+          <Route path="/dashboard/mytoys/:id" component={MyToy} />
+        </Route>
         <Route path="/dashboard/news" component={AdminNews} />
         <Route path="/dashboard/events" component={AdminEvents} />
         <Route path="/dashboard/users" component={AdminUsers} fetchData={fetchUsersData}>
@@ -113,7 +117,9 @@ export default (store) => {
         </Route>
         <Route path="/dashboard/toyLibrary" component={AdminToyLibrary} >
           <IndexRedirect to="/dashboard/toyLibrary/toys"/>
-          <Route path="/dashboard/toyLibrary/toys" component={AdminToys} fetchData={fetchToys} />
+          <Route path="/dashboard/toyLibrary/toys" component={AdminToys} fetchData={fetchToys} >
+            <Route path="/dashboard/toyLibrary/toys/:id" component={AdminToy} />
+          </Route>
           <Route path="/dashboard/toyLibrary/categories" component={AdminToyCategories} fetchData={fetchToyCategoriesAndTags}>
             <Route path="/dashboard/toyLibrary/categories/:id" component={AdminToyCategory} />
           </Route>

@@ -23,3 +23,9 @@ export const recaptcha = {
   secretKey: process.env.RECAPTCHA_SECRET_KEY || 'something',
   siteKey: process.env.RECAPTCHA_SITE_KEY || 'something'
 };
+
+export const cloudinaryKeys = {
+  cloudName: process.env.CLOUDINARY_CLOUD_NAME || 'something',
+  apiKey: process.env.CLOUDINARY_API_KEY || 'something',
+  secretKey: process.env.CLOUDINARY_SECRET_KEY || 'something'
+};

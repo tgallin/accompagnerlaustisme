@@ -2,8 +2,8 @@
  * Schema Definitions
  *
  */
-var mongoose = require('mongoose')
-  , Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema    = mongoose.Schema;
 
 const ToyCatSchema = new mongoose.Schema({
   name: String,

@@ -2,9 +2,9 @@
  * Schema Definitions
  *
  */
-var mongoose = require('mongoose')
-  , Schema = mongoose.Schema;
-
+var mongoose = require('mongoose');
+var Schema    = mongoose.Schema;
+  
 const ToySchema = new mongoose.Schema({
   name: String,
   content: String,
@@ -12,10 +12,10 @@ const ToySchema = new mongoose.Schema({
   categories: [{ type: Schema.Types.ObjectId, ref: 'ToyCategory' }],
   pictures: Array,
   tags: [{ type: Schema.Types.ObjectId, ref: 'ToyTag' }],
-  owner: {type: Schema.Types.ObjectId, ref: 'User'},
-  borrowedBy: {type: Schema.Types.ObjectId, ref: 'User'},
+  owner: { type: Schema.Types.ObjectId, ref: 'User' },
+  borrowedBy: { type: Schema.Types.ObjectId, ref: 'User' },
   waiting:  [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  online: { type: Boolean, default: true },
+  online: { type: Boolean, default: false },
   approved: { type: Boolean, default: false },
   created: { type: Date, default: Date.now },
 }, {
@@ -34,7 +34,7 @@ ToySchema
 });
 
 // Compiles the schema into a model, opening (or creating, if
-//	nonexistent) the 'Topic' collection in the MongoDB database
+//	nonexistent) the 'Toy' collection in the MongoDB database
 export default mongoose.model('Toy', ToySchema);
 
 

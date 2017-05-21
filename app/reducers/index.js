@@ -54,12 +54,16 @@ const isWaiting = (
     case types.UPDATE_EMAIL_SUCCESS:
     case types.UPDATE_PASSWORD_SUCCESS:
     case types.ADMIN_USER_SAVE_SUCCESS:
-    case types.ADMIN_TOY_SAVE_SUCCESS:
-    case types.ADMIN_TOY_CAT_SAVE_SUCCESS:
-    case types.ADMIN_TOY_TAG_SAVE_SUCCESS:
+    case types.ADMIN_TOY_CREATE_SUCCESS:
+    case types.ADMIN_TOY_CAT_CREATE_SUCCESS:
+    case types.ADMIN_TOY_TAG_CREATE_SUCCESS:
+    case types.ADMIN_TOY_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_CAT_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_TAG_UPDATE_SUCCESS:
     case types.ADMIN_TOY_CAT_DELETE_SUCCESS:
     case types.ADMIN_TOY_TAG_DELETE_SUCCESS:  
-    case types.TOY_SAVE_SUCCESS:
+    case types.TOY_CREATE_SUCCESS:
+    case types.TOY_UPDATE_SUCCESS:
     case types.TOY_DELETE_SUCCESS:
     case types.LOGIN_ERROR_USER:
     case types.SIGNUP_ERROR_USER:

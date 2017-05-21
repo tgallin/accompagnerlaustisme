@@ -1,7 +1,3 @@
-/**
- * Schema Definitions
- *
- */
 var mongoose = require('mongoose');
 
 const ToyTagSchema = new mongoose.Schema({

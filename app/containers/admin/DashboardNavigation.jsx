@@ -18,6 +18,7 @@ class DashboardNavigation extends Component {
       return (<ul className={'nav ' + cx('nav-sidebar')}>
         <li><Link to="/dashboard/accountSettings" activeClassName={cx('active')}>Mon compte</Link></li>
         <li><Link to="/dashboard/mytoys" activeClassName={cx('active')}>Mes jeux</Link></li>
+        <hr/>
         <li><Link to="/dashboard/events" activeClassName={cx('active')}>Evènements </Link></li>
         <li><Link to="/dashboard/users" activeClassName={cx('active')}>Utilisateurs</Link></li>
         <li><Link to="/dashboard/toyLibrary" activeClassName={cx('active')}>Ludothèque</Link></li>

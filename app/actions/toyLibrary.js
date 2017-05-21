@@ -7,17 +7,17 @@ polyfill();
 
 const getMessage = res => res.response && res.response.data && res.response.data.message;
 
-function makeRequest(method, data, api) {
-  return request[method](api, data);
+function makeRequest(method, data, api, config = {}) {
+  return request[method](api, data, config);
 }
 
 export function beginSaveCat() {
   return { type: types.ADMIN_TOY_CAT_SAVE };
 }
 
-export function saveCatSuccess(data) {
+export function saveCatSuccess(data, action) {
   return {
-    type: types.ADMIN_TOY_CAT_SAVE_SUCCESS,
+    type: action,
     message: data.message,
     category: data.category
   };
@@ -41,9 +41,9 @@ export function beginSaveTag() {
   return { type: types.ADMIN_TOY_TAG_SAVE };
 }
 
-export function saveTagSuccess(data) {
+export function saveTagSuccess(data, action) {
   return {
-    type: types.ADMIN_TOY_TAG_SAVE_SUCCESS,
+    type: action,
     message: data.message,
     tag: data.tag
   };
@@ -101,6 +101,44 @@ export function deleteTagError(message) {
   };
 }
 
+export function beginSaveToy() {
+  return { type: types.TOY_SAVE };
+}
+
+export function saveToySuccess(data, action) {
+  return {
+    type: action,
+    message: data.message,
+    toy: data.toy
+  };
+}
+
+export function saveToyError(message) {
+  return {
+    type: types.TOY_SAVE_ERROR,
+    message
+  };
+}
+
+export function beginDeleteToy() {
+  return { type: types.TOY_DELETE };
+}
+
+export function deleteToySuccess(data) {
+  return {
+    type: types.TOY_DELETE_SUCCESS,
+    message: data.message,
+    id: data.id
+  };
+}
+
+export function deleteToyError(message) {
+  return {
+    type: types.TOY_DELETE_ERROR,
+    message
+  };
+}
+
 export function saveToyCategory(data) {
   return (dispatch, getState) => {
 
@@ -117,7 +155,8 @@ export function saveToyCategory(data) {
     return makeRequest('post', data, '/toys/category')
       .then(response => {
         if (response.status === 200) {
-          dispatch(saveCatSuccess(response.data));
+          var action = data.toyCatId === 0 ? types.ADMIN_TOY_CAT_CREATE_SUCCESS : types.ADMIN_TOY_CAT_UPDATE_SUCCESS;
+          dispatch(saveCatSuccess(response.data, action));
         } else {
           dispatch(saveCatError('Oops! Something went wrong!'));
         }
@@ -146,7 +185,8 @@ export function saveToyTag(data) {
     return makeRequest('post', data, '/toys/tag')
       .then(response => {
         if (response.status === 200) {
-          dispatch(saveTagSuccess(response.data));
+          var action = data.toyTagId === 0 ? types.ADMIN_TOY_TAG_CREATE_SUCCESS : types.ADMIN_TOY_TAG_UPDATE_SUCCESS;
+          dispatch(saveTagSuccess(response.data, action));
         } else {
           dispatch(saveTagError('Oops! Something went wrong!'));
         }
@@ -191,6 +231,68 @@ export function deleteToyTag(id) {
       })
       .catch(err => {
         dispatch(deleteTagError(getMessage(err)));
+      });
+  };
+}
+
+export function saveToy(data) {
+  return (dispatch, getState) => {
+
+    dispatch(beginSaveToy());
+
+    const config = {
+        headers: { 'content-type': 'multipart/form-data' }
+    };
+
+    return makeRequest('post', data, '/toys', config)
+      .then(response => {
+        if (response.status === 200) {
+          var action = data.toyId === 0 ? types.TOY_CREATE_SUCCESS : types.TOY_UPDATE_SUCCESS;
+          dispatch(saveToySuccess(response.data, action));
+        } else {
+          dispatch(saveToyError('Oops! Something went wrong!'));
+        }
+      })
+      .catch(err => {
+        dispatch(saveToyError(getMessage(err)));
+      });
+  };
+}
+
+export function deleteToy(id) {
+  return (dispatch) => {
+    
+    dispatch(beginDeleteToy());
+
+    return makeRequest('delete', {}, '/toys/' + id)
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(deleteToySuccess(response.data));
+        } else {
+          dispatch(deleteToyError('Oops! Something went wrong!'));
+        }
+      })
+      .catch(err => {
+        dispatch(deleteToyError(getMessage(err)));
+      });
+  };
+}
+
+export function changeApprobationToy(data) {
+  return (dispatch, getState) => {
+    
+    dispatch(beginSaveTag());
+
+    return makeRequest('post', data, '/toys/tag')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(saveTagSuccess(response.data));
+        } else {
+          dispatch(saveTagError('Oops! Something went wrong!'));
+        }
+      })
+      .catch(err => {
+        dispatch(saveTagError(getMessage(err)));
       });
   };
 }

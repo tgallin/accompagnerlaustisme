@@ -1,9 +1,9 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, FieldArray, reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import toyCategoryValidation from '../js/toyCategoryValidation';
 import RenderField from '../components/RenderField.jsx';
-import RenderTags from '../components/RenderTags.jsx';
+import RenderCheckboxesAsButtons from '../components/RenderCheckboxesAsButtons.jsx';
 
 import classNames from 'classnames/bind';
 
@@ -21,7 +21,9 @@ let ToyCategoryForm = (props) => {
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
         <Field name="toyCatId" id="toyCatId" component="input" type="hidden"/>
         <Field name="name" type="text" size="2-10" component={RenderField} label="Nom"/>
-        <RenderTags name="tags" label="Mots clés suggérés" help="Vous pouvez sélectionner un ou plusieurs mots clés auxquels les jeux de cette catégorie pourront être associés" tags={tags}/>
+        <FieldArray id="tags" name="tags" label="Mots clés suggérés" 
+        help="Vous pouvez sélectionner un ou plusieurs mots clés auxquels les jeux de cette catégorie pourront être associés" 
+        objects={tags} component={RenderCheckboxesAsButtons} />
 
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10">

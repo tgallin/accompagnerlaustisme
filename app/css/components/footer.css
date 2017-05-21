@@ -8,6 +8,7 @@
   /* Set the fixed height of the footer here */
   height: 40px;
   background-color: var(--footerBackground);
+  margin-top: 10px;
 }
 
 @media (max-width: 1200px) {

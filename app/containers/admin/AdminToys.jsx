@@ -40,10 +40,10 @@ class AdminToys extends Component {
                   toys.map((toy) => 
                     <tr key={toy._id}>
                       <td>{toy.name}</td>
-                      <td>{toy.category}</td>
+                      <td>{toy.categories.length > 1 ? toy.categories[0].name + ',...' : toy.categories[0].name }</td>
                       <td>{toy.approved ? 'Oui' : 'Non'}</td>
                       <td>
-                        <Link to={'/dashboard/toys/' + toy._id} className="btn btn-primary"><i className="fa fa-pencil"/> Editer</Link>
+                        <Link to={'/dashboard/toys/' + toy._id} className="btn btn-info"><i className="fa fa-pencil"/> Editer</Link>
                       </td>
                     </tr>)
                 }

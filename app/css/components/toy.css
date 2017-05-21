@@ -64,3 +64,54 @@
   -o-transition: background-color 0.3s ease-in-out;
   transition: background-color 0.3s ease-in-out;
 }
+
+.dropzone {
+  border: 2px dashed rgb(102, 102, 102);
+  border-radius: 5px;
+  height: 150px;
+}
+
+.dz-instruction {
+  padding: 10px;
+}
+
+.dz-preview {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  margin: 10px;
+  min-height: 100px;
+}
+
+.dz-image {
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  display: block;
+  margin: 10px;
+  z-index: 10;
+}
+
+.dz-details {
+  font-size: 13px;
+  min-width: 100%;
+  max-width: 100%;
+  text-align: center;
+  color: rgba(0,0,0,0.9);
+  line-height: 150%;
+}
+
+.dz-size-error {
+  color: red;
+}
+
+.dz-size-valid {
+  color: green;
+}
+
+.dz-remove {
+  z-index: 20;
+  position: absolute;
+  top: 0;
+  right: 0;
+}

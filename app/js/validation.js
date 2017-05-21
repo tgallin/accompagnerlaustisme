@@ -54,7 +54,25 @@ export function match(field) {
   };
 }
 
-export function createValidator(rules) {
+function allValuesAreFalse(arr) {
+  var allFalse = true;
+  for (var i in arr) {
+    var keys = Object.keys(arr[i]);
+    if (keys && keys.length > 0 && arr[i][keys[0]] === true) {
+      allFalse = false;
+      break;
+    }
+  }
+  return allFalse;
+}
+
+export function atLeastOneValueMustBeChecked(values) {
+    if (!values || !values.length || allValuesAreFalse(values)) {
+      return `Vous devez sélectionner au moins une valeur`;
+    }
+}
+
+export function createValidator(rules, arrRules = {} ) {
   return (data = {}) => {
     const errors = {};
     Object.keys(rules).forEach((key) => {
@@ -64,6 +82,14 @@ export function createValidator(rules) {
         errors[key] = error;
       }
     });
+     Object.keys(arrRules).forEach((key) => {
+      const rule = join([].concat(arrRules[key])); // concat enables both functions and arrays of functions
+      const error = rule(data[key]);
+      if (error) {
+        errors[key] ={ _error: error};
+      }
+    });
+
     return errors;
   };
 }

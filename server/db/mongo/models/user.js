@@ -4,14 +4,8 @@
  */
 
 import bcrypt from 'bcrypt-nodejs';
-var mongoose = require('mongoose')
-  , Schema = mongoose.Schema;
-
-// Other oauthtypes to be added
-
-/*
- User Schema
- */
+var mongoose = require('mongoose');
+var Schema    = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },

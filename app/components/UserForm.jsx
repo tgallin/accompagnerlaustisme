@@ -7,8 +7,10 @@ import RenderDatePicker from '../components/RenderDatePicker.jsx';
 import classNames from 'classnames/bind';
 
 import styles from '../css/components/user';
+import inputStyles from '../css/common/inputs';
 
 const cx = classNames.bind(styles);
+const cy = classNames.bind(inputStyles);
 
 function createAddress(address) {
   if (address) {
@@ -59,14 +61,16 @@ let UserForm = (props) => {
         </div>
         <div className="form-group">
           <label htmlFor="admin" className="control-label col-sm-4">Admin</label>
-          <div className={'col-sm-8 ' + cx('control-checkbox')}>
+          <div className={'col-sm-8 ' + cx('control-checkbox') + ' ' + cy('slide')}>
             <Field name="admin" id="admin" component="input" type="checkbox"/>
+            <label htmlFor="admin"></label>
           </div>
         </div>
         <div className="form-group">
           <label htmlFor="member" className="control-label col-sm-4">Membre</label>
-          <div className={'col-sm-8 ' + cx('control-checkbox')}>
+          <div className={'col-sm-8 ' + cx('control-checkbox') + ' ' + cy('slide')}>
             <Field name="member" id="member" component="input" type="checkbox"/>
+            <label htmlFor="member"></label>
           </div>
         </div>
         {isMember && 

@@ -29,6 +29,7 @@ export default function render(req, res) {
     userData.profile = req.user.profile;
     userData.isMember = req.user.membership.member;
     userData.isAdmin = req.user.admin;
+    userData.toys = req.user.toys;
   }
   
   const history = createMemoryHistory();
