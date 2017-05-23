@@ -76,5 +76,7 @@ export default reduxForm({
   form: 'myToy',  // a unique identifier for this form
   destroyOnUnmount: false, // <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
-  validate: toyValidation                // <--- validation function given to redux-form
+  validate: toyValidation,                // <--- validation function given to redux-form
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: true
 })(ToyFormTags);

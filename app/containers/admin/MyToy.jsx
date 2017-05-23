@@ -17,35 +17,51 @@ constructor(props) {
     super(props);
     this.nextPage = this.nextPage.bind(this);
     this.previousPage = this.previousPage.bind(this);
+    this.handleRemoveExistingPicture = this.handleRemoveExistingPicture.bind(this);
     this.state = {
       page: 1,
       catValues: [],
-      firstNav: true
+      removedPictures: []
     };
   }
 
-nextPage(values) {
-  this.setState({
-    page: this.state.page + 1,
-    catValues: values.categories,
-    firstNav: false
-  });
-}
+  nextPage(values) {
+    this.setState({
+      page: this.state.page + 1,
+      catValues: values.categories
+    });
+  }
 
-previousPage() {
-  this.setState({page: this.state.page - 1});
-}
+  previousPage() {
+    this.setState({page: this.state.page - 1});
+  }
 
-handleSubmit = (values) => {
+  handleRemoveExistingPicture = (id) => {
+    this.setState({
+      removedPictures: this.state.removedPictures.concat([id])
+    });
+  }
+
+  handleSubmit = (values) => {
     const {
       saveToy
     } = this.props;
     
+    const { removedPictures } = this.state;
+    
     var data = new FormData();
     data.append('toyId', values.toyId);
     data.append('name', values.name);
-    data.append('content', values.content);
-    data.append('description', values.description);
+    if (values.content && values.content !== '') {
+      data.append('content', values.content);
+    } else {
+       data.append('content', '');
+    }
+    if (values.description && values.description !== '') {
+      data.append('description', values.description);
+    } else {
+       data.append('description', '');
+    }
     
     if (values.pictures && values.pictures.length > 0) {
       // we remove from the list pictures whose size is > 3MB
@@ -54,6 +70,10 @@ handleSubmit = (values) => {
       files.forEach((file, i) => {
         data.append('pictures[' + i + ']', file);
       });
+    }
+    
+    if (removedPictures && removedPictures.length > 0) {
+      data.append('removedPictures', removedPictures);
     }
     
     var categories = [];
@@ -83,7 +103,7 @@ handleSubmit = (values) => {
 
   render() {
     
-    const { page, catValues, firstNav } = this.state;
+    const { page, catValues, removedPictures } = this.state;
     
     const getToyInitialData = (toy) => {
       var initialtoyData = {
@@ -110,8 +130,17 @@ handleSubmit = (values) => {
           initialtoyData.tags.push(tag);
         });
       }
+      
       return initialtoyData;
       
+    };
+    
+    const getToyPictures = (toy) => {
+      var existingPictures = [];
+      if (toy) {
+        existingPictures = toy.pictures.filter(p => !removedPictures.includes(p.public_id));
+      }
+      return existingPictures;
     };
     
     const {toys, toyId, toyCategories, toyTags, message} = this.props;
@@ -141,13 +170,14 @@ handleSubmit = (values) => {
     
     return (
       <div>
-        {page === 1 && firstNav && <ToyFormDescription initialValues={getToyInitialData(toy)} onSubmit={this.nextPage} message={message} />}
-        {page === 1 && !firstNav && <ToyFormDescription onSubmit={this.nextPage} message={message} />}
+        {page === 1 && <ToyFormDescription initialValues={getToyInitialData(toy)} onSubmit={this.nextPage} message={message} />}
         {page === 2 &&
           <ToyFormPhotos
             previousPage={this.previousPage}
             onSubmit={this.nextPage}
             message={message}
+            existingPictures={getToyPictures(toy)}
+            handleRemoveExistingPicture={this.handleRemoveExistingPicture}
           />}
         {page === 3 &&
           <ToyFormCategories
@@ -185,7 +215,7 @@ function mapStateToProps(state, ownProps) {
     toyId: ownProps.params.id,
     toyCategories: state.adminToyLibrary.categories,
     toyTags: state.adminToyLibrary.tags,
-    message : state.adminToyLibrary.message
+    message : state.user.message
   };
 }
 

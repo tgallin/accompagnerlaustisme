@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 
 let ToyFormPhotos = (props) => {
     const { message, handleSubmit, previousPage, invalid,
-      submitting } = props;
+      submitting, existingPictures, handleRemoveExistingPicture } = props;
       
   return (
     <div>
@@ -20,7 +20,7 @@ let ToyFormPhotos = (props) => {
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
         <Field
           name="pictures"
-          component={RenderDropzoneInput} label="Photos"
+          component={RenderDropzoneInput} existingPictures={existingPictures} handleRemoveExistingPicture={handleRemoveExistingPicture} label="Photos"
         />
         
         <div className="form-group">
@@ -50,5 +50,7 @@ export default reduxForm({
   form: 'myToy',  // a unique identifier for this form
   destroyOnUnmount: false, // <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
-  validate: toyValidation                // <--- validation function given to redux-form
+  validate: toyValidation,                // <--- validation function given to redux-form
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: true
 })(ToyFormPhotos);

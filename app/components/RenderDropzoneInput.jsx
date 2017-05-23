@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import { Field } from 'redux-form';
 
 import classNames from 'classnames/bind';
 import styles from '../css/components/toy';
@@ -7,8 +8,9 @@ const cx = classNames.bind(styles);
 
 
 const MAX_SIZE = 3000000;
+const MAX_PICTURES = 4;
 
-function arrayUnique(arr) {
+function arrayUnique(arr, countExisingPictures) {
     var a = arr.concat();
     for(var i=0; i<a.length; ++i) {
         for(var j=i+1; j<a.length; ++j) {
@@ -17,7 +19,7 @@ function arrayUnique(arr) {
         }
     }
 
-    return a.slice(0,4);
+    return a.slice(0, MAX_PICTURES - countExisingPictures);
 }
 
 function remove(arr, i) {
@@ -31,8 +33,7 @@ function getSizeInMb(bytes) {
   return +mb.toFixed(2);
 }
 
-
-const RenderDropzoneInput = ({ input, label, meta: { touched, error } }) => {
+const RenderDropzoneInput = ({ input, label, existingPictures, handleRemoveExistingPicture, meta: { touched, error } }) => {
 
     const files = input.value;
     
@@ -45,15 +46,17 @@ const RenderDropzoneInput = ({ input, label, meta: { touched, error } }) => {
           accept="image/jpeg, image/png"
           className={cx('dropzone')}
           onDrop={( filesToUpload, e ) => { 
-          var newFiles = files ? arrayUnique(files.concat(filesToUpload)) : arrayUnique(filesToUpload); 
+          var newFiles = files ? arrayUnique(files.concat(filesToUpload), existingPictures.length) : arrayUnique(filesToUpload, existingPictures.length); 
           input.onChange(newFiles)}}
         >
           <div  className={cx('dz-instruction') + ' text-info'}>Glissez-déposez vos photos ici, ou cliquez pour sélectionner les photos.</div>
           <div  className={cx('dz-instruction') + ' text-warning'}><i className={cx('marginRight') + ' fa fa-exclamation-triangle'} aria-hidden="true"></i>Seuls les .jpg et .png de moins de 3 MB seront acceptés</div>
           <div  className={cx('dz-instruction') + ' text-warning'}><i className={cx('marginRight') + ' fa fa-exclamation-triangle'} aria-hidden="true"></i>Pas plus de 4 photos</div>
         </Dropzone>
-          {files && Array.isArray(files) && (
+          {files && Array.isArray(files) && files.length > 0 && (
           <div>
+          
+          <h3>{files.length === 1 ? 'Nouvelle image' : 'Nouvelles images'}</h3>
             { files.map((file, i) => (
             
             <div className={cx('dz-preview')} key={i}>
@@ -80,6 +83,30 @@ const RenderDropzoneInput = ({ input, label, meta: { touched, error } }) => {
               </div>
             </div>)
              )
+            }
+          </div>
+        )}
+        {existingPictures && Array.isArray(existingPictures) && existingPictures.length > 0 && (
+          <div>
+          <h3>{existingPictures.length === 1 ? 'Image existante' : 'Images existantes'}</h3>
+            { existingPictures.map((file, i) => (
+              <div className={cx('dz-preview')} key={i}>
+                <div className={cx('dz-image')}>
+                   <img src={file.eager[1].secure_url} />
+                </div>
+                <div className={cx('dz-details')}>
+                  <div className={cx('dz-size-valid')}>
+                    <span><strong>{getSizeInMb(file.bytes)}</strong> MB</span>
+                  </div>
+                </div>
+                <div className={cx('dz-remove')}>
+                  <a  href="javascript:undefined;" onClick={() => { handleRemoveExistingPicture(file.public_id) }}><span className="fa-stack fa-lg">
+                        <i className="fa fa-circle fa-stack-2x"></i>
+                        <i className="fa fa-times fa-stack-1x fa-inverse"></i>
+                      </span></a>
+                </div>
+              </div>
+              ))
             }
           </div>
         )}

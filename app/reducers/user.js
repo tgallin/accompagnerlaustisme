@@ -38,6 +38,9 @@ const message = (
     case types.COMPLETE_RESET_PASSWORD:
     case types.INIT_RESET_PASSWORD_SUCCESS:
     case types.COMPLETE_RESET_PASSWORD_SUCCESS:
+    case types.TOY_CREATE_SUCCESS:
+    case types.TOY_UPDATE_SUCCESS:
+    case types.TOY_DELETE_SUCCESS:
     case types.CREATE_REQUEST:
       return '';
     case types.LOGIN_ERROR_USER:
@@ -49,6 +52,8 @@ const message = (
     case types.UPDATE_CONTACT_DETAILS_ERROR:
     case types.UPDATE_EMAIL_ERROR:
     case types.UPDATE_PASSWORD_ERROR:
+    case types.TOY_SAVE_ERROR:
+    case types.TOY_DELETE_ERROR:
       return action.message;
     default:
       return state;
@@ -185,7 +190,7 @@ const toys = (
     case types.LOGIN_SUCCESS_USER:
       if (action.user && action.user.toys) return action.user.toys;
       return state;
-    case types.TOY_CREATE_SUCCESS:  
+    case types.TOY_CREATE_SUCCESS:
       return [...state, action.toy];
     case types.TOY_UPDATE_SUCCESS:
       return state.map(t => toy(t, action));

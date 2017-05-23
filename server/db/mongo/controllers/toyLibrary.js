@@ -2,7 +2,9 @@ import Toy from '../models/toy';
 import ToyCategory from '../models/toyCategory';
 import ToyTag from '../models/toyTag';
 import User from '../models/user';
-import { uploadImage } from '../../../image/cloudinaryUploader';
+import fs from 'fs';
+import _ from 'lodash';
+import { uploadImage, destroyImage } from '../../../image/cloudinaryUploader';
 
 /**
  * GET /toys
@@ -162,13 +164,30 @@ export function removeTag(req, res) {
   });
 }
 
-function addPicture(pictures, file, folder) {
+function addPicture(pictures, req, i, userId, toyId) {
+  var file = req.files['pictures['+ i +']'];
+  var picture = {};
   if (file) {
-      var picture = {
-        path: file[0].path,
-        folder: folder
-      };
-    pictures.push(picture);
+    picture = {
+      path: file[0].path,
+      folder: userId + '/' + toyId + '/'
+    };
+  }
+  pictures.push(picture);
+}
+
+function removeFile(file) {
+  if (!_.isEmpty(file) && file.path && file.path !== '') {
+    fs.stat(file.path, function (err, stats) {
+     if (err) {
+        return console.log(err);
+     }
+  
+     fs.unlink(file.path, function(err){
+        if(err) return console.log(err);
+        console.log('file deleted successfully');
+     });
+    });
   }
 }
 
@@ -219,28 +238,6 @@ export function saveToy(req, res) {
         
         if (req.body.toyId == 0) {
           
-          var pictures = [];
-          addPicture(pictures, req.files['pictures[0]'], user._id);
-          addPicture(pictures, req.files['pictures[1]'], user._id);
-          addPicture(pictures, req.files['pictures[2]'], user._id);
-          addPicture(pictures, req.files['pictures[3]'], user._id);
-
-          var results = [];
-          var callback = function(err, res) {
-            if (!err) {
-              results.push(res);
-              console.log(results);
-            }
-          };
-
-          // By default, Cloudinary's upload API works synchronously: 
-          // uploaded images are processed and eager transformations 
-          // are generated synchronously during the upload API call,
-          
-          pictures.forEach((p) => {
-            uploadImage(p, callback);
-          });
-
           var newToy = new Toy();
           newToy.name = req.body.name;
           if (req.body.content) {
@@ -250,28 +247,75 @@ export function saveToy(req, res) {
             newToy.description = req.body.description;
           }
           
-          newToy.categories = req.body.categories;
-          newToy.tags = req.body.tags;
+          newToy.categories = req.body.categories && req.body.categories !== '' ? req.body.categories.split(',') : [];
+          newToy.tags = req.body.tags && req.body.tags !== '' ? req.body.tags.split(',') : [];
           newToy.owner = user._id;
-          
-          var urls = [];
-          results.forEach((r) => {
-            urls.push(r.secure_url);
-          });
-          console.log(urls);
-          newToy.pictures = results;
-          
+
           newToy.save(function(err) {
             if (err) {
               return res.status(500).json({ message: 'Problème technique lors de la création' });
             }
             
-            user.toys.push(newToy._id);
-            user.save(function(err) {
+            var pictures = [];
+            for (var i = 0; i < 4; i++) {
+              addPicture(pictures, req, i, user._id, newToy._id);
+            }
+            
+            // By default, Cloudinary's upload API works synchronously: 
+            // uploaded images are processed and eager transformations 
+            // are generated synchronously during the upload API call,
+            
+            var results = [];
+            uploadImage(pictures[0], function (err, pic1) {
               if (err) {
-                return res.status(500).json({ message: 'Problème technique lors de l\'ajout du jouet à votre compte' });
+                console.log('problème d\'upload de l\'image ');
               }
-              return res.status(200).json({ toy: newToy, message:  'Jouet créé avec succès' });
+              if (pic1 && pic1.public_id) {
+                results.push(pic1);
+              }
+              uploadImage(pictures[1], function (err, pic2) {
+                if (err) {
+                  console.log('problème d\'upload de l\'image ');
+                }
+                if (pic2 && pic2.public_id) {
+                  results.push(pic2);
+                }
+                uploadImage(pictures[2], function (err, pic3) {
+                  if (err) {
+                    console.log('problème d\'upload de l\'image ');
+                  }
+                  if (pic3 && pic3.public_id) {
+                    results.push(pic3);
+                  }
+                  uploadImage(pictures[3], function (err, pic4) {
+                    if (err) {
+                      console.log('problème d\'upload de l\'image ');
+                    }
+                    if (pic4 && pic4.public_id) {
+                      results.push(pic4);
+                    }
+                    newToy.pictures = results;
+                    newToy.save(function(err) {
+                      if (err) {
+                        console.log('problème lors de la sauvegarde des images du jouet');
+                      }
+                    });
+                    
+                    // delete uploaded images
+                    pictures.forEach((p) => {
+                      removeFile(p);
+                    });
+                    
+                    user.toys.push(newToy._id);
+                    user.save(function(err) {
+                      if (err) {
+                        return res.status(500).json({ message: 'Problème technique lors de l\'ajout du jouet à votre compte' });
+                      }
+                      return res.status(200).json({ toy: newToy, message:  'Jouet créé avec succès' });
+                    });
+                  });
+                });
+              });
             });
           });
 
@@ -286,18 +330,82 @@ export function saveToy(req, res) {
             }
     
             existingToy.name = req.body.name;
-            existingToy.content = req.body.content;
-            existingToy.description = req.body.description;
-            existingToy.categories = req.body.categories;
-            existingToy.tags = req.body.tags;
+            if (req.body.content) {
+              existingToy.content = req.body.content;
+            }
+            if (req.body.description) {
+              existingToy.description = req.body.description;
+            }
+            existingToy.categories = req.body.categories && req.body.categories !== '' ? req.body.categories.split(',') : [];
+            existingToy.tags = req.body.tags && req.body.tags !== '' ? req.body.tags.split(',') : [];
             
-            existingToy.save(function(err) {
+            var pictures = [];
+            for (var i = 0; i < 4; i++) {
+              addPicture(pictures, req, i, user._id, existingToy._id);
+            }
+            
+            var removedPictures = req.body.removedPictures && req.body.removedPictures !== '' ? req.body.removedPictures.split(',') : [];
+            
+            // By default, Cloudinary's upload API works synchronously: 
+            // uploaded images are processed and eager transformations 
+            // are generated synchronously during the upload API call,
+            
+            var results = [];
+            uploadImage(pictures[0], function (err, pic1) {
               if (err) {
-                return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+                console.log('problème d\'upload de l\'image ');
               }
-              return res.status(200).json({ toy: existingToy, message: 'Jouet mis à jour avec succès' });
+              if (pic1 && pic1.public_id) {
+                results.push(pic1);
+              }
+              uploadImage(pictures[1], function (err, pic2) {
+                if (err) {
+                  console.log('problème d\'upload de l\'image ');
+                }
+                if (pic2 && pic2.public_id) {
+                  results.push(pic2);
+                }
+                uploadImage(pictures[2], function (err, pic3) {
+                  if (err) {
+                    console.log('problème d\'upload de l\'image ');
+                  }
+                  if (pic3 && pic3.public_id) {
+                    results.push(pic3);
+                  }
+                  uploadImage(pictures[3], function (err, pic4) {
+                    if (err) {
+                      console.log('problème d\'upload de l\'image ');
+                    }
+                    if (pic4 && pic4.public_id) {
+                      results.push(pic4);
+                    }
+                    
+                    existingToy.pictures.forEach((p) => {
+                      if (removedPictures.includes(p.public_id)) {
+                        destroyImage(p.public_id);
+                      } else {
+                        results.push(p);
+                      }
+                    });
+                    
+                    existingToy.pictures = results;
+
+                    // delete uploaded images
+                    pictures.forEach((p) => {
+                      removeFile(p);
+                    });
+                    
+                    existingToy.save(function(err) {
+                      if (err) {
+                        console.log(err);
+                        return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+                      }
+                      return res.status(200).json({ toy: existingToy, message: 'Jouet mis à jour avec succès' });
+                    });
+                  });
+                });
+              });
             });
-            
           });
         }
       }

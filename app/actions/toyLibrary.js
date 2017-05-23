@@ -1,5 +1,6 @@
 import { polyfill } from 'es6-promise';
 import request from 'axios';
+import { push } from 'react-router-redux';
 
 import * as types from '../types';
 
@@ -247,8 +248,9 @@ export function saveToy(data) {
     return makeRequest('post', data, '/toys', config)
       .then(response => {
         if (response.status === 200) {
-          var action = data.toyId === 0 ? types.TOY_CREATE_SUCCESS : types.TOY_UPDATE_SUCCESS;
+          var action = data.get('toyId') === '0' ? types.TOY_CREATE_SUCCESS : types.TOY_UPDATE_SUCCESS;
           dispatch(saveToySuccess(response.data, action));
+          dispatch(push('/dashboard/mytoys'));
         } else {
           dispatch(saveToyError('Oops! Something went wrong!'));
         }

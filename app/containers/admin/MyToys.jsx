@@ -74,7 +74,7 @@ class MyToys extends Component {
                   toys.map((toy) => 
                     <tr key={toy._id}>
                       <td className="col-md-2">{toy.name}</td>
-                      <td className="col-md-2">{toy.pictures && toy.pictures.length > 0 ? toy.pictures[0] : ''}</td>
+                      <td className="col-md-2">{toy.pictures && toy.pictures.length > 0 ? <img src={toy.pictures[0].eager[0].secure_url} /> : ''}</td>
                       <td className="col-md-2">{toy.approved ? 'Oui' : 'Non'}</td>
                       <td className="col-md-2">{toy.online ? 'Oui' : 'Non'}</td>
                       <td className="col-md-2">{toy.available ? 'Oui' : 'Non'}</td>
