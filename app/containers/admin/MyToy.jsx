@@ -117,16 +117,17 @@ constructor(props) {
         initialtoyData.description = toy.description;
         
         initialtoyData.categories = [];
+        
         toyCategories.forEach(c => {
           var cat = {};
-          cat[c._id] = _.isNil(_.find(toy.categories, ['_id', c._id]));
+          cat[c._id] = _.includes(toy.categories, c._id);
           initialtoyData.categories.push(cat);
         });
-        
+
         initialtoyData.tags = [];
         toyTags.forEach(t => {
           var tag = {};
-          tag[t._id] = _.isNil(_.find(toy.tags, ['_id', t._id]));
+          tag[t._id] = _.includes(toy.tags, t._id);
           initialtoyData.tags.push(tag);
         });
       }

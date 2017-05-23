@@ -249,8 +249,8 @@ export function saveToy(data) {
       .then(response => {
         if (response.status === 200) {
           var action = data.get('toyId') === '0' ? types.TOY_CREATE_SUCCESS : types.TOY_UPDATE_SUCCESS;
-          dispatch(saveToySuccess(response.data, action));
           dispatch(push('/dashboard/mytoys'));
+          dispatch(saveToySuccess(response.data, action));
         } else {
           dispatch(saveToyError('Oops! Something went wrong!'));
         }
