@@ -51,7 +51,9 @@ handleSubmit = (values) => {
         initialtoyCatData.tags = [];
         toyTags.forEach(t => {
           var tag = {};
-          tag[t._id] = _.isNil(_.find(toyCat.suggestedTags, ['_id', t._id]));
+          var foundTag = _.find(toyCat.suggestedTags, ['_id', t._id]);
+          // if true checkbox will be checked
+          tag[t._id] = !_.isNil(foundTag);
           initialtoyCatData.tags.push(tag);
         });
       }

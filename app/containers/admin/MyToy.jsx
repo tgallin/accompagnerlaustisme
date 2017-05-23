@@ -21,14 +21,16 @@ constructor(props) {
     this.state = {
       page: 1,
       catValues: [],
-      removedPictures: []
+      removedPictures: [],
+      firstNav: true
     };
   }
 
   nextPage(values) {
     this.setState({
       page: this.state.page + 1,
-      catValues: values.categories
+      catValues: values.categories,
+      firstNav: false
     });
   }
 
@@ -103,7 +105,7 @@ constructor(props) {
 
   render() {
     
-    const { page, catValues, removedPictures } = this.state;
+    const { page, catValues, removedPictures, firstNav } = this.state;
     
     const getToyInitialData = (toy) => {
       var initialtoyData = {
@@ -113,8 +115,12 @@ constructor(props) {
       if (toy) {
         initialtoyData.toyId = toy._id;
         initialtoyData.name = toy.name;
-        initialtoyData.content = toy.content;
-        initialtoyData.description = toy.description;
+        if (toy.content) {
+          initialtoyData.content = toy.content;
+        }
+        if (toy.description) {
+          initialtoyData.description = toy.description;
+        }
         
         initialtoyData.categories = [];
         
@@ -171,7 +177,8 @@ constructor(props) {
     
     return (
       <div>
-        {page === 1 && <ToyFormDescription initialValues={getToyInitialData(toy)} onSubmit={this.nextPage} message={message} />}
+        {page === 1 && firstNav && <ToyFormDescription initialValues={getToyInitialData(toy)} onSubmit={this.nextPage} message={message} />}
+        {page === 1 && !firstNav && <ToyFormDescription onSubmit={this.nextPage} message={message} />}
         {page === 2 &&
           <ToyFormPhotos
             previousPage={this.previousPage}

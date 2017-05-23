@@ -15,7 +15,6 @@ let ToyFormTags = (props) => {
     const { message, handleSubmit, previousPage, invalid,
       submitting, tags, suggestedTags } = props;
      
-     
     const getTags = (allTags, sugggestedTags) => {
       if (sugggestedTags && sugggestedTags.length > 0) {
         var tags = [];
@@ -30,7 +29,7 @@ let ToyFormTags = (props) => {
           else {
             tag.hide = true;
             tag.useNewValue = true;
-            tag.newValue = false;
+            tag.newValue = '';
           }
           tags.push(tag);
         });

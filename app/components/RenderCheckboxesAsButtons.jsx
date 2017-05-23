@@ -9,6 +9,7 @@ const RenderCheckboxesAsButtons = ({input, objects, id, label, help, meta: { err
       <div className="col-sm-10">
           {objects && objects.length > 0 &&
             objects.map((obj, i) => (
+            // ex : name="tags[0]" or name="categories[1]" ...
             <Field key={i} name={`${id}[${i}].${obj._id}`} val={obj.name} hide={obj.hide} useNewValue={obj.useNewValue} newValue={obj.newValue} component={RenderCheckboxAsButton} />
           ))
           }
