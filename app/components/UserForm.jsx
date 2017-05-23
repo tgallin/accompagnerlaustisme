@@ -61,16 +61,20 @@ let UserForm = (props) => {
         </div>
         <div className="form-group">
           <label htmlFor="admin" className="control-label col-sm-4">Admin</label>
-          <div className={'col-sm-8 ' + cx('control-checkbox') + ' ' + cy('slide')}>
-            <Field name="admin" id="admin" component="input" type="checkbox"/>
-            <label htmlFor="admin"></label>
+           <div className="col-sm-8">
+            <div className={cx('control-checkbox') + ' ' + cy('slide')}>
+              <Field name="admin" id="admin" component="input" type="checkbox"/>
+              <label htmlFor="admin"></label>
+            </div>
           </div>
         </div>
         <div className="form-group">
           <label htmlFor="member" className="control-label col-sm-4">Membre</label>
-          <div className={'col-sm-8 ' + cx('control-checkbox') + ' ' + cy('slide')}>
-            <Field name="member" id="member" component="input" type="checkbox"/>
-            <label htmlFor="member"></label>
+          <div className="col-sm-8">
+            <div className={cx('control-checkbox') + ' ' + cy('slide')}>
+              <Field name="member" id="member" component="input" type="checkbox"/>
+              <label htmlFor="member"></label>
+            </div>
           </div>
         </div>
         {isMember && 
