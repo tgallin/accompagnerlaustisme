@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 module.exports = ({ production = false, browser = false } = {}) => {
   const bannerOptions = { raw: true, banner: 'require("source-map-support").install();' };
@@ -9,8 +8,7 @@ module.exports = ({ production = false, browser = false } = {}) => {
   if (!production && !browser) {
     return [
       new webpack.EnvironmentPlugin(['NODE_ENV']),
-      new webpack.BannerPlugin(bannerOptions),
-      new LodashModuleReplacementPlugin
+      new webpack.BannerPlugin(bannerOptions)
     ];
   }
   if (!production && browser) {
@@ -30,8 +28,7 @@ module.exports = ({ production = false, browser = false } = {}) => {
         'GMAIL_CLIENTID', 'GMAIL_SECRET', 'GMAIL_REFRESH_TOKEN', 'GMAIL_USER',
         'CLOUDINARY_API_KEY','CLOUDINARY_CLOUD_NAME', 'CLOUDINARY_SECRET_KEY']),
       new webpack.BannerPlugin(bannerOptions),
-      new webpack.optimize.UglifyJsPlugin({ compress }),
-      new LodashModuleReplacementPlugin
+      new webpack.optimize.UglifyJsPlugin({ compress })
     ];
   }
   if (production && browser) {
@@ -41,8 +38,7 @@ module.exports = ({ production = false, browser = false } = {}) => {
         filename: 'styles/main.css',
         allChunks: true
       }),
-      new webpack.optimize.UglifyJsPlugin({ compress }),
-      new LodashModuleReplacementPlugin
+      new webpack.optimize.UglifyJsPlugin({ compress })
     ];
   }
   return [];
