@@ -86,6 +86,7 @@ export default (app) => {
   // toys routes
   if (toyLibraryController) {
     app.get('/toys', toyLibraryController.allToys);
+    app.get('/mytoys', toyLibraryController.allMyToys);
    // app.get('/toys/:id', toyLibraryController.findToy);
    var cpUpload = upload.fields([{ name: 'pictures[0]' }, { name: 'pictures[1]' }, { name: 'pictures[2]' }, { name: 'pictures[3]' }]);
     app.post('/toys', cpUpload, toyLibraryController.saveToy);

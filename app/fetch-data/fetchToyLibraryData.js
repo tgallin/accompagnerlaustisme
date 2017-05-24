@@ -8,8 +8,8 @@ export const fetchToys = () => {
   .catch(() => []);
 };
 
-export const fetchToysAndCategoriesAndTags = () => {
-  return adminToyLibraryService.getToys()
+export const fetchMyToysAndCategoriesAndTags = () => {
+  return adminToyLibraryService.getMyToys()
     .then(response => {
       var results = response.data;
 

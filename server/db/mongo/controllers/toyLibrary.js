@@ -19,6 +19,33 @@ export function allToys(req, res) {
 }
 
 /**
+ * GET /toys
+ */
+export function allMyToys(req, res) {
+  if (req.user) {
+    
+    const queryUser = {
+      email: req.user.email
+    };
+    
+    User.findOne(queryUser, (err, user) => {
+      if (err) {
+        return res.status(500).json({ message: 'Problème technique lors de la recherche de l\'utilisateur' });
+      }
+
+      const queryToys = { owner: user._id };
+      
+      Toy.find(queryToys).sort({name: 1}).exec(function (err, toys) {
+        if (err) {
+          return res.status(500).json({ message: 'Problème lors de la récupération des jouets' });
+        }
+        return res.status(200).json( { toys: toys} );
+      });
+    });
+  }
+}
+
+/**
  * GET /toys/categories
  */
 export function allCategories(req, res) {
@@ -459,6 +486,7 @@ export function removeToy(req, res) {
 
 export default {
   allToys,
+  allMyToys,
   saveToy,
   removeToy,
   allCategories,

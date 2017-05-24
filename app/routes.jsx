@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { beginLoadUser, loadUserSuccess, loadUserError } from 'actions/users';
-import { fetchUsersData, fetchToys, fetchToysAndCategoriesAndTags, fetchToyCategoriesAndTags, fetchToyTags  } from './fetch-data';
+import { fetchUsersData, fetchToys, fetchMyToysAndCategoriesAndTags, fetchToyCategoriesAndTags, fetchToyTags  } from './fetch-data';
 import { userService } from 'services';
 import {
   App,
@@ -107,7 +107,7 @@ export default (store) => {
           <Route path="/dashboard/accountSettings/contactDetails" component={ContactDetails} />
           <Route path="/dashboard/accountSettings/loginDetails" component={LoginDetails} />
         </Route>
-        <Route path="/dashboard/mytoys" component={MyToys} fetchData={fetchToysAndCategoriesAndTags}>
+        <Route path="/dashboard/mytoys" component={MyToys} fetchData={fetchMyToysAndCategoriesAndTags}>
           <Route path="/dashboard/mytoys/:id" component={MyToy} />
         </Route>
         <Route path="/dashboard/news" component={AdminNews} />
