@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import ToyCategoryForm from '../../components/ToyCategoryForm';
 import { connect } from 'react-redux';
 import { saveToyCategory } from '../../actions/toyLibrary';
-import _ from 'lodash';
+import { matchesProperty } from '../../utils/arrayUtils';
 
 //import styles from 'css/components/adminUsers';
 
@@ -51,9 +51,9 @@ handleSubmit = (values) => {
         initialtoyCatData.tags = [];
         toyTags.forEach(t => {
           var tag = {};
-          var foundTag = _.find(toyCat.suggestedTags, ['_id', t._id]);
+          var foundTag = matchesProperty(toyCat.suggestedTags, ['_id', t._id]);
           // if true checkbox will be checked
-          tag[t._id] = !_.isNil(foundTag);
+          tag[t._id] = foundTag !== undefined && foundTag !== null;
           initialtoyCatData.tags.push(tag);
         });
       }
@@ -62,7 +62,7 @@ handleSubmit = (values) => {
     
     const {toyCategories, toyTags, toyCatId, message} = this.props;
     
-    var toyCat = _.find(toyCategories, ['_id', toyCatId]);
+    var toyCat = matchesProperty(toyCategories, ['_id', toyCatId]);
     
     return (
         <ToyCategoryForm initialValues={getToyCatInitialData(toyCat)} tags={toyTags} message={message} onSubmit={this.handleSubmit}/>

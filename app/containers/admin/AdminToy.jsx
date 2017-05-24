@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import AdminToyForm from '../../components/AdminToyForm';
 import { connect } from 'react-redux';
 import { changeApprobationToy } from '../../actions/toyLibrary';
-import _ from 'lodash';
+import { matchesProperty } from '../../utils/arrayUtils';
 
 //import styles from 'css/components/adminUsers';
 
@@ -41,7 +41,7 @@ handleSubmit = (values) => {
     
     const {toys, toyId, message} = this.props;
     
-    var toy = _.find(toys, ['_id', toyId]);
+    var toy = matchesProperty(toys, ['_id', toyId]);
     
     return (
         <AdminToyForm initialValues={getToyInitialData(toy)} message={message} onSubmit={this.handleSubmit}/>

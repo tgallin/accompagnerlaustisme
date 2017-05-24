@@ -6,6 +6,7 @@ import ToyFormTags from '../../components/ToyFormTags';
 import { connect } from 'react-redux';
 import { saveToy } from '../../actions/toyLibrary';
 import _ from 'lodash';
+import { matchesProperty } from '../../utils/arrayUtils';
 
 import classNames from 'classnames/bind';
 import inputStyles from '../../css/common/inputs';
@@ -51,8 +52,10 @@ constructor(props) {
     
     const { removedPictures } = this.state;
     
+    const toyId = values.toyId;
+    
     var data = new FormData();
-    data.append('toyId', values.toyId);
+    data.append('toyId', toyId);
     data.append('name', values.name);
     if (values.content && values.content !== '') {
       data.append('content', values.content);
@@ -100,7 +103,7 @@ constructor(props) {
     );
     data.append('tags', tags);
   
-    saveToy(data);
+    saveToy(data, toyId);
   }
 
   render() {
@@ -126,14 +129,15 @@ constructor(props) {
         
         toyCategories.forEach(c => {
           var cat = {};
-          cat[c._id] = _.includes(toy.categories, c._id);
+          // indexOf returns -1 if elt doesn't exist in the collection
+          cat[c._id] = toy.categories.indexOf(c._id) !== -1;
           initialtoyData.categories.push(cat);
         });
 
         initialtoyData.tags = [];
         toyTags.forEach(t => {
           var tag = {};
-          tag[t._id] = _.includes(toy.tags, t._id);
+          tag[t._id] = toy.tags.indexOf(t._id) !== -1;
           initialtoyData.tags.push(tag);
         });
       }
@@ -160,8 +164,8 @@ constructor(props) {
             for (var key in catValue) {
              if (catValue[key]) {
                // category is selected
-               var toyCat = _.find(toyCategories, ['_id', key]);
-               if (toyCat) {
+               var toyCat = matchesProperty(toyCategories, ['_id', key]);
+               if (toyCat !== undefined && toyCat !== null) {
                 tags = tags.concat(toyCat.suggestedTags);
                }
              }
@@ -173,7 +177,7 @@ constructor(props) {
       return tags;
     };
 
-    var toy = _.find(toys, ['_id', toyId]);
+    var toy = matchesProperty(toys, ['_id', toyId]);
     
     return (
       <div>

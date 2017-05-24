@@ -36,7 +36,11 @@ const Formations = () => {
       
       <p className={'text-justify ' + cx('content', 'paddingBottom')}>7 avril : <Link to="/formations/formation3">Projection du film “Enfants autistes : bienvenue à l'école !”</Link></p>
       
-      <p className={'text-justify ' + cx('content', 'lastPaddingBottom')}>8 & 9 avril 2017 : <Link to="/formations/formation4">Entraînement aux Réponses Pivots</Link> (PRT)</p>
+      <p className={'text-justify ' + cx('content', 'paddingBottom')}>8 & 9 avril 2017 : <Link to="/formations/formation4">Entraînement aux Réponses Pivots</Link> (PRT)</p>
+      
+      <div className={cx('header')}>Agenda 2018</div>
+      
+      <p className={'text-justify ' + cx('content', 'lastPaddingBottom')}>En cours d'élaboration</p>
       
     </div>
   );

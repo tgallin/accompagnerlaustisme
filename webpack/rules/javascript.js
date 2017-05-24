@@ -11,8 +11,9 @@ module.exports = ({ production = false, browser = false } = {}) => {
   const plugins = production ? [
       'transform-react-remove-prop-types',
       'transform-react-constant-elements',
-      'transform-react-inline-elements'
-  ]: [];
+      'transform-react-inline-elements',
+      'lodash'
+  ]: ['lodash'];
 
   return {
     test: /\.js$|\.jsx$/,

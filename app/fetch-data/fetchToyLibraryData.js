@@ -8,6 +8,34 @@ export const fetchToys = () => {
   .catch(() => []);
 };
 
+export const fetchToysAndCategoriesAndTags = () => {
+  return adminToyLibraryService.getToys()
+    .then(response => {
+      var results = response.data;
+
+      return adminToyLibraryService.getCategories()
+        .then(res => {
+          results.categories = res.data.categories;
+          
+          return adminToyLibraryService.getTags()
+            .then(res => {
+              results.tags = res.data.tags;
+              return results;
+            })
+            .catch(() => {
+              return results;
+            });
+          
+        })
+        .catch(() => {
+          return results;
+        });
+    })
+    .catch(() => {
+      return [];
+    });
+};
+
 export const fetchToyCategoriesAndTags = () => {
   return adminToyLibraryService.getCategories()
     .then(response => {

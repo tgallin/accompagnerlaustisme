@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import ToyTagForm from '../../components/ToyTagForm';
 import { connect } from 'react-redux';
 import { saveToyTag } from '../../actions/toyLibrary';
-import _ from 'lodash';
+import { matchesProperty } from '../../utils/arrayUtils';
 
 //import styles from 'css/components/adminUsers';
 
@@ -42,7 +42,7 @@ handleSubmit = (values) => {
     
     const {toyTags, toyTagId, message} = this.props;
     
-    var toyTag = _.find(toyTags, ['_id', toyTagId]);
+    var toyTag = matchesProperty(toyTags, ['_id', toyTagId]);
     
     return (
         <ToyTagForm initialValues={getToyTagInitialData(toyTag)} message={message} onSubmit={this.handleSubmit}/>

@@ -1,0 +1,48 @@
+@import '../common/typography';
+@import '../common/colors';
+
+.header {
+  @apply --heading;
+  padding-top: 30px;
+  padding-bottom: 15px;
+}
+
+.subheader {
+  @apply --subHeading;
+  padding-bottom: 15px;
+}
+
+.title {
+  text-align: center;
+  color: var(--heading);
+}
+
+.paddingBottom {
+  padding-bottom: 15px;
+}
+
+.lastPaddingBottom {
+  padding-bottom: 25px;
+}
+
+.content { @apply --normal; }
+
+ul.list, ol.list {
+  @apply --normal;
+}
+
+ol.listNoType, ul.listNoType {
+  list-style-type: none;
+  @apply --normal;
+}
+
+.list-item { 
+  padding-bottom: 5px;
+}
+
+.big-item { 
+  font-size: 16px;
+  font-weight: 700;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}

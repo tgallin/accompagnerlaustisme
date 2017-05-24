@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import _ from 'lodash';
+import { matchesProperty } from '../../utils/arrayUtils';
 import UserForm from '../../components/UserForm';
 import { connect } from 'react-redux';
 import { saveUser } from '../../actions/adminUsers';
@@ -87,7 +88,7 @@ formatDateToString(value) {
     
     const {users, userId, message} = this.props;
     
-    var user = _.find(users, ['_id', userId]);
+    var user = matchesProperty(users, ['_id', userId]);
     
     if (user) {
       return (

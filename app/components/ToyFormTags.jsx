@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import toyValidation from '../js/toyValidation';
 import RenderCheckboxesAsButtons from '../components/RenderCheckboxesAsButtons.jsx';
 import _ from 'lodash';
+import { matchesProperty } from '../utils/arrayUtils';
 
 import classNames from 'classnames/bind';
 
@@ -20,7 +21,7 @@ let ToyFormTags = (props) => {
         var tags = [];
         var allTagsCopy = _.clone(allTags);
         allTagsCopy.forEach((tag) => {
-          var suggestedTag = _.find(suggestedTags, ['_id', tag._id]);
+          var suggestedTag = matchesProperty(suggestedTags, ['_id', tag._id]);
           if (!_.isNil(suggestedTag)) {
             tag.hide = false;
             tag.useNewValue = false;

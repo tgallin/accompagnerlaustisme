@@ -166,7 +166,9 @@ export function removeTag(req, res) {
 
 function addPicture(pictures, req, i, userId, toyId) {
   var file = req.files['pictures['+ i +']'];
-  var picture = {};
+  var picture = {
+    path: ''
+  };
   if (file) {
     picture = {
       path: file[0].path,
@@ -177,15 +179,16 @@ function addPicture(pictures, req, i, userId, toyId) {
 }
 
 function removeFile(file) {
-  if (!_.isEmpty(file) && file.path && file.path !== '') {
+  if (file.path !== '') {
     fs.stat(file.path, function (err, stats) {
      if (err) {
-        return console.log(err);
+        console.log(err);
      }
   
      fs.unlink(file.path, function(err){
-        if(err) return console.log(err);
-        console.log('file deleted successfully');
+        if (err) {
+          console.log(err);
+        }
      });
     });
   }
@@ -380,6 +383,7 @@ export function saveToy(req, res) {
                       results.push(pic4);
                     }
                     
+                    
                     existingToy.pictures.forEach((p) => {
                       if (removedPictures.includes(p.public_id)) {
                         destroyImage(p.public_id);
@@ -394,6 +398,8 @@ export function saveToy(req, res) {
                     pictures.forEach((p) => {
                       removeFile(p);
                     });
+                    
+                    console.log('before save');
                     
                     existingToy.save(function(err) {
                       if (err) {

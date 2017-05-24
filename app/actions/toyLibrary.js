@@ -236,7 +236,7 @@ export function deleteToyTag(id) {
   };
 }
 
-export function saveToy(data) {
+export function saveToy(data, toyId) {
   return (dispatch, getState) => {
 
     dispatch(beginSaveToy());
@@ -248,7 +248,10 @@ export function saveToy(data) {
     return makeRequest('post', data, '/toys', config)
       .then(response => {
         if (response.status === 200) {
-          var action = data.get('toyId') === '0' ? types.TOY_CREATE_SUCCESS : types.TOY_UPDATE_SUCCESS;
+          // can't use data.get('toyId') because it doesn't work in IE, tha's why I had to pass in toyId as parameter 
+          var action = toyId === '0' ? types.TOY_CREATE_SUCCESS : types.TOY_UPDATE_SUCCESS;
+          console.log('before push');
+          console.log(action);
           dispatch(push('/dashboard/mytoys'));
           dispatch(saveToySuccess(response.data, action));
         } else {
