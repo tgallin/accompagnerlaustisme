@@ -191,7 +191,7 @@ const toys = (
       if (action.user && action.user.toys) return action.user.toys;
       return state;
     case types.REQUEST_SUCCESS:
-      if (action.data && action.data.toys) return action.data.toys;
+      if (action.data && action.data.mytoys) return action.data.mytoys;
       return state;
     case types.TOY_CREATE_SUCCESS:
       return [...state, action.toy];

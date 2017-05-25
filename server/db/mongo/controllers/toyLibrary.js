@@ -39,7 +39,7 @@ export function allMyToys(req, res) {
         if (err) {
           return res.status(500).json({ message: 'Problème lors de la récupération des jouets' });
         }
-        return res.status(200).json( { toys: toys} );
+        return res.status(200).json( { mytoys: toys} );
       });
     });
   }
