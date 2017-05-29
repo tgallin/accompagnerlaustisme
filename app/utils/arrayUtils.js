@@ -25,3 +25,14 @@ export function matchesProperty(array, property) {
   }
   return null;
 }
+
+export function shallowClone(array) {
+  if (!array)
+    return null;
+
+  return array.slice();
+}
+
+export function uniq(array) {
+  return array.filter((v, i, a) => a.indexOf(v) === i);
+}

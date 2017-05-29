@@ -12,12 +12,12 @@ class MyToy extends Component {
   }
 
   pageTitle() {
-    return 'Configuration d\'un jouet';
+    return 'Configuration d\'un jeu';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Configuration d\'un jouet' }
+      { name: 'description', content: 'Configuration d\'un jeu' }
     ];
   }
 

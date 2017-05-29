@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
-import _ from 'lodash';
 import { matchesProperty } from '../../utils/arrayUtils';
+import { padStart } from '../../utils/stringUtils';
 import UserForm from '../../components/UserForm';
 import { connect } from 'react-redux';
 import { saveUser } from '../../actions/adminUsers';
+
 //import styles from 'css/components/adminUsers';
 
 //const cx = classNames.bind(styles);
@@ -51,8 +52,8 @@ formatDateToString(value) {
   if (value && value !== '') {
     var date = new Date(value);
     var dateParts = [];
-    dateParts.push(_.padStart(date.getUTCDate().toString(), 2, '0'));
-    dateParts.push(_.padStart((date.getUTCMonth() + 1).toString(), 2, '0'));
+    dateParts.push(padStart(date.getUTCDate().toString(), "00"));
+    dateParts.push(padStart((date.getUTCMonth() + 1).toString(), "00"));
     dateParts.push(date.getUTCFullYear());
     result = dateParts.join('/');
   } 

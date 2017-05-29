@@ -12,12 +12,12 @@ class MyToys extends Component {
   }
 
   pageTitle() {
-    return 'Ma liste de jouets';
+    return 'Ma liste de jeux';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Ma liste de jouets' }
+      { name: 'description', content: 'Ma liste de jeux' }
     ];
   }
 

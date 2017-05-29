@@ -52,7 +52,7 @@ class AdminToys extends Component {
             </div>
           }
           {(!toys || toys.length === 0) &&
-            <div className={cx('paddingAll')}>Aucun jouet</div>
+            <div className={cx('paddingAll')}>Aucun jeu</div>
           }
         </div>
         }

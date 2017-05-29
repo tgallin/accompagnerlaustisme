@@ -5,8 +5,7 @@ import ToyFormCategories from '../../components/ToyFormCategories';
 import ToyFormTags from '../../components/ToyFormTags';
 import { connect } from 'react-redux';
 import { saveToy } from '../../actions/toyLibrary';
-import _ from 'lodash';
-import { matchesProperty } from '../../utils/arrayUtils';
+import { matchesProperty, uniq } from '../../utils/arrayUtils';
 
 import classNames from 'classnames/bind';
 import inputStyles from '../../css/common/inputs';
@@ -173,7 +172,7 @@ constructor(props) {
           }
         );
       }
-      tags = _.uniq(tags);
+      tags = uniq(tags);
       return tags;
     };
 

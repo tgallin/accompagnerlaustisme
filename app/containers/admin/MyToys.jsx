@@ -92,10 +92,10 @@ class MyToys extends Component {
           }
           {(!toys || toys.length === 0) &&
             <div>
-              <div className={cx('paddingAll')}>Aucun jouet</div>
+              <div className={cx('paddingAll')}>Aucun jeu</div>
             </div>
           }
-          <Link to='/dashboard/mytoys/0' className="btn btn-info"><i className="fa fa-plus"/> Ajouter un jouet</Link>
+          <Link to='/dashboard/mytoys/0' className="btn btn-info"><i className="fa fa-plus"/> Ajouter un jeu</Link>
         </div>
         }
         {children}

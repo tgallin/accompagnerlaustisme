@@ -12,12 +12,12 @@ class AdminToyCategory extends Component {
   }
 
   pageTitle() {
-    return 'Administration d\'un jouet';
+    return 'Administration d\'un jeu';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Administration d\'un jouet' }
+      { name: 'description', content: 'Administration d\'un jeu' }
     ];
   }
 

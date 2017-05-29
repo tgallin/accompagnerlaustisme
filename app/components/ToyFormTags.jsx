@@ -3,8 +3,7 @@ import { FieldArray, reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import toyValidation from '../js/toyValidation';
 import RenderCheckboxesAsButtons from '../components/RenderCheckboxesAsButtons.jsx';
-import _ from 'lodash';
-import { matchesProperty } from '../utils/arrayUtils';
+import { matchesProperty, shallowClone } from '../utils/arrayUtils';
 
 import classNames from 'classnames/bind';
 
@@ -19,21 +18,23 @@ let ToyFormTags = (props) => {
     const getTags = (allTags, sugggestedTags) => {
       if (sugggestedTags && sugggestedTags.length > 0) {
         var tags = [];
-        var allTagsCopy = _.clone(allTags);
-        allTagsCopy.forEach((tag) => {
-          var suggestedTag = matchesProperty(suggestedTags, ['_id', tag._id]);
-          if (!_.isNil(suggestedTag)) {
-            tag.hide = false;
-            tag.useNewValue = false;
-            tag.newValue = null;
-          }
-          else {
-            tag.hide = true;
-            tag.useNewValue = true;
-            tag.newValue = '';
-          }
-          tags.push(tag);
-        });
+        var allTagsCopy = shallowClone(allTags);
+        if (allTagsCopy) {
+          allTagsCopy.forEach((tag) => {
+            var suggestedTag = matchesProperty(suggestedTags, ['_id', tag._id]);
+            if (suggestedTag !== undefined && suggestedTag !== null) {
+              tag.hide = false;
+              tag.useNewValue = false;
+              tag.newValue = null;
+            }
+            else {
+              tag.hide = true;
+              tag.useNewValue = true;
+              tag.newValue = '';
+            }
+            tags.push(tag);
+          });
+        }
         return tags;
       }
       else {

@@ -1,11 +1,10 @@
 'use strict';
 
 var cloudinary = require('cloudinary');
-import _ from 'lodash';
 
 
 export function uploadImage(imageFile, callback) {
-  if (!imageFile || _.isEmpty(imageFile) || !imageFile.path || imageFile.path === '') {
+  if (imageFile === undefined || imageFile === null || !imageFile.hasOwnProperty('path') || imageFile.path === '') {
     callback(null, null);
   }
   else {

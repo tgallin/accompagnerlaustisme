@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import PersonalDataForm from '../../components/PersonalDataForm';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { padStart } from '../../utils/stringUtils';
 import { updatePersonalData } from '../../actions/users';
 
 class PersonalData extends Component {
@@ -43,8 +43,8 @@ class PersonalData extends Component {
     };
     if (profile.dateOfBirth) {
       var dateOfBirth = new Date(profile.dateOfBirth);
-      initialPersonalData.dateOfBirthDay = _.padStart(dateOfBirth.getUTCDate().toString(), 2, '0');
-      initialPersonalData.dateOfBirthMonth = _.padStart((dateOfBirth.getUTCMonth() + 1).toString(), 2, '0');
+      initialPersonalData.dateOfBirthDay = padStart(dateOfBirth.getUTCDate().toString(), "00");
+      initialPersonalData.dateOfBirthMonth = padStart((dateOfBirth.getUTCMonth() + 1).toString(), "00");
       initialPersonalData.dateOfBirthYear = dateOfBirth.getUTCFullYear();
     }
     

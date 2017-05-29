@@ -3,7 +3,6 @@ import ToyCategory from '../models/toyCategory';
 import ToyTag from '../models/toyTag';
 import User from '../models/user';
 import fs from 'fs';
-import _ from 'lodash';
 import { uploadImage, destroyImage } from '../../../image/cloudinaryUploader';
 
 /**

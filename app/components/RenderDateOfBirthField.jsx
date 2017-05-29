@@ -1,8 +1,8 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import _ from 'lodash';
 import classNames from 'classnames/bind';
 import styles from '../css/components/dateField';
+import { padStart } from '../utils/stringUtils';
 
 
 const cx = classNames.bind(styles);
@@ -13,10 +13,10 @@ var months = [];
 var years = [];
 var currentYear = new Date(Date.now()).getFullYear();
 for (var i=1;i<=31;i++) {
-  days.push(_.padStart(i.toString(), 2, '0'));
+  days.push(padStart(i.toString(), "00"));
 }
 for (var i=1;i<=12;i++) {
-  months.push(_.padStart(i.toString(), 2, '0'));
+  months.push(padStart(i.toString(), "00"));
 }
 for (var i=(currentYear-100);i<=(currentYear-18);i++) {
   years.push(i);
