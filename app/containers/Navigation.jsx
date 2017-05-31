@@ -18,7 +18,7 @@ class Navigation extends Component {
     if (user.profile.picture) {
       return (<Link to="/dashboard" className={cx('linkWithImage')}><img alt="photo utilisateur" src={user.profile.picture} className={cx('profilePicture')} height="42" /><span className={cx('displayName')}>{user.profile.displayName}</span></Link>);
     } else {
-      return (<Link to="/dashboard" className={cx('linkWithImage')}><i className="fa fa-user" aria-hidden="true"><span className={cx('displayName')}>{user.profile.displayName}</span></i></Link>);
+      return (<Link to="/dashboard"><i className="fa fa-user" aria-hidden="true"><span className={cx('displayName')}>{user.profile.displayName}</span></i></Link>);
     }
   }
   
