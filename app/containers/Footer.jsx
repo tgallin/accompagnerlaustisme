@@ -5,7 +5,7 @@ import styles from '../css/components/footer';
 import facebookLogo from '../images/FB-f-Logo__blue_29.png';
 
 var ie10WorkaroundUrl = require("file-loader?name=js/[name].[ext]!../js/ie10-viewport-bug-workaround.js");
-var ie11FindIndex = require("file-loader?name=js/[name].[ext]!../js/ie11-findIndex.js");
+var polyfills = require("file-loader?name=js/[name].[ext]!../js/polyfills.js");
 var customExternal = require("file-loader?name=js/[name].[ext]!../js/custom.js");
 
 const cx = classNames.bind(styles);
@@ -27,7 +27,7 @@ const Footer = () => {
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
         <script src={ie10WorkaroundUrl}></script>
-        <script src={ie11FindIndex}></script>
+        <script src={polyfills}></script>
         <script src={customExternal}></script>
     </div>
     );

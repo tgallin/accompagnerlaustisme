@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { logOut } from '../actions/users';
 import classNames from 'classnames/bind';
 import styles from 'css/components/navigation';
+import star from '../images/star.png';
 
 const cx = classNames.bind(styles);
 
@@ -17,7 +18,7 @@ class Navigation extends Component {
     if (user.profile.picture) {
       return (<Link to="/dashboard" className={cx('linkWithImage')}><img alt="photo utilisateur" src={user.profile.picture} className={cx('profilePicture')} height="42" /><span className={cx('displayName')}>{user.profile.displayName}</span></Link>);
     } else {
-      return (<i className="fa fa-user" aria-hidden="true"><span className={cx('displayName')}>{user.profile.displayName}</span></i>);
+      return (<Link to="/dashboard" className={cx('linkWithImage')}><i className="fa fa-user" aria-hidden="true"><span className={cx('displayName')}>{user.profile.displayName}</span></i></Link>);
     }
   }
   
@@ -51,12 +52,12 @@ class Navigation extends Component {
         </div>
         <div id="navbar" className="navbar-collapse collapse">
           <ul className="nav navbar-nav">
-            <li><Link to="/formations" activeClassName={cx('active')}>Formations</Link></li>
-            <li><Link to="/reseau"activeClassName={cx('active')}>Réseau</Link></li>
-            <li><Link to="/ludotheque"activeClassName={cx('active')}>Ludothèque</Link></li>
-            <li><Link to="/about" activeClassName={cx('active')}>Qui sommes nous</Link></li>
-            <li><Link to="/contact" activeClassName={cx('active')}>Contact</Link></li>
-            <li><Link to="/liens" activeClassName={cx('active')}>Liens</Link></li>
+            <li><Link to="/formations" activeClassName={cx('active')}><img src={star} className={cx('star')}/>Formations</Link></li>
+            <li><Link to="/reseau"activeClassName={cx('active')}><img src={star} className={cx('star')}/>Réseau</Link></li>
+            <li><Link to="/ludotheque"activeClassName={cx('active')}><img src={star} className={cx('star')}/>Ludothèque</Link></li>
+            <li><Link to="/about" activeClassName={cx('active')}><img src={star} className={cx('star')} />Qui sommes nous</Link></li>
+            <li><Link to="/contact" activeClassName={cx('active')}><img src={star} className={cx('star')}/>Contact</Link></li>
+            <li><Link to="/liens" activeClassName={cx('active')}><img src={star} className={cx('star')}/>Liens</Link></li>
           </ul>
             { this.renderRightNav() }
         </div>

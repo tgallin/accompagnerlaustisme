@@ -19,3 +19,8 @@ a.active:hover {
     padding-top: 4px !important;
     padding-bottom: 4px !important;
 }
+
+.star {
+    padding-right: 2px;
+    vertical-align: top;
+}

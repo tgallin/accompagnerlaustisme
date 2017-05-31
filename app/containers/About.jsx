@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import ScrollToTopOnMount from '../components/ScrollToTopOnMount';
 import classNames from 'classnames/bind';
 import styles from 'css/components/about';
-import logo from '../images/logoAAA_180.png';
+import logo from '../images/logo-AAA.png';
 
 const cx = classNames.bind(styles);
 
