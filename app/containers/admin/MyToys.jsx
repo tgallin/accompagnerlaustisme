@@ -64,7 +64,7 @@ class MyToys extends Component {
                     <th>Image</th>
                     <th>Validé</th>
                     <th>En ligne</th>
-                    <th>Disponible</th>
+                    <th><div className={cx('shorten-label')}>Disponible</div></th>
                     <th></th>
                     <th></th>
                   </tr>
@@ -79,10 +79,10 @@ class MyToys extends Component {
                       <td className="col-md-2">{toy.online ? 'Oui' : 'Non'}</td>
                       <td className="col-md-2">{toy.available ? 'Oui' : 'Non'}</td>
                       <td className="col-md-1">
-                        <Link to={'/dashboard/mytoys/' + toy._id} className="btn btn-info"><i className="fa fa-pencil"/> Editer</Link>
+                        <Link to={'/dashboard/mytoys/' + toy._id} className="btn btn-info"><i className="fa fa-pencil"/><span className={cx('hide-btn-label')}> Editer</span></Link>
                       </td>
                       <td className="col-md-1">
-                        <a href="#" onClick={() => this.confirmDeleteToy(toy._id)} className="btn btn-danger"><i className="fa fa-trash"/> Supprimer</a>
+                        <a href="#" onClick={() => this.confirmDeleteToy(toy._id)} className="btn btn-danger"><i className="fa fa-trash"/><span className={cx('hide-btn-label')}> Supprimer</span></a>
                       </td>
                     </tr>)
                 }

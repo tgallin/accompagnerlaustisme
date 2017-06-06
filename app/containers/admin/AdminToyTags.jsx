@@ -71,10 +71,10 @@ class AdminToyTags extends Component {
                     <tr key={tag._id}>
                       <td className="col-md-8">{tag.name}</td>
                       <td className="col-md-2">
-                        <Link to={'/dashboard/toyLibrary/tags/' + tag._id} className="btn btn-info"><i className="fa fa-pencil"/> Editer</Link>
+                        <Link to={'/dashboard/toyLibrary/tags/' + tag._id} className="btn btn-info"><i className="fa fa-pencil"/><span className={cx('hide-btn-label')}> Editer</span></Link>
                       </td>
                       <td className="col-md-2">
-                        <a href="#" onClick={() => this.confirmDeleteTag(tag._id)} className="btn btn-danger" ><i className="fa fa-trash"/> Supprimer</a>
+                        <a href="#" onClick={() => this.confirmDeleteTag(tag._id)} className="btn btn-danger" ><i className="fa fa-trash"/><span className={cx('hide-btn-label')}> Supprimer</span></a>
                       </td>
                     </tr>)
                 }

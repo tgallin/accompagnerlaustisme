@@ -27,13 +27,13 @@ let ToyCategoryForm = (props) => {
 
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10">
-            <Link to="/dashboard/toyLibrary/categories" className={'btn btn-default ' + cx('marginRight')}
+            <Link to="/dashboard/toyLibrary/categories" className={'btn btn-default ' + cx('marginRight', 'marginBottom')}
               disabled={submitting}>
               <i className="fa fa-ban"/> Annuler
             </Link>
-            <button className={'btn btn-success ' + cx('marginRight')} type="submit"
+            <button className={'btn btn-success ' + cx('marginRight', 'marginBottom')} type="submit"
                     disabled={pristine || invalid || submitting}>
-              <i className={'fa ' + (submitting ? 'fa-cog fa-spin' : 'fa-cloud')}/> Sauvegarder
+              <i className={'fa ' + (submitting ? 'fa-cog fa-spin' : 'fa-cloud')}/> Valider
             </button>
           </div>
         </div>

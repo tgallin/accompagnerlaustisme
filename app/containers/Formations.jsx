@@ -4,6 +4,9 @@ import ScrollToTopOnMount from '../components/ScrollToTopOnMount';
 import classNames from 'classnames/bind';
 import styles from 'css/components/formations';
 import logo from '../images/logo-AAA.png';
+import aBlue from '../images/Ableu.png';
+import aYellow from '../images/Ajaune.png';
+import aStripes from '../images/Araye.png';
 
 const cx = classNames.bind(styles);
 
@@ -16,9 +19,8 @@ const Formations = () => {
   return (
     <div>
       <ScrollToTopOnMount/>
-      <div className='text-center'><img src={logo} alt="logo"/></div>
-      
-      <div className={cx('header')}>Les formations</div>
+
+      <div className={cx('header')}><span className={cx('image-a')}><img src={aBlue} alt="A bleu"/></span>Les formations</div>
       
       <p className={'text-justify ' + cx('content', 'paddingBottom')}>L’association Accompagner l’Autisme organise des formations dispensées par des prestataires certifiés.</p>
       
@@ -28,7 +30,7 @@ const Formations = () => {
       
       <p className={'text-justify ' + cx('content', 'paddingBottom')}>Ces formations sont ouvertes à tous : parents comme professionnels (psychologues, éducateurs spécialisés, AVS, orthophonistes, enseignants,...)</p>
       
-      <div className={cx('header')}>Agenda 2017</div>
+      <div className={cx('header')}>Agenda 2017<span className={cx('image-a')}><img src={aYellow} alt="A jaune"/></span></div>
       
       <p className={'text-justify ' + cx('content', 'paddingBottom')}>14 & 15 janvier : <Link to="/formations/formation1">Apprendre à lire et écrire</Link></p>
       
@@ -38,7 +40,7 @@ const Formations = () => {
       
       <p className={'text-justify ' + cx('content', 'paddingBottom')}>8 & 9 avril 2017 : <Link to="/formations/formation4">Entraînement aux Réponses Pivots</Link> (PRT)</p>
       
-      <div className={cx('header')}>Agenda 2018</div>
+      <div className={cx('header')}><span className={cx('image-a')}><img src={aStripes} alt="A rayé"/></span>Agenda 2018</div>
       
       <p className={'text-justify ' + cx('content', 'lastPaddingBottom')}>En cours d'élaboration</p>
       

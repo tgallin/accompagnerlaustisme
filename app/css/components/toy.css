@@ -15,6 +15,10 @@
   margin-right: 10px;
 }
 
+.marginBottom {
+  margin-bottom: 10px;
+}
+
 .paddingLeft {
   padding-left: 10px;
 }
@@ -68,11 +72,12 @@
 .dropzone {
   border: 2px dashed rgb(102, 102, 102);
   border-radius: 5px;
-  height: 150px;
+  min-height: 150px;
+  padding: 10px;
 }
 
 .dz-instruction {
-  padding: 10px;
+  margin: 10px;
 }
 
 .dz-preview {
@@ -115,3 +120,18 @@
   top: 0;
   right: 0;
 }
+
+@media (max-width: 450px) {
+  .hide-btn-label {
+    display: none;
+  }
+  
+  .shorten-label {
+    width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+

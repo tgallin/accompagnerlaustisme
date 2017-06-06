@@ -39,3 +39,8 @@ ol.listNoType, ul.listNoType {
 .list-item { 
   padding-bottom: 5px;
 }
+
+.image-a {
+  padding-left: 20px;
+  padding-right: 20px;
+}

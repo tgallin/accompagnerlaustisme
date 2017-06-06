@@ -12,11 +12,6 @@
   padding-bottom: 15px;
 }
 
-.title {
-  text-align: center;
-  color: var(--heading);
-}
-
 .paddingBottom {
   padding-bottom: 15px;
 }
@@ -25,7 +20,9 @@
   padding-bottom: 25px;
 }
 
-.content { @apply --normal; }
+.content { 
+  @apply --normal; 
+}
 
 ul.list, ol.list {
   @apply --normal;
@@ -45,4 +42,29 @@ ol.listNoType, ul.listNoType {
   font-weight: 700;
   padding-top: 20px;
   padding-bottom: 5px;
+}
+
+.image-a-left {
+  padding-right: 5px;
+  text-align: right;
+}
+
+.image-a-right {
+  padding-left: 5px;
+  text-align: left;
+}
+
+.image-a-li {
+  padding-right: 10px;
+  padding-bottom: 10px;
+  float: left;
+}
+
+.title {
+  text-align: center;
+  font-size: 25px;
+  line-height: 27px;
+  font-weight: 500;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }

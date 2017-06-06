@@ -91,7 +91,7 @@ let UserForm = (props) => {
             </Link>
             <button className={'btn btn-success ' + cx('marginRight')} type="submit"
                     disabled={pristine || invalid || submitting}>
-              <i className={'fa ' + (submitting ? 'fa-cog fa-spin' : 'fa-cloud')}/> Sauvegarder
+              <i className={'fa ' + (submitting ? 'fa-cog fa-spin' : 'fa-cloud')}/> Valider
             </button>
           </div>
         </div>

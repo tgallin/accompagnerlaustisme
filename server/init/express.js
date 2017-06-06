@@ -12,11 +12,19 @@ import { sessionSecret } from '../../config/secrets';
 import { DB_TYPE, ENV } from '../../config/env';
 import { session as dbSession } from '../db';
 
+ var forceSsl = function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+        return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    }
+    return next();
+ };
+
 export default (app) => {
   app.set('port', (process.env.PORT || 3000));
 
   if (ENV === 'production') {
     app.use(gzip());
+    app.use(forceSsl);
     // Secure your Express apps by setting various HTTP headers. Documentation: https://github.com/helmetjs/helmet
     app.use(helmet());
   }

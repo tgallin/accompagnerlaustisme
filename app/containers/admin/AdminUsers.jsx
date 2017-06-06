@@ -3,9 +3,9 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
-//import styles from 'css/components/adminUsers';
+import styles from 'css/components/user';
 
-//const cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
 class AdminUsers extends Component {
 
@@ -30,8 +30,8 @@ class AdminUsers extends Component {
                   <tr>
                     <th>Nom</th>
                     <th>Prénom</th>
-                    <th>Admin</th>
-                    <th>Membre</th>
+                    <th><div className={cx('shorten-label')}>Admin</div></th>
+                    <th><div className={cx('shorten-label')}>Membre</div></th>
                     <th></th>
                   </tr>
                 </thead>
@@ -44,7 +44,7 @@ class AdminUsers extends Component {
                       <td>{user.admin ? 'Oui' : 'Non'}</td>
                       <td>{user.membership && user.membership.member ? 'Oui' : 'Non'}</td>
                       <td>
-                        <Link to={'/dashboard/users/' + user._id} className="btn btn-info"><i className="fa fa-pencil"/> Editer</Link>
+                        <Link to={'/dashboard/users/' + user._id} className="btn btn-info"><i className="fa fa-pencil"/><span className={cx('hide-btn-label')}> Editer</span></Link>
                       </td>
                     </tr>)
                 }

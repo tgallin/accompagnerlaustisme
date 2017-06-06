@@ -24,14 +24,14 @@ let ToyFormCategories = (props) => {
 
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10">
-            <Link to="/dashboard/mytoys" className={'btn btn-default ' + cx('marginRight')}
+            <Link to="/dashboard/mytoys" className={'btn btn-default ' + cx('marginRight', 'marginBottom')}
               disabled={submitting}>
-              <i className="fa fa-ban"/> Annuler
+              <i className="fa fa-ban"/><span className={cx('hide-btn-label')}> Annuler</span>
             </Link>
-            <button type="button" className={'btn btn-default active ' + cx('marginRight')} onClick={previousPage}>
-              <i className={'fa fa-chevron-left'}/> Photos
+            <button type="button" className={'btn btn-default active ' + cx('marginRight', 'marginBottom')} onClick={previousPage}>
+              <i className={'fa fa-chevron-left'}/><span className={cx('hide-btn-label')}> Photos</span>
             </button>
-            <button className={'btn btn-info ' + cx('marginRight')} type="submit"
+            <button className={'btn btn-info ' + cx('marginRight', 'marginBottom')} type="submit"
                     disabled={invalid || submitting}>
               Mots clés <i className={'fa fa-chevron-right'}/>
             </button>

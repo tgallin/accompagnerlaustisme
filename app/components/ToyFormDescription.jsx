@@ -21,16 +21,16 @@ let ToyFormDescription = (props) => {
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
         <Field name="toyId" id="toyId" component="input" type="hidden"/>
         <Field name="name" type="text" size="2-10" component={RenderField} label="Nom"/>
-        <Field name="content" component={RenderTextarea} label="Contenu"/>
-        <Field name="description" component={RenderTextarea} label="Description"/>
+        <Field name="content" component={RenderTextarea} label="Contenu" placeholder="ex: 1 boite avec 2 dés, ..."/>
+        <Field name="description" component={RenderTextarea} label="Description" placeholder="ex: Permet à l'enfant d'apprendre à compter..."/>
         
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10">
-            <Link to="/dashboard/mytoys" className={'btn btn-default ' + cx('marginRight')}
+            <Link to="/dashboard/mytoys" className={'btn btn-default ' + cx('marginRight', 'marginBottom')}
               disabled={submitting}>
               <i className="fa fa-ban"/> Annuler
             </Link>
-            <button className={'btn btn-info ' + cx('marginRight')} type="submit"
+            <button className={'btn btn-info ' + cx('marginRight', 'marginBottom')} type="submit"
                     disabled={invalid || submitting}>
                Photos <i className={'fa fa-chevron-right'}/>
             </button>

@@ -92,14 +92,16 @@ constructor(props) {
     data.append('categories', categories);
     
     var tags = [];
-    values.tags.forEach((tag) => {
-        for (var key in tag) {
-         if (tag[key]) {
-           tags.push(key);
-         }
+    if (values.tags && values.tags.length > 0) {
+      values.tags.forEach((tag) => {
+          for (var key in tag) {
+           if (tag[key]) {
+             tags.push(key);
+           }
+          }
         }
-      }
     );
+    }
     data.append('tags', tags);
   
     saveToy(data, toyId);

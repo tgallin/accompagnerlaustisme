@@ -22,3 +22,16 @@
 .paddingBottom {
   padding-bottom: 10px;
 }
+
+@media (max-width: 450px) {
+  .hide-btn-label {
+    display: none;
+  }
+  
+  .shorten-label {
+    width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

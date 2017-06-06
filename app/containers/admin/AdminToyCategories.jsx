@@ -72,10 +72,10 @@ class AdminToyCategories extends Component {
                     <tr key={category._id}>
                       <td className="col-md-8">{category.name}</td>
                       <td className="col-md-2">
-                        <Link to={'/dashboard/toyLibrary/categories/' + category._id} className="btn btn-info"><i className="fa fa-pencil"/> Editer</Link>
+                        <Link to={'/dashboard/toyLibrary/categories/' + category._id} className="btn btn-info"><i className="fa fa-pencil"/><span className={cx('hide-btn-label')}> Editer</span></Link>
                       </td>
                       <td className="col-md-2">
-                        <a href="#" onClick={() => this.confirmDeleteCategory(category._id)} className="btn btn-danger"><i className="fa fa-trash"/> Supprimer</a>
+                        <a href="#" onClick={() => this.confirmDeleteCategory(category._id)} className="btn btn-danger"><i className="fa fa-trash"/><span className={cx('hide-btn-label')}> Supprimer</span></a>
                       </td>
                     </tr>)
                 }
