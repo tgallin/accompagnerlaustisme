@@ -31,10 +31,10 @@ export function login(req, res, next) {
           email: user.email,
           admin: user.admin,
           member: user.membership.member,
+          displayName: user.profile.displayName,
           profile: user.profile,
           toys: user.toys
         };
-    
         return res.status(200).json({
           message: 'Vous vous êtes connecté avec succès.',
           user: data
@@ -208,11 +208,16 @@ export function updatePersonalData(req, res) {
       user.profile.surname = req.body.surname;
       user.profile.dateOfBirth = req.body.dateOfBirth;
       
-      user.save(function(err) {
+      user.save(function(err, savedUser) {
         if (err) {
           return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
         }
-        return res.status(200).json({ profile: user.profile, message: 'Infos personnelles mises à jour avec succès' });
+        var data = {
+          displayName: savedUser.profile.displayName,
+          profile: savedUser.profile
+        };
+        
+        return res.status(200).json({ user: data, message: 'Infos personnelles mises à jour avec succès' });
       });
     });
   }

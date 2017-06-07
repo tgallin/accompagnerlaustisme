@@ -12,7 +12,6 @@ const UserSchema = new mongoose.Schema({
   password: String,
   tokens: Array,
   profile: {
-    displayName: { type: String, default: '' },
     firstname: { type: String, default: '' },
     surname: { type: String, default: '' },
     dateOfBirth : Date,
@@ -34,6 +33,22 @@ const UserSchema = new mongoose.Schema({
   resetPasswordExpires: Date,
   google: {},
   facebook: {}
+}, {
+  toObject: {
+  virtuals: true
+  },
+  toJSON: {
+  virtuals: true 
+  }
+});
+
+UserSchema
+.virtual('profile.displayName')
+.get(function () {
+  return this.profile.firstname;
+})
+.set(function (displayName) {
+  this.set('profile.firstname', displayName);
 });
 
 /*

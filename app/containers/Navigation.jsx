@@ -16,9 +16,9 @@ class Navigation extends Component {
       user
     } = this.props;
     if (user.profile.picture) {
-      return (<Link to="/dashboard" className={cx('linkWithImage')}><img alt="photo utilisateur" src={user.profile.picture} className={cx('profilePicture')} height="42" /><span className={cx('displayName')}>{user.profile.displayName}</span></Link>);
+      return (<Link to="/dashboard" className={cx('linkWithImage')}><img alt="photo utilisateur" src={user.profile.picture} className={cx('profilePicture')} height="42" /><span className={cx('displayName')}>{user.displayName}</span></Link>);
     } else {
-      return (<Link to="/dashboard"><i className="fa fa-user" aria-hidden="true"><span className={cx('displayName')}>{user.profile.displayName}</span></i></Link>);
+      return (<Link to="/dashboard"><i className="fa fa-user" aria-hidden="true"></i><span className={cx('displayName')}>{user.displayName}</span></Link>);
     }
   }
   

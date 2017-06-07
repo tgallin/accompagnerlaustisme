@@ -27,6 +27,7 @@ export default function render(req, res) {
     userData.loaded = true;
     userData.email = req.user.email;
     userData.profile = req.user.profile;
+    userData.displayName = req.user.profile.displayName;
     userData.isMember = req.user.membership.member;
     userData.isAdmin = req.user.admin;
     userData.toys = req.user.toys;

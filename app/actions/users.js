@@ -135,7 +135,8 @@ export function updatePersonalDataSuccess(data) {
   return { 
     type: types.UPDATE_PERSONAL_DATA_SUCCESS,
     message: data.message,
-    profile: data.profile
+    profile: data.user.profile,
+    displayName : data.user.displayName
   };
 }
 

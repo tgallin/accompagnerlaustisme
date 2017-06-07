@@ -54,13 +54,19 @@ export function match(field) {
   };
 }
 
-function allValuesAreFalse(arr) {
+function allValuesAreFalse(obj) {
   var allFalse = true;
-  for (var i in arr) {
-    var keys = Object.keys(arr[i]);
-    if (keys && keys.length > 0 && arr[i][keys[0]] === true) {
-      allFalse = false;
-      break;
+  // var obj = [0: {id1:true}, 1: {id2:false}, 2: {id3:false}];
+  for (var i in obj) {
+    // i will be 0, 1 and 2
+    // obj[i] will be {id1:true}, {id2:false} and {id3:false}
+    if (obj[i]) {
+      var keys = Object.keys(obj[i]);
+      // keys will be [id1], [id2] and [id3]
+      if (keys && keys.length > 0 && obj[i][keys[0]] === true) {
+        allFalse = false;
+        break;
+      }
     }
   }
   return allFalse;

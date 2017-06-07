@@ -134,6 +134,25 @@ const profile = (
   }
 };
 
+const displayName = (
+  state = '',
+  action
+) => {
+  switch (action.type) {
+    case types.LOAD_USER_SUCCESS:
+    case types.LOGIN_SUCCESS_USER:  
+      if (action.user && action.user.displayName) return action.user.displayName;
+      return state;
+    case types.UPDATE_PERSONAL_DATA_SUCCESS:  
+      if (action.displayName) return action.displayName;
+      return state;
+    case types.LOGOUT_SUCCESS_USER:
+      return '';
+    default:
+      return state;
+  }
+};
+
 const isAdmin = (
   state = false,
   action
@@ -211,6 +230,7 @@ const userReducer = combineReducers({
   authenticated,
   loaded,
   email,
+  displayName,
   isAdmin,
   isMember,
   profile,

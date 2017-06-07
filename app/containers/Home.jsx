@@ -33,13 +33,13 @@ const Home = () => {
       
       <p className={'text-justify ' + cx('content', 'bigPaddingBottom')}>Notre philosophie repose sur 2 axes principaux :</p>
       <ul className={cx('listNoType')}>
-        <li className={cx('list-item')}><p className={'text-justify ' + cx('content', 'bigPaddingBottom')}><div className={cx('image-a-li')}><img src={aStripes} alt="A rayé"/></div>Avec une prise en charge adaptée et coordonnée, l’enfant et sa famille sont les principaux acteurs du projet. Ainsi, nous proposons d’une part des formations pour parents et professionnels et d’autre part des accompagnements personnalisés à l’école et à domicile.</p></li>
-        <li className={cx('list-item')}><p className={'text-justify ' + cx('content', 'paddingBottom')}><div className={cx('image-a-li')}><img src={aStripes} alt="A rayé"/></div>La place des enfants autistes est à l’école. A ce titre nous oeuvrons pour la formation des AVS / AESH, mais nos accompagnants peuvent intervenir à l’école dans le cadre de conventions individuelles avec l’Education Nationale.</p></li>
+        <li className={cx('list-item')}><div className={'text-justify ' + cx('content', 'bigPaddingBottom')}><div className={cx('image-a-li')}><img src={aStripes} alt="A rayé"/></div>Avec une prise en charge adaptée et coordonnée, l’enfant et sa famille sont les principaux acteurs du projet. Ainsi, nous proposons d’une part des formations pour parents et professionnels et d’autre part des accompagnements personnalisés à l’école et à domicile.</div></li>
+        <li className={cx('list-item')}><div className={'text-justify ' + cx('content', 'paddingBottom')}><div className={cx('image-a-li')}><img src={aStripes} alt="A rayé"/></div>La place des enfants autistes est à l’école. A ce titre nous oeuvrons pour la formation des AVS / AESH, mais nos accompagnants peuvent intervenir à l’école dans le cadre de conventions individuelles avec l’Education Nationale.</div></li>
       </ul>
 
       <div className={'text-center ' + cx('bigPaddingBottom')}><img src={aAndStar} alt="A et etoile"/></div>
 
-      <p className={'text-center ' + cx('content', 'bigPaddingBottom')}><Link to="/contact" className="btn btn-info">Contactez-nous pour devenir adhérents</Link></p>
+      <div className={'text-center ' + cx('content', 'bigPaddingBottom')}><Link to="/contact" className="btn btn-info">Contactez-nous pour devenir adhérents</Link></div>
       
       <p className={'text-justify ' + cx('content', 'bigPaddingBottom')}>Certaines parties du site sont encore en cours de construction, n'hésitez pas à revenir régulièrement.</p>
       

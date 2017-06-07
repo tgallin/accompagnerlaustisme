@@ -219,7 +219,6 @@ export function confirmTempUser(url, callback) {
       if (tempUserData) {
         var userData = JSON.parse(JSON.stringify(tempUserData)); // copy data
         var user = new options.persistentUserModel();
-        user.profile.displayName = userData[options.firstnameFieldName];
         user.profile.firstname = userData[options.firstnameFieldName];
         user.profile.surname = userData[options.surnameFieldName];
         user.email = userData[options.emailFieldName];
