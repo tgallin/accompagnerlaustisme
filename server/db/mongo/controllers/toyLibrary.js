@@ -11,7 +11,7 @@ import { uploadImage, destroyImage } from '../../../image/cloudinaryUploader';
 export function allToys(req, res) {
   Toy.find({}).sort({name: 1}).populate('categories tags').exec(function (err, toys) {
     if (err) {
-      return res.status(500).json({ message: 'Problème lors de la récupération des jouets' });
+      return res.status(500).json({ message: 'Problème lors de la récupération des jeux' });
     }
     return res.status(200).json( { toys: toys} );
   });
@@ -36,7 +36,7 @@ export function allMyToys(req, res) {
       
       Toy.find(queryToys).sort({name: 1}).exec(function (err, toys) {
         if (err) {
-          return res.status(500).json({ message: 'Problème lors de la récupération des jouets' });
+          return res.status(500).json({ message: 'Problème lors de la récupération des jeux' });
         }
         return res.status(200).json( { mytoys: toys} );
       });
@@ -50,7 +50,7 @@ export function allMyToys(req, res) {
 export function allCategories(req, res) {
   ToyCategory.find({}).sort({name: 1}).populate('suggestedTags').exec(function (err, toyCategories) {
     if (err) {
-      return res.status(500).json({ message: 'Problème lors de la récupération des catégories de jouets' });
+      return res.status(500).json({ message: 'Problème lors de la récupération des catégories de jeux' });
     }
     return res.status(200).json( { categories: toyCategories} );
   });
@@ -326,7 +326,7 @@ export function saveToy(req, res) {
                     newToy.pictures = results;
                     newToy.save(function(err) {
                       if (err) {
-                        console.log('problème lors de la sauvegarde des images du jouet');
+                        console.log('problème lors de la sauvegarde des images du jeu');
                       }
                     });
                     
@@ -338,9 +338,9 @@ export function saveToy(req, res) {
                     user.toys.push(newToy._id);
                     user.save(function(err) {
                       if (err) {
-                        return res.status(500).json({ message: 'Problème technique lors de l\'ajout du jouet à votre compte' });
+                        return res.status(500).json({ message: 'Problème technique lors de l\'ajout du jeu à votre compte' });
                       }
-                      return res.status(200).json({ toy: newToy, message:  'Jouet créé avec succès' });
+                      return res.status(200).json({ toy: newToy, message:  'Jeu créé avec succès' });
                     });
                   });
                 });
@@ -355,7 +355,7 @@ export function saveToy(req, res) {
     
           Toy.findOne(query, (err, existingToy) => {
             if (err) {
-              return res.status(500).json({ message: 'Problème technique lors de la recherche du jouet' });
+              return res.status(500).json({ message: 'Problème technique lors de la recherche du jeu' });
             }
     
             existingToy.name = req.body.name;
@@ -367,6 +367,8 @@ export function saveToy(req, res) {
             }
             existingToy.categories = req.body.categories && req.body.categories !== '' ? req.body.categories.split(',') : [];
             existingToy.tags = req.body.tags && req.body.tags !== '' ? req.body.tags.split(',') : [];
+            existingToy.online = false;
+            existingToy.approved = false;
             
             var pictures = [];
             for (var i = 0; i < 4; i++) {
@@ -424,15 +426,13 @@ export function saveToy(req, res) {
                     pictures.forEach((p) => {
                       removeFile(p);
                     });
-                    
-                    console.log('before save');
-                    
+
                     existingToy.save(function(err) {
                       if (err) {
                         console.log(err);
                         return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
                       }
-                      return res.status(200).json({ toy: existingToy, message: 'Jouet mis à jour avec succès' });
+                      return res.status(200).json({ toy: existingToy, message: 'Jeu mis à jour avec succès' });
                     });
                   });
                 });
@@ -445,8 +445,47 @@ export function saveToy(req, res) {
   }
 }
 
+/**
+ * POST /toys creates or updates a toy with provided data
+ */
+export function changeApprobation(req, res) {
+  if (req.user) {
+    
+    const query = {
+      email: req.user.email,
+      admin: true
+    };
+    
+    User.findOne(query, (err, user) => {
+      if (err) {
+        return res.status(500).json({ message: 'Problème technique lors de la recherche de votre compte admin' });
+      }
 
-
+      if (req.body.toyId !== '') {
+        
+        const query = {
+          _id: req.body.toyId
+        };
+  
+        Toy.findOne(query, (err, existingToy) => {
+          if (err) {
+            return res.status(500).json({ message: 'Problème technique lors de la recherche du jeu' });
+          }
+          existingToy.approved = req.body.approved;
+          existingToy.online = req.body.approved;
+          
+          existingToy.save(function(err) {
+            if (err) {
+              return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+            }
+            return res.status(200).json({ toy: existingToy, message: 'Jeu mis à jour avec succès' });
+          });
+        
+        });
+      }
+    });
+  }
+}
 
 /**
  * remove a toy
@@ -474,9 +513,9 @@ export function removeToy(req, res) {
         user.toys.pull(toyId);
         user.save(function(err) {
           if (err) {
-            return res.status(500).json({ message: 'Problème technique lors de la suppression du jouet de votre compte' });
+            return res.status(500).json({ message: 'Problème technique lors de la suppression du jeu de votre compte' });
           }
-          return res.status(200).send({ id: toyId, message: 'Jouet supprimé avec succès' });
+          return res.status(200).send({ id: toyId, message: 'Jeu supprimé avec succès' });
         });
       });
     });
@@ -487,6 +526,7 @@ export default {
   allToys,
   allMyToys,
   saveToy,
+  changeApprobation,
   removeToy,
   allCategories,
   saveCategory,

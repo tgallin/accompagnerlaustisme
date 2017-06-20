@@ -49,9 +49,9 @@ const RenderDropzoneInput = ({ input, label, existingPictures, handleRemoveExist
           var newFiles = files ? arrayUnique(files.concat(filesToUpload), existingPictures.length) : arrayUnique(filesToUpload, existingPictures.length); 
           input.onChange(newFiles)}}
         >
-          <div  className={cx('dz-instruction') + ' text-info'}>Glissez-déposez vos photos ici, ou cliquez pour sélectionner les photos.</div>
-          <div  className={cx('dz-instruction') + ' text-warning'}><i className={cx('marginRight') + ' fa fa-exclamation-triangle'} aria-hidden="true"></i>Seuls les .jpg et .png de moins de 3 MB seront acceptés</div>
-          <div  className={cx('dz-instruction') + ' text-warning'}><i className={cx('marginRight') + ' fa fa-exclamation-triangle'} aria-hidden="true"></i>Pas plus de 4 photos</div>
+          <div className={cx('dz-instruction') + ' text-info'}>Glissez-déposez vos photos ici ou <span className="btn btn-default active">Cliquez pour sélectionner les photos.</span></div>
+          <div className={cx('dz-instruction') + ' text-warning'}><i className={cx('marginRight') + ' fa fa-exclamation-triangle'} aria-hidden="true"></i>Seuls les .jpg et .png de moins de 3 MB seront acceptés</div>
+          <div className={cx('dz-instruction') + ' text-warning'}><i className={cx('marginRight') + ' fa fa-exclamation-triangle'} aria-hidden="true"></i>Pas plus de 4 photos</div>
         </Dropzone>
           {files && Array.isArray(files) && files.length > 0 && (
           <div>

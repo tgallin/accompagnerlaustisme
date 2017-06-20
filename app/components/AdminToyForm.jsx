@@ -25,6 +25,39 @@ let AdminToyForm = (props) => {
           </div>
         </div>
         <div className="form-group">
+          <label htmlFor="name" className="control-label col-sm-4">Contenu</label>
+          <div id="surname" className={'col-sm-8 ' + cx('control-readvalue')}>
+            {initialValues.content}
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="name" className="control-label col-sm-4">Description</label>
+          <div id="surname" className={'col-sm-8 ' + cx('control-readvalue')}>
+            {initialValues.description}
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="name" className="control-label col-sm-4">Photos</label>
+          <div id="surname" className={'col-sm-8 ' + cx('control-readvalue')}>
+            {
+                  initialValues.pictureUrls.map((url) => 
+                    <div className={cx('paddingBottom')}><img src={url} /></div>)
+            }
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="name" className="control-label col-sm-4">Catégories</label>
+          <div id="surname" className={'col-sm-8 ' + cx('control-readvalue')}>
+            {initialValues.categories}
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="name" className="control-label col-sm-4">Mots clés</label>
+          <div id="surname" className={'col-sm-8 ' + cx('control-readvalue')}>
+            {initialValues.tags}
+          </div>
+        </div>
+        <div className="form-group">
           <label htmlFor="approved" className="control-label col-sm-4">Approuvé</label>
           <div className={'col-sm-8 ' + cx('control-checkbox') + ' ' + cy('slide')}>
             <Field name="approved" id="approved" component="input" type="checkbox"/>
@@ -33,7 +66,7 @@ let AdminToyForm = (props) => {
         </div>
         <div className="form-group">
           <div className="col-sm-offset-4 col-sm-8">
-            <Link to="dashboard/users" className={'btn btn-default ' + cx('marginRight')}
+            <Link to="dashboard/toyLibrary/toys" className={'btn btn-default ' + cx('marginRight')}
               disabled={submitting}>
               <i className="fa fa-ban"/> Annuler
             </Link>
@@ -45,7 +78,7 @@ let AdminToyForm = (props) => {
         </div>
       </form>
       <div className={cx('paddingBottom')}>
-        <Link to='dashboard/mytoys' ><i className="fa fa-angle-double-left"/><span className={cx('paddingLeft')}>Retour à la liste</span></Link>
+        <Link to='dashboard/toyLibrary/toys' ><i className="fa fa-angle-double-left"/><span className={cx('paddingLeft')}>Retour à la liste</span></Link>
       </div>
     </div>
   );

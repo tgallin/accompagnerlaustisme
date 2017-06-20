@@ -34,6 +34,17 @@ handleSubmit = (values) => {
       if (toy) {
         initialtoyData.toyId = toy._id;
         initialtoyData.name = toy.name;
+        initialtoyData.content = toy.content;
+        initialtoyData.description = toy.description;
+        var pictureUrls = [];
+        toy.pictures.forEach(p => pictureUrls.push(p.eager[2].secure_url) );
+        initialtoyData.pictureUrls = pictureUrls;
+        var categories = [];
+        toy.categories.forEach(c => categories.push(c.name) );
+        initialtoyData.categories = categories.join(', ');
+        var tags = [];
+        toy.tags.forEach(t => tags.push(t.name) );
+        initialtoyData.tags = tags.join(', ');
         initialtoyData.approved = toy.approved;
       }
       return initialtoyData;
@@ -58,7 +69,7 @@ AdminToy.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    toys: state.user.toys,
+    toys: state.adminToyLibrary.toys,
     toyId: ownProps.params.id,
     message : state.adminToyLibrary.message
   };

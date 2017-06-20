@@ -237,7 +237,7 @@ export function deleteToyTag(id) {
 }
 
 export function saveToy(data, toyId) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
 
     dispatch(beginSaveToy());
 
@@ -250,8 +250,6 @@ export function saveToy(data, toyId) {
         if (response.status === 200) {
           // can't use data.get('toyId') because it doesn't work in IE, tha's why I had to pass in toyId as parameter 
           var action = toyId === '0' ? types.TOY_CREATE_SUCCESS : types.TOY_UPDATE_SUCCESS;
-          console.log('before push');
-          console.log(action);
           dispatch(push('/dashboard/mytoys'));
           dispatch(saveToySuccess(response.data, action));
         } else {
@@ -284,20 +282,21 @@ export function deleteToy(id) {
 }
 
 export function changeApprobationToy(data) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     
-    dispatch(beginSaveTag());
+    dispatch(beginSaveToy());
 
-    return makeRequest('post', data, '/toys/tag')
+    return makeRequest('post', data, '/toys/changeApprobation')
       .then(response => {
         if (response.status === 200) {
-          dispatch(saveTagSuccess(response.data));
+          dispatch(push('/dashboard/toyLibrary/toys'));
+          dispatch(saveToySuccess(response.data, types.TOY_UPDATE_SUCCESS));
         } else {
-          dispatch(saveTagError('Oops! Something went wrong!'));
+          dispatch(saveToyError('Oops! Something went wrong!'));
         }
       })
       .catch(err => {
-        dispatch(saveTagError(getMessage(err)));
+        dispatch(saveToyError(getMessage(err)));
       });
-  };
+  }
 }

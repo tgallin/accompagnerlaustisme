@@ -90,6 +90,7 @@ export default (app) => {
    // app.get('/toys/:id', toyLibraryController.findToy);
    var cpUpload = upload.fields([{ name: 'pictures[0]' }, { name: 'pictures[1]' }, { name: 'pictures[2]' }, { name: 'pictures[3]' }]);
     app.post('/toys', cpUpload, toyLibraryController.saveToy);
+    app.post('/toys/changeApprobation', toyLibraryController.changeApprobation);
     app.delete('/toys/:id', toyLibraryController.removeToy);
     app.get('/toys/categories', toyLibraryController.allCategories);
     app.post('/toys/category', toyLibraryController.saveCategory);

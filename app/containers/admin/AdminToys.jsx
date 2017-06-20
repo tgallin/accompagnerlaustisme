@@ -43,7 +43,7 @@ class AdminToys extends Component {
                       <td>{toy.categories.length > 1 ? toy.categories[0].name + ',...' : toy.categories[0].name }</td>
                       <td>{toy.approved ? 'Oui' : 'Non'}</td>
                       <td>
-                        <Link to={'/dashboard/toys/' + toy._id} className="btn btn-info"><i className="fa fa-pencil"/><span className={cx('hide-btn-label')}> Editer</span></Link>
+                        <Link to={'/dashboard/toyLibrary/toys/' + toy._id} className="btn btn-info"><i className="fa fa-pencil"/><span className={cx('hide-btn-label')}> Editer</span></Link>
                       </td>
                     </tr>)
                 }
