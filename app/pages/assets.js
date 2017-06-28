@@ -5,6 +5,7 @@ import { isProduction } from '../../config/app';
 
 var faviconUrl = require("file-loader?name=[name].[ext]!../images/favicon.ico");
 var datePickerCss = require("file-loader?name=datePicker.[ext]!react-date-picker/index.css");
+var imageGalleryCss = require("file-loader?name=imageGallery.[ext]!react-image-gallery/styles/css/image-gallery.css");
 
 const metaAssets = () => {
   return [{
@@ -44,6 +45,7 @@ const linkAssets = () => {
     { rel: 'icon', href: faviconUrl, type: 'image/x-icon'}, 
     { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'},
     { rel: 'stylesheet', href: datePickerCss},
+    { rel: 'stylesheet', href: imageGalleryCss},
     { rel: 'stylesheet', href:'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'},
   ];
   if (!isProduction) {

@@ -1,0 +1,23 @@
+@import '../common/typography';
+@import '../common/colors';
+
+.subheader {
+  @apply --subHeading;
+  padding-bottom: 10px;
+  padding-top: 20px;
+}
+
+.title {
+  text-align: center;
+  color: var(--heading);
+}
+
+.paddingBottom {
+  padding-bottom: 15px;
+}
+
+.lastPaddingBottom {
+  padding-bottom: 25px;
+}
+
+.content { @apply --normal; }
