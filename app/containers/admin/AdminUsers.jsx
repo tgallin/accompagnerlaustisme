@@ -2,12 +2,43 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { deleteUser } from '../../actions/adminUsers';
 
 import styles from 'css/components/user';
 
 const cx = classNames.bind(styles);
 
 class AdminUsers extends Component {
+
+  confirmDeleteUser = (id) => {
+    
+    const {
+      deleteUser
+    } = this.props;
+    
+    /* global bootbox */
+    bootbox.confirm({
+      message: "Etes-vous sûr de vouloir supprimer cet utilisateur ?",
+      size: 'small',
+      backdrop: true,
+      closeButton: false,
+      buttons: {
+          confirm: {
+              label: 'Oui',
+              className: 'btn-danger'
+          },
+          cancel: {
+              label: 'Non',
+              className: 'btn-default'
+          }
+      },
+      callback: function (confirmedDelete) {
+        if (confirmedDelete) {
+          deleteUser(id);
+        }
+      }
+    });
+  }
 
   render() {
     
@@ -46,6 +77,9 @@ class AdminUsers extends Component {
                       <td>
                         <Link to={'/dashboard/users/' + user._id} className="btn btn-info"><i className="fa fa-pencil"/><span className={cx('hide-btn-label')}> Editer</span></Link>
                       </td>
+                      <td>
+                        <a href='#' onClick={() => this.confirmDeleteUser(user._id)} className="btn btn-danger"><i className="fa fa-trash"/><span className={cx('hide-btn-label')}> Supprimer</span></a>
+                      </td>
                     </tr>)
                 }
                 </tbody>
@@ -63,7 +97,8 @@ class AdminUsers extends Component {
 AdminUsers.propTypes = {
     users: PropTypes.array,
     error: PropTypes.string,
-    children: PropTypes.object
+    children: PropTypes.object,
+    deleteUser: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -74,4 +109,4 @@ function mapStateToProps(state) {
 
 // Read more about where to place `connect` here:
 // https://github.com/rackt/react-redux/issues/75#issuecomment-135436563
-export default connect(mapStateToProps)(AdminUsers);
+export default connect(mapStateToProps, {deleteUser})(AdminUsers);

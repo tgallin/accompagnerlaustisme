@@ -35,6 +35,7 @@ const isWaiting = (
     case types.UPDATE_EMAIL:
     case types.UPDATE_PASSWORD:
     case types.ADMIN_USER_SAVE:
+    case types.ADMIN_USER_DELETE:
     case types.ADMIN_TOY_SAVE:
     case types.ADMIN_TOY_CAT_SAVE:
     case types.ADMIN_TOY_TAG_SAVE:
@@ -54,6 +55,7 @@ const isWaiting = (
     case types.UPDATE_EMAIL_SUCCESS:
     case types.UPDATE_PASSWORD_SUCCESS:
     case types.ADMIN_USER_SAVE_SUCCESS:
+    case types.ADMIN_USER_DELETE_SUCCESS:
     case types.ADMIN_TOY_CREATE_SUCCESS:
     case types.ADMIN_TOY_CAT_CREATE_SUCCESS:
     case types.ADMIN_TOY_TAG_CREATE_SUCCESS:
@@ -76,6 +78,7 @@ const isWaiting = (
     case types.UPDATE_EMAIL_ERROR:
     case types.UPDATE_PASSWORD_ERROR:
     case types.ADMIN_USER_SAVE_ERROR:
+    case types.ADMIN_USER_DELETE_ERROR:
     case types.ADMIN_TOY_SAVE_ERROR:
     case types.ADMIN_TOY_CAT_DUPLICATE:
     case types.ADMIN_TOY_CAT_SAVE_ERROR:

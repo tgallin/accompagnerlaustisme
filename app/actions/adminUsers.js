@@ -30,6 +30,27 @@ export function saveError(message) {
   };
 }
 
+export function beginDeleteUser() {
+  return { 
+    type: types.ADMIN_USER_DELETE 
+  };
+}
+
+export function deleteUserSuccess(data) {
+  return {
+    type: types.ADMIN_USER_DELETE_SUCCESS,
+    message: data.message,
+    id: data.id
+  };
+}
+
+export function deleteUserError(message) {
+  return {
+    type: types.ADMIN_USER_DELETE_ERROR,
+    message
+  };
+}
+
 export function saveUser(data) {
   return dispatch => {
     dispatch(beginSave());
@@ -47,3 +68,23 @@ export function saveUser(data) {
       });
   };
 }
+
+
+export function deleteUser(id) {    
+  return dispatch => {
+    dispatch(beginDeleteUser());
+
+    return makeUserRequest('delete',{},'/users/' + id)
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(deleteUserSuccess(response.data));
+        } else {
+          dispatch(deleteUserError('Mince ! Quelque chose s\'est mal passé'));
+        }
+      })
+      .catch(err => {
+        dispatch(deleteUserError(getMessage(err)));
+      });
+  };
+}
+

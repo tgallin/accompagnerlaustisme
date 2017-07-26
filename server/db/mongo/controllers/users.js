@@ -1,5 +1,6 @@
 import passport from 'passport';
 import User from '../models/user';
+import Toy from '../models/toy';
 import request from 'axios';
 import { recaptcha } from '../../../../config/secrets';
 import { createTempUser, sendVerificationEmail, options as senderOptions, confirmTempUser } from './emailVerification';
@@ -391,6 +392,26 @@ export function all(req, res) {
   });
 }
 
+/**
+ * DELETE /users
+ */
+export function removeUser(req, res) {
+  const userId = req.params.id;
+  const query = { _id: userId };
+  
+  User.findOneAndRemove(query, (err) => {
+    if (err) {
+      return res.status(500).send('Problème technique lors de la suppression');
+    }
+    
+    Toy.remove({owner: userId}, (err) => {
+    if (err) {
+      return res.status(500).send('Problème lors de la suppression des jeux associés.');
+    }});
+    return res.status(200).send({ id: userId, message: 'Utilisateur supprimé avec succès' });
+  });
+}
+
 export default {
   login,
   logout,
@@ -404,5 +425,6 @@ export default {
   updateEmail,
   updatePassword,
   all,
-  saveUser
+  saveUser,
+  removeUser
 };

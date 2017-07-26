@@ -26,6 +26,8 @@ const users = (
       return state;
     case types.ADMIN_USER_SAVE_SUCCESS:
       return state.map(u => user(u, action));
+    case types.ADMIN_USER_DELETE_SUCCESS:
+      return state.filter(u => u._id !== action.id);
     default:
       return state;
   }
@@ -37,9 +39,11 @@ const message = (
 ) => {
   switch (action.type) {
     case types.ADMIN_USER_SAVE_SUCCESS:
+    case types.ADMIN_USER_DELETE_SUCCESS:
     case types.CREATE_REQUEST:
       return '';
     case types.ADMIN_USER_SAVE_ERROR:
+    case types.ADMIN_USER_DELETE_ERROR:
       return action.message;
     default:
       return state;

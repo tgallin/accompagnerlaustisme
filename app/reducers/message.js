@@ -21,6 +21,7 @@ export default function message(state = {
     case types.UPDATE_EMAIL_SUCCESS:
     case types.UPDATE_PASSWORD_SUCCESS:
     case types.ADMIN_USER_SAVE_SUCCESS:
+    case types.ADMIN_USER_DELETE_SUCCESS:
     case types.ADMIN_TOY_CREATE_SUCCESS:
     case types.ADMIN_TOY_CAT_CREATE_SUCCESS:
     case types.ADMIN_TOY_TAG_CREATE_SUCCESS:
