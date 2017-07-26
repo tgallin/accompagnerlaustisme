@@ -65,6 +65,12 @@ let AdminToyForm = (props) => {
           </div>
         </div>
         <div className="form-group">
+          <label htmlFor="name" className="control-label col-sm-4">Utilisateur</label>
+          <div id="surname" className={'col-sm-8 ' + cx('control-readvalue')}>
+            {initialValues.owner}
+          </div>
+        </div>
+        <div className="form-group">
           <div className="col-sm-offset-4 col-sm-8">
             <Link to="dashboard/toyLibrary/toys" className={'btn btn-default ' + cx('marginRight')}
               disabled={submitting}>

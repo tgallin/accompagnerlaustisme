@@ -46,6 +46,7 @@ handleSubmit = (values) => {
         toy.tags.forEach(t => tags.push(t.name) );
         initialtoyData.tags = tags.join(', ');
         initialtoyData.approved = toy.approved;
+        initialtoyData.owner = toy.owner;
       }
       return initialtoyData;
     };
