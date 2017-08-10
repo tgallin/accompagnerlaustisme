@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from 'css/components/liens';
 import ScrollToTopOnMount from '../components/ScrollToTopOnMount';
-import ToysImageGallery from '../components/ToysImageGallery.jsx';
 
 const cx = classNames.bind(styles);
 

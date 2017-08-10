@@ -4,6 +4,7 @@ import messageService from './messages';
 import userService from './user';
 import adminUsersService from './adminUsers';
 import adminToyLibraryService from './adminToyLibrary';
+import toyLibraryService from './toyLibrary';
 import localStorageService from './localStorage';
 
-export { eventService, newsService, messageService, userService, adminUsersService, adminToyLibraryService, localStorageService };
+export { eventService, newsService, messageService, userService, adminUsersService, adminToyLibraryService, toyLibraryService, localStorageService };

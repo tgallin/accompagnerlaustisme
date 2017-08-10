@@ -59,9 +59,11 @@ let AdminToyForm = (props) => {
         </div>
         <div className="form-group">
           <label htmlFor="approved" className="control-label col-sm-4">Approuvé</label>
-          <div className={'col-sm-8 ' + cx('control-checkbox') + ' ' + cy('slide')}>
-            <Field name="approved" id="approved" component="input" type="checkbox"/>
-            <label htmlFor="approved"></label>
+          <div className="col-sm-8">
+            <div className={cx('control-checkbox') + ' ' + cy('slide')}>
+              <Field name="approved" id="approved" component="input" type="checkbox"/>
+              <label htmlFor="approved"></label>
+            </div>
           </div>
         </div>
         <div className="form-group">

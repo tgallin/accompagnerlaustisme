@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { beginLoadUser, loadUserSuccess, loadUserError } from 'actions/users';
-import { fetchUsersData, fetchToys, fetchMyToysAndCategoriesAndTags, fetchToyCategoriesAndTags, fetchToyTags  } from './fetch-data';
+import { fetchUsersData, fetchToys, fetchOnlineToys, fetchMyToysAndCategoriesAndTags, fetchToyCategoriesAndTags, fetchToyTags  } from './fetch-data';
 import { userService } from 'services';
 import {
   App,
@@ -95,7 +95,7 @@ export default (store) => {
       <Route path="/formations/formation3" component={Formation3} />
       <Route path="/formations/formation4" component={Formation4} />
       <Route path="/reseau" component={Reseau} />
-      <Route path="/ludotheque" component={Ludotheque} />
+      <Route path="/ludotheque" component={Ludotheque} fetchData={fetchOnlineToys} />
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
       <Route path="/liens" component={Liens} />

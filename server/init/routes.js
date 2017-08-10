@@ -87,11 +87,13 @@ export default (app) => {
   // toys routes
   if (toyLibraryController) {
     app.get('/toys', toyLibraryController.allToys);
+    app.get('/onlinetoys', toyLibraryController.onlineToys);
     app.get('/mytoys', toyLibraryController.allMyToys);
    // app.get('/toys/:id', toyLibraryController.findToy);
    var cpUpload = upload.fields([{ name: 'pictures[0]' }, { name: 'pictures[1]' }, { name: 'pictures[2]' }, { name: 'pictures[3]' }]);
     app.post('/toys', cpUpload, toyLibraryController.saveToy);
     app.post('/toys/changeApprobation', toyLibraryController.changeApprobation);
+    app.post('/toys/toggleOnline', toyLibraryController.toggleOnline);
     app.delete('/toys/:id', toyLibraryController.removeToy);
     app.get('/toys/categories', toyLibraryController.allCategories);
     app.post('/toys/category', toyLibraryController.saveCategory);

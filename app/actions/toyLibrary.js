@@ -298,5 +298,24 @@ export function changeApprobationToy(data) {
       .catch(err => {
         dispatch(saveToyError(getMessage(err)));
       });
-  }
+  };
+}
+
+export function toggleOnlineToy(data) {
+  return (dispatch) => {
+    
+    dispatch(beginSaveToy());
+
+    return makeRequest('post', data, '/toys/toggleOnline')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(saveToySuccess(response.data, types.TOY_UPDATE_SUCCESS));
+        } else {
+          dispatch(saveToyError('Oops! Something went wrong!'));
+        }
+      })
+      .catch(err => {
+        dispatch(saveToyError(getMessage(err)));
+      });
+  };
 }

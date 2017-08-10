@@ -18,6 +18,7 @@ const ToySchema = new mongoose.Schema({
   online: { type: Boolean, default: false },
   approved: { type: Boolean, default: false },
   created: { type: Date, default: Date.now },
+  updated: { type: Date, default: Date.now }
 }, {
   toObject: {
   virtuals: true

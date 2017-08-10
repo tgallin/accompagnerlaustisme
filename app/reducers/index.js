@@ -5,6 +5,7 @@ import user from '../reducers/user';
 import message from '../reducers/message';
 import adminUsers from '../reducers/adminUsers';
 import adminToyLibrary from '../reducers/adminToyLibrary';
+import toyLibrary from '../reducers/toyLibrary';
 import * as types from '../types';
 
 const isFetching = (state = false, action) => {
@@ -103,6 +104,7 @@ const rootReducer = combineReducers({
   message,
   adminUsers,
   adminToyLibrary,
+  toyLibrary,
   routing,
   form: formReducer
 });

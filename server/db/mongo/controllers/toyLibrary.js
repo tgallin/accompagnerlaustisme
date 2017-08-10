@@ -18,7 +18,19 @@ export function allToys(req, res) {
 }
 
 /**
- * GET /toys
+ * GET /onlinetoys
+ */
+export function onlineToys(req, res) {
+  Toy.find({approved: true, online: true}).sort({updated: -1}).populate('categories tags').exec(function (err, toys) {
+    if (err) {
+      return res.status(500).json({ message: 'Problème lors de la récupération des jeux' });
+    }
+    return res.status(200).json( { onlinetoys: toys} );
+  });
+}
+
+/**
+ * GET /mytoys
  */
 export function allMyToys(req, res) {
   if (req.user) {
@@ -369,6 +381,7 @@ export function saveToy(req, res) {
             existingToy.tags = req.body.tags && req.body.tags !== '' ? req.body.tags.split(',') : [];
             existingToy.online = false;
             existingToy.approved = false;
+            existingToy.updated = Date.now();
             
             var pictures = [];
             for (var i = 0; i < 4; i++) {
@@ -446,7 +459,7 @@ export function saveToy(req, res) {
 }
 
 /**
- * POST /toys creates or updates a toy with provided data
+ * POST /toys/changeApprobation change approbation of the toy with provided data
  */
 export function changeApprobation(req, res) {
   if (req.user) {
@@ -473,6 +486,48 @@ export function changeApprobation(req, res) {
           }
           existingToy.approved = req.body.approved;
           existingToy.online = req.body.approved;
+          
+          existingToy.save(function(err) {
+            if (err) {
+              return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+            }
+            return res.status(200).json({ toy: existingToy, message: 'Jeu mis à jour avec succès' });
+          });
+        
+        });
+      }
+    });
+  }
+}
+
+/**
+ * POST /toys/toggleOnline toogle online value of the toy
+ */
+export function toggleOnline(req, res) {
+  if (req.user) {
+    
+    const query = {
+      email: req.user.email
+    };
+    
+    User.findOne(query, (err, user) => {
+      if (err) {
+        return res.status(500).json({ message: 'Problème technique lors de la recherche de l\'utilisateur' });
+      }
+
+      if (req.body.toyId !== '') {
+        
+        const query = {
+          _id: req.body.toyId,
+          owner: user._id
+        };
+  
+        Toy.findOne(query, (err, existingToy) => {
+          if (err) {
+            return res.status(500).json({ message: 'Problème technique lors de la recherche du jeu' });
+          }
+          // toggle the value
+          existingToy.online = !existingToy.online;
           
           existingToy.save(function(err) {
             if (err) {
@@ -524,9 +579,11 @@ export function removeToy(req, res) {
 
 export default {
   allToys,
+  onlineToys,
   allMyToys,
   saveToy,
   changeApprobation,
+  toggleOnline,
   removeToy,
   allCategories,
   saveCategory,
