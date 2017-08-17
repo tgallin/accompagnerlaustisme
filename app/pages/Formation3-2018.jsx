@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Page from '../pages/Page';
-import FormationContainer from '../containers/Formation4';
+import FormationContainer from '../containers/Formation3-2018';
 
-class Formation4 extends Component {
+class Formation3 extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class Formation4 extends Component {
   }
 
   pageTitle() {
-    return 'Formation 4';
+    return 'Formation La gestion des troubles du comportement';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Formation 4' }
+      { name: 'description', content: 'Formation La gestion des troubles du comportement' }
     ];
   }
 
@@ -34,5 +34,5 @@ class Formation4 extends Component {
   }
 }
 
-export default Formation4;
+export default Formation3;
 

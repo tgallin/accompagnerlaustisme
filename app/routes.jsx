@@ -7,10 +7,14 @@ import {
   App,
   Home,
   Formations,
-  Formation1,
-  Formation2,
-  Formation3,
-  Formation4,
+  Formation1_2017,
+  Formation2_2017,
+  Formation3_2017,
+  Formation4_2017,
+  Formation1_2018,
+  Formation2_2018,
+  Formation3_2018,
+  Formation4_2018,
   Reseau,
   Ludotheque,
   About,
@@ -90,10 +94,14 @@ export default (store) => {
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
       <Route path="/formations" component={Formations} />
-      <Route path="/formations/formation1" component={Formation1} />
-      <Route path="/formations/formation2" component={Formation2} />
-      <Route path="/formations/formation3" component={Formation3} />
-      <Route path="/formations/formation4" component={Formation4} />
+      <Route path="/formations/formation1-2017" component={Formation1_2017} />
+      <Route path="/formations/formation2-2017" component={Formation2_2017} />
+      <Route path="/formations/formation3-2017" component={Formation3_2017} />
+      <Route path="/formations/formation4-2017" component={Formation4_2017} />
+      <Route path="/formations/formation1-2018" component={Formation1_2018} />
+      <Route path="/formations/formation2-2018" component={Formation2_2018} />
+      <Route path="/formations/formation3-2018" component={Formation3_2018} />
+      <Route path="/formations/formation4-2018" component={Formation4_2018} />
       <Route path="/reseau" component={Reseau} />
       <Route path="/ludotheque" component={Ludotheque} fetchData={fetchOnlineToys} />
       <Route path="/about" component={About} />

@@ -22,10 +22,10 @@ const Liens = () => {
       <div className={cx('paddingBottom')}><a href="http://www.loiret.fr/la-maison-departementale-des-personnes-handicapees-mdph--60336.htm?RH=ACCUEIL&xtmc=mdph&xtcr=1" target="_blank">www.loiret.fr/la-maison-departementale-des-personnes-handicapees-mdph--60336.htm?RH=ACCUEIL&xtmc=mdph&xtcr=1</a></div>
        
       <p>Recommandations HAS 2012 :</p>
-      <div className={cx('paddingBottom')}><a href="https://www.has-sante.fr/portail/upload/docs/application/pdf/2012-03/recommandations_autisme_ted_enfant_adolescent_interventions.pdf" target="_blank">www.has-sante.fr/portail/upload/docs/application/pdf/2012-03/recommandations_autisme_ted_enfant_adolescent_interventions.pdf</a></div>
+      <div className={cx('paddingBottom')}><a href="https://www.has-sante.fr/portail/upload/docs/application/pdf/2012-03/recommandations_autisme_ted_enfant_adolescent_interventions.pdf" target="_blank">recommandations-autisme-ted-enfant-adolescent-interventions.pdf</a></div>
       
       <p>Plan autisme 2013-2017 : </p>
-      <div><a href="http://www.cnsa.fr/documentation/plan-autisme2013.pdf" target="_blank">www.cnsa.fr/documentation/plan-autisme2013.pdf</a></div>
+      <div><a href="http://www.cnsa.fr/documentation/plan-autisme2013.pdf" target="_blank">plan-autisme2013.pdf</a></div>
       
       <div className={cx('subheader')}>DÉPISTAGE - DIAGNOSTIC :</div>
       <div><a href="http://www.cra-centre.org" target="_blank">www.cra-centre.org</a></div>
@@ -47,9 +47,9 @@ const Liens = () => {
       <div className={cx('paddingBottom')}><a href="https://www.youtube.com/watch?v=-eHtZHH1AYQ" target="_blank">www.youtube.com/watch?v=-eHtZHH1AYQ</a></div>
       
       <p>Guides de scolarisation :</p>
-      <div><a href="http://media.education.gouv.fr/file/ASH/57/5/guide_eleves_autistes_130575.pdf" target="_blank">media.education.gouv.fr/file/ASH/57/5/guide_eleves_autistes_130575.pdf</a></div>
-      <div><a href="https://www.asperansa.org/docs/guide_scolarisation_2016.pdf" target="_blank">www.asperansa.org/docs/guide_scolarisation_2016.pdf</a></div>
-      <div><a href="http://cache.media.eduscol.education.fr/file/Handicap/38/3/TED_eduscol_226383.pdf" target="_blank">cache.media.eduscol.education.fr/file/Handicap/38/3/TED_eduscol_226383.pdf</a></div>
+      <div><a href="http://media.education.gouv.fr/file/ASH/57/5/guide_eleves_autistes_130575.pdf" target="_blank">guide_eleves_autistes_130575.pdf</a></div>
+      <div><a href="https://www.asperansa.org/docs/guide_scolarisation_2016.pdf" target="_blank">guide_scolarisation_2016.pdf</a></div>
+      <div><a href="http://cache.media.eduscol.education.fr/file/Handicap/38/3/TED_eduscol_226383.pdf" target="_blank">TED_eduscol_226383.pdf</a></div>
       
       <div className={cx('subheader')}>FORMATIONS - OUTILS- RESSOURCES :</div>
       <div><a href="http://www.canalautisme.com" target="_blank">www.canalautisme.com</a></div>

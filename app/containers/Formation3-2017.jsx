@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
  *  i.e. We should keep this as the container that does the data-fetching
  *  and dispatching of actions if you decide to have any sub-components.
  */
-const Formation3 = () => {
+const Formation3_2017 = () => {
   return (
     <div>
      <ScrollToTopOnMount/>
@@ -104,4 +104,4 @@ primaire, premiers volets de la série "Enfants autistes : bienvenue à l’éco
   );
 };
 
-export default Formation3;
+export default Formation3_2017;

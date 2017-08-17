@@ -28,6 +28,22 @@ a.active:hover {
   background-color: var(--sidebarActiveBackground) !important;
 }
 
+a.adminLink.active,
+a.adminLink.active:focus,
+a.adminLink.active:hover {
+  background-color: #ff7503 !important;
+}
+
+.adminLink {
+  background-color: #ffd1aa;
+}
+
+.nav>li>a.adminLink:focus, .nav>li>a.adminLink:hover {
+  text-decoration: none;
+  background-color: #ffd1aa;
+  border: 1px solid #ddd !important;
+}
+
 /*
  * Main content
  */

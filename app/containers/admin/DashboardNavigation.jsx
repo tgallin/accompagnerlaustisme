@@ -19,9 +19,9 @@ class DashboardNavigation extends Component {
         <li><Link to="/dashboard/accountSettings" activeClassName={cx('active')}>Mon compte</Link></li>
         <li><Link to="/dashboard/mytoys" activeClassName={cx('active')}>Mes jeux</Link></li>
         <hr/>
-        <li><Link to="/dashboard/events" activeClassName={cx('active')}>Evènements </Link></li>
-        <li><Link to="/dashboard/users" activeClassName={cx('active')}>Utilisateurs</Link></li>
-        <li><Link to="/dashboard/toyLibrary" activeClassName={cx('active')}>Ludothèque</Link></li>
+        <li><Link to="/dashboard/events" className={cx('adminLink')} activeClassName={cx('active')}>Evènements </Link></li>
+        <li><Link to="/dashboard/users" className={cx('adminLink')} activeClassName={cx('active')}>Utilisateurs</Link></li>
+        <li><Link to="/dashboard/toyLibrary" className={cx('adminLink')} activeClassName={cx('active')}>Ludothèque</Link></li>
         <hr/>
         </ul>
       );

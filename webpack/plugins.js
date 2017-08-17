@@ -26,7 +26,8 @@ module.exports = ({ production = false, browser = false } = {}) => {
         'FACEBOOK_CALLBACK', 'FACEBOOK_CLIENTID', 'FACEBOOK_SECRET',
         'RECAPTCHA_SITE_KEY', 'RECAPTCHA_SECRET_KEY',
         'GMAIL_CLIENTID', 'GMAIL_SECRET', 'GMAIL_REFRESH_TOKEN', 'GMAIL_USER',
-        'CLOUDINARY_API_KEY','CLOUDINARY_CLOUD_NAME', 'CLOUDINARY_SECRET_KEY']),
+        'CLOUDINARY_API_KEY','CLOUDINARY_CLOUD_NAME', 'CLOUDINARY_SECRET_KEY',
+        'ELASTICSEARCH_CONNECTION', 'ELASTICSEARCH_INDEX_NAME']),
       new webpack.BannerPlugin(bannerOptions),
       new webpack.optimize.UglifyJsPlugin({ compress })
     ];

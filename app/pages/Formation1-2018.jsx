@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Page from '../pages/Page';
-import FormationContainer from '../containers/Formation2';
+import FormationContainer from '../containers/Formation1-2018';
 
-class Formation2 extends Component {
+class Formation1 extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class Formation2 extends Component {
   }
 
   pageTitle() {
-    return 'Formation 2';
+    return 'Formation Introduction à l’Analyse du Comportement Appliquée (ABA)';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Formation 2' }
+      { name: 'description', content: 'Formation Introduction à l’Analyse du Comportement Appliquée (ABA)' }
     ];
   }
 
@@ -34,5 +34,5 @@ class Formation2 extends Component {
   }
 }
 
-export default Formation2;
+export default Formation1;
 

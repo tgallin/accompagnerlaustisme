@@ -1,10 +1,14 @@
 export { default as App } from 'pages/App';
 export { default as Home } from 'pages/Home';
 export { default as Formations } from 'pages/Formations';
-export { default as Formation1} from 'pages/Formation1';
-export { default as Formation2} from 'pages/Formation2';
-export { default as Formation3} from 'pages/Formation3';
-export { default as Formation4} from 'pages/Formation4';
+export { default as Formation1_2017} from 'pages/Formation1-2017';
+export { default as Formation2_2017} from 'pages/Formation2-2017';
+export { default as Formation3_2017} from 'pages/Formation3-2017';
+export { default as Formation4_2017} from 'pages/Formation4-2017';
+export { default as Formation1_2018} from 'pages/Formation1-2018';
+export { default as Formation2_2018} from 'pages/Formation2-2018';
+export { default as Formation3_2018} from 'pages/Formation3-2018';
+export { default as Formation4_2018} from 'pages/Formation4-2018';
 export { default as Reseau } from 'pages/Reseau';
 export { default as Ludotheque } from 'pages/Ludotheque';
 export { default as About} from 'pages/About';

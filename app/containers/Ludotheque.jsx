@@ -21,8 +21,12 @@ class Ludotheque extends Component {
           <ScrollToTopOnMount/>
           <p className={'text-justify ' + cx('content', 'paddingBottom')}>Les enfants autistes ont tous une capacité d’apprentissage. Pour les aider à apprendre, les accompagnants et éducateurs ont très souvent recours à des outils ludo-éducatifs pour susciter leur intérêt. 	Il peut s’agir de jeux ou jouets très basiques mais bien souvent ces outils éducatifs ont une conception bien adaptées aux enfants à besoin spécifique. Ces derniers sont très chers. </p>
           <p className={'text-justify ' + cx('content', 'paddingBottom')}>En tant que membre de l’association, vous pouvez emprunter des jouets et matériel pédagogique pour une période déterminée. Cela permettra notamment de valider que ce matériel est adapté à votre enfant, avant de l'acheter.</p>
-          
-          <ToysImageGallery/>
+        </div>
+    );
+  };
+}
+
+/*          <ToysImageGallery/>
           
           {toys && toys.length > 0 &&
             
@@ -44,11 +48,7 @@ class Ludotheque extends Component {
             <div>
               <div className={cx('paddingAll')}>Aucun jeu</div>
             </div>
-          }
-        </div>
-    );
-  };
-}
+          }*/
 
 Ludotheque.propTypes = {
     toys: PropTypes.array,

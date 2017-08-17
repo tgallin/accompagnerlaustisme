@@ -6,6 +6,7 @@ import initPassport from './init/passport';
 import initExpress from './init/express';
 import initRoutes from './init/routes';
 import initCloudinary from './init/cloudinary';
+import initElasticsearch from './init/elasticsearch';
 import renderMiddleware from './render/middleware';
 
 const app = express();
@@ -46,6 +47,8 @@ initExpress(app);
 initRoutes(app);
 
 initCloudinary();
+
+initElasticsearch();
 
 /*
  * This is where the magic happens. We take the locals data we have already

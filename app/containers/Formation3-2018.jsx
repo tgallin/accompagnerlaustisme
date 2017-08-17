@@ -11,41 +11,41 @@ const cx = classNames.bind(styles);
  *  i.e. We should keep this as the container that does the data-fetching
  *  and dispatching of actions if you decide to have any sub-components.
  */
-const Formation4 = () => {
+const Formation3_2018 = () => {
   return (
     <div>
       <ScrollToTopOnMount/>
-      <div className={cx('title')}><h3>INITIATION A<br/>L'ENTRAÎNEMENT<br/>AUX RÉPONSES PIVOTS (PRT)</h3></div>
-      <div className={cx('title')}><h4>ET SON APPLICATION DANS LE CADRE DE LA COMMUNICATION</h4></div>
+      <div className={cx('title')}><h2>La gestion des troubles du comportement</h2></div>
     
       <div className={cx('header')}>Objectif de la formation</div>
-      <p className={'text-justify ' + cx('content')}>L'objectif de la formation est d'apporter aux parents et des professionnels des connaissances de base sur 
-      l'approche PRT (l'Entraînement Aux Réponses Pivots) et de les former à utiliser les variables de motivation et l'outil d'autogestion pour promouvoir 
-      l'apprentissage du langage chez les adolescents et enfants avec autisme.</p>
+      <p className={'text-justify ' + cx('content')}>L’objectif de la formation est de former des professionnels et parents dans la gestion des troubles du comportement chez les personnes avec autisme.</p>
       
       <div className={cx('header')}>Date</div>
-      <p className={'text-justify ' + cx('content')}>Le 8 avril et 9 avril de 9h à 12h et de 13h à 17h</p>
+      <p className={'text-justify ' + cx('content')}>Les 27 & 28 janvier 2018</p>
       
       <div className={cx('header')}>Programme</div>
-      <ol className={cx('listNoType')}>
-        <li className={cx('list-item')}><strong>Jour 1 (7h)</strong></li>
-        <ul className={cx('list')}>
-          <li className={cx('list-item')}>Historique développement du PRT</li>
-          <li className={cx('list-item')}>La Définition d’un comportement pivots</li>
-          <li className={cx('list-item')}>Les comportements pivots</li>
-          <li className={cx('list-item')}>Appliquer la composante motivationnelle du PRT pour enseigner le langage</li>
-        </ul>
-        <li className={cx('list-item')}><strong>Jour 2 (7h)</strong></li>
-        <ul className={cx('list')}>
-          <li className={cx('list-item')}>Les Initiations (apprendre à l’élève à poser des questions et faire des commentaires)</li>
-          <li className={cx('list-item')}>Faire Attention aux signaux multiples</li>
-          <li className={cx('list-item')}>Utiliser l’outil de l’autogestion pour enseigner la conversation</li>
-          <li className={cx('list-item')}>Un Point rapide sur la socialisation</li>
-        </ul>
-      </ol>
       
+      <ol className={cx('listNoType')}>
+        <li className={cx('list-item')}>Quelques bases : mentalisme, renforcement, extinction, punition, guidances, comportement</li>
+        <li className={cx('list-item')}>Evaluation et analyse fonctionnelle</li>
+        <li className={cx('list-item')}>Entraînement à la communication fonctionnelle</li>
+        <li className={cx('list-item')}>Augmenter la coopération</li>
+        <li className={cx('list-item')}>Agir selon la fonction du comportement et les 8 compétences essentielles de l’outil Essential For Living :
+          <br/><br/>
+          <ol className={cx('list')}>
+            <li className={cx('list-item')}>Faire des demandes</li>
+            <li className={cx('list-item')}>Attendre après une demande</li>
+            <li className={cx('list-item')}>Accepter les retraits d’activités ou items préférés, pour faire des transitions, partager, attendre son tour</li>
+            <li className={cx('list-item')}>Faire 10 tâches brèves consécutives acquises</li>
+            <li className={cx('list-item')}>Accepter le « non »</li>
+            <li className={cx('list-item')}>Suivre des consignes liées à la santé et à la sécurité</li>
+            <li className={cx('list-item')}>Réaliser des tâches de vie quotidienne concernant la santé et la sécurité</li>
+            <li className={cx('list-item')}>Tolérer des situations liées à la santé et la sécurité</li>
+          </ol>
+        </li>
+      </ol>
       <div className={cx('header')}>Modalités pédagogiques</div>
-      <ul className={cx('listNoType')}>
+      <ul className={cx('list')}>
           <li className={cx('list-item')}>Apporter des connaissances théoriques et pratiques</li>
           <li className={cx('list-item')}>Expliquer l’utilisation d’outils et de procédures spécifiques</li>
           <li className={cx('list-item')}>Travailler sur des présentations de situations de terrain</li>
@@ -54,7 +54,7 @@ const Formation4 = () => {
       </ul>
       
       <div className={cx('header')}>Public</div>
-      <p className={'text-justify ' + cx('content')}>Cette Formation est destinée aux parents d’enfants avec autisme et aux professionnels qui travaillent auprès des personnes avec autisme.</p>
+      <p className={'text-justify ' + cx('content')}>Cette formation est destinée aux professionnels et parents.</p>
       
       <div className={cx('header')}>Intervenante</div>
       <p className={'text-justify ' + cx('content')}><strong>Ghadeer Barghouthy</strong></p>
@@ -67,18 +67,18 @@ const Formation4 = () => {
       <p className={'text-justify ' + cx('content')}>Formatrice De psychologues dans différentes structures de France</p>
       <p className={'text-justify ' + cx('content')}>Formatrice pour groupe de parents et professionnels avec Epsilon A L’Ecole</p>
       
-      <div className={cx('header')}>Tarifs</div>
-      <p className={'text-justify ' + cx('content')}>Tarif pour les 2 jours : 120 € par personne</p>
+      <div className={cx('header')}>Tarif</div>
+      <p className={'text-justify ' + cx('content')}>Tarif pour les 2 jours : 130 € par personne</p>
       
       <div className={cx('header')}>Informations pratiques</div>
-      <p className={cx('content')}>Salle du Foyer St Vincent</p>
-      <p className={cx('content')}>46, rue du Champ Rond</p>
-      <p className={cx('content', 'paddingBottom')}>45000 Orléans</p>
+      <p className={cx('content')}>Salle Jean Baptiste Clément</p>
+      <p className={cx('content')}>24 rue Danton</p>
+      <p className={cx('content', 'paddingBottom')}>45800 St Jean de Braye</p>
       
-      <p className={cx('content', 'lastPaddingBottom')}><Link to="/contact" className="btn btn-info">Inscription obligatoire via le formulaire de contact</Link></p>
+      <p className={cx('content', 'lastPaddingBottom')}><Link to="/contact" className="btn btn-info">Inscription obligatoire via le formulaire de contact</Link> validée par le règlement complet 15 jours avant la formation</p>
       
     </div>
   );
 };
 
-export default Formation4;
+export default Formation3_2018;

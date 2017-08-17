@@ -67,9 +67,11 @@ let AdminToyForm = (props) => {
           </div>
         </div>
         <div className="form-group">
-          <label htmlFor="name" className="control-label col-sm-4">Utilisateur</label>
+          <label htmlFor="name" className="control-label col-sm-4">Propriétaire</label>
           <div id="surname" className={'col-sm-8 ' + cx('control-readvalue')}>
-            {initialValues.owner}
+            <Link to={'dashboard/users/' + initialValues.owner.id}>
+              {initialValues.owner.profile.firstname + ' ' + initialValues.owner.profile.surname}
+            </Link>
           </div>
         </div>
         <div className="form-group">

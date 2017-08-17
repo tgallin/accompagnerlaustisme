@@ -4,12 +4,13 @@ import ToyTag from '../models/toyTag';
 import User from '../models/user';
 import fs from 'fs';
 import { uploadImage, destroyImage } from '../../../image/cloudinaryUploader';
+import { indexToy, deleteToy } from '../../../search/elasticsearch';
 
 /**
  * GET /toys
  */
 export function allToys(req, res) {
-  Toy.find({}).sort({name: 1}).populate('categories tags').exec(function (err, toys) {
+  Toy.find({}).sort({name: 1}).populate('categories tags owner borrowedBy waiting').exec(function (err, toys) {
     if (err) {
       return res.status(500).json({ message: 'Problème lors de la récupération des jeux' });
     }
@@ -232,6 +233,12 @@ function removeFile(file) {
   }
 }
 
+function indexationToy(toyId) {
+  Toy.findOne({_id: toyId}).populate('categories tags owner borrowedBy waiting').exec(function (err, toy) {
+    indexToy(toy);
+  });
+}
+
 /**
  * POST /toys creates or updates a toy with provided data
  */
@@ -352,6 +359,7 @@ export function saveToy(req, res) {
                       if (err) {
                         return res.status(500).json({ message: 'Problème technique lors de l\'ajout du jeu à votre compte' });
                       }
+                      indexationToy(newToy._id);
                       return res.status(200).json({ toy: newToy, message:  'Jeu créé avec succès' });
                     });
                   });
@@ -445,6 +453,7 @@ export function saveToy(req, res) {
                         console.log(err);
                         return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
                       }
+                      indexationToy(existingToy._id);
                       return res.status(200).json({ toy: existingToy, message: 'Jeu mis à jour avec succès' });
                     });
                   });
@@ -491,6 +500,7 @@ export function changeApprobation(req, res) {
             if (err) {
               return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
             }
+            indexationToy(existingToy._id);
             return res.status(200).json({ toy: existingToy, message: 'Jeu mis à jour avec succès' });
           });
         
@@ -533,6 +543,7 @@ export function toggleOnline(req, res) {
             if (err) {
               return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
             }
+            indexationToy(existingToy._id);
             return res.status(200).json({ toy: existingToy, message: 'Jeu mis à jour avec succès' });
           });
         
@@ -570,6 +581,7 @@ export function removeToy(req, res) {
           if (err) {
             return res.status(500).json({ message: 'Problème technique lors de la suppression du jeu de votre compte' });
           }
+          deleteToy(toyId);
           return res.status(200).send({ id: toyId, message: 'Jeu supprimé avec succès' });
         });
       });

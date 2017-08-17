@@ -12,11 +12,11 @@ const cx = classNames.bind(styles);
  *  i.e. We should keep this as the container that does the data-fetching
  *  and dispatching of actions if you decide to have any sub-components.
  */
-const Formation2 = () => {
+const Formation1_2017 = () => {
   return (
     <div>
       <ScrollToTopOnMount/>
-      <div className={cx('title')}><h3>Numération de base</h3></div>
+      <div className={cx('title')}><h3>Apprendre à lire et à écrire</h3></div>
       <div className={cx('title')}>Inclus dans le cursus CEPRO1</div>
       <div className={cx('title')}>Niveau scolaire de l’enfant : cycles 1 et 2</div>
       <div className={cx('title', 'paddingBottom')}>(de la petite section au Ce2, de la 1ere à la 6ème Harmos)</div>
@@ -26,39 +26,40 @@ const Formation2 = () => {
       <div className='text-center'><img src={logoEpsilon} alt="logo Epsilon"/></div>
       
       <div className={cx('header')}>Objectif de la formation</div>
-      <p className={'text-justify ' + cx('content')}>En passant par la manipulation de matériel concret et par l’adaptation pédagogique, 
-      l'élève avec TSA (troubles du spectre autistique), comprend et parvient progressivement à maîtriser le système décimal, 
-      le classement des nombres et la comparaison des nombres. Cet apprentissage permet d'introduire les bases de l’addition et de la soustraction. Dans ce cours, 
-      les participants apprendront comment etre capable de sélectionner pour chaque enfant les outils pédagogiques et les procédures pour lui apprendre à compter jusqu’à dix, 
-      et au delà de dix en comprenant les bases de la construction du système décimal. Cet enseignement tiendra compte du maintien de la motivation tout au long de l’apprentissage.</p>
+      <p className={'text-justify ' + cx('content')}>Ce cours a pour but de donner les bases nécessaires pour assurer le soutien scolaire d’un élève à besoins particuliers en début de primaire au niveau de l’apprentissage de la lecture et de l’écriture.</p>
+      <p className={'text-justify ' + cx('content')}>Vous découvrirez comment l’explication du code, le déchiffrage et la compréhension peuvent être décomposés en étapes pertinentes et adaptées en fonction des particularités de l’élève.</p>
       
       <div className={cx('header')}>Date</div>
-      <p className={'text-justify ' + cx('content')}>Le 25 et 26 mars 2017</p>
+      <p className={'text-justify ' + cx('content')}>Le 14 et 15 janvier 2017.</p>
       
       <div className={cx('header')}>Programme</div>
       <ol className={cx('list')}>
-        <li className={cx('list-item')}>Apprendre à compter jusqu’à 10 :</li>
+        <li className={cx('list-item')}>Les prérequis à la lecture</li>
           <ul className={cx('list')}>
-            <li className={cx('list-item')}>description détaillée des prérequis nécessaires à l’apprentissage des quantités, des nombres et du dénombrement</li>
-            <li className={cx('list-item')}>apprendre à reconnaître des quantités globales</li>
-            <li className={cx('list-item')}>apprendre à dénombrer de différentes manières jusqu’à 10</li>
-            <li className={cx('list-item')}>apprendre à se repérer sur la chaîne numérique</li>
-            <li className={cx('list-item')}>introduction de la notion d’addition et de soustraction</li>
-            <li className={cx('list-item')}>la notion de double, de moitié, de nombre pair et impair</li>
-            <li className={cx('list-item')}>la notion de compléments à 10</li>
+            <li className={cx('list-item')}>présentation des prérequis nécessaires à l’apprentissage de la lecture</li>
+            <li className={cx('list-item')}>présentation des différents modèles théoriques qui décrivent les étapes de l’apprentissage de la lecture</li>
           </ul>
-        <li className={cx('list-item')}>Apprendre à compter au delà de 10 :</li>
+          <p className={'text-justify ' + cx('content', 'paddingBottom')}>Ces données sont essentielles pour être capable de sélectionner les meilleures stratégies d’enseignement pour chaque élève. L’objectif essentiel est de s’appuyer sur les forces de l’enfant.</p>
+        <li className={cx('list-item')}>L’apprentissage étape par étape</li>
         <ul className={cx('list')}>
-            <li className={cx('list-item')}>présentation du système décimal : notion de quantité</li>
-            <li className={cx('list-item')}>classement et comparaison de quantité et de nombre</li>
-            <li className={cx('list-item')}>notion de nombre et de chiffre</li>
-            <li className={cx('list-item')}>apprendre à compter de n en n en partant de 1 ou d’un autre nombre</li>
+            <li className={cx('list-item')}>choix de la police d’écriture</li>
+            <li className={cx('list-item')}>enseignement du code par approche alphabétique</li>
+            <li className={cx('list-item')}>sensibilisation à la phonologie</li>
+            <li className={cx('list-item')}>formation des syllabes</li>
+            <li className={cx('list-item')}>enseignement du code par imprégnation syllabique</li>
+            <li className={cx('list-item')}>écriture phonologique avec des lettres mobiles</li>
+            <li className={cx('list-item')}>fusion des sons des lettres ou des syllabes vers la lecture de mots</li>
+            <li className={cx('list-item')}>apprendre à écrire avec un outil scripteur</li>
+            <li className={cx('list-item')}>les bases de la grammaire comme outil de compréhension</li>
+            <li className={cx('list-item')}>développer l’expression orale des phrases complexes</li>
+            <li className={cx('list-item')}>apprendre à raconter un événement dans un ordre chronologique ou logique à partir d’images séquentielles</li>
+            <li className={cx('list-item')}>apprendre à lire des logogrammes</li>
           </ul>
-        <li className={cx('list-item')}>Les méthodes et outils :</li>
-        <p className={'text-justify ' + cx('content')}>L’enseignement de ces compétences prend appui principalement sur les outils de la pédagogie Montessori, les procédures d’enseignement utilisées en ABA et PRT.</p>
+          <p className={'text-justify ' + cx('content', 'paddingBottom')}>En parallèle de ces points, différentes stratégies sont présentées pour amener l’enfant à lire en ayant accès au sens.</p>
+        <li className={cx('list-item')}>Les différentes stratégies de présentation</li>
         <ul className={cx('list')}>
-            <li className={cx('list-item')}>les barres rouges et bleues, les fuseaux, les jetons, le serpent positif</li>
-            <li className={cx('list-item')}>la banque, les tables de Seguin, les chaînes des perles</li>
+            <li className={cx('list-item')}>mise en paire, studia, nomenclature, jeux de pistes, jeux du détective</li>
+            <li className={cx('list-item')}>les premiers symboles de la grammaire et les premières affiches des fonctions</li>
         </ul>
       </ol>
       
@@ -100,4 +101,4 @@ const Formation2 = () => {
   );
 };
 
-export default Formation2;
+export default Formation1_2017;
