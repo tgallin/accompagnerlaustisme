@@ -29,3 +29,8 @@ export const cloudinaryKeys = {
   apiKey: process.env.CLOUDINARY_API_KEY || 'something',
   secretKey: process.env.CLOUDINARY_SECRET_KEY || 'something'
 };
+
+export const elasticsearchKeys = {
+  connectionString: process.env.ELASTICSEARCH_CONNECTION || 'something',
+  indexName: process.env.ELASTICSEARCH_INDEX_NAME || 'something'
+};
