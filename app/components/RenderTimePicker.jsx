@@ -23,11 +23,11 @@ function inputColClassName(size) {
   }
 }
 
-const RenderField = ({ input, label, placeholder, defaultTime, help, size, type, meta: { touched, error } }) => (
+const RenderField = ({ input, label, placeholder, help, size, type, meta: { touched, error } }) => (
   <div className={'form-group' + (error && touched ? ' has-error' : '')}>
     <label htmlFor={input.name} className={'control-label ' + labelColClassName(size)}>{label}</label>
     <div className={inputColClassName(size)}>
-      <TimePicker {...input} id={input.name} defaultValue={defaultTime} showSecond={false} />
+      <TimePicker {...input} id={input.name} showSecond={false} />
       {help && <span id="helpBlock" className="help-block">{help}</span>}
       {touched && error && <div className="text-danger">{error}</div>}
     </div>
