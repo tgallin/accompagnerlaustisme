@@ -40,40 +40,24 @@ const tags = (
   }
 };
 
-const message = (
-  state = '',
+const toyLibraries = (
+  state = [],
   action
 ) => {
   switch (action.type) {
-    case types.ADMIN_TOY_CREATE_SUCCESS:
-    case types.ADMIN_TOY_CAT_CREATE_SUCCESS:
-    case types.ADMIN_TOY_TAG_CREATE_SUCCESS:
-    case types.ADMIN_TOY_UPDATE_SUCCESS:
-    case types.ADMIN_TOY_CAT_UPDATE_SUCCESS:
-    case types.ADMIN_TOY_TAG_UPDATE_SUCCESS:  
-    case types.ADMIN_TOY_CAT_DELETE_SUCCESS:
-    case types.ADMIN_TOY_TAG_DELETE_SUCCESS:
-    case types.CREATE_REQUEST:
-      return '';
-    case types.ADMIN_TOY_SAVE_ERROR:
-    case types.ADMIN_TOY_CAT_SAVE_ERROR:
-    case types.ADMIN_TOY_TAG_SAVE_ERROR:
-    case types.ADMIN_TOY_CAT_DELETE_ERROR:
-    case types.ADMIN_TOY_TAG_DELETE_ERROR:
-    case types.ADMIN_TOY_CAT_DUPLICATE:
-    case types.ADMIN_TOY_TAG_DUPLICATE:
-      return action.message;
+    case types.REQUEST_SUCCESS:
+      if (action.data && action.data.toyLibraries) return action.data.toyLibraries;
+      return state;
     default:
       return state;
   }
 };
 
-
 const toyLibraryReducer = combineReducers({
   toys,
   categories,
   tags,
-  message
+  toyLibraries
 });
 
 export default toyLibraryReducer;

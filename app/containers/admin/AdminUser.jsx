@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { matchesProperty } from '../../utils/arrayUtils';
-import { padStart } from '../../utils/stringUtils';
+import { formatToDate, formatDateToString } from '../../utils/dateUtils';
 import UserForm from '../../components/UserForm';
 import { connect } from 'react-redux';
 import { saveUser } from '../../actions/adminUsers';
@@ -22,8 +22,8 @@ handleSubmit = (values) => {
     var memberFrom = null;
     var memberTo = null;
     if (member) {
-      memberFrom = this.formatToDate(values.memberFrom);
-      memberTo = this.formatToDate(values.memberTo);
+      memberFrom = formatToDate(values.memberFrom);
+      memberTo = formatToDate(values.memberTo);
     }
 
     const userId = values.userId;
@@ -37,28 +37,7 @@ handleSubmit = (values) => {
     });
   }
 
-formatToDate(value) {
-  var result = null;
-  if (value && value !== '') {
-    var dateParts = value.split("/");
-    // we want to convert DD/MM/YYYY to YYYY/MM/DD
-    result = new Date(Date.UTC(dateParts[2], dateParts[1] - 1, dateParts[0], 0 , 0, 0));
-  }
-  return result;
-}
 
-formatDateToString(value) {
-  var result = '';
-  if (value && value !== '') {
-    var date = new Date(value);
-    var dateParts = [];
-    dateParts.push(padStart(date.getUTCDate().toString(), "00"));
-    dateParts.push(padStart((date.getUTCMonth() + 1).toString(), "00"));
-    dateParts.push(date.getUTCFullYear());
-    result = dateParts.join('/');
-  } 
-  return result;
-}
 
   render() {
     
@@ -73,8 +52,8 @@ formatDateToString(value) {
         initialUserData.admin = user.admin;
         if (user.membership) {
           initialUserData.member = user.membership.member;
-          initialUserData.memberFrom = this.formatDateToString(user.membership.from);
-          initialUserData.memberTo = this.formatDateToString(user.membership.to);
+          initialUserData.memberFrom = formatDateToString(user.membership.from);
+          initialUserData.memberTo = formatDateToString(user.membership.to);
         }
         
         if (user.profile.address) {

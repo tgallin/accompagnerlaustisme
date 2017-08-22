@@ -85,7 +85,7 @@ let UserForm = (props) => {
         }
         <div className="form-group">
           <div className="col-sm-offset-4 col-sm-8">
-            <Link to="dashboard/users" className={'btn btn-default ' + cx('marginRight')}
+            <Link to="/dashboard/users" className={'btn btn-default ' + cx('marginRight')}
               disabled={submitting}>
               <i className="fa fa-ban"/> Annuler
             </Link>
@@ -124,7 +124,7 @@ let UserForm = (props) => {
         </div>
       </form>
       <div className={cx('paddingBottom')}>
-        <Link to='dashboard/users' ><i className="fa fa-angle-double-left"/><span className={cx('paddingLeft')}>Retour à la liste</span></Link>
+        <Link to='/dashboard/users' ><i className="fa fa-angle-double-left"/><span className={cx('paddingLeft')}>Retour à la liste</span></Link>
       </div>
       
       </div>

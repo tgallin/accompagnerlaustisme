@@ -91,3 +91,8 @@ export const fetchToyTags = () => {
   .catch(() => []);
 };
 
+export const fetchToyLibraries = () => {
+  return adminToyLibraryService.getToyLibraries()
+  .then(res => res.data)
+  .catch(() => []);
+};

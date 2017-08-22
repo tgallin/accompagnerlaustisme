@@ -69,14 +69,14 @@ let AdminToyForm = (props) => {
         <div className="form-group">
           <label htmlFor="name" className="control-label col-sm-4">Propriétaire</label>
           <div id="surname" className={'col-sm-8 ' + cx('control-readvalue')}>
-            <Link to={'dashboard/users/' + initialValues.owner.id}>
+            <Link to={'/dashboard/users/' + initialValues.owner.id}>
               {initialValues.owner.profile.firstname + ' ' + initialValues.owner.profile.surname}
             </Link>
           </div>
         </div>
         <div className="form-group">
           <div className="col-sm-offset-4 col-sm-8">
-            <Link to="dashboard/toyLibrary/toys" className={'btn btn-default ' + cx('marginRight')}
+            <Link to="/dashboard/toyLibrary/toys" className={'btn btn-default ' + cx('marginRight')}
               disabled={submitting}>
               <i className="fa fa-ban"/> Annuler
             </Link>
@@ -88,7 +88,7 @@ let AdminToyForm = (props) => {
         </div>
       </form>
       <div className={cx('paddingBottom')}>
-        <Link to='dashboard/toyLibrary/toys' ><i className="fa fa-angle-double-left"/><span className={cx('paddingLeft')}>Retour à la liste</span></Link>
+        <Link to='/dashboard/toyLibrary/toys' ><i className="fa fa-angle-double-left"/><span className={cx('paddingLeft')}>Retour à la liste</span></Link>
       </div>
     </div>
   );

@@ -34,6 +34,8 @@ export { default as AdminToy} from 'pages/admin/AdminToy';
 export { default as AdminToys} from 'pages/admin/AdminToys';
 export { default as AdminToyCategories} from 'pages/admin/AdminToyCategories';
 export { default as AdminToyCategory} from 'pages/admin/AdminToyCategory';
+export { default as AdminToyLibraryLocations} from 'pages/admin/AdminToyLibraryLocations';
+export { default as AdminToyLibraryLocation} from 'pages/admin/AdminToyLibraryLocation';
 export { default as AdminToyTags} from 'pages/admin/AdminToyTags';
 export { default as AdminToyTag} from 'pages/admin/AdminToyTag';
 export { default as Mentions} from 'pages/Mentions';

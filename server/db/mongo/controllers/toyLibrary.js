@@ -1,6 +1,7 @@
 import Toy from '../models/toy';
 import ToyCategory from '../models/toyCategory';
 import ToyTag from '../models/toyTag';
+import ToyLibrary from '../models/toyLibrary';
 import User from '../models/user';
 import fs from 'fs';
 import { uploadImage, destroyImage } from '../../../image/cloudinaryUploader';
@@ -78,6 +79,18 @@ export function allTags(req, res) {
       return res.status(500).json({ message: 'Problème lors de la récupération des mots clés' });
     }
     return res.status(200).json( { tags: toyTags} );
+  });
+}
+
+/**
+ * GET /toys/toyLibraries
+ */
+export function allToyLibraries(req, res) {
+  ToyLibrary.find({}).exec(function (err, toyLibraries) {
+    if (err) {
+      return res.status(500).json({ message: 'Problème lors de la récupération des ludothèques' });
+    }
+    return res.status(200).json( { toyLibraries: toyLibraries} );
   });
 }
 
@@ -163,6 +176,62 @@ export function saveTag(req, res) {
 }
 
 /**
+ * POST /toys/toyLibrary creates or updates a toy library with provided data
+ */
+export function saveToyLibrary(req, res) {
+  if (req.body.toyLibraryId !== '') {
+    
+    if (req.body.toyLibraryId == 0) {
+      
+      var newToyLibrary = new ToyLibrary();
+      
+      newToyLibrary.address = {
+        complement1: req.body.complement1,
+        street: req.body.street,
+        postalCode: req.body.postalCode,
+        city: req.body.city
+      };
+      
+      newToyLibrary.openings = req.body.openings;
+
+      newToyLibrary.save(function(err) {
+        if (err) {
+          return res.status(500).json({ message: 'Problème technique lors de la création' });
+        }
+        return res.status(200).json({ toyLibrary: newToyLibrary, message:  'Lieu créé avec succès' });
+      });
+    } else {
+      const query = {
+        _id: req.body.toyLibraryId
+      };
+
+      ToyLibrary.findOne(query, (err, existingToyLibrary) => {
+        if (err) {
+          return res.status(500).json({ message: 'Problème technique lors de la recherche du lieu' });
+        }
+        
+        existingToyLibrary.address = {
+          complement1: req.body.complement1,
+          street: req.body.street,
+          postalCode: req.body.postalCode,
+          city: req.body.city
+        };
+        
+        existingToyLibrary.openings = req.body.openings;
+      
+        existingToyLibrary.save(function(err) {
+          if (err) {
+            return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+          }
+          return res.status(200).json({ toyLibrary: existingToyLibrary, message: 'Lieu mis à jour avec succès' });
+        });
+        
+      });
+    }
+  }
+}
+
+/**
  * remove a category
  */
 export function removeCategory(req, res) {
@@ -200,6 +269,27 @@ export function removeTag(req, res) {
       { $pull: { suggestedTags: tagId } }
     );
     return res.status(200).send({ id: tagId, message: 'Mot clé supprimé avec succès' });
+  });
+}
+
+/**
+ * remove a toy library
+ */
+export function removeToyLibrary(req, res) {
+  const toyLibraryId = req.params.id;
+  const query = { _id: toyLibraryId };
+  
+  ToyLibrary.findOneAndRemove(query, (err) => {
+    if (err) {
+      return res.status(500).send('Problème technique lors de la suppression');
+    }
+    
+    Toy.update(
+      { toyLibrary: toyLibraryId },
+      { toyLibrary: undefined }
+    );
+
+    return res.status(200).send({ id: toyLibraryId, message: 'Lieu supprimé avec succès' });
   });
 }
 
@@ -602,5 +692,8 @@ export default {
   removeCategory,
   allTags,
   saveTag,
-  removeTag
+  removeTag,
+  allToyLibraries,
+  saveToyLibrary,
+  removeToyLibrary
 };

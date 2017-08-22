@@ -13,6 +13,7 @@ class AdminToyLibraryTabs extends Component {
         <li><Link to="/dashboard/toyLibrary/toys" activeClassName={cx('activeTab')}>Jeux</Link></li>
         <li><Link to="/dashboard/toyLibrary/categories" activeClassName={cx('activeTab')}>Catégories</Link></li>
         <li><Link to="/dashboard/toyLibrary/tags" activeClassName={cx('activeTab')}>Mots clés</Link></li>
+        <li><Link to="/dashboard/toyLibrary/locations" activeClassName={cx('activeTab')}>Lieux</Link></li>
       </ul>
     );
   }

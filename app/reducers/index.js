@@ -40,8 +40,10 @@ const isWaiting = (
     case types.ADMIN_TOY_SAVE:
     case types.ADMIN_TOY_CAT_SAVE:
     case types.ADMIN_TOY_TAG_SAVE:
+    case types.ADMIN_TOY_LIB_SAVE:
     case types.ADMIN_TOY_CAT_DELETE:
     case types.ADMIN_TOY_TAG_DELETE:
+    case types.ADMIN_TOY_LIB_DELETE:
     case types.TOY_SAVE:
     case types.TOY_DELETE:
       return true;
@@ -60,11 +62,14 @@ const isWaiting = (
     case types.ADMIN_TOY_CREATE_SUCCESS:
     case types.ADMIN_TOY_CAT_CREATE_SUCCESS:
     case types.ADMIN_TOY_TAG_CREATE_SUCCESS:
+    case types.ADMIN_TOY_LIB_CREATE_SUCCESS:
     case types.ADMIN_TOY_UPDATE_SUCCESS:
     case types.ADMIN_TOY_CAT_UPDATE_SUCCESS:
     case types.ADMIN_TOY_TAG_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_LIB_UPDATE_SUCCESS:
     case types.ADMIN_TOY_CAT_DELETE_SUCCESS:
     case types.ADMIN_TOY_TAG_DELETE_SUCCESS:  
+    case types.ADMIN_TOY_LIB_DELETE_SUCCESS:
     case types.TOY_CREATE_SUCCESS:
     case types.TOY_UPDATE_SUCCESS:
     case types.TOY_DELETE_SUCCESS:
@@ -87,6 +92,8 @@ const isWaiting = (
     case types.ADMIN_TOY_TAG_DUPLICATE:
     case types.ADMIN_TOY_TAG_SAVE_ERROR:
     case types.ADMIN_TOY_TAG_DELETE_ERROR:
+    case types.ADMIN_TOY_LIB_SAVE_ERROR:
+    case types.ADMIN_TOY_LIB_DELETE_ERROR:
     case types.TOY_SAVE_ERROR:
     case types.TOY_DELETE_ERROR:
       return false;

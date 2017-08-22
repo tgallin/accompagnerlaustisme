@@ -15,7 +15,8 @@ const Formation4_2018 = () => {
   return (
     <div>
       <ScrollToTopOnMount/>
-      <div className={cx('title')}><h2>Enseigner l’écriture aux enfants de maternelle</h2></div>
+      <div className={cx('title')}><h2>Habilités sociales</h2></div>
+      <div className='text-center'>Formation assurée par <a href="https://learnenjoy.com/" target="_blank">LearnEnjoy</a></div>
 
       <div className={cx('header')}>Date</div>
       <p className={'text-justify ' + cx('content')}>Les 17 & 18 mars 2018</p>
@@ -79,6 +80,7 @@ const Formation4_2018 = () => {
       
       <div className={cx('header')}>Tarif</div>
       <p className={'text-justify ' + cx('content')}>Tarif pour les 2 jours : 140 € par personne</p>
+      <p className={'text-justify ' + cx('content')}>Merci d'envoyer votre réglement par chèque au 39 rue Paul Ratouis, 45650, Saint-Jean-Le-Blanc.</p>
       
       <div className={cx('header')}>Informations pratiques</div>
       <p className={cx('content')}>Salle de la Picardière</p>

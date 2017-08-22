@@ -13,12 +13,13 @@ const ToySchema = new mongoose.Schema({
   pictures: Array,
   tags: [{ type: Schema.Types.ObjectId, ref: 'ToyTag' }],
   owner: { type: Schema.Types.ObjectId, ref: 'User' },
+  toyLibrary: { type: Schema.Types.ObjectId, ref: 'ToyLibrary' },
   borrowedBy: { type: Schema.Types.ObjectId, ref: 'User' },
   waiting:  [{ type: Schema.Types.ObjectId, ref: 'User' }],
   online: { type: Boolean, default: false },
   approved: { type: Boolean, default: false },
   created: { type: Date, default: Date.now },
-  updated: { type: Date, default: Date.now }
+  updated: { type: Date, default: Date.now },
 }, {
   toObject: {
   virtuals: true

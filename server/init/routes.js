@@ -101,6 +101,9 @@ export default (app) => {
     app.get('/toys/tags', toyLibraryController.allTags);
     app.post('/toys/tag', toyLibraryController.saveTag);
     app.delete('/toys/tag/:id', toyLibraryController.removeTag);
+    app.get('/toys/toyLibraries', toyLibraryController.allToyLibraries);
+    app.post('/toys/toyLibrary', toyLibraryController.saveToyLibrary);
+    app.delete('/toys/toyLibrary/:id', toyLibraryController.removeToyLibrary);
   }
   else {
     console.warn(unsupportedMessage('toys routes'));

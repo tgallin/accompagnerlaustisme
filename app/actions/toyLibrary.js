@@ -64,6 +64,25 @@ export function saveTagError(message) {
   };
 }
 
+export function beginSaveToyLibrary() {
+  return { type: types.ADMIN_TOY_LIB_SAVE };
+}
+
+export function saveToyLibrarySuccess(data, action) {
+  return {
+    type: action,
+    message: data.message,
+    toyLibrary: data.toyLibrary
+  };
+}
+
+export function saveToyLibraryError(message) {
+  return {
+    type: types.ADMIN_TOY_LIB_SAVE_ERROR,
+    message
+  };
+}
+
 export function beginDeleteCat() {
   return { type: types.ADMIN_TOY_CAT_DELETE };
 }
@@ -98,6 +117,25 @@ export function deleteTagSuccess(data) {
 export function deleteTagError(message) {
   return {
     type: types.ADMIN_TOY_TAG_DELETE_ERROR,
+    message
+  };
+}
+
+export function beginDeleteToyLibrary() {
+  return { type: types.ADMIN_TOY_LIB_DELETE };
+}
+
+export function deleteToyLibrarySuccess(data) {
+  return {
+    type: types.ADMIN_TOY_LIB_DELETE_SUCCESS,
+    message: data.message,
+    id: data.id
+  };
+}
+
+export function deleteToyLibraryError(message) {
+  return {
+    type: types.ADMIN_TOY_LIB_DELETE_ERROR,
     message
   };
 }
@@ -198,6 +236,26 @@ export function saveToyTag(data) {
   };
 }
 
+export function saveToyLibrary(data) {
+  return (dispatch, getState) => {
+
+    dispatch(beginSaveToyLibrary());
+
+    return makeRequest('post', data, '/toys/toyLibrary')
+      .then(response => {
+        if (response.status === 200) {
+          var action = data.toyLibraryId === 0 ? types.ADMIN_TOY_LIB_CREATE_SUCCESS : types.ADMIN_TOY_LIB_UPDATE_SUCCESS;
+          dispatch(saveToyLibrarySuccess(response.data, action));
+        } else {
+          dispatch(saveToyLibraryError('Oops! Something went wrong!'));
+        }
+      })
+      .catch(err => {
+        dispatch(saveToyLibraryError(getMessage(err)));
+      });
+  };
+}
+
 export function deleteToyCategory(id) {
   return (dispatch) => {
     
@@ -232,6 +290,25 @@ export function deleteToyTag(id) {
       })
       .catch(err => {
         dispatch(deleteTagError(getMessage(err)));
+      });
+  };
+}
+
+export function deleteToyLibrary(id) {
+  return (dispatch) => {
+    
+    dispatch(beginDeleteToyLibrary());
+
+    return makeRequest('delete', {}, '/toys/toyLibrary/' + id )
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(deleteToyLibrarySuccess(response.data));
+        } else {
+          dispatch(deleteToyLibraryError('Oops! Something went wrong!'));
+        }
+      })
+      .catch(err => {
+        dispatch(deleteToyLibraryError(getMessage(err)));
       });
   };
 }

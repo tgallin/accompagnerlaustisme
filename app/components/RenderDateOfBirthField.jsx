@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field } from 'redux-form';
 import classNames from 'classnames/bind';
-import styles from '../css/components/dateField';
+import styles from '../css/common/inputs';
 import { padStart } from '../utils/stringUtils';
 
 
@@ -26,19 +26,19 @@ const RenderDateOfBirthField = () => (
   <div className={'form-group'}>
     <label htmlFor="dateOfBirthDay" className="col-sm-4 control-label">Date de naissance</label>
     <div className="col-sm-8">
-      <Field name="dateOfBirthDay" className={cx('form-control-select')} id="dateOfBirthDay" component="select">
+      <Field name="dateOfBirthDay" className={cx('date-picker')} id="dateOfBirthDay" component="select">
           <option value=""></option>
           {days.map(option =>
             <option value={option} key={option}>{option}</option>)
           }
       </Field>
-      <Field name="dateOfBirthMonth" className={cx('form-control-select')} id="dateOfBirthMonth" component="select">
+      <Field name="dateOfBirthMonth" className={cx('date-picker')} id="dateOfBirthMonth" component="select">
           <option value=""></option>
           {months.map(option =>
             <option value={option} key={option}>{option}</option>)
           }
       </Field>
-      <Field name="dateOfBirthYear" className={cx('form-control-select')} id="dateOfBirthYear" component="select">
+      <Field name="dateOfBirthYear" className={cx('date-picker')} id="dateOfBirthYear" component="select">
           <option value=""></option>
           {years.map(option =>
             <option value={option} key={option}>{option}</option>)

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { beginLoadUser, loadUserSuccess, loadUserError } from 'actions/users';
-import { fetchUsersData, fetchToys, fetchOnlineToys, fetchMyToysAndCategoriesAndTags, fetchToyCategoriesAndTags, fetchToyTags  } from './fetch-data';
+import { fetchUsersData, fetchToys, fetchOnlineToys, fetchMyToysAndCategoriesAndTags, fetchToyCategoriesAndTags, fetchToyTags, fetchToyLibraries  } from './fetch-data';
 import { userService } from 'services';
 import {
   App,
@@ -37,6 +37,8 @@ import {
   AdminToyCategory,
   AdminToyTags,
   AdminToyTag,
+  AdminToyLibraryLocations,
+  AdminToyLibraryLocation,
   Liens,
   LoginOrRegister,
   ForgotPassword,
@@ -133,6 +135,9 @@ export default (store) => {
           </Route>
           <Route path="/dashboard/toyLibrary/tags" component={AdminToyTags} fetchData={fetchToyTags}>
             <Route path="/dashboard/toyLibrary/tags/:id" component={AdminToyTag} />
+          </Route>
+          <Route path="/dashboard/toyLibrary/locations" component={AdminToyLibraryLocations} fetchData={fetchToyLibraries}>
+            <Route path="/dashboard/toyLibrary/locations/:id" component={AdminToyLibraryLocation} />
           </Route>
         </Route>
       </Route>

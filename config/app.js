@@ -8,3 +8,5 @@ export const baseURL = `http://${HOST}:${PORT}`;
 // Replace with 'UA-########-#' or similar to enable tracking
 export const trackingID = null;
 
+// private: 0, centralized: 1, both : 2
+export const toyLibraryManagment = 1;

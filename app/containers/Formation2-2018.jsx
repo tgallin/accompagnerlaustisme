@@ -94,7 +94,8 @@ const Formation2_2018 = () => {
       <p className={'text-justify ' + cx('content')}><strong>Célia CHEYNEL</strong>, rééducatrice de l’écriture, formatrice d’enseignants et de rééducateurs</p>
       
       <div className={cx('header')}>Tarif</div>
-      <p className={'text-justify ' + cx('content')}>Tarif pour les 2 matinées : 90 € par personne</p>
+      <p className={'text-justify ' + cx('content')}>Tarif pour la journée et la matinée : 90 € par personne</p>
+      <p className={'text-justify ' + cx('content')}>Merci d'envoyer votre réglement par chèque au 39 rue Paul Ratouis, 45650, Saint-Jean-Le-Blanc.</p>
       
       <div className={cx('header')}>Informations pratiques</div>
       <p className={cx('content')}>Salle de la Pomme de Pin</p>

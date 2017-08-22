@@ -25,11 +25,14 @@ export default function message(state = {
     case types.ADMIN_TOY_CREATE_SUCCESS:
     case types.ADMIN_TOY_CAT_CREATE_SUCCESS:
     case types.ADMIN_TOY_TAG_CREATE_SUCCESS:
+    case types.ADMIN_TOY_LIB_CREATE_SUCCESS:
     case types.ADMIN_TOY_UPDATE_SUCCESS:
     case types.ADMIN_TOY_CAT_UPDATE_SUCCESS:
     case types.ADMIN_TOY_TAG_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_LIB_UPDATE_SUCCESS:
     case types.ADMIN_TOY_CAT_DELETE_SUCCESS:
     case types.ADMIN_TOY_TAG_DELETE_SUCCESS:
+    case types.ADMIN_TOY_LIB_DELETE_SUCCESS:
     case types.TOY_CREATE_SUCCESS:
     case types.TOY_UPDATE_SUCCESS:
     case types.TOY_DELETE_SUCCESS:
