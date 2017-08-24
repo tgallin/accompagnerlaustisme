@@ -6,6 +6,7 @@ import User from '../models/user';
 import fs from 'fs';
 import { uploadImage, destroyImage } from '../../../image/cloudinaryUploader';
 import { indexToy, deleteToy } from '../../../search/elasticsearch';
+import { isToyLibraryCentralized } from '../../../../config/app';
 
 /**
  * GET /toys
@@ -609,6 +610,12 @@ export function toggleOnline(req, res) {
     const query = {
       email: req.user.email
     };
+    
+    // if toy library managment is centralized
+    // then only an admin can change the online status
+    if (isToyLibraryCentralized) {
+      query.admin = true;
+    }
     
     User.findOne(query, (err, user) => {
       if (err) {

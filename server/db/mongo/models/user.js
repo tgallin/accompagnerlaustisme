@@ -12,8 +12,10 @@ const UserSchema = new mongoose.Schema({
   password: String,
   tokens: Array,
   profile: {
+    legalStatus: { type: String, default: 'P' },
     firstname: { type: String, default: '' },
     surname: { type: String, default: '' },
+    entityName: { type: String, default: '' },
     dateOfBirth : Date,
     gender: { type: String, default: '' },
     website: { type: String, default: '' },

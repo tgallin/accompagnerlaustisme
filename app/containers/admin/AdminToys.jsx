@@ -54,6 +54,7 @@ class AdminToys extends Component {
           {(!toys || toys.length === 0) &&
             <div className={cx('paddingAll')}>Aucun jeu</div>
           }
+          <Link to='/dashboard/toyLibrary/toys/0' className="btn btn-info"><i className="fa fa-plus"/> Ajouter un jeu</Link>
         </div>
         }
         {children}

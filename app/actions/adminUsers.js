@@ -15,9 +15,9 @@ export function beginSave() {
   return { type: types.ADMIN_USER_SAVE };
 }
 
-export function saveSuccess(data) {
+export function saveSuccess(data, action) {
   return {
-    type: types.ADMIN_USER_SAVE_SUCCESS,
+    type: action,
     message: data.message,
     user: data.user
   };
@@ -58,7 +58,8 @@ export function saveUser(data) {
     return makeUserRequest('post', data, '/admin/saveUser')
       .then(response => {
         if (response.status === 200) {
-          dispatch(saveSuccess(response.data));
+          var action = data.userId === 0 ? types.ADMIN_USER_CREATE_SUCCESS : types.ADMIN_USER_UPDATE_SUCCESS;
+          dispatch(saveSuccess(response.data, action));
         } else {
           dispatch(saveError('Oops! Something went wrong!'));
         }

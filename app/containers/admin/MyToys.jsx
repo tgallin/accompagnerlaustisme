@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { deleteToy, toggleOnlineToy } from '../../actions/toyLibrary';
+import { isToyLibraryCentralized } from '../../../config/app';
 
 import styles from 'css/components/toy';
 import inputStyles from 'css/common/inputs';
@@ -42,6 +43,34 @@ class MyToys extends Component {
     });
   }
   
+  displayHelpApprovedStatus = () => {
+    bootbox.alert({
+      message: "Le jeu est approuvé par un administrateur de l'association une fois que les détails renseignés ont été jugés conformes.",
+      closeButton: false
+    });
+  }
+  
+  displayHelpOnlineStatus = () => {
+    if (isToyLibraryCentralized) {
+      bootbox.alert({
+        message: "En mode de gestion centralisé, le jeu sera mis en ligne par un administrateur de l'association une fois que vous aurez déposé le jeu lors d'une permanence de la ludothèque",
+        closeButton: false
+      });
+    } else {
+      bootbox.alert({
+        message: "Si vous avez décidé de garder le jeu chez vous, vous pouvez décidé de changer le statut en ligne du jeu quand vous voulez.",
+        closeButton: false
+      });
+    }
+  }
+  
+  displayHelpAvailableStatus = () => {
+    bootbox.alert({
+      message: "Le jeu est disponible s'il n'est pas emprunté et qu'il n'a été réservé par personne.",
+      closeButton: false
+    });
+  }
+  
   toggleOnline = (id) => {
     
     const {
@@ -63,6 +92,13 @@ class MyToys extends Component {
             {' '}
             {error}
           </div>}
+        {isToyLibraryCentralized &&
+          <div className="alert alert-warning" role="alert">
+            <strong>La ludothèque est en mode de gestion centralisée.</strong> Il est donc nécessaire de déposer vos jeux à un(e) bénévole de l'association lors d'une permanence avant que vos jeux puissent être empruntés.
+          </div>}
+        <div className="alert alert-info" role="alert">
+            Les jeux sont visibles dans la partie ludothèque du site lorsqu'ils sont validés et en ligne.
+          </div>
         { !children && 
         <div>
           {toys && toys.length > 0 &&
@@ -73,9 +109,9 @@ class MyToys extends Component {
                   <tr>
                     <th>Nom</th>
                     <th>Image</th>
-                    <th>Validé</th>
-                    <th>En ligne</th>
-                    <th><div className={cx('shorten-label')}>Disponible</div></th>
+                    <th>Validé <a href="#" onClick={() => this.displayHelpApprovedStatus()}><i className="fa fa-info-circle" aria-hidden="true"></i></a></th>
+                    <th>En ligne <a href="#" onClick={() => this.displayHelpOnlineStatus()}><i className="fa fa-info-circle" aria-hidden="true"></i></a></th>
+                    <th>Disponible <a href="#" onClick={() => this.displayHelpAvailableStatus()}><i className="fa fa-info-circle" aria-hidden="true"></i></a></th>
                     <th></th>
                     <th></th>
                   </tr>
@@ -89,11 +125,14 @@ class MyToys extends Component {
                       <td className="col-md-2">{toy.approved ? 'Oui' : 'Non'}</td>
                       {toy.approved && 
                         <td className="col-md-2">
+                          {isToyLibraryCentralized && <span>{toy.online ? 'Oui' : 'Non'}</span>}
+                          {!isToyLibraryCentralized && 
                           <div className={cx('control-checkbox') + ' ' + cy('slide')}>
                             {toy.online && <input name="online" id="online" type="checkbox" checked readOnly onClick={() => this.toggleOnline(toy._id)} />}
                             {!toy.online && <input name="online" id="online" type="checkbox" readOnly onClick={() => this.toggleOnline(toy._id)} />}
                             <label htmlFor="online"></label>
                           </div>
+                          }
                         </td>
                       }
                       {!toy.approved && 

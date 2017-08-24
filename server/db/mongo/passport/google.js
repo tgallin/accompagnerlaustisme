@@ -10,7 +10,7 @@ export default (req, accessToken, refreshToken, profile, done) => {
         existingEmailUser.google = profile.id;
         existingEmailUser.tokens.push({ kind: 'google', accessToken });
         existingEmailUser.profile.gender = existingEmailUser.profile.gender || profile._json.gender;
-        existingEmailUser.profile.picture = existingEmailUser.profile.picture || profile._json.picture;
+        existingEmailUser.profile.picture = profile._json.picture;
         return existingEmailUser.save((err) => {
           done(err, existingEmailUser, { message: 'Le compte Google a été lié.' });
         });

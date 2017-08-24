@@ -25,6 +25,29 @@ handleSubmit = (values) => {
       memberFrom = formatToDate(values.memberFrom);
       memberTo = formatToDate(values.memberTo);
     }
+    
+    const legalStatus = values.legalStatus;
+    var firstname;
+    var surname;
+    var entityName;
+    if (legalStatus==='P') {
+      firstname = values.firstname;
+      surname = values.surname;
+      entityName = '';
+    } else {
+      firstname = '';
+      surname = '';
+      entityName = values.entityName;
+    }
+
+    const mobile = values.mobile;
+    const landline = values.landline;
+    const complement1 = values.complement1;
+    const complement2 = values.complement2;
+    const street = values.street;
+    const complement3 = values.complement3;
+    const postalCode = values.postalCode;
+    const city = values.city;
 
     const userId = values.userId;
 
@@ -33,19 +56,34 @@ handleSubmit = (values) => {
       admin,
       member,
       memberFrom,
-      memberTo
+      memberTo,
+      legalStatus,
+      firstname,
+      surname,
+      entityName,
+      mobile,
+      landline,
+      complement1,
+      complement2,
+      complement3,
+      street,
+      postalCode,
+      city
     });
   }
-
-
 
   render() {
     
     const getUserInitialData = (user) => {
-      var initialUserData = {};
-
+      var initialUserData = {
+        userId: 0,
+        legalStatus: 'P'
+      };
+      
       if (user) {
         initialUserData.userId = user._id;
+        initialUserData.legalStatus = user.profile.legalStatus || 'P';
+        initialUserData.entityName = user.profile.entityName;
         initialUserData.firstname = user.profile.firstname;
         initialUserData.surname = user.profile.surname;
         initialUserData.email = user.email;
@@ -57,7 +95,12 @@ handleSubmit = (values) => {
         }
         
         if (user.profile.address) {
-          initialUserData.address = user.profile.address;
+          initialUserData.complement1 = user.profile.address.complement1;
+          initialUserData.complement2 = user.profile.address.complement2;
+          initialUserData.street = user.profile.address.street;
+          initialUserData.complement3 = user.profile.address.complement3;
+          initialUserData.postalCode = user.profile.address.postalCode;
+          initialUserData.city = user.profile.address.city;
         }
         
         initialUserData.landline = user.profile.landline;
@@ -70,13 +113,9 @@ handleSubmit = (values) => {
     
     var user = matchesProperty(users, ['_id', userId]);
     
-    if (user) {
-      return (
-        <UserForm initialValues={getUserInitialData(user)} message={message} onSubmit={this.handleSubmit}/>
-      );
-    } else {
-      return (<span/>);
-    }
+    return (
+      <UserForm initialValues={getUserInitialData(user)} message={message} onSubmit={this.handleSubmit}/>
+    );
   };
 }
 

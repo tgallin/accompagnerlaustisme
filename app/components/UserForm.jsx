@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Link } from 'react-router';
 
-import RenderDatePicker from '../components/RenderDatePicker.jsx';
+import RenderDatePicker from './RenderDatePicker.jsx';
+import RenderField from './RenderField.jsx';
 import classNames from 'classnames/bind';
 
 import styles from '../css/components/user';
@@ -12,53 +13,50 @@ import inputStyles from '../css/common/inputs';
 const cx = classNames.bind(styles);
 const cy = classNames.bind(inputStyles);
 
-function createAddress(address) {
-  if (address) {
-    var lines = [];
-    if (address.complement1) {
-      lines.push(address.complement1);
-    }
-    if (address.complement2) {
-      lines.push(address.complement2);
-    }
-    if (address.street) {
-      lines.push(address.street);
-    }
-    if (address.complement3) {
-      lines.push(address.postalCode);
-    }
-    if (address.postalCode) {
-      lines.push(address.postalCode);
-    }
-    if (address.city) {
-      lines.push(address.city);
-    }
-    return { __html: lines.join('<br/>') };
-  } else {
-      return { __html: 'Non communiquée' };
-  }
-};
-
 let UserForm = (props) => {
-    const { message, isMember, handleSubmit, invalid,
-      pristine, submitting, initialValues } = props;
+    const { message, isMember, legalStatus, handleSubmit, invalid,
+      pristine, submitting } = props;
   return (
       <div>
       <form className="form-horizontal" onSubmit={handleSubmit}>
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
         <Field name="userId" id="userId" component="input" type="hidden"/>
         <div className="form-group">
-          <label htmlFor="surname" className="control-label col-sm-4">Nom</label>
-          <div id="surname" className={'col-sm-8 ' + cx('control-readvalue')}>
-            {initialValues.surname}
+          <label htmlFor="legalStatus" className="control-label col-sm-4">Nature</label>
+          <div className="col-sm-8">
+            <label className={'control-label ' + cx('marginRight')}>
+              <Field
+                name="legalStatus"
+                component="input"
+                type="radio"
+                value="P"
+              />{' '}
+              Personne physique
+            </label>
+            <label className="control-label">
+              <Field
+                name="legalStatus"
+                component="input"
+                type="radio"
+                value="M"
+              />{' '}
+              Personne morale
+            </label>
           </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="surname" className="control-label col-sm-4">Prénom</label>
-          <div id="firstname" className={'col-sm-8 ' + cx('control-readvalue')}>
-            {initialValues.firstname}
+
+        {legalStatus==='P' && 
+          <div>
+            <Field name="firstname" size="4-8" type="text" component={RenderField} label="Prénom"/>
+            <Field name="surname" size="4-8" type="text" component={RenderField} label="Nom"/>
           </div>
-        </div>
+        }
+        {legalStatus==='M' && 
+          <div>
+            <Field name="entityName" size="4-8" type="text" component={RenderField} label="Raison sociale"/>
+          </div>
+        }
+
         <div className="form-group">
           <label htmlFor="admin" className="control-label col-sm-4">Admin</label>
            <div className="col-sm-8">
@@ -84,6 +82,25 @@ let UserForm = (props) => {
         </div>
         }
         <div className="form-group">
+          <label className="control-label col-sm-4"><h3>Coordonnées</h3></label>
+        </div>
+        <Field name="email" type="text" size="4-8" component={RenderField} label="Email" help=""/>
+        <div className="form-group">
+          <label className="control-label col-sm-4"><h4>Téléphones</h4></label>
+        </div>
+        <Field name="mobile" type="text" size="4-8" component={RenderField} label="Portable" help=""/>
+        <Field name="landline" type="text" size="4-8" component={RenderField} label="Fixe" help=""/>
+        <div className="form-group">
+          <label className="control-label col-sm-4"><h4>Adresse postale</h4></label>
+        </div>
+        <Field name="street" type="text" size="4-8" component={RenderField} label="N° et libellé de la voie" placeholder=""/>
+        <Field name="postalCode" type="text" size="4-8" component={RenderField} label="Code Postal" placeholder=""/>
+        <Field name="city" type="text" size="4-8" component={RenderField} label="Localité" placeholder=""/>
+        <Field name="complement1" type="text" size="4-8" component={RenderField} label="Appartement, Étage" help="Sert à identifier votre logement à l'intérieur d'un immeuble" placeholder="ex : Appartement 12 Escalier C"/>
+        <Field name="complement2" type="text" size="4-8" component={RenderField} label="Bâtiment, Immeuble" help="Sert à identifier l'extérieur du bâtiment : entrée, tour, bâtiment, immeuble, résidence" placeholder="ex : Résidence Les Tilleuls"/>
+        <Field name="complement3" type="text" size="4-8" component={RenderField} label="Lieu-dit ou BP" help="Lieu dit ou service particulier de distribution : Poste restante, boite postale, ..." placeholder="ex : boite postale 123AB"/>
+        
+        <div className="form-group">
           <div className="col-sm-offset-4 col-sm-8">
             <Link to="/dashboard/users" className={'btn btn-default ' + cx('marginRight')}
               disabled={submitting}>
@@ -93,33 +110,6 @@ let UserForm = (props) => {
                     disabled={pristine || invalid || submitting}>
               <i className={'fa ' + (submitting ? 'fa-cog fa-spin' : 'fa-cloud')}/> Valider
             </button>
-          </div>
-        </div>
-        <div className="form-group">
-          <label className="control-label col-sm-4"><h3>Coordonnées</h3></label>
-        </div>
-        <div className="form-group">
-          <label htmlFor="surname" className="control-label col-sm-4">Email</label>
-          <div id="firstname" className={'col-sm-8 ' + cx('control-readvalue')}>
-            {initialValues.email}
-          </div>
-        </div>
-        <div className="form-group">
-          <label htmlFor="surname" className="control-label col-sm-4">Téléphone portable</label>
-          <div id="address" className={'col-sm-8 ' + cx('control-readvalue')}>
-            {initialValues.mobile ? initialValues.mobile : <span>Non communiqué</span>}
-          </div>
-        </div>
-        <div className="form-group">
-          <label htmlFor="surname" className="control-label col-sm-4">Téléphone fixe</label>
-          <div id="address" className={'col-sm-8 ' + cx('control-readvalue')}>
-            {initialValues.landline ? initialValues.landline : <span>Non communiqué</span>}
-          </div>
-        </div>
-        <div className="form-group">
-          <label htmlFor="surname" className="control-label col-sm-4">Adresse postale</label>
-          <div id="address" className={'col-sm-8 ' + cx('control-readvalue')}>
-            <div dangerouslySetInnerHTML={createAddress(initialValues.address)} />
           </div>
         </div>
       </form>
@@ -142,8 +132,10 @@ UserForm = connect(
   state => {
     // can select values individually
     const isMember = selector(state, 'member');
+    const legalStatus = selector(state, 'legalStatus');
     return {
-      isMember
+      isMember,
+      legalStatus
     };
   }
 )(UserForm);

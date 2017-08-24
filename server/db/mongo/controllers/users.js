@@ -329,30 +329,97 @@ export function updatePassword(req, res) {
  * POST /saveUser Updates the provided user with provided data
  */
 export function saveUser(req, res) {
-  if (req.body.userId) {
-    
+
+  if (req.user) {
+
     const query = {
-      _id: req.body.userId
+      email: req.user.email,
+      admin: true
     };
 
-    User.findOne(query, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', (err, user) => {
+    User.findOne(query, (err, adminUser) => {
       if (err) {
-        return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+        return res.status(500).json({ message: 'Problème technique lors de la recherche de votre compte admin' });
       }
-      
-      user.admin = req.body.admin;
-      user.membership = {
-        member: req.body.member,
-        from: req.body.memberFrom,
-        to: req.body.memberTo
-      };
-      
-      user.save(function(err) {
-        if (err) {
-          return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+
+      if (req.body.userId !== '') {
+
+        if (req.body.userId == 0) {
+
+          var newUser = new User();
+
+          newUser.admin = req.body.admin;
+          newUser.membership = {
+            member: req.body.member,
+            from: req.body.memberFrom,
+            to: req.body.memberTo
+          };
+
+          newUser.profile.address = {
+            complement1: req.body.complement1,
+            complement2: req.body.complement2,
+            complement3: req.body.complement3,
+            street: req.body.street,
+            postalCode: req.body.postalCode,
+            city: req.body.city
+          };
+          newUser.profile.mobile = req.body.mobile;
+          newUser.profile.landline = req.body.landline;
+          newUser.profile.firstname = req.body.firstname;
+          newUser.profile.surname = req.body.surname;
+          newUser.profile.legalStatus = req.body.legalStatus;
+          newUser.profile.entityName = req.body.entityName;
+
+          newUser.save(function(err) {
+            if (err) {
+              return res.status(500).json({ message: 'Problème technique lors de l\'ajout de l\'utilisateur' });
+            }
+            return res.status(200).json({ user: newUser, message: 'Utilisateur créé avec succès' });
+          });
+
         }
-        return res.status(200).json({ user: user, message: 'Utilisateur mis à jour avec succès' });
-      });
+        else {
+
+          const query = {
+            _id: req.body.userId
+          };
+
+          User.findOne(query, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', (err, user) => {
+            if (err) {
+              return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+            }
+
+            user.admin = req.body.admin;
+            user.membership = {
+              member: req.body.member,
+              from: req.body.memberFrom,
+              to: req.body.memberTo
+            };
+
+            user.profile.address = {
+              complement1: req.body.complement1,
+              complement2: req.body.complement2,
+              complement3: req.body.complement3,
+              street: req.body.street,
+              postalCode: req.body.postalCode,
+              city: req.body.city
+            };
+            user.profile.mobile = req.body.mobile;
+            user.profile.landline = req.body.landline;
+            user.profile.firstname = req.body.firstname;
+            user.profile.surname = req.body.surname;
+            user.profile.legalStatus = req.body.legalStatus;
+            user.profile.entityName = req.body.entityName;
+
+            user.save(function(err) {
+              if (err) {
+                return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+              }
+              return res.status(200).json({ user: user, message: 'Utilisateur mis à jour avec succès' });
+            });
+          });
+        }
+      }
     });
   }
 }

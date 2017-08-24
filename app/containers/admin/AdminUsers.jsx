@@ -59,8 +59,7 @@ class AdminUsers extends Component {
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th>Nom</th>
-                    <th>Prénom</th>
+                    <th>Nom prénom / Raison sociale</th>
                     <th><div className={cx('shorten-label')}>Admin</div></th>
                     <th><div className={cx('shorten-label')}>Membre</div></th>
                     <th></th>
@@ -70,8 +69,12 @@ class AdminUsers extends Component {
                 {
                   users.map((user) => 
                     <tr key={user._id}>
-                      <td>{user.profile.surname}</td>
-                      <td>{user.profile.firstname}</td>
+                      {user.profile.surname !== "" && 
+                        <td>{user.profile.surname + ' ' + user.profile.firstname}</td>
+                      }
+                      {user.profile.entityName !== "" && 
+                        <td>{user.profile.entityName}</td>
+                      }
                       <td>{user.admin ? 'Oui' : 'Non'}</td>
                       <td>{user.membership && user.membership.member ? 'Oui' : 'Non'}</td>
                       <td>
@@ -86,6 +89,12 @@ class AdminUsers extends Component {
               </table>
             
           }
+          {(!users || users.length === 0) &&
+            <div>
+              <div className={cx('paddingAll')}>Aucun utilisateur</div>
+            </div>
+          }
+          <Link to='/dashboard/users/0' className="btn btn-info"><i className="fa fa-plus"/> Ajouter un utilisateur</Link>
         </div>
         }
         {children}

@@ -11,7 +11,7 @@ export default (req, accessToken, refreshToken, profile, done) => {
         existingEmailUser.facebook = profile.id;
         existingEmailUser.tokens.push({ kind: 'facebook', accessToken });
         existingEmailUser.profile.gender = existingEmailUser.profile.gender || profile._json.gender;
-        existingEmailUser.profile.picture = existingEmailUser.profile.picture || (profile.photos ? profile.photos[0].value : '');
+        existingEmailUser.profile.picture = (profile.photos ? profile.photos[0].value : '');
         return existingEmailUser.save((err) => {
           done(err, existingEmailUser, { message: 'Le compte Facebook a été lié.' });
         });

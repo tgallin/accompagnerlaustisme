@@ -6,7 +6,7 @@ const user = (
   action
 ) => {
   switch (action.type) {
-    case types.ADMIN_USER_SAVE_SUCCESS:
+    case types.ADMIN_USER_UPDATE_SUCCESS:
       if (state._id === action.user._id) {
         return action.user;
       }
@@ -24,7 +24,9 @@ const users = (
     case types.REQUEST_SUCCESS:
       if (action.data && action.data.users) return action.data.users;
       return state;
-    case types.ADMIN_USER_SAVE_SUCCESS:
+    case types.ADMIN_USER_CREATE_SUCCESS:  
+      return [...state, action.user];
+    case types.ADMIN_USER_UPDATE_SUCCESS:
       return state.map(u => user(u, action));
     case types.ADMIN_USER_DELETE_SUCCESS:
       return state.filter(u => u._id !== action.id);
@@ -38,7 +40,8 @@ const message = (
   action
 ) => {
   switch (action.type) {
-    case types.ADMIN_USER_SAVE_SUCCESS:
+    case types.ADMIN_USER_CREATE_SUCCESS:
+    case types.ADMIN_USER_UPDATE_SUCCESS:
     case types.ADMIN_USER_DELETE_SUCCESS:
     case types.CREATE_REQUEST:
       return '';
