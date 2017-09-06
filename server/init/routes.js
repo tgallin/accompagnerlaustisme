@@ -28,6 +28,7 @@ export default (app) => {
     app.get('/user/confirm/:token', usersController.confirm);
     app.get('/user', usersController.loadUser);
     app.get('/users', usersController.all);
+    app.get('/users/:name', usersController.getUsersByName);
     app.delete('/users/:id', usersController.removeUser);
   }
   else {

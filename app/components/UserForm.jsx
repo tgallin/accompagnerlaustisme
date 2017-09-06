@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Link } from 'react-router';
+import userValidation from '../js/userValidation';
 
 import RenderDatePicker from './RenderDatePicker.jsx';
 import RenderField from './RenderField.jsx';
@@ -84,7 +85,7 @@ let UserForm = (props) => {
         <div className="form-group">
           <label className="control-label col-sm-4"><h3>Coordonnées</h3></label>
         </div>
-        <Field name="email" type="text" size="4-8" component={RenderField} label="Email" help=""/>
+        <Field name="email" type="text" size="4-8" component={RenderField} label="Email *" placeholder="Email" help=""/>
         <div className="form-group">
           <label className="control-label col-sm-4"><h4>Téléphones</h4></label>
         </div>
@@ -123,7 +124,8 @@ let UserForm = (props) => {
 
 // Decorate with redux-form
 UserForm = reduxForm({
-  form: 'adminuser'  // a unique identifier for this form
+  form: 'adminuser',  // a unique identifier for this form
+  validate: userValidation
 })(UserForm);
 
 // Decorate with connect to read form values

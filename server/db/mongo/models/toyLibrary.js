@@ -3,7 +3,6 @@
  *
  */
 var mongoose = require('mongoose');
-var Schema    = mongoose.Schema;
   
 const ToyLibrarySchema = new mongoose.Schema({
   address: {},
@@ -11,7 +10,8 @@ const ToyLibrarySchema = new mongoose.Schema({
     date: Date,
     startTime: { type: String, default: '09:30' },
     endTime: { type: String, default: '12:30' }
-  }]
+  }],
+  active: { type: Boolean, default: true }
 });
 
 

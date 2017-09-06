@@ -3,6 +3,7 @@ import ToyCategory from '../models/toyCategory';
 import ToyTag from '../models/toyTag';
 import ToyLibrary from '../models/toyLibrary';
 import User from '../models/user';
+import Booking from '../models/booking';
 import fs from 'fs';
 import { uploadImage, destroyImage } from '../../../image/cloudinaryUploader';
 import { indexToy, deleteToy } from '../../../search/elasticsearch';
@@ -12,7 +13,7 @@ import { isToyLibraryCentralized } from '../../../../config/app';
  * GET /toys
  */
 export function allToys(req, res) {
-  Toy.find({}).sort({name: 1}).populate('categories tags owner borrowedBy waiting').exec(function (err, toys) {
+  Toy.find({}).sort({name: 1}).populate('owner').exec(function (err, toys) {
     if (err) {
       return res.status(500).json({ message: 'Problème lors de la récupération des jeux' });
     }
@@ -194,6 +195,7 @@ export function saveToyLibrary(req, res) {
       };
       
       newToyLibrary.openings = req.body.openings;
+      newToyLibrary.active = req.body.active;
 
       newToyLibrary.save(function(err) {
         if (err) {
@@ -219,6 +221,7 @@ export function saveToyLibrary(req, res) {
         };
         
         existingToyLibrary.openings = req.body.openings;
+        existingToyLibrary.active = req.body.active;
       
         existingToyLibrary.save(function(err) {
           if (err) {
@@ -325,8 +328,15 @@ function removeFile(file) {
 }
 
 function indexationToy(toyId) {
-  Toy.findOne({_id: toyId}).populate('categories tags owner borrowedBy waiting').exec(function (err, toy) {
-    indexToy(toy);
+  Toy.findOne({_id: toyId}).populate('categories tags owner toyLibrary').exec(function (err, toy) {
+    if (!err && toy) {
+      Booking.findOne({toy: toyId, returned: null}).sort({start: 'desc'}).exec(function (err, booking) {
+        if (booking) {
+          toy.currentBooking = booking;
+        }
+        indexToy(toy);
+      });
+    }
   });
 }
 
@@ -388,7 +398,27 @@ export function saveToy(req, res) {
           
           newToy.categories = req.body.categories && req.body.categories !== '' ? req.body.categories.split(',') : [];
           newToy.tags = req.body.tags && req.body.tags !== '' ? req.body.tags.split(',') : [];
-          newToy.owner = user._id;
+          
+          if (req.body.ownerId) {
+            newToy.owner = req.body.ownerId;
+          } else {
+            newToy.owner = user._id;
+          }
+          
+          if (req.body.approved !== null) {
+            newToy.approved = req.body.approved;
+          } else {
+            newToy.approved = false;
+          }
+          if (req.body.online !== null) {
+            newToy.online = req.body.online;
+          } else {
+            newToy.online = false;
+          }
+          
+          if (req.body.toyLibraryId && req.body.toyLibraryId !== '') {
+            newToy.toyLibrary = req.body.toyLibraryId;
+          }
 
           newToy.save(function(err) {
             if (err) {
@@ -448,7 +478,7 @@ export function saveToy(req, res) {
                     user.toys.push(newToy._id);
                     user.save(function(err) {
                       if (err) {
-                        return res.status(500).json({ message: 'Problème technique lors de l\'ajout du jeu à votre compte' });
+                        return res.status(500).json({ message: 'Problème technique lors de l\'ajout du jeu' });
                       }
                       indexationToy(newToy._id);
                       return res.status(200).json({ toy: newToy, message:  'Jeu créé avec succès' });
@@ -478,8 +508,28 @@ export function saveToy(req, res) {
             }
             existingToy.categories = req.body.categories && req.body.categories !== '' ? req.body.categories.split(',') : [];
             existingToy.tags = req.body.tags && req.body.tags !== '' ? req.body.tags.split(',') : [];
-            existingToy.online = false;
-            existingToy.approved = false;
+            
+            if (req.body.ownerId) {
+              existingToy.owner = req.body.ownerId;
+            }
+            
+            if (req.body.approved !== null) {
+              existingToy.approved = req.body.approved;
+            } else {
+              existingToy.approved = false;
+            }
+            if (req.body.online !== null) {
+              existingToy.online = req.body.online;
+            } else {
+              existingToy.online = false;
+            }
+            
+            if (req.body.toyLibraryId) {
+              existingToy.toyLibrary = req.body.toyLibraryId;
+            } else if (existingToy.toyLibrary) {
+              existingToy.toyLibrary = null;
+            }
+            
             existingToy.updated = Date.now();
             
             var pictures = [];
@@ -542,7 +592,7 @@ export function saveToy(req, res) {
                     existingToy.save(function(err) {
                       if (err) {
                         console.log(err);
-                        return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+                        return res.status(500).json({ message: 'Problème technique lors de la mise à jour du jeu' });
                       }
                       indexationToy(existingToy._id);
                       return res.status(200).json({ toy: existingToy, message: 'Jeu mis à jour avec succès' });

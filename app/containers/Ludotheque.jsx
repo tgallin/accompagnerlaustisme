@@ -26,6 +26,8 @@ class Ludotheque extends Component {
   };
 }
 
+//  toyLibraries.filter(tl => tl.active).map((toyLibrary) => (
+
 /*          <ToysImageGallery/>
           
           {toys && toys.length > 0 &&
@@ -49,6 +51,9 @@ class Ludotheque extends Component {
               <div className={cx('paddingAll')}>Aucun jeu</div>
             </div>
           }*/
+          
+          
+           
 
 Ludotheque.propTypes = {
     toys: PropTypes.array,

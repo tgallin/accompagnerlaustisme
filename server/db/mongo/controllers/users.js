@@ -354,6 +354,8 @@ export function saveUser(req, res) {
             from: req.body.memberFrom,
             to: req.body.memberTo
           };
+          
+          newUser.email = req.body.email;
 
           newUser.profile.address = {
             complement1: req.body.complement1,
@@ -363,6 +365,7 @@ export function saveUser(req, res) {
             postalCode: req.body.postalCode,
             city: req.body.city
           };
+          
           newUser.profile.mobile = req.body.mobile;
           newUser.profile.landline = req.body.landline;
           newUser.profile.firstname = req.body.firstname;
@@ -372,6 +375,7 @@ export function saveUser(req, res) {
 
           newUser.save(function(err) {
             if (err) {
+              console.log(err);
               return res.status(500).json({ message: 'Problème technique lors de l\'ajout de l\'utilisateur' });
             }
             return res.status(200).json({ user: newUser, message: 'Utilisateur créé avec succès' });
@@ -395,6 +399,8 @@ export function saveUser(req, res) {
               from: req.body.memberFrom,
               to: req.body.memberTo
             };
+            
+            user.email = req.body.email;
 
             user.profile.address = {
               complement1: req.body.complement1,
@@ -451,7 +457,31 @@ function buildUserData(user) {
  * GET /users
  */
 export function all(req, res) {
-  User.find({}, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', {sort: {'profile.surname': 1}}, function (err, users) {
+  User.find({}, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', {sort: {'profile.displayName': 1}}, function (err, users) {
+    if (err) {
+      return res.status(500).json({ message: 'Problème lors de la récupération des utilisateurs' });
+    }
+    return res.status(200).json( { users : users} );
+  });
+}
+
+/**
+ * GET /users/:name
+ */
+export function getUsersByName(req, res) {
+  const name = req.params.name;
+  var nameParts = name.split(' ');
+
+  var queryParts = [];
+  for (var i=0; i < nameParts.length; i++) {
+    queryParts.push({"profile.firstname": {$regex : nameParts[i], $options: 'i'}});
+    queryParts.push({"profile.surname": {$regex : nameParts[i], $options: 'i'}});
+  }
+  queryParts.push({"profile.entityName": {$regex : name, $options: 'i'}});
+  
+  const query = { $or: queryParts };
+  
+  User.find(query, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', {sort: {'profile.displayName': 1}}, function (err, users) {
     if (err) {
       return res.status(500).json({ message: 'Problème lors de la récupération des utilisateurs' });
     }
@@ -492,6 +522,7 @@ export default {
   updateEmail,
   updatePassword,
   all,
+  getUsersByName,
   saveUser,
   removeUser
 };

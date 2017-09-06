@@ -40,6 +40,8 @@ handleSubmit = (values) => {
       entityName = values.entityName;
     }
 
+    const email = values.email;
+
     const mobile = values.mobile;
     const landline = values.landline;
     const complement1 = values.complement1;
@@ -61,6 +63,7 @@ handleSubmit = (values) => {
       firstname,
       surname,
       entityName,
+      email,
       mobile,
       landline,
       complement1,

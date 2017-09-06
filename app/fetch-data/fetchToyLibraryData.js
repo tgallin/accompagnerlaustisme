@@ -1,11 +1,39 @@
 import { adminToyLibraryService, toyLibraryService } from '../services';
 
-export const fetchToys = () => {
+export const fetchToysAndCategoriesAndTagsAndToyLibraries = () => {
   return adminToyLibraryService.getToys()
-  .then(res => res.data)
-  // Returning [] as a placeholder now so it does not error out when this service
-  // fails. We should be handling this in our DISPATCH_REQUEST_FAILURE
-  .catch(() => []);
+    .then(response => {
+      var results = response.data;
+
+      return adminToyLibraryService.getCategories()
+        .then(res => {
+          results.categories = res.data.categories;
+          
+          return adminToyLibraryService.getTags()
+            .then(res => {
+              results.tags = res.data.tags;
+              
+              return adminToyLibraryService.getToyLibraries()
+                .then(res => {
+                  results.toyLibraries = res.data.toyLibraries;
+                  return results;
+                })
+                .catch(() => {
+                  return results;
+                });
+            })
+            .catch(() => {
+              return results;
+            });
+          
+        })
+        .catch(() => {
+          return results;
+        });
+    })
+    .catch(() => {
+      return [];
+    });
 };
 
 export const fetchOnlineToys = () => {

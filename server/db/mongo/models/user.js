@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
   password: String,
   tokens: Array,
   profile: {
-    legalStatus: { type: String, default: 'P' },
+    legalStatus: { type: String, default: 'P' }, // Physique ou Morale
     firstname: { type: String, default: '' },
     surname: { type: String, default: '' },
     entityName: { type: String, default: '' },
@@ -31,6 +31,7 @@ const UserSchema = new mongoose.Schema({
     to: Date
   },
   toys: [{ type: Schema.Types.ObjectId, ref: 'Toy' }],
+  toysBorrowed:  [{ type: Schema.Types.ObjectId, ref: 'Toy' }],
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   google: {},
@@ -47,7 +48,12 @@ const UserSchema = new mongoose.Schema({
 UserSchema
 .virtual('profile.displayName')
 .get(function () {
-  return this.profile.firstname;
+  if (this.profile.legalStatus === 'P') {
+    return this.profile.firstname + ' ' + this.profile.surname;
+  } else {
+    return this.profile.entityName;
+  }
+  
 })
 .set(function (displayName) {
   this.set('profile.firstname', displayName);

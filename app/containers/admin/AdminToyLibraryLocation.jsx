@@ -31,6 +31,8 @@ handleSubmit = (values) => {
         openings.push(opening);
       });
     }
+    
+    const active = values.active;
 
     
     saveToyLibrary({
@@ -39,7 +41,8 @@ handleSubmit = (values) => {
       complement1,
       street,
       postalCode,
-      city
+      city,
+      active
     });
   }
 
@@ -72,6 +75,8 @@ handleSubmit = (values) => {
             initialtoyLibraryData.openings.push(opening);
           });
         }
+        
+        initialtoyLibraryData.active = toyLibrary.active;
       }
       return initialtoyLibraryData;
     };

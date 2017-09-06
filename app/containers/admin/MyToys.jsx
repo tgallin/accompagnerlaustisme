@@ -92,15 +92,15 @@ class MyToys extends Component {
             {' '}
             {error}
           </div>}
-        {isToyLibraryCentralized &&
-          <div className="alert alert-warning" role="alert">
-            <strong>La ludothèque est en mode de gestion centralisée.</strong> Il est donc nécessaire de déposer vos jeux à un(e) bénévole de l'association lors d'une permanence avant que vos jeux puissent être empruntés.
-          </div>}
-        <div className="alert alert-info" role="alert">
+        { !children && 
+          <div>
+          {isToyLibraryCentralized &&
+            <div className="alert alert-warning" role="alert">
+              <strong>La ludothèque est en mode de gestion centralisée.</strong> Il est donc nécessaire de déposer vos jeux à un(e) bénévole de l'association lors d'une permanence avant que vos jeux puissent être empruntés.
+            </div>}
+          <div className="alert alert-info" role="alert">
             Les jeux sont visibles dans la partie ludothèque du site lorsqu'ils sont validés et en ligne.
           </div>
-        { !children && 
-        <div>
           {toys && toys.length > 0 &&
             
             <div className="table-responsive">

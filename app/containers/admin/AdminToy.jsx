@@ -1,62 +1,237 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames/bind';
-import AdminToyForm from '../../components/AdminToyForm';
+import AdminToyFormDescription from '../../components/AdminToyFormDescription';
+import AdminToyFormPhotos from '../../components/AdminToyFormPhotos';
+import AdminToyFormCategories from '../../components/AdminToyFormCategories';
+import AdminToyFormTags from '../../components/AdminToyFormTags';
+import AdminToyFormAdmin from '../../components/AdminToyFormAdmin';
 import { connect } from 'react-redux';
-import { changeApprobationToy } from '../../actions/toyLibrary';
-import { matchesProperty } from '../../utils/arrayUtils';
-
-//import styles from 'css/components/adminUsers';
-
-//const cx = classNames.bind(styles);
+import { saveToy } from '../../actions/toyLibrary';
+import { matchesProperty, uniq } from '../../utils/arrayUtils';
 
 class AdminToy extends Component {
 
+constructor(props) {
+    super(props);
+    this.nextPage = this.nextPage.bind(this);
+    this.previousPage = this.previousPage.bind(this);
+    this.handleRemoveExistingPicture = this.handleRemoveExistingPicture.bind(this);
+    this.state = {
+      page: 1,
+      catValues: [],
+      removedPictures: [],
+      firstNav: true
+    };
+  }
 
-handleSubmit = (values) => {
-    const {
-      changeApprobationToy
-    } = this.props;
-
-    const toyId = values.toyId;
-    const approved = values.approved;
-
-    changeApprobationToy({
-      toyId,
-      approved
+  nextPage(values) {
+    this.setState({
+      page: this.state.page + 1,
+      catValues: values.categories,
+      firstNav: false
     });
   }
 
+  previousPage() {
+    this.setState({page: this.state.page - 1});
+  }
+
+  handleRemoveExistingPicture = (id) => {
+    this.setState({
+      removedPictures: this.state.removedPictures.concat([id])
+    });
+  }
+
+  handleSubmit = (values) => {
+    const {
+      saveToy
+    } = this.props;
+    
+    const { removedPictures } = this.state;
+    
+    const toyId = values.toyId;
+    
+    var data = new FormData();
+    data.append('toyId', toyId);
+    data.append('name', values.name);
+    if (values.content && values.content !== '') {
+      data.append('content', values.content);
+    } else {
+       data.append('content', '');
+    }
+    if (values.description && values.description !== '') {
+      data.append('description', values.description);
+    } else {
+       data.append('description', '');
+    }
+    
+    if (values.pictures && values.pictures.length > 0) {
+      // we remove from the list pictures whose size is > 3MB
+      var files = values.pictures.filter(p => p.size < 3000000);
+
+      files.forEach((file, i) => {
+        data.append('pictures[' + i + ']', file);
+      });
+    }
+    
+    if (removedPictures && removedPictures.length > 0) {
+      data.append('removedPictures', removedPictures);
+    }
+    
+    var categories = [];
+    values.categories.forEach((cat) => {
+        for (var key in cat) {
+         if (cat[key]) {
+           categories.push(key);
+         }
+        }
+      }
+    );
+    data.append('categories', categories);
+    
+    var tags = [];
+    if (values.tags && values.tags.length > 0) {
+      values.tags.forEach((tag) => {
+          for (var key in tag) {
+           if (tag[key]) {
+             tags.push(key);
+           }
+          }
+        }
+    );
+    }
+    data.append('tags', tags);
+
+    data.append('approved', values.approved);
+    data.append('online', values.online);
+    if (values.ownerId) {
+      data.append('ownerId', values.ownerId);
+    }
+    if (values.toyLibraryId) {
+      data.append('toyLibraryId', values.toyLibraryId);
+    }
+  
+    saveToy(data, toyId, '/dashboard/toyLibrary/toys');
+  }
+
   render() {
+   
+   const { page, catValues, removedPictures, firstNav } = this.state;
     
     const getToyInitialData = (toy) => {
-      var initialtoyData = {};
-
+      var initialtoyData = {
+        toyId: 0,
+        approved: false,
+        online: false,
+      };
+      
       if (toy) {
         initialtoyData.toyId = toy._id;
         initialtoyData.name = toy.name;
-        initialtoyData.content = toy.content;
-        initialtoyData.description = toy.description;
-        var pictureUrls = [];
-        toy.pictures.forEach(p => pictureUrls.push(p.eager[2].secure_url) );
-        initialtoyData.pictureUrls = pictureUrls;
-        var categories = [];
-        toy.categories.forEach(c => categories.push(c.name) );
-        initialtoyData.categories = categories.join(', ');
-        var tags = [];
-        toy.tags.forEach(t => tags.push(t.name) );
-        initialtoyData.tags = tags.join(', ');
+        if (toy.content) {
+          initialtoyData.content = toy.content;
+        }
+        if (toy.description) {
+          initialtoyData.description = toy.description;
+        }
+        
+        initialtoyData.categories = [];
+        
+        toyCategories.forEach(c => {
+          var cat = {};
+          // indexOf returns -1 if elt doesn't exist in the collection
+          cat[c._id] = toy.categories.indexOf(c._id) !== -1;
+          initialtoyData.categories.push(cat);
+        });
+
+        initialtoyData.tags = [];
+        toyTags.forEach(t => {
+          var tag = {};
+          tag[t._id] = toy.tags.indexOf(t._id) !== -1;
+          initialtoyData.tags.push(tag);
+        });
+        
         initialtoyData.approved = toy.approved;
-        initialtoyData.owner = toy.owner;
+        initialtoyData.online = toy.online;
+        initialtoyData.ownerId = toy.owner.id;
+        initialtoyData.owner = toy.owner.profile.displayName;
+        initialtoyData.initialOwner = toy.owner;
+        initialtoyData.toyLibraryId = toy.toyLibrary;
       }
+
       return initialtoyData;
+      
     };
     
-    const {toys, toyId, message} = this.props;
+    const getToyPictures = (toy) => {
+      var existingPictures = [];
+      if (toy) {
+        existingPictures = toy.pictures.filter(p => !removedPictures.includes(p.public_id));
+      }
+      return existingPictures;
+    };
     
+    const {toys, toyId, toyCategories, toyTags, toyLibraries, message} = this.props;
+
+    const getSuggestedTags = (catValues, toyCategories) => {
+      var tags = [];
+      if (catValues) {
+        catValues.forEach((catValue) => {
+            for (var key in catValue) {
+             if (catValue[key]) {
+               // category is selected
+               var toyCat = matchesProperty(toyCategories, ['_id', key]);
+               if (toyCat !== undefined && toyCat !== null) {
+                tags = tags.concat(toyCat.suggestedTags);
+               }
+             }
+            }
+          }
+        );
+      }
+      tags = uniq(tags);
+      return tags;
+    };
+
     var toy = matchesProperty(toys, ['_id', toyId]);
+    var initialData = getToyInitialData(toy);
     
     return (
-        <AdminToyForm initialValues={getToyInitialData(toy)} message={message} onSubmit={this.handleSubmit}/>
+      <div>
+        {page === 1 && firstNav && <AdminToyFormDescription initialValues={initialData} onSubmit={this.nextPage} message={message} />}
+        {page === 1 && !firstNav && <AdminToyFormDescription onSubmit={this.nextPage} message={message} />}
+        {page === 2 &&
+          <AdminToyFormPhotos
+            previousPage={this.previousPage}
+            onSubmit={this.nextPage}
+            message={message}
+            existingPictures={getToyPictures(toy)}
+            handleRemoveExistingPicture={this.handleRemoveExistingPicture}
+          />}
+        {page === 3 &&
+          <AdminToyFormCategories
+            categories={toyCategories}
+            previousPage={this.previousPage}
+            onSubmit={this.nextPage}
+            message={message}
+          />}
+        {page === 4 &&
+          <AdminToyFormTags
+            previousPage={this.previousPage}
+            tags={toyTags}
+            suggestedTags={getSuggestedTags(catValues, toyCategories)}
+            onSubmit={this.nextPage}
+            message={message}
+          />}
+        {page === 5 &&
+          <AdminToyFormAdmin
+            toyLibraries={toyLibraries}
+            previousPage={this.previousPage}
+            onSubmit={this.handleSubmit}
+            message={message}
+            initialOwner={initialData.initialOwner}
+          />}
+          
+      </div>
       );
   };
 }
@@ -64,18 +239,24 @@ handleSubmit = (values) => {
 AdminToy.propTypes = {
     toys: PropTypes.array,
     toyId: PropTypes.string,
+    toyCategories: PropTypes.array,
+    toyTags: PropTypes.array,
+    toyLibraries: PropTypes.array,
     message: PropTypes.string,
-    changeApprobationToy: PropTypes.func.isRequired
+    saveToy: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     toys: state.adminToyLibrary.toys,
     toyId: ownProps.params.id,
-    message : state.adminToyLibrary.message
+    toyCategories: state.adminToyLibrary.categories,
+    toyTags: state.adminToyLibrary.tags,
+    toyLibraries: state.adminToyLibrary.toyLibraries,
+    message : state.user.message
   };
 }
 
 // Read more about where to place `connect` here:
 // https://github.com/rackt/react-redux/issues/75#issuecomment-135436563
-export default connect(mapStateToProps, { changeApprobationToy })(AdminToy);
+export default connect(mapStateToProps, { saveToy })(AdminToy);

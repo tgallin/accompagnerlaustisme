@@ -10,8 +10,10 @@ import toyLibraryValidation from '../js/toyLibraryValidation';
 import classNames from 'classnames/bind';
 
 import styles from '../css/components/toy';
+import inputStyles from '../css/common/inputs';
 
 const cx = classNames.bind(styles);
+const cy = classNames.bind(inputStyles);
 
 const renderOpenings = ({ fields, meta: { error, submitFailed } }) => {
   return (<div>
@@ -59,6 +61,15 @@ const ToyLibraryForm = (props) => {
         <Field name="street" type="text" size="4-8" component={RenderField} label="N° et libellé de la voie *" placeholder=""/>
         <Field name="postalCode" type="text" size="4-8" component={RenderField} label="Code Postal *" placeholder=""/>
         <Field name="city" type="text" size="4-8" component={RenderField} label="Localité *" placeholder=""/>
+        <div className="form-group">
+          <label htmlFor="active" className="control-label col-sm-4">Actif</label>
+          <div className="col-sm-8">
+            <div className={cx('control-checkbox') + ' ' + cy('slide')}>
+              <Field name="active" id="active" component="input" type="checkbox"/>
+              <label htmlFor="active"></label>
+            </div>
+          </div>
+        </div>
         <h3>Ouvertures</h3>
         <FieldArray name="openings" component={renderOpenings} />
         <div className="form-group">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { beginLoadUser, loadUserSuccess, loadUserError } from 'actions/users';
-import { fetchUsersData, fetchToys, fetchOnlineToys, fetchMyToysAndCategoriesAndTags, fetchToyCategoriesAndTags, fetchToyTags, fetchToyLibraries  } from './fetch-data';
+import { fetchUsers, fetchToysAndCategoriesAndTagsAndToyLibraries, fetchOnlineToys, fetchMyToysAndCategoriesAndTags, fetchToyCategoriesAndTags, fetchToyTags, fetchToyLibraries  } from './fetch-data';
 import { userService } from 'services';
 import {
   App,
@@ -122,12 +122,12 @@ export default (store) => {
         </Route>
         <Route path="/dashboard/news" component={AdminNews} />
         <Route path="/dashboard/events" component={AdminEvents} />
-        <Route path="/dashboard/users" component={AdminUsers} fetchData={fetchUsersData}>
+        <Route path="/dashboard/users" component={AdminUsers} fetchData={fetchUsers}>
           <Route path="/dashboard/users/:id" component={AdminUser}/>
         </Route>
         <Route path="/dashboard/toyLibrary" component={AdminToyLibrary} >
           <IndexRedirect to="/dashboard/toyLibrary/toys"/>
-          <Route path="/dashboard/toyLibrary/toys" component={AdminToys} fetchData={fetchToys} >
+          <Route path="/dashboard/toyLibrary/toys" component={AdminToys} fetchData={fetchToysAndCategoriesAndTagsAndToyLibraries} >
             <Route path="/dashboard/toyLibrary/toys/:id" component={AdminToy} />
           </Route>
           <Route path="/dashboard/toyLibrary/categories" component={AdminToyCategories} fetchData={fetchToyCategoriesAndTags}>

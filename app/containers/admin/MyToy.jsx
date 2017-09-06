@@ -7,10 +7,6 @@ import { connect } from 'react-redux';
 import { saveToy } from '../../actions/toyLibrary';
 import { matchesProperty, uniq } from '../../utils/arrayUtils';
 
-import classNames from 'classnames/bind';
-import inputStyles from '../../css/common/inputs';
-const cy = classNames.bind(inputStyles);
-
 class MyToy extends Component {
 
 constructor(props) {
@@ -104,7 +100,7 @@ constructor(props) {
     }
     data.append('tags', tags);
   
-    saveToy(data, toyId);
+    saveToy(data, toyId, '/dashboard/mytoys');
   }
 
   render() {

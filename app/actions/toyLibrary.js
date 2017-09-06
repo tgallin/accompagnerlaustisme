@@ -313,7 +313,7 @@ export function deleteToyLibrary(id) {
   };
 }
 
-export function saveToy(data, toyId) {
+export function saveToy(data, toyId, returnUrl) {
   return (dispatch) => {
 
     dispatch(beginSaveToy());
@@ -327,7 +327,7 @@ export function saveToy(data, toyId) {
         if (response.status === 200) {
           // can't use data.get('toyId') because it doesn't work in IE, tha's why I had to pass in toyId as parameter 
           var action = toyId === '0' ? types.TOY_CREATE_SUCCESS : types.TOY_UPDATE_SUCCESS;
-          dispatch(push('/dashboard/mytoys'));
+          dispatch(push(returnUrl));
           dispatch(saveToySuccess(response.data, action));
         } else {
           dispatch(saveToyError('Oops! Something went wrong!'));

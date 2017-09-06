@@ -1,0 +1,27 @@
+.menu {
+  position: absolute;
+  width: 100%;
+  border: 1px solid #cccccc;
+  overflow: auto;
+  max-height: 100px;
+  background: #fff;
+  top: 10;
+  left: 0;
+  z-index: 3;
+}
+
+.item {
+  padding: 2px 6px;
+  cursor: default;
+}
+
+.item-highlighted {
+  color: white;
+  background-color: #4095bf;
+}
+
+.item-header {
+  background-color: #eeeeee;
+  color: #454545;
+  font-weight: bold;
+}

@@ -19,7 +19,7 @@ const ToySchema = new mongoose.Schema({
   online: { type: Boolean, default: false },
   approved: { type: Boolean, default: false },
   created: { type: Date, default: Date.now },
-  updated: { type: Date, default: Date.now },
+  updated: { type: Date, default: Date.now }
 }, {
   toObject: {
   virtuals: true
@@ -32,6 +32,7 @@ const ToySchema = new mongoose.Schema({
 ToySchema
 .virtual('available')
 .get(function () {
+  // bookings is null || bookings is empty || bookings all returned
   return !this.borrowedBy && this.waiting.length === 0;
 });
 

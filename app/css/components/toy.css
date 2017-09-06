@@ -27,6 +27,10 @@
   padding-bottom: 10px;
 }
 
+.paddingTop {
+  padding-top: 10px;
+}
+
 .paddingAll {
   padding: 10px;
 }
@@ -135,6 +139,20 @@
 
 .alignRight {
   float: right;
+}
+
+.address {
+  float: left;
+  margin-right: 10px;
+}
+
+.inputAddress {
+  float: left;
+  margin-right: 10px;
+}
+
+.labelAddress {
+  float: left;
 }
 
 @media (max-width: 450px) {

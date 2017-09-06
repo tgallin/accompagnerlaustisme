@@ -45,8 +45,8 @@ class RenderCheckboxAsButton extends Component {
 }
 
 RenderCheckboxAsButton.propTypes = {
-  input: React.PropTypes.object.isRequired,
-  val: React.PropTypes.string.isRequired
+  input: PropTypes.object.isRequired,
+  val: PropTypes.string.isRequired
 };
 
 export default RenderCheckboxAsButton;
