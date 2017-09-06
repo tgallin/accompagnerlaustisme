@@ -457,7 +457,7 @@ function buildUserData(user) {
  * GET /users
  */
 export function all(req, res) {
-  User.find({}, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', {sort: {'profile.displayName': 1}}, function (err, users) {
+  User.find({}, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', {sort: {'profile.surname': 1, 'profile.firstname': 1, 'profile.entityName': 1}}, function (err, users) {
     if (err) {
       return res.status(500).json({ message: 'Problème lors de la récupération des utilisateurs' });
     }
@@ -481,7 +481,7 @@ export function getUsersByName(req, res) {
   
   const query = { $or: queryParts };
   
-  User.find(query, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', {sort: {'profile.displayName': 1}}, function (err, users) {
+  User.find(query, '-password -tokens -resetPasswordToken -resetPasswordExpires -google -facebook', {sort: {'profile.surname': 1, 'profile.firstname': 1, 'profile.entityName': 1}}, function (err, users) {
     if (err) {
       return res.status(500).json({ message: 'Problème lors de la récupération des utilisateurs' });
     }
