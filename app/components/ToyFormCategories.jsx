@@ -19,7 +19,7 @@ let ToyFormCategories = (props) => {
       <form className="form-horizontal" onSubmit={handleSubmit}>
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
       
-        <FieldArray id="categories" name="categories" label="Catégories" 
+        <FieldArray id="categories" name="categories" label="Catégories *" 
         help="Vous devez sélectionner au moins une catégorie" objects={categories} component={RenderCheckboxesAsButtons} />
 
         <div className="form-group">

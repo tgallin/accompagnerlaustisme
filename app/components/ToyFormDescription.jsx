@@ -20,7 +20,7 @@ let ToyFormDescription = (props) => {
       <form className="form-horizontal" onSubmit={handleSubmit}>
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
         <Field name="toyId" id="toyId" component="input" type="hidden"/>
-        <Field name="name" type="text" size="2-10" component={RenderField} label="Nom"/>
+        <Field name="name" type="text" size="2-10" component={RenderField} label="Nom *" placeholder="Nom"/>
         <Field name="content" component={RenderTextarea} label="Contenu" placeholder="ex: 1 boite avec 2 dés, ..."/>
         <Field name="description" component={RenderTextarea} label="Description" placeholder="ex: Permet à l'enfant d'apprendre à compter..."/>
         

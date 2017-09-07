@@ -118,7 +118,7 @@ class MyToys extends Component {
                 </thead>
                 <tbody>
                 {
-                  toys.map((toy) => 
+                  toys.map((toy, index) => 
                     <tr key={toy._id}>
                       <td className="col-md-2">{toy.name}</td>
                       <td className="col-md-2">{toy.pictures && toy.pictures.length > 0 ? <img src={toy.pictures[0].eager[0].secure_url} /> : ''}</td>
@@ -128,9 +128,9 @@ class MyToys extends Component {
                           {isToyLibraryCentralized && <span>{toy.online ? 'Oui' : 'Non'}</span>}
                           {!isToyLibraryCentralized && 
                           <div className={cx('control-checkbox') + ' ' + cy('slide')}>
-                            {toy.online && <input name="online" id="online" type="checkbox" checked readOnly onClick={() => this.toggleOnline(toy._id)} />}
-                            {!toy.online && <input name="online" id="online" type="checkbox" readOnly onClick={() => this.toggleOnline(toy._id)} />}
-                            <label htmlFor="online"></label>
+                            {toy.online && <input name={'online'+index} id={'online'+index} type="checkbox" checked readOnly onClick={() => this.toggleOnline(toy._id)} />}
+                            {!toy.online && <input name={'online'+index} id={'online'+index} type="checkbox" readOnly onClick={() => this.toggleOnline(toy._id)} />}
+                            <label htmlFor={'online'+index}></label>
                           </div>
                           }
                         </td>

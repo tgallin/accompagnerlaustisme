@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { createAddress } from '../utils/componentUtils';
 import RenderOwnerInputAutoComplete from './RenderOwnerInputAutoComplete.jsx';
-import toyValidation from '../js/toyValidation';
+import adminToyValidation from '../js/adminToyValidation';
 
 import classNames from 'classnames/bind';
 
@@ -43,7 +43,7 @@ let AdminToyFormAdmin = (props) => {
         
         <div>
         <Field name="ownerId" id="ownerId" component="input" type="hidden"/>
-        <Field name="owner" id="owner" type="text" size="2-10" initialOwner={initialOwner} component={RenderOwnerInputAutoComplete} label="Propriétaire" placeholder="Entrez le nom, le prénom ou la raison sociale"/>
+        <Field name="owner" id="owner" type="text" size="2-10" initialOwner={initialOwner} component={RenderOwnerInputAutoComplete} label="Propriétaire *" placeholder="Entrez le nom, le prénom ou la raison sociale"/>
         
         <div className="form-group">
           <label htmlFor="toyLibrary" className="control-label col-sm-2">Lieu</label>
@@ -56,7 +56,7 @@ let AdminToyFormAdmin = (props) => {
             toyLibraries.map((toyLibrary) => (
               <div className={cx('address')}>
                 <div className={cx('inputAddress')}><Field name="toyLibraryId" component="input" type="radio" value={toyLibrary._id} /></div>
-                <div className={cx('labelAddress')} key={toyLibrary._id} dangerouslySetInnerHTML={createAddress(toyLibrary.address)} />
+                <div className={cx('labelAddress')} key={toyLibrary._id} dangerouslySetInnerHTML={{__html: (toyLibrary.name + '<br/>' + createAddress(toyLibrary.address))}} />
               </div>
               )
             )
@@ -92,7 +92,7 @@ export default reduxForm({
   form: 'adminToy',  // a unique identifier for this form
   destroyOnUnmount: false, // <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
-  validate: toyValidation, // <--- validation function given to redux-form
+  validate: adminToyValidation, // <--- validation function given to redux-form
   enableReinitialize: true,
   keepDirtyOnReinitialize: true
 })(AdminToyFormAdmin);

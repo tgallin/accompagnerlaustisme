@@ -19,9 +19,9 @@ export function createAddress(address) {
     if (address.city) {
       lines.push(address.city);
     }
-    return { __html: lines.join('<br/>') };
+    return lines.join('<br/>');
   } else {
-      return { __html: 'Non communiquée' };
+      return 'Non communiquée';
   }
 }
 

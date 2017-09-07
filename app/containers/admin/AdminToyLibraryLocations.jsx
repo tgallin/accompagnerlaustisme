@@ -42,9 +42,6 @@ class AdminToyLibraryLocations extends Component {
   
   formatAddress(address) {
     var chunks = [];
-    if (address.complement1) {
-      chunks.push(address.complement1);
-    }
     chunks.push(address.street);
     chunks.push(address.postalCode);
     chunks.push(address.city);
@@ -71,6 +68,7 @@ class AdminToyLibraryLocations extends Component {
               <table className="table table-striped">
                 <thead>
                   <tr>
+                    <th>Nom</th>
                     <th>Adresse</th>
                     <th></th>
                     <th></th>
@@ -80,7 +78,8 @@ class AdminToyLibraryLocations extends Component {
                 {
                   toyLibraries.map((toyLibrary) => 
                     <tr key={toyLibrary._id}>
-                      <td className="col-md-8">{this.formatAddress(toyLibrary.address)}</td>
+                      <td className="col-md-2">{toyLibrary.name}</td>
+                      <td className="col-md-6">{this.formatAddress(toyLibrary.address)}</td>
                       <td className="col-md-2">
                         <Link to={'/dashboard/toyLibrary/locations/' + toyLibrary._id} className="btn btn-info"><i className="fa fa-pencil"/><span className={cx('hide-btn-label')}> Editer</span></Link>
                       </td>

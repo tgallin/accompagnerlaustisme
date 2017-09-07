@@ -15,6 +15,7 @@ class AdminToys extends Component {
 
   toggleOnline = (id) => {
     
+    console.log(id);
     const {
       toggleOnlineToy
     } = this.props;
@@ -83,7 +84,7 @@ class AdminToys extends Component {
                 </thead>
                 <tbody>
                 {
-                  toys.map((toy) => 
+                  toys.map((toy, index) => 
                     <tr key={toy._id}>
                     
                     <td className="col-md-2">{toy.name}</td>
@@ -94,9 +95,9 @@ class AdminToys extends Component {
                           {!isToyLibraryCentralized && <span>{toy.online ? 'Oui' : 'Non'}</span>}
                           {isToyLibraryCentralized && 
                           <div className={cx('control-checkbox') + ' ' + cy('slide')}>
-                            {toy.online && <input name="online" id="online" type="checkbox" checked readOnly onClick={() => this.toggleOnline(toy._id)} />}
-                            {!toy.online && <input name="online" id="online" type="checkbox" readOnly onClick={() => this.toggleOnline(toy._id)} />}
-                            <label htmlFor="online"></label>
+                            {toy.online && <input name={'online'+index} id={'online'+index} type="checkbox" checked readOnly onClick={() => this.toggleOnline(toy._id)} />}
+                            {!toy.online && <input name={'online'+index} id={'online'+index} type="checkbox" readOnly onClick={() => this.toggleOnline(toy._id)} />}
+                            <label htmlFor={'online'+index}></label>
                           </div>
                           }
                         </td>

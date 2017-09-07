@@ -5,6 +5,7 @@
 var mongoose = require('mongoose');
   
 const ToyLibrarySchema = new mongoose.Schema({
+  name: String,
   address: {},
   openings:  [{
     date: Date,

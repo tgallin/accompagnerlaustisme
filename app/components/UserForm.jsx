@@ -48,13 +48,13 @@ let UserForm = (props) => {
 
         {legalStatus==='P' && 
           <div>
-            <Field name="firstname" size="4-8" type="text" component={RenderField} label="Prénom"/>
-            <Field name="surname" size="4-8" type="text" component={RenderField} label="Nom"/>
+            <Field name="firstname" size="4-8" type="text" component={RenderField} label="Prénom *" placeholder="Prénom"/>
+            <Field name="surname" size="4-8" type="text" component={RenderField} label="Nom *" placeholder="Nom"/>
           </div>
         }
         {legalStatus==='M' && 
           <div>
-            <Field name="entityName" size="4-8" type="text" component={RenderField} label="Raison sociale"/>
+            <Field name="entityName" size="4-8" type="text" component={RenderField} label="Raison sociale *" placeholder="Raison sociale"/>
           </div>
         }
 

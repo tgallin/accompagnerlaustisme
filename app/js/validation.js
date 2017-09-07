@@ -31,7 +31,7 @@ export function maxLength(max) {
 }
 
 export function integer(value) {
-  if (!Number.isInteger(Number(value))) {
+  if (value && !Number.isInteger(Number(value))) {
     return 'Doit être un entier';
   }
 }

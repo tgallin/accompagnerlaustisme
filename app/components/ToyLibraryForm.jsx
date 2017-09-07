@@ -56,11 +56,11 @@ const ToyLibraryForm = (props) => {
       <form className="form-horizontal" onSubmit={handleSubmit}>
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
         <Field name="toyLibraryId" id="toyLibraryId" component="input" type="hidden"/>
+        <Field name="name" type="text" size="4-8" component={RenderField} label="Nom *" placeholder="Nom"/>
         <h3>Adresse</h3>
-        <Field name="complement1" type="text" size="4-8" component={RenderField} label="Salle, Etage" help="Sert à identifier le lieu à l'intérieur d'un immeuble" placeholder="ex : Salle Belle Allée"/>
-        <Field name="street" type="text" size="4-8" component={RenderField} label="N° et libellé de la voie *" placeholder=""/>
-        <Field name="postalCode" type="text" size="4-8" component={RenderField} label="Code Postal *" placeholder=""/>
-        <Field name="city" type="text" size="4-8" component={RenderField} label="Localité *" placeholder=""/>
+        <Field name="street" type="text" size="4-8" component={RenderField} label="N° et libellé de la voie *" placeholder="N° et libellé de la voie"/>
+        <Field name="postalCode" type="text" size="4-8" component={RenderField} label="Code Postal *" placeholder="Code Postal"/>
+        <Field name="city" type="text" size="4-8" component={RenderField} label="Localité *" placeholder="Localité"/>
         <div className="form-group">
           <label htmlFor="active" className="control-label col-sm-4">Actif</label>
           <div className="col-sm-8">

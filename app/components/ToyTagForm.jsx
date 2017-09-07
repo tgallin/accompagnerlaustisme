@@ -18,7 +18,7 @@ let ToyTagForm = (props) => {
       <form className="form-horizontal" onSubmit={handleSubmit}>
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
         <Field name="toyTagId" id="toyTagId" component="input" type="hidden"/>
-        <Field name="name" type="text" size="2-10" component={RenderField} label="Nom"/>
+        <Field name="name" type="text" size="2-10" component={RenderField} label="Nom *" placeholder="Nom"/>
 
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10">

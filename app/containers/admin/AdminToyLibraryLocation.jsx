@@ -14,7 +14,7 @@ handleSubmit = (values) => {
     } = this.props;
 
     const toyLibraryId = values.toyLibraryId;
-    const complement1 = values.complement1;
+    const name = values.name;
     const street = values.street;
     const postalCode = values.postalCode;
     const city = values.city;
@@ -37,8 +37,8 @@ handleSubmit = (values) => {
     
     saveToyLibrary({
       toyLibraryId,
+      name,
       openings,
-      complement1,
       street,
       postalCode,
       city,
@@ -56,8 +56,9 @@ handleSubmit = (values) => {
       if (toyLibrary) {
         initialtoyLibraryData.toyLibraryId = toyLibrary._id;
         
+        initialtoyLibraryData.name = toyLibrary.name;
+        
         if (toyLibrary.address) {
-          initialtoyLibraryData.complement1 = toyLibrary.address.complement1;
           initialtoyLibraryData.street = toyLibrary.address.street;
           initialtoyLibraryData.postalCode = toyLibrary.address.postalCode;
           initialtoyLibraryData.city = toyLibrary.address.city;

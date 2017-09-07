@@ -24,7 +24,7 @@ export function indexToy(toy) {
       },
       toyLibrary: toy.toyLibrary ? { 
         id: toy.toyLibrary.id, 
-        complement1: toy.toyLibrary.address.complement1 ? toy.toyLibrary.address.complement1 : '',
+        name: toy.toyLibrary.name,
         street: toy.toyLibrary.address.street,
         postalCode: toy.toyLibrary.address.postalCode,
         city: toy.toyLibrary.address.city
@@ -47,7 +47,7 @@ export function indexToy(toy) {
   });
 }
 
-export function deleteToy(toyId) {
+export function removeToyFromIndex(toyId) {
   client.delete({
     index: elasticsearchKeys.indexName,
     type: 'toy',
@@ -66,5 +66,5 @@ export function deleteToy(toyId) {
 export default {
   client,
   indexToy,
-  deleteToy
+  removeToyFromIndex
 };

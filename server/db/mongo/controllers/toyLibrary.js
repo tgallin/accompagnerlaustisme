@@ -6,7 +6,7 @@ import User from '../models/user';
 import Booking from '../models/booking';
 import fs from 'fs';
 import { uploadImage, destroyImage } from '../../../image/cloudinaryUploader';
-import { indexToy, deleteToy } from '../../../search/elasticsearch';
+import { indexToy, removeToyFromIndex } from '../../../search/elasticsearch';
 import { isToyLibraryCentralized } from '../../../../config/app';
 
 /**
@@ -187,8 +187,9 @@ export function saveToyLibrary(req, res) {
       
       var newToyLibrary = new ToyLibrary();
       
+      newToyLibrary.name = req.body.name;
+      
       newToyLibrary.address = {
-        complement1: req.body.complement1,
         street: req.body.street,
         postalCode: req.body.postalCode,
         city: req.body.city
@@ -213,8 +214,9 @@ export function saveToyLibrary(req, res) {
           return res.status(500).json({ message: 'Problème technique lors de la recherche du lieu' });
         }
         
+        existingToyLibrary.name = req.body.name;
+        
         existingToyLibrary.address = {
-          complement1: req.body.complement1,
           street: req.body.street,
           postalCode: req.body.postalCode,
           city: req.body.city
@@ -288,6 +290,8 @@ export function removeToyLibrary(req, res) {
       return res.status(500).send('Problème technique lors de la suppression');
     }
     
+    // 1st parameter is the query : we search the toys whose toy library is the id provided
+    // 2nd parameter is what we update : we clear the toy library field
     Toy.update(
       { toyLibrary: toyLibraryId },
       { toyLibrary: undefined }
@@ -609,49 +613,6 @@ export function saveToy(req, res) {
 }
 
 /**
- * POST /toys/changeApprobation change approbation of the toy with provided data
- */
-export function changeApprobation(req, res) {
-  if (req.user) {
-    
-    const query = {
-      email: req.user.email,
-      admin: true
-    };
-    
-    User.findOne(query, (err, user) => {
-      if (err) {
-        return res.status(500).json({ message: 'Problème technique lors de la recherche de votre compte admin' });
-      }
-
-      if (req.body.toyId !== '') {
-        
-        const query = {
-          _id: req.body.toyId
-        };
-  
-        Toy.findOne(query, (err, existingToy) => {
-          if (err) {
-            return res.status(500).json({ message: 'Problème technique lors de la recherche du jeu' });
-          }
-          existingToy.approved = req.body.approved;
-          existingToy.online = req.body.approved;
-          
-          existingToy.save(function(err) {
-            if (err) {
-              return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
-            }
-            indexationToy(existingToy._id);
-            return res.status(200).json({ toy: existingToy, message: 'Jeu mis à jour avec succès' });
-          });
-        
-        });
-      }
-    });
-  }
-}
-
-/**
  * POST /toys/toggleOnline toogle online value of the toy
  */
 export function toggleOnline(req, res) {
@@ -673,13 +634,13 @@ export function toggleOnline(req, res) {
       }
 
       if (req.body.toyId !== '') {
+        console.log(req.body.toyId);
         
         const query = {
-          _id: req.body.toyId,
-          owner: user._id
+          _id: req.body.toyId
         };
   
-        Toy.findOne(query, (err, existingToy) => {
+        Toy.findOne(query).populate('owner').exec(function (err, existingToy) {
           if (err) {
             return res.status(500).json({ message: 'Problème technique lors de la recherche du jeu' });
           }
@@ -716,21 +677,29 @@ export function removeToy(req, res) {
       }
 
       const toyId = req.params.id;
-      const query = { _id: toyId, owner: user._id };
+      const query = { _id: toyId };
       
-      Toy.findOneAndRemove(query, (err) => {
+      Toy.findOne(query, (err, toy) => {
         if (err) {
           return res.status(500).send('Problème technique lors de la suppression');
         }
         
-        user.toys.pull(toyId);
-        user.save(function(err) {
-          if (err) {
-            return res.status(500).json({ message: 'Problème technique lors de la suppression du jeu de votre compte' });
-          }
-          deleteToy(toyId);
-          return res.status(200).send({ id: toyId, message: 'Jeu supprimé avec succès' });
-        });
+        // only the toy's owner or an admin can remove the toy
+        if (toy.owner === user._id || user.admin) {
+          toy.remove();
+          user.toys.pull(toyId);
+          user.save(function(err) {
+            if (err) {
+              return res.status(500).json({ message: 'Problème technique lors de la suppression du jeu' });
+            }
+            removeToyFromIndex(toyId);
+            return res.status(200).send({ id: toyId, message: 'Jeu supprimé avec succès' });
+          });
+        } else {
+          return res.status(500).json({ message: 'Vous n\'avez pas l\'habilitation pour supprimer ce jeu' });
+        }
+        
+
       });
     });
   }
@@ -741,7 +710,6 @@ export default {
   onlineToys,
   allMyToys,
   saveToy,
-  changeApprobation,
   toggleOnline,
   removeToy,
   allCategories,

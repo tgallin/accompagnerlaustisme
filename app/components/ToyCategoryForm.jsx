@@ -20,7 +20,7 @@ let ToyCategoryForm = (props) => {
       <form className="form-horizontal" onSubmit={handleSubmit}>
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
         <Field name="toyCatId" id="toyCatId" component="input" type="hidden"/>
-        <Field name="name" type="text" size="2-10" component={RenderField} label="Nom"/>
+        <Field name="name" type="text" size="2-10" component={RenderField} label="Nom *" placeholder="Nom"/>
         <FieldArray id="tags" name="tags" label="Mots clés suggérés" 
         help="Vous pouvez sélectionner un ou plusieurs mots clés auxquels les jeux de cette catégorie pourront être associés" 
         objects={tags} component={RenderCheckboxesAsButtons} />

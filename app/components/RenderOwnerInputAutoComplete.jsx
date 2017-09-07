@@ -47,6 +47,7 @@ class RenderOwnerInputAutoComplete extends Component {
               onSelect={(value, user) => {this.setState({ value, users: [user] }); selectUser(user.id);} }
               onChange={(event, value) => {
                 this.setState({ value, loading: true, users: [] });
+                selectUser(null);
                 fetchUsersByName(value, (items) => {
                   this.setState({ users: items, loading: false });
                 });
