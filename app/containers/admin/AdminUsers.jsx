@@ -46,22 +46,24 @@ class AdminUsers extends Component {
     
     return (
       <div>
+        {error &&
+        <div className="alert alert-danger" role="alert">
+          <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          {' '}
+          {error}
+        </div>}
         { !children && 
-        <div className="table-responsive">
-          {error &&
-          <div className="alert alert-danger" role="alert">
-            <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            {' '}
-            {error}
-          </div>}
+        <div>
           {users && users.length > 0 &&
             
+            <div className="table-responsive">
               <table className="table table-striped">
                 <thead>
                   <tr>
                     <th>Nom prénom / Raison sociale</th>
                     <th><div className={cx('shorten-label')}>Admin</div></th>
                     <th><div className={cx('shorten-label')}>Membre</div></th>
+                    <th></th>
                     <th></th>
                   </tr>
                 </thead>
@@ -87,12 +89,10 @@ class AdminUsers extends Component {
                 }
                 </tbody>
               </table>
-            
+            </div>
           }
           {(!users || users.length === 0) &&
-            <div>
-              <div className={cx('paddingAll')}>Aucun utilisateur</div>
-            </div>
+            <div className={cx('paddingAll')}>Aucun utilisateur</div>
           }
           <Link to='/dashboard/users/0' className="btn btn-info"><i className="fa fa-plus"/> Ajouter un utilisateur</Link>
         </div>

@@ -65,7 +65,7 @@ class RenderOwnerInputAutoComplete extends Component {
                   ) : this.state.loading ? (
                     <div className={cx('item')}>Chargement...</div>
                   ) : items.length === 0 ? (
-                    <div className={cx('item')}>Aucun résultat pour {value}</div>
+                    <div className={cx('item')}>Aucun utilisateur trouvé pour '{value}'. </div>
                   ) : this.renderItems(items)}
                 </div>
               )}

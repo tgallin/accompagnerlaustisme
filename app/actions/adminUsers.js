@@ -1,5 +1,6 @@
 import { polyfill } from 'es6-promise';
 import request from 'axios';
+import { push } from 'react-router-redux';
 
 import * as types from '../types';
 
@@ -59,6 +60,7 @@ export function saveUser(data) {
       .then(response => {
         if (response.status === 200) {
           var action = data.userId === 0 ? types.ADMIN_USER_CREATE_SUCCESS : types.ADMIN_USER_UPDATE_SUCCESS;
+          dispatch(push('/dashboard/users'));
           dispatch(saveSuccess(response.data, action));
         } else {
           dispatch(saveError('Oops! Something went wrong!'));

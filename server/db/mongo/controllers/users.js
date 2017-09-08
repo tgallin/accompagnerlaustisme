@@ -375,8 +375,11 @@ export function saveUser(req, res) {
 
           newUser.save(function(err) {
             if (err) {
-              console.log(err);
-              return res.status(500).json({ message: 'Problème technique lors de l\'ajout de l\'utilisateur' });
+              var errorMessage = 'Problème technique lors de l\'ajout de l\'utilisateur';
+              if (err.code === 11000) {
+                errorMessage = 'Un utilisateur avec la même adresse email existe déjà';
+              }
+              return res.status(500).json({ message: errorMessage });
             }
             return res.status(200).json({ user: newUser, message: 'Utilisateur créé avec succès' });
           });
