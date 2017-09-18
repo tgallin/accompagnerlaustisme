@@ -9,7 +9,7 @@ import toyLibraryValidation from '../js/toyLibraryValidation';
 
 import classNames from 'classnames/bind';
 
-import styles from '../css/components/toy';
+import styles from '../css/components/toyCreation';
 import inputStyles from '../css/common/inputs';
 
 const cx = classNames.bind(styles);

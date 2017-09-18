@@ -48,7 +48,15 @@ export const fetchOnlineToys = () => {
           return toyLibraryService.getTags()
             .then(res => {
               results.tags = res.data.tags;
-              return results;
+              
+              return toyLibraryService.getToyLibraries()
+                .then(res => {
+                  results.toyLibraries = res.data.toyLibraries;
+                  return results;
+                })
+                .catch(() => {
+                  return results;
+                });
             })
             .catch(() => {
               return results;

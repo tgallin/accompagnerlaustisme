@@ -5,7 +5,6 @@ import classNames from 'classnames/bind';
 import styles from 'css/components/formations';
 import aBlue from '../images/Ableu.png';
 import aYellow from '../images/Ajaune.png';
-import aStripes from '../images/Araye.png';
 
 const cx = classNames.bind(styles);
 

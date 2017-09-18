@@ -1,0 +1,56 @@
+.primary_block {
+    margin-bottom: 20px;
+}
+
+.toy-details h1 {
+    margin-top: 13px;
+    padding-bottom: 0;
+    font-size: 36px;
+    line-height: 1;
+    color: #3a3939;
+}
+
+.toy-details p {
+    margin-bottom: 10px;
+}
+
+.toy-details #short_description_block #short_description_content {
+    padding-top: 10px;
+    word-wrap: break-word;
+}
+
+.toy-details #short_description_block #short_description_content p {
+    line-height: 18px;
+}
+
+.descriptionshortshort {
+    text-align: justify;
+    clear: both;
+}
+
+.waiting_label {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 12px;
+    text-align: right;
+}
+
+.available {
+    color: green;
+}
+
+.unavailable {
+    color: red;
+}
+
+.cat_label {
+    display: inline-block;
+    font-weight: 700;
+    text-align: right;
+}
+
+.tag_label {
+    display: inline-block;
+    font-weight: 700;
+    text-align: right;
+}

@@ -137,6 +137,30 @@
   padding-bottom: 15px;
 }
 
+.comment {
+  border: 1px solid rgb(102, 102, 102);
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.comment-first-line {
+  padding-bottom: 30px;
+}
+
+.copy {
+  border: 1px solid rgb(102, 102, 102);
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.copy-first-line {
+  padding-bottom: 30px;
+}
+
 .alignRight {
   float: right;
 }

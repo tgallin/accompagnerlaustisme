@@ -1,32 +1,132 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, change, FieldArray, reduxForm, formValueSelector } from 'redux-form';
+import moment from 'moment';
 import { Link } from 'react-router';
 import { createAddress } from '../utils/componentUtils';
 import RenderOwnerInputAutoComplete from './RenderOwnerInputAutoComplete.jsx';
+import RenderTextarea from './RenderTextarea.jsx';
+import RenderField from './RenderField.jsx';
 import adminToyValidation from '../js/adminToyValidation';
+
+moment.locale('fr');
 
 import classNames from 'classnames/bind';
 
-import styles from '../css/components/toy';
+import styles from '../css/components/toyCreation';
 import inputStyles from '../css/common/inputs';
 
 const cx = classNames.bind(styles);
 const cy = classNames.bind(inputStyles);
 
+
+const renderComments = ({ fields, initialComments, meta: { error, submitFailed } }) => {
+  return (<div>
+      <button className="btn btn-info" type="button" onClick={() => fields.push({date: moment().format('DD/MM/YYYY')})}>
+        <i className="fa fa-plus"/> Ajouter un commentaire
+      </button>
+      {submitFailed &&
+        error &&
+        <span>
+          {error}
+        </span>}
+    {fields.map((comment, index) => 
+      <div key={index} className={cx('comment')}>
+        <div className={cx('comment-first-line')}>
+        <span>
+          Commentaire #{index + 1} ajouté le {moment(comment.date).format('dddd DD MMMM YYYY')}
+        </span>
+        <button
+          className={'btn btn-danger ' + cx('alignRight')}
+          type="button"
+          title="Supprimer"
+          onClick={() => fields.remove(index)}
+        ><i className="fa fa-trash"/></button>
+        </div>
+        <Field name={`${comment}.date`} id={`${comment}.date`} component="input" type="hidden"/>
+        <Field name={`${comment}.comment`} component={RenderTextarea} label="Commentaire" placeholder="ex: il manque une pièce, ..."/>
+      </div>
+    )}
+  </div>
+  );
+};
+
+const renderCopies = ({ fields, toyLibraries, meta: { error, submitFailed } }) => {
+  return (<div>
+      <button className="btn btn-info" type="button" onClick={() => fields.push({})}>
+        <i className="fa fa-plus"/> Ajouter un exemplaire
+      </button>
+      {submitFailed &&
+        error &&
+        <span>
+          {error}
+        </span>}
+    {fields.map((copy, index) => (
+      <div key={'copy' + index} className={cx('copy')}>
+        <div className={cx('copy-first-line')}>
+          <span>
+            Exemplaire #{index + 1}
+          </span>
+          {copy.borrowedBy &&
+            <span className="text-danger">Cet exemplaire est actuellement emprunté, il ne peut donc pas être supprimé.</span>
+          }
+          {fields.length > 1 && !copy.borrowedBy &&
+          <button
+            className={'btn btn-danger ' + cx('alignRight')}
+            type="button"
+            title="Supprimer"
+            onClick={() => fields.remove(index)}>
+              <i className="fa fa-trash"/>
+          </button>
+          }
+        </div>
+        <Field name={`${copy}.reference`} type="text" size="2-10" component={RenderField} readOnly="true" label="Référence" placeholder="Référence unique calculée automatiquement"/>
+        <div className="form-group">
+          <label htmlFor="toyLibrary" className="control-label col-sm-2">Lieu</label>
+          <div className="col-sm-10">
+            <div className={cx('address')}>
+              <div className={cx('inputAddress')}><Field name={`${copy}.toyLibraryId`} component="input" type="radio" value="" /></div>
+              <div className={cx('labelAddress')}>Chez le propriétaire</div>
+            </div>
+            {
+              toyLibraries.map((toyLibrary, index) => (
+                <div key={'toyLibrary' + index} className={cx('address')}>
+                  <div className={cx('inputAddress')}><Field name={`${copy}.toyLibraryId`} component="input" type="radio" value={toyLibrary._id} /></div>
+                  <div className={cx('labelAddress')} key={toyLibrary._id} dangerouslySetInnerHTML={{__html: (toyLibrary.name + '<br/>' + createAddress(toyLibrary.address))}} />
+                </div>
+                )
+              )
+            }
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+  );
+};
+
 let AdminToyFormAdmin = (props) => {
-    const { message, handleSubmit, previousPage, invalid,
-      submitting, toyLibraries, initialOwner } = props;
+    const { forceOffline, message, handleSubmit, previousPage, invalid,
+      submitting, toyLibraries, initialOwner, initialComments, isApproved } = props;
       
   return (
     <div>
       <form className="form-horizontal" onSubmit={handleSubmit}>
       {message && <div className="alert alert-danger" role="alert">{message}</div>}
       
+        <Field name="productCode" type="text" size="2-10" component={RenderField} label="Code produit" placeholder="Identifie un jeu (code barre), un livre (ISBN), ..."/>
+        
         <div className="form-group">
           <label htmlFor="approved" className="control-label col-sm-2">Approuvé</label>
           <div className="col-sm-10">
             <div className={cx('control-checkbox') + ' ' + cy('slide')}>
-              <Field name="approved" id="approved" component="input" type="checkbox"/>
+              <Field name="approved" id="approved" component="input" type="checkbox"
+              onChange={(event, value) => {
+                if (!value) 
+                {
+                  forceOffline();
+                }
+              }}/>
               <label htmlFor="approved"></label>
             </div>
           </div>
@@ -35,35 +135,21 @@ let AdminToyFormAdmin = (props) => {
           <label htmlFor="online" className="control-label col-sm-2">En ligne</label>
           <div className="col-sm-10">
             <div className={cx('control-checkbox') + ' ' + cy('slide')}>
-              <Field name="online" id="online" component="input" type="checkbox"/>
+              {isApproved && <Field name="online" id="online" component="input" type="checkbox" />}
+              {!isApproved && <Field name="online" id="online" readOnly={true} disabled={true} value={false} checked={false} component="input" type="checkbox"/>}
               <label htmlFor="online"></label>
             </div>
           </div>
         </div>
         
-        <div>
         <Field name="ownerId" id="ownerId" component="input" type="hidden"/>
         <Field name="owner" id="owner" type="text" size="2-10" initialOwner={initialOwner} component={RenderOwnerInputAutoComplete} label="Propriétaire *" placeholder="Entrez le nom, le prénom ou la raison sociale"/>
         
-        <div className="form-group">
-          <label htmlFor="toyLibrary" className="control-label col-sm-2">Lieu</label>
-          <div className="col-sm-10">
-            <div className={cx('address')}>
-              <div className={cx('inputAddress')}><Field name="toyLibraryId" component="input" type="radio" value="" /></div>
-              <div className={cx('labelAddress')}>Chez le propriétaire</div>
-            </div>
-          {
-            toyLibraries.map((toyLibrary) => (
-              <div className={cx('address')}>
-                <div className={cx('inputAddress')}><Field name="toyLibraryId" component="input" type="radio" value={toyLibrary._id} /></div>
-                <div className={cx('labelAddress')} key={toyLibrary._id} dangerouslySetInnerHTML={{__html: (toyLibrary.name + '<br/>' + createAddress(toyLibrary.address))}} />
-              </div>
-              )
-            )
-          }
-          </div>
-        </div>
-        </div>
+        <h3>Exemplaires</h3>
+        <FieldArray name="copies" toyLibraries={toyLibraries} component={renderCopies} />
+
+        <h3>Commentaires</h3>
+        <FieldArray name="comments" initialComments={initialComments} component={renderComments} />
 
         <div className={'form-group '+ cx('paddingTop')}>
           <div className="col-sm-offset-2 col-sm-10">
@@ -88,7 +174,7 @@ let AdminToyFormAdmin = (props) => {
   );
 };
 
-export default reduxForm({
+AdminToyFormAdmin = reduxForm({
   form: 'adminToy',  // a unique identifier for this form
   destroyOnUnmount: false, // <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
@@ -96,3 +182,19 @@ export default reduxForm({
   enableReinitialize: true,
   keepDirtyOnReinitialize: true
 })(AdminToyFormAdmin);
+
+// Decorate with connect to read form values
+const selector = formValueSelector('adminToy'); // <-- same as form name
+AdminToyFormAdmin = connect(
+  state => {
+    // can select values individually
+    const isApproved = selector(state, 'approved');
+    return {
+      isApproved
+    };
+  },{
+  forceOffline: () => change("adminToy", "online", false)
+}
+)(AdminToyFormAdmin);
+
+export default AdminToyFormAdmin;

@@ -1,45 +1,43 @@
 import React, { Component, PropTypes } from 'react';
 import ImageGallery from 'react-image-gallery';
 
+
 class ToysImageGallery extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
-  handleImageLoad(event) {
-    console.log('Image loaded ', event.target);
-  }
-
+  
   render() {
-
-    const images = [
-      {
-        original: 'http://lorempixel.com/1000/600/nature/1/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/1/',
-      },
-      {
-        original: 'http://lorempixel.com/1000/600/nature/2/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/2/'
-      },
-      {
-        original: 'http://lorempixel.com/1000/600/nature/3/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/3/'
-      }
-    ];
+    
+    const { pictures } = this.props;
+    
+    const pics = [];
+    var showThumbnails = true;
+    
+    if (!pictures || pictures.length == 0) {
+      pics.push({
+        original: 'http://via.placeholder.com/400x400?text=Aucune+image'
+        });
+      showThumbnails = false;
+    } else {
+      pictures.map(p => {
+       pics.push({
+        original: p.secure_url,
+        thumbnail: p.eager[2].secure_url
+        });
+      });
+    }
 
     return (
       <ImageGallery
-        items={images}
-        slideInterval={2000}
-        onImageLoad={this.handleImageLoad}/>
+        showPlayButton={false}
+        showFullscreenButton={false}
+        showThumbnails={pics.length > 1}
+        items={pics} />
     );
   }
-
 }
 
+
 ToysImageGallery.propTypes = {
-    
+    pictures: PropTypes.array,
 };
 
 export default ToysImageGallery;

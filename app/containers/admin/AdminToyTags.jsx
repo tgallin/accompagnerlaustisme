@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { deleteToyTag } from '../../actions/toyLibrary';
 
-import styles from 'css/components/toy';
+import styles from 'css/components/toyCreation';
 
 const cx = classNames.bind(styles);
 

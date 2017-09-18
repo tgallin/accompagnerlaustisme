@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { saveToyLibrary } from '../../actions/toyLibrary';
 import { matchesProperty } from '../../utils/arrayUtils';
-import { formatToDate, formatDateToString } from '../../utils/dateUtils';
 
 class AdminToyLibraryLocation extends Component {
 
@@ -24,9 +23,10 @@ handleSubmit = (values) => {
     if (values.openings) {
       values.openings.forEach((op) => {
         var opening = {
-          date: formatToDate(op.date),
-          startTime: op.startTime,
-          endTime: op.endTime
+          // op.date is fomratted as "DD/MM/YYYY"
+          date: moment(op.date, "DD/MM/YYYY"),
+          startTime: moment(op.startTime, "DD/MM/YYYY HH:mm"),
+          endTime: moment(op.endTime, "DD/MM/YYYY HH:mm")
         };
         openings.push(opening);
       });
@@ -68,11 +68,16 @@ handleSubmit = (values) => {
         
         if (toyLibrary.openings) {
           toyLibrary.openings.forEach(op => {
-            var opening = {
-              date: formatDateToString(op.date),
-              startTime: moment(op.startTime),
-              endTime: moment(op.endTime)
-            };
+            var opening = {};
+            if (op.date) {
+              opening.date = moment(op.date).format("DD/MM/YYYY"); 
+            }
+            if (op.startTime) {
+              opening.startTime = moment(op.startTime);
+            }
+            if (op.endTime) {
+              opening.endTime = moment(op.endTime);
+            }
             initialtoyLibraryData.openings.push(opening);
           });
         }

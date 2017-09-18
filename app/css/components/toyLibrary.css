@@ -3,12 +3,13 @@
 
 .header {
   @apply --heading;
-  padding-top: 30px;
+  padding-top: 15px;
   padding-bottom: 15px;
 }
 
 .subheader {
   @apply --subHeading;
+  padding-top: 15px;
   padding-bottom: 15px;
 }
 
@@ -25,17 +26,99 @@
   padding-bottom: 25px;
 }
 
-.content { @apply --normal; }
+.image-a {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 
-ul.list, ol.list {
+.content {
   @apply --normal;
 }
 
-ol.listNoType, ul.listNoType {
+.address {
+  padding-left: 50px;
+  @apply --normal;
+}
+
+.openings {
+  padding-left: 50px;
+}
+
+ul.list,
+ol.list {
+  @apply --normal;
+}
+
+ol.listNoType,
+ul.listNoType {
   list-style-type: none;
   @apply --normal;
 }
 
-.list-item { 
+.list-item {
   padding-bottom: 5px;
+}
+
+
+ul.toy_list.grid>li .toy-container {
+  border: 1px solid #f7f7f7;
+  background: #fff;
+  padding: 0;
+  position: relative;
+  min-height: 350px;
+}
+
+ul.toy_list.grid>li .toy-container:hover {
+  border: 1px solid #e0d9d5;
+}
+
+ul.toy_list.grid>li .toy-container .toy-image-container {
+  border: 0;
+  padding: 0;
+  margin-bottom: 13px;
+  margin-top: 13px;
+  position: relative;
+}
+
+ul.toy_list .toy-image-container {
+  text-align: center;
+}
+
+ul.toy_list .toy-image-container img {
+  margin: 0 auto;
+}
+
+ul.toy_list .toy-name {
+  line-height: 1;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+}
+
+.toy-name {
+  font: 500 18px "Source Sans pro", sans-serif;
+  margin-bottom: 0;
+}
+
+a.toy-name:hover {
+  text-decoration: none;
+}
+
+ul.toy_list.grid {
+  margin-top: 0;
+  margin-bottom: 6.5px;
+  list-style: none;
+}
+
+ul.toy_list.grid>li {
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+
+ul.toy_list.grid>li .toy-container h5 {
+  margin-top: 0;
+  min-height: 40px;
+  margin-bottom: 0;
+  padding: 0 15px 7px 15px;
 }

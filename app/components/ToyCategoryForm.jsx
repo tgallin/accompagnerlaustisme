@@ -7,7 +7,7 @@ import RenderCheckboxesAsButtons from '../components/RenderCheckboxesAsButtons.j
 
 import classNames from 'classnames/bind';
 
-import styles from '../css/components/toy';
+import styles from '../css/components/toyCreation';
 
 const cx = classNames.bind(styles);
 

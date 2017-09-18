@@ -11,6 +11,7 @@ export { default as Formation3_2018} from 'pages/Formation3-2018';
 export { default as Formation4_2018} from 'pages/Formation4-2018';
 export { default as Reseau } from 'pages/Reseau';
 export { default as Ludotheque } from 'pages/Ludotheque';
+export { default as Toy } from 'pages/Toy';
 export { default as About} from 'pages/About';
 export { default as Contact } from 'pages/Contact';
 export { default as Liens } from 'pages/Liens';

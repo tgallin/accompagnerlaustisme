@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { deleteToy, toggleOnlineToy } from '../../actions/toyLibrary';
 import { isToyLibraryCentralized } from '../../../config/app';
 
-import styles from 'css/components/toy';
+import styles from 'css/components/toyCreation';
 import inputStyles from 'css/common/inputs';
 
 const cx = classNames.bind(styles);

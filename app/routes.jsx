@@ -17,6 +17,7 @@ import {
   Formation4_2018,
   Reseau,
   Ludotheque,
+  Toy,
   About,
   Contact,
   Dashboard,
@@ -105,7 +106,9 @@ export default (store) => {
       <Route path="/formations/formation3-2018" component={Formation3_2018} />
       <Route path="/formations/formation4-2018" component={Formation4_2018} />
       <Route path="/reseau" component={Reseau} />
-      <Route path="/ludotheque" component={Ludotheque} fetchData={fetchOnlineToys} />
+      <Route path="/ludotheque" component={Ludotheque} fetchData={fetchOnlineToys}>
+        <Route path="/ludotheque/toys/:id" component={Toy} fetchData={fetchOnlineToys}/>
+      </Route>
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
       <Route path="/liens" component={Liens} />

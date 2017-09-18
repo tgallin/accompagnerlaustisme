@@ -6,4 +6,5 @@ export default function loadModels() {
   require('./user');
   require('./tempUser');
   require('./booking');
+  require('./counter');
 }

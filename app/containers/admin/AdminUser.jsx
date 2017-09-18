@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { matchesProperty } from '../../utils/arrayUtils';
-import { formatToDate, formatDateToString } from '../../utils/dateUtils';
+import moment from 'moment';
 import UserForm from '../../components/UserForm';
 import { connect } from 'react-redux';
 import { saveUser } from '../../actions/adminUsers';
@@ -22,8 +22,8 @@ handleSubmit = (values) => {
     var memberFrom = null;
     var memberTo = null;
     if (member) {
-      memberFrom = formatToDate(values.memberFrom);
-      memberTo = formatToDate(values.memberTo);
+      memberFrom = moment(values.memberFrom, "DD/MM/YYYY");
+      memberTo = moment(values.memberTo, "DD/MM/YYYY");
     }
     
     const legalStatus = values.legalStatus;
@@ -93,8 +93,12 @@ handleSubmit = (values) => {
         initialUserData.admin = user.admin;
         if (user.membership) {
           initialUserData.member = user.membership.member;
-          initialUserData.memberFrom = formatDateToString(user.membership.from);
-          initialUserData.memberTo = formatDateToString(user.membership.to);
+          if (user.membership.from) {
+            initialUserData.memberFrom = moment(user.membership.from).format("DD/MM/YYYY");
+          }
+          if (user.membership.to) {
+            initialUserData.memberTo = moment(user.membership.to).format("DD/MM/YYYY");
+          }
         }
         
         if (user.profile.address) {

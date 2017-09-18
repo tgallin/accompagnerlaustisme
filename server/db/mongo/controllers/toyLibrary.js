@@ -4,7 +4,9 @@ import ToyTag from '../models/toyTag';
 import ToyLibrary from '../models/toyLibrary';
 import User from '../models/user';
 import Booking from '../models/booking';
+import Counter from '../models/counter';
 import fs from 'fs';
+var Sync = require('sync');
 import { uploadImage, destroyImage } from '../../../image/cloudinaryUploader';
 import { indexToy, removeToyFromIndex } from '../../../search/elasticsearch';
 import { isToyLibraryCentralized } from '../../../../config/app';
@@ -344,6 +346,25 @@ function indexationToy(toyId) {
   });
 }
 
+function getNextSequence(counter, callback) {
+  Counter.increment('toy', function (err, result) {
+    if (err) {
+      console.log(err);
+    }
+    callback(null, result.seq);
+  });
+}
+
+function getCategoryName(catId, callback) {
+  if (catId) {
+    ToyCategory.findOne({_id: catId}, (err, existingCat) => {
+      callback(null, existingCat.name);
+    });
+  } else {
+    callback(null, '');
+  }
+}
+
 /**
  * POST /toys creates or updates a toy with provided data
  */
@@ -389,110 +410,143 @@ export function saveToy(req, res) {
 
       if (req.body.toyId !== '') {
         
+        var categoriesArr = req.body.categories && req.body.categories !== '' ? req.body.categories.split(',') : [];
+        var firstCatId = categoriesArr.length > 0 ? categoriesArr[0] : null;
+        
         if (req.body.toyId == 0) {
           
-          var newToy = new Toy();
-          newToy.name = req.body.name;
-          if (req.body.content) {
-            newToy.content = req.body.content;
-          }
-          if (req.body.description) {
-            newToy.description = req.body.description;
-          }
+          // Run in a fiber 
+          Sync(function() {
+              
+            var categoryName = getCategoryName.sync(null, firstCatId);
+            var referencePrefix = categoryName.toUpperCase().substring(0,4) + req.body.name.toUpperCase().substring(0,4);
+            var copies = [];
+            if (req.body.copies) {
+              var formDataCopies = JSON.parse(req.body.copies);
+              if (formDataCopies && formDataCopies.length > 0) {
+                formDataCopies.forEach(copy => {
+                  copies.push(
+                    {
+                     reference:  referencePrefix + getNextSequence.sync(null, 'toy'),
+                     toyLibrary: copy.toyLibraryId && copy.toyLibraryId !== '' ? copy.toyLibraryId : null
+                    }
+                  );
+                });
+              }
+            }
+            return copies;
+            
+          }, function(err, copies) {
+            
+            var newToy = new Toy();
+            newToy.copies = copies;
           
-          newToy.categories = req.body.categories && req.body.categories !== '' ? req.body.categories.split(',') : [];
-          newToy.tags = req.body.tags && req.body.tags !== '' ? req.body.tags.split(',') : [];
-          
-          if (req.body.ownerId) {
-            newToy.owner = req.body.ownerId;
-          } else {
-            newToy.owner = user._id;
-          }
-          
-          if (req.body.approved !== null) {
-            newToy.approved = req.body.approved;
-          } else {
-            newToy.approved = false;
-          }
-          if (req.body.online !== null) {
-            newToy.online = req.body.online;
-          } else {
-            newToy.online = false;
-          }
-          
-          if (req.body.toyLibraryId && req.body.toyLibraryId !== '') {
-            newToy.toyLibrary = req.body.toyLibraryId;
-          }
-
-          newToy.save(function(err) {
-            if (err) {
-              return res.status(500).json({ message: 'Problème technique lors de la création' });
+            newToy.name = req.body.name;
+            if (req.body.content) {
+              newToy.content = req.body.content;
+            }
+            if (req.body.description) {
+              newToy.description = req.body.description;
             }
             
-            var pictures = [];
-            for (var i = 0; i < 4; i++) {
-              addPicture(pictures, req, i, user._id, newToy._id);
+            newToy.categories = categoriesArr;
+            newToy.tags = req.body.tags && req.body.tags !== '' ? req.body.tags.split(',') : [];
+          
+            newToy.owner = req.body.ownerId ? req.body.ownerId : user._id;
+          
+            if (req.body.approved !== null) {
+              newToy.approved = req.body.approved;
+            } else {
+              newToy.approved = false;
+            }
+            if (!newToy.approved) {
+              newToy.online = false;
+            } else {
+              if (req.body.online !== null) {
+                newToy.online = req.body.online;
+              } else {
+                newToy.online = false;
+              }
             }
             
-            // By default, Cloudinary's upload API works synchronously: 
-            // uploaded images are processed and eager transformations 
-            // are generated synchronously during the upload API call,
+            if (req.body.productCode) {
+              newToy.productCode = req.body.productCode;
+            }
             
-            var results = [];
-            uploadImage(pictures[0], function (err, pic1) {
+            if (req.body.comments) {
+              newToy.comments = JSON.parse(req.body.comments);
+            }
+  
+            newToy.save(function(err) {
               if (err) {
-                console.log('problème d\'upload de l\'image ');
+                console.log(err);
+                return res.status(500).json({ message: 'Problème technique lors de la création' });
               }
-              if (pic1 && pic1.public_id) {
-                results.push(pic1);
+              
+              var pictures = [];
+              for (var i = 0; i < 4; i++) {
+                addPicture(pictures, req, i, user._id, newToy._id);
               }
-              uploadImage(pictures[1], function (err, pic2) {
+              
+              // By default, Cloudinary's upload API works synchronously: 
+              // uploaded images are processed and eager transformations 
+              // are generated synchronously during the upload API call,
+              
+              var results = [];
+              uploadImage(pictures[0], function (err, pic1) {
                 if (err) {
                   console.log('problème d\'upload de l\'image ');
                 }
-                if (pic2 && pic2.public_id) {
-                  results.push(pic2);
+                if (pic1 && pic1.public_id) {
+                  results.push(pic1);
                 }
-                uploadImage(pictures[2], function (err, pic3) {
+                uploadImage(pictures[1], function (err, pic2) {
                   if (err) {
                     console.log('problème d\'upload de l\'image ');
                   }
-                  if (pic3 && pic3.public_id) {
-                    results.push(pic3);
+                  if (pic2 && pic2.public_id) {
+                    results.push(pic2);
                   }
-                  uploadImage(pictures[3], function (err, pic4) {
+                  uploadImage(pictures[2], function (err, pic3) {
                     if (err) {
                       console.log('problème d\'upload de l\'image ');
                     }
-                    if (pic4 && pic4.public_id) {
-                      results.push(pic4);
+                    if (pic3 && pic3.public_id) {
+                      results.push(pic3);
                     }
-                    newToy.pictures = results;
-                    newToy.save(function(err) {
+                    uploadImage(pictures[3], function (err, pic4) {
                       if (err) {
-                        console.log('problème lors de la sauvegarde des images du jeu');
+                        console.log('problème d\'upload de l\'image ');
                       }
-                    });
-                    
-                    // delete uploaded images
-                    pictures.forEach((p) => {
-                      removeFile(p);
-                    });
-                    
-                    user.toys.push(newToy._id);
-                    user.save(function(err) {
-                      if (err) {
-                        return res.status(500).json({ message: 'Problème technique lors de l\'ajout du jeu' });
+                      if (pic4 && pic4.public_id) {
+                        results.push(pic4);
                       }
-                      indexationToy(newToy._id);
-                      return res.status(200).json({ toy: newToy, message:  'Jeu créé avec succès' });
+                      newToy.pictures = results;
+                      newToy.save(function(err) {
+                        if (err) {
+                          console.log('problème lors de la sauvegarde des images du jeu');
+                        }
+                      });
+                      
+                      // delete uploaded images
+                      pictures.forEach((p) => {
+                        removeFile(p);
+                      });
+                      
+                      user.toys.push(newToy._id);
+                      user.save(function(err) {
+                        if (err) {
+                          return res.status(500).json({ message: 'Problème technique lors de l\'ajout du jeu' });
+                        }
+                        indexationToy(newToy._id);
+                        return res.status(200).json({ toy: newToy, message:  'Jeu créé avec succès' });
+                      });
                     });
                   });
                 });
               });
             });
           });
-
         } else {
           const query = {
             _id: req.body.toyId
@@ -502,14 +556,46 @@ export function saveToy(req, res) {
             if (err) {
               return res.status(500).json({ message: 'Problème technique lors de la recherche du jeu' });
             }
-    
+            
+            // Run in a fiber 
+          Sync(function() {
+              
+            var categoryName = getCategoryName.sync(null, firstCatId);
+            var referencePrefix = categoryName.toUpperCase().substring(0,4) + req.body.name.toUpperCase().substring(0,4);
+            var copies = [];
+            if (req.body.copies) {
+              var formDataCopies = JSON.parse(req.body.copies);
+              if (formDataCopies && formDataCopies.length > 0) {
+                formDataCopies.forEach(copy => {
+                  copies.push(
+                    {
+                     reference:  (!copy.reference || copy.reference === '') ? referencePrefix + getNextSequence.sync(null, 'toy') : copy.reference,
+                     toyLibrary: copy.toyLibraryId && copy.toyLibraryId !== '' ? copy.toyLibraryId : null
+                    }
+                  );
+                });
+              }
+            }
+            return copies;
+            
+          }, function(err, copies) {
+            
             existingToy.name = req.body.name;
-            if (req.body.content) {
+            
+            existingToy.copies = copies;
+             
+            if (req.body.content && req.body.content !== '') {
               existingToy.content = req.body.content;
+            } else {
+              existingToy.content = null;
             }
-            if (req.body.description) {
+            
+            if (req.body.description && req.body.description !== '') {
               existingToy.description = req.body.description;
+            } else {
+              existingToy.description = null;
             }
+            
             existingToy.categories = req.body.categories && req.body.categories !== '' ? req.body.categories.split(',') : [];
             existingToy.tags = req.body.tags && req.body.tags !== '' ? req.body.tags.split(',') : [];
             
@@ -522,16 +608,30 @@ export function saveToy(req, res) {
             } else {
               existingToy.approved = false;
             }
-            if (req.body.online !== null) {
-              existingToy.online = req.body.online;
-            } else {
+            if (!existingToy.approved) {
               existingToy.online = false;
+            } else {
+              if (req.body.online !== null) {
+                existingToy.online = req.body.online;
+              } else {
+                existingToy.online = false;
+              }
             }
             
             if (req.body.toyLibraryId) {
               existingToy.toyLibrary = req.body.toyLibraryId;
             } else if (existingToy.toyLibrary) {
               existingToy.toyLibrary = null;
+            }
+            
+            if (req.body.productCode) {
+              existingToy.productCode = req.body.productCode;
+            }
+            
+            if (req.body.comments) {
+              existingToy.comments = JSON.parse(req.body.comments);
+            } else {
+              existingToy.comments = null;
             }
             
             existingToy.updated = Date.now();
@@ -605,6 +705,10 @@ export function saveToy(req, res) {
                 });
               });
             });
+            
+          });
+    
+            
           });
         }
       }

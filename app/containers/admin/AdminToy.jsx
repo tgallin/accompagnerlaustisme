@@ -5,6 +5,7 @@ import AdminToyFormCategories from '../../components/AdminToyFormCategories';
 import AdminToyFormTags from '../../components/AdminToyFormTags';
 import AdminToyFormAdmin from '../../components/AdminToyFormAdmin';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { saveToy } from '../../actions/toyLibrary';
 import { matchesProperty, uniq } from '../../utils/arrayUtils';
 
@@ -103,12 +104,44 @@ constructor(props) {
 
     data.append('approved', values.approved);
     data.append('online', values.online);
+    
     if (values.ownerId) {
       data.append('ownerId', values.ownerId);
     }
-    if (values.toyLibraryId) {
-      data.append('toyLibraryId', values.toyLibraryId);
+    
+    if (values.productCode && values.productCode !== '') {
+      data.append('productCode', values.productCode);
+    } else {
+       data.append('productCode', '');
     }
+    
+    var copies = [];
+    if (values.copies && values.copies.length > 0) {
+      values.copies.forEach((c) => {
+        var copy = {
+          reference: c.reference,
+          toyLibraryId: c.toyLibraryId
+        };
+        copies.push(copy);
+      });
+    }
+    data.append('copies', JSON.stringify(copies));
+    
+    var comments = [];
+    console.log(values);
+    if (values.comments && values.comments.length > 0) {
+      values.comments.forEach((c) => {
+        console.log(c.date);
+        console.log(moment(c.date, "DD/MM/YYYY"));
+          var comment = {
+            // op.date is formatted as "DD/MM/YYYY"
+            date: moment(c.date, "DD/MM/YYYY"),
+            comment: c.comment
+          };
+          comments.push(comment);
+      });
+    }
+    data.append('comments', JSON.stringify(comments));
   
     saveToy(data, toyId, '/dashboard/toyLibrary/toys');
   }
@@ -122,6 +155,7 @@ constructor(props) {
         toyId: 0,
         approved: false,
         online: false,
+        copies: [{}]
       };
       
       if (toy) {
@@ -155,7 +189,36 @@ constructor(props) {
         initialtoyData.ownerId = toy.owner.id;
         initialtoyData.owner = toy.owner.profile.displayName;
         initialtoyData.initialOwner = toy.owner;
-        initialtoyData.toyLibraryId = toy.toyLibrary;
+        
+        if (toy.productCode) {
+          initialtoyData.productCode = toy.productCode;
+        }
+        
+        initialtoyData.comments = [];
+        if (toy.comments && toy.comments.length > 0) {
+          toy.comments.forEach(c => {
+            var comment = {
+              date: moment(c.date).format('DD/MM/YYYY'),
+              comment: c.comment
+            };
+            initialtoyData.comments.push(comment);
+          });
+        }
+
+        initialtoyData.copies = [];
+        if (toy.copies && toy.copies.length > 0) {
+          toy.copies.forEach(c => {
+            var copy = {
+              reference: c.reference,
+              toyLibraryId: c.toyLibrary
+            };
+            initialtoyData.copies.push(copy);
+          });
+        } else {
+          initialtoyData.copies.push({
+            reference: ''
+          });
+        }
       }
 
       return initialtoyData;
@@ -229,6 +292,7 @@ constructor(props) {
             onSubmit={this.handleSubmit}
             message={message}
             initialOwner={initialData.initialOwner}
+            initialComments={initialData.comments}
           />}
           
       </div>

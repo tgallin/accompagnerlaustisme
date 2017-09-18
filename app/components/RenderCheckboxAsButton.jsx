@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import classNames from 'classnames/bind';
 
-import styles from '../css/components/toy';
+import styles from '../css/components/toyCreation';
 
 const cx = classNames.bind(styles);
 
