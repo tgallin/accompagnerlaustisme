@@ -124,6 +124,9 @@ export function saveCategory(req, res) {
         if (err) {
           return res.status(500).json({ message: 'Problème technique lors de la recherche du mot clé' });
         }
+        if (!existingCat) {
+          return res.status(500).json({ message: 'Cette catégorie n\'existe plus'});
+        }
 
         existingCat.name = req.body.name;
         existingCat.suggestedTags = req.body.suggestedTags;
@@ -164,6 +167,9 @@ export function saveTag(req, res) {
       ToyTag.findOne(query, (err, existingTag) => {
         if (err) {
           return res.status(500).json({ message: 'Problème technique lors de la recherche du mot clé' });
+        }
+        if (!existingTag) {
+          return res.status(500).json({ message: 'Ce mot clé n\'existe plus'});
         }
 
         existingTag.name = req.body.name;
@@ -214,6 +220,9 @@ export function saveToyLibrary(req, res) {
       ToyLibrary.findOne(query, (err, existingToyLibrary) => {
         if (err) {
           return res.status(500).json({ message: 'Problème technique lors de la recherche du lieu' });
+        }
+        if (!existingToyLibrary) {
+          return res.status(500).json({ message: 'Ce lieu n\'existe plus'});
         }
         
         existingToyLibrary.name = req.body.name;
@@ -556,6 +565,9 @@ export function saveToy(req, res) {
             if (err) {
               return res.status(500).json({ message: 'Problème technique lors de la recherche du jeu' });
             }
+            if (!existingToy) {
+              return res.status(500).json({ message: 'Ce jeu n\'existe plus' });
+            }
             
             // Run in a fiber 
           Sync(function() {
@@ -748,6 +760,9 @@ export function toggleOnline(req, res) {
           if (err) {
             return res.status(500).json({ message: 'Problème technique lors de la recherche du jeu' });
           }
+          if (!existingToy) {
+            return res.status(500).json({ message: 'Ce jeu n\'existe plus' });
+          }
           // toggle the value
           existingToy.online = !existingToy.online;
           
@@ -786,6 +801,9 @@ export function removeToy(req, res) {
       Toy.findOne(query, (err, toy) => {
         if (err) {
           return res.status(500).send('Problème technique lors de la suppression');
+        }
+        if (!toy) {
+          return res.status(500).json({ message: 'Ce jeu n\'existe plus' });
         }
         
         // only the toy's owner or an admin can remove the toy

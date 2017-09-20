@@ -47,8 +47,8 @@ class Ludotheque extends Component {
           <p className={'text-justify ' + cx('content', 'paddingBottom')}>N'hésitez pas à nous contacter si vous souhaitez prêter ou donner des jeux à l’association.</p>
           
           {toyLibraries && toyLibraries.filter(tl => tl.active).length > 0 && 
-          <div>
-            <div className={cx('header')}>Où et quand emprunter</div>
+          <div className={cx('toyLibraries')}>
+            <div className={cx('header')}><span className={cx('image-a')}><img src={aBlue} alt="A bleu"/></span>Où et quand emprunter</div>
             {toyLibraries.filter(tl => tl.active).map((toyLibrary) => (
               <div className={cx('toyLibray')} key={toyLibrary._id}>
                 <div className={cx('address')} dangerouslySetInnerHTML={{__html: (toyLibrary.name + '<br/>' + createAddress(toyLibrary.address))}} />
@@ -69,41 +69,46 @@ class Ludotheque extends Component {
             ))}
           </div>
           }
+          <div className={cx('searchOrBrowseToys')}>
+            <Link className={cx('browseToysLink')} to={'/ludotheque/toys'} title='Accéder au catalogue'>
+              Voir tous les jeux
+            </Link>
+          </div>
           
-          <div>
-            {toys && toys.length > 0 &&
-              <div>
-                <div className={cx('header')}>Les derniers jeux ajoutés <span className={cx('image-a')}><img src={aYellow} alt="A jaune"/></span></div>
-                {
-                  // first 10 toys only
-                  toys.slice(0, 10).map((toy) => (
-                    <div key={toy._id}>
-                      <ul className={cx('toy_list', 'grid')}>
-                        <li className="col-xs-12 col-sm-4 col-md-3">
-                          <div className={cx('toy-container')}>
-                            <div>
-                              <div className={cx('toy-image-container')}>
-                                <Link className={cx('toy_img_link')} to={'/ludotheque/toys/' + toy._id} title={toy.name}>
-                                  <div>{toy.pictures && toy.pictures.length > 0 && <img className="img-responsive" src={toy.pictures[0].eager[2].secure_url} alt={toy.name} title={toy.name} />}</div>
-                                  <div>{(!toy.pictures || toy.pictures.length == 0) && <img src="http://via.placeholder.com/200x200?text=Aucune+image" /> }</div>
-                                </Link>
-                              </div>
-                            </div>
-                            <div>
-                              <h5>
-                                <Link className={cx('toy-name')} to={'/ludotheque/toys/' + toy._id} title={toy.name}>
-                                {toy.name}
-                                </Link>
-                              </h5>
+          
+          {toys && toys.length > 0 &&
+            <div>
+              <div className={cx('header')}>Les derniers jeux ajoutés <span className={cx('image-a')}><img src={aYellow} alt="A jaune"/></span></div>
+              {
+                // first 10 toys only
+                toys.slice(0, 10).map((toy) => (
+                  <div key={toy._id}>
+                    <ul className={cx('toy_list', 'grid')}>
+                      <li className="col-xs-12 col-sm-4 col-md-3">
+                        <div className={cx('toy-container')}>
+                          <div>
+                            <div className={cx('toy-image-container')}>
+                              <Link className={cx('toy_img_link')} to={'/ludotheque/toys/' + toy._id} title={toy.name}>
+                                <div>{toy.pictures && toy.pictures.length > 0 && <img className="img-responsive" src={toy.pictures[0].eager[2].secure_url} alt={toy.name} title={toy.name} />}</div>
+                                <div>{(!toy.pictures || toy.pictures.length == 0) && <img src="http://via.placeholder.com/200x200?text=Aucune+image" /> }</div>
+                              </Link>
                             </div>
                           </div>
-                        </li>
-                      </ul>
-                    </div>
-                ))}
-              </div>
-            }
-          </div>
+                          <div>
+                            <h5>
+                              <Link className={cx('toy-name')} to={'/ludotheque/toys/' + toy._id} title={toy.name}>
+                              {toy.name}
+                              </Link>
+                            </h5>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+              ))}
+            </div>
+          }
+
           
         </div>
       }

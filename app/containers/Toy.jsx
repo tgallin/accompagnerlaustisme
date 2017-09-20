@@ -20,19 +20,19 @@ class Toy extends Component {
     
     var catArr = categories.reduce(( acc, cur ) => acc.concat(cur.name),[]);
 
-    return (<p id="categories"> <span className={cx('cat_label')}>{catArr.length > 1 ? 'Catégories' : 'Catégorie'} :</span> <span>{catArr.join(', ')}</span></p>);
+    return (<div className={cx('toy-details-section')}> <span className={cx('label')}>{catArr.length > 1 ? 'Catégories' : 'Catégorie'} :</span> <span>{catArr.join(', ')}</span></div>);
   }
   
   renderTags(tags) {
     
     var tagArr = tags.reduce(( acc, cur ) => acc.concat(cur.name),[]);
 
-    return (<p id="tags"> <span className={cx('tag_label')}>{tagArr.length > 1 ? 'Mots clés' : 'Mot clé'} :</span> <span>{tagArr.join(', ')}</span></p>);
+    return (<div className={cx('toy-details-section')}> <span className={cx('label')}>{tagArr.length > 1 ? 'Mots clés' : 'Mot clé'} :</span> <span>{tagArr.join(', ')}</span></div>);
   }
 
   render() {
 
-    const { toys, toyId } = this.props;
+    const { toys, toyId, back, searchText } = this.props;
 
     var toy = matchesProperty(toys, ['_id', toyId]);
 
@@ -43,7 +43,10 @@ class Toy extends Component {
           
           <div id="columns" className="container">
           <div className="pull-right">
-           {/* <a href="" name="back"> <i className="fa fa-chevron-left"></i> Retourner aux résultats de la recherche "...."</a> */}
+           {back && back === 'catalog' && <Link to={'/ludotheque/toys'} title='Revenir au catalogue'><i className="fa fa-chevron-left"></i> Retourner au catalogue</Link>
+           }
+           {back && back === 'search' && <Link to={'/ludotheque/toys'} title='Revenir à la recherche'><i className="fa fa-chevron-left"></i> Retourner aux résultats de la recherche "{searchText}"</Link>
+           }
           </div>
           <div className="clearfix"></div>
           <div className="row">
@@ -53,44 +56,27 @@ class Toy extends Component {
                   <div className="col-xs-12 col-sm-4 col-md-5">
                     <ToysImageGallery pictures={toy.pictures} />
                   </div>
-                  <div className={'col-xs-12 col-sm-8 col-md-7 ' + cx('toy-details')}>
-                    <div id="titres">
-                      <h1>{toy.name}</h1>
+                  <div className={'col-xs-12 col-sm-8 col-md-7'}>
+                    <div className={cx('toy-name')}>
+                      {toy.name}
                     </div>
-                    <p id="availability">{toy.available ? <span className={cx('available')}>Disponible</span> : <span className={cx('unavailable')}>Non disponible</span>}</p>
-                    <div id={cx('short_description_block')}>
-                      <div id={cx('short_description_content')}>
-                        {this.renderCategories(toy.categories)}
-                      </div>
-                    </div>
-                    <div id={cx('short_description_block')}>
-                      <div id={cx('short_description_content')}>
-                        {this.renderTags(toy.tags)}
-                      </div>
-                    </div>
+                    <div>{toy.available ? <span className={cx('available')}>Disponible</span> : <span className={cx('unavailable')}>Non disponible</span>}</div>
+                    {this.renderCategories(toy.categories)}
+                    {this.renderTags(toy.tags)}
                     {toy.content &&
-                    <div id={cx('short_description_block')}>
-                      <div id={cx('short_description_content')}>
-                        <div className={cx('descriptionshortshort')}>
-                          <p><strong>Contenu</strong></p>
-                          <p>{toy.content}</p>
-                        </div>
+                      <div className={cx('toy-details-section')}>
+                        <div className={cx('content-header')}>Contenu</div>
+                        <div className={cx('content')}>{toy.content}</div>
                       </div>
-                    </div>
                     }
                     {toy.description &&
-                    <div id={cx('short_description_block')}>
-                      <div id={cx('short_description_content')}>
-                        <div className={cx('descriptionshortshort')}>
-                          <p><strong>Description</strong></p>
-                          <p>{toy.description}</p>
-                        </div>
+                      <div className={cx('toy-details-section')}>
+                        <div className={cx('content-header')}>Description</div>
+                        <div className={cx('content')}>{toy.description}</div>
                       </div>
-                    </div>
                     }
-                    
                     {!toy.available &&
-                    <p id="waiting"> <span className={cx('waiting_label')}>Nombre de personnes sur la liste d'attente :</span> <span>{toy.waiting ? toy.waiting.length : 0}</span></p>
+                      <div> <span className={cx('label')}>Nombre de personnes sur la liste d'attente :</span> <span>{toy.waiting ? toy.waiting.length : 0}</span></div>
                     }
                   </div>
                   {/* 
@@ -180,7 +166,9 @@ Toy.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     toys: state.toyLibrary.toys,
-    toyId: ownProps.params.id
+    toyId: ownProps.params.id,
+    back: ownProps.location.query.back,
+    search: ownProps.location.query.search
   };
 }
 

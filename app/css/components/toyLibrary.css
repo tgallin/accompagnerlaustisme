@@ -122,3 +122,20 @@ ul.toy_list.grid>li .toy-container h5 {
   margin-bottom: 0;
   padding: 0 15px 7px 15px;
 }
+
+
+.toyLibraries {
+  padding: 16px 12px;
+  border-bottom: 2px dotted var(--heading);
+}
+
+.searchOrBrowseToys {
+  text-align: center;
+  font-size: 16px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.browseToysLink {
+  font-size: 32px;
+}

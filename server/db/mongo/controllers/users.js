@@ -395,6 +395,9 @@ export function saveUser(req, res) {
             if (err) {
               return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
             }
+            if (!user) {
+              return res.status(500).json({ message: 'Cet utilisateur n\'existe plus' });
+            }
 
             user.admin = req.body.admin;
             user.membership = {
