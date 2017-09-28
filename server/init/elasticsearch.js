@@ -18,49 +18,12 @@ export default () => {
           name: { "type": "string" },
           content: { "type": "string", "analyzer": "french" },
           description: { "type": "string", "analyzer": "french" },
-          categories: {
-            properties: {
-              _id: { "type": "string", "index": "not_analyzed" },
-              name: { "type": "string" },
-              suggestedTags: { "type": "string", "index": "no" }
-            }
-          },
-          tags: {
-            properties: {
-              _id: { "type": "string", "index": "not_analyzed" },
-              name: { "type": "string" }
-            }
-          },
+          categories: { "type": "string" },
+          tags: { "type": "string" },
           hasPictures: { "type": "boolean" },
-          owner: {
-            properties: {
-              id: { "type": "string", "index": "not_analyzed" },
-              name: { "type": "string" }
-            }
-          },
-          toyLibrary: {
-            properties: {
-              id: { "type": "string", "index": "not_analyzed" },
-              complement1: { "type": "string" },
-              street: { "type": "string" },
-              postalCode: { "type": "integer" },
-              city: { "type": "string" }
-            }
-          },
           online: { "type": "boolean" },
           approved: { "type": "boolean" },
           available: { "type": "boolean" },
-          currentBooking: {
-            properties: {
-              _id: { "type": "string", "index": "no" },
-              borrowedBy: { "type": "string", "index": "not_analyzed" },
-              toy: { "type": "string", "index": "no" },
-              start: { type: Date },
-              end: { type: Date },
-              returned: { type: Date }
-            }
-          },
-          waitingCount: { "type": "short" },
           created: { "type": "date" },
           updated: { "type": "date" }
         }

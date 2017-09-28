@@ -72,7 +72,7 @@ const ToyLibraryForm = (props) => {
         </div>
         <h3>Ouvertures</h3>
         <FieldArray name="openings" component={renderOpenings} />
-        <div className="form-group">
+        <div className={'form-group '+ cx('paddingTop')}>
           <div className="col-sm-offset-4 col-sm-8">
             <Link to="/dashboard/toyLibrary/locations" className={'btn btn-default ' + cx('marginRight', 'marginBottom')}
               disabled={submitting}>

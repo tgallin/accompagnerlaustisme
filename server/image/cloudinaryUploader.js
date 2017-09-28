@@ -11,19 +11,23 @@ export function uploadImage(imageFile, callback) {
     var options = {
       folder: imageFile.folder,
       width: 400,
-      crop: 'scale',
+      height: 400,
+      crop: 'fit',
       quality: 'auto',
       eager: [{
         width: 50,
-        crop: 'scale',
+        height: 50,
+        crop: 'fit',
         quality: 'auto'
       }, {
         width: 120,
-        crop: 'scale',
+        height: 120,
+        crop: 'fit',
         quality: 'auto'
       }, {
         width: 200,
-        crop: 'scale',
+        height: 200,
+        crop: 'fit',
         quality: 'auto'
       }],
       eager_async: true

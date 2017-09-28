@@ -178,6 +178,34 @@ export function deleteToyError(message) {
   };
 }
 
+export function addCatInFilter(data) {
+  return {
+    type: types.ADD_CAT_IN_FILTER,
+    id: data.catId
+  };
+}
+
+export function removeCatFromFilter(data) {
+  return {
+    type: types.REMOVE_CAT_FROM_FILTER,
+    id: data.catId
+  };
+}
+
+export function addTagInFilter(data) {
+  return {
+    type: types.ADD_TAG_IN_FILTER,
+    id: data.tagId
+  };
+}
+
+export function removeTagFromFilter(data) {
+  return {
+    type: types.REMOVE_TAG_FROM_FILTER,
+    id: data.tagId
+  };
+}
+
 export function saveToyCategory(data) {
   return (dispatch, getState) => {
 
@@ -376,3 +404,26 @@ export function toggleOnlineToy(data) {
       });
   };
 }
+
+export function toggleCatFilter(data) {
+  return (dispatch, getState) => {
+
+    const { toyLibrary } = getState();
+
+    var includedInFilter = toyLibrary.filters && toyLibrary.filters.categories && toyLibrary.filters.categories.includes(data.catId);
+    
+    includedInFilter ? dispatch(removeCatFromFilter(data)) : dispatch(addCatInFilter(data));
+  };
+}
+
+export function toggleTagFilter(data) {
+  return (dispatch, getState) => {
+
+    const { toyLibrary } = getState();
+
+    var includedInFilter = toyLibrary.filters && toyLibrary.filters.tags && toyLibrary.filters.tags.includes(data.tagId);
+    
+    includedInFilter ? dispatch(removeTagFromFilter(data)) : dispatch(addTagInFilter(data));
+  };
+}
+

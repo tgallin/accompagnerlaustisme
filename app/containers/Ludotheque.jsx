@@ -70,7 +70,7 @@ class Ludotheque extends Component {
           </div>
           }
           <div className={cx('searchOrBrowseToys')}>
-            <Link className={cx('browseToysLink')} to={'/ludotheque/toys'} title='Accéder au catalogue'>
+            <Link className={'btn btn-info ' + cx('browseToysLink')} to={'/ludotheque/toys'} title='Accéder au catalogue'>
               Voir tous les jeux
             </Link>
           </div>

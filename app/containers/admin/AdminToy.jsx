@@ -128,11 +128,8 @@ constructor(props) {
     data.append('copies', JSON.stringify(copies));
     
     var comments = [];
-    console.log(values);
     if (values.comments && values.comments.length > 0) {
       values.comments.forEach((c) => {
-        console.log(c.date);
-        console.log(moment(c.date, "DD/MM/YYYY"));
           var comment = {
             // op.date is formatted as "DD/MM/YYYY"
             date: moment(c.date, "DD/MM/YYYY"),

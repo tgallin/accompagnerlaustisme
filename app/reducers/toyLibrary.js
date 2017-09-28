@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
+import filters from '../reducers/filters';
 
 const toys = (
   state = [],
@@ -57,7 +58,8 @@ const toyLibraryReducer = combineReducers({
   toys,
   categories,
   tags,
-  toyLibraries
+  toyLibraries,
+  filters
 });
 
 export default toyLibraryReducer;

@@ -80,7 +80,7 @@ const renderCopies = ({ fields, toyLibraries, meta: { error, submitFailed } }) =
           </button>
           }
         </div>
-        <Field name={`${copy}.reference`} type="text" size="2-10" component={RenderField} readOnly="true" label="Référence" placeholder="Référence unique calculée automatiquement"/>
+        <Field name={`${copy}.reference`} type="text" size="2-10" component={RenderField} readOnly="true" label="Référence" placeholder="Ref. calculée automatiquement"/>
         <div className="form-group">
           <label htmlFor="toyLibrary" className="control-label col-sm-2">Lieu</label>
           <div className="col-sm-10">

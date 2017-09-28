@@ -6,7 +6,7 @@ import { isProduction } from '../../config/app';
 var faviconUrl = require("file-loader?name=[name].[ext]!../images/favicon.ico");
 var datePickerCss = require("file-loader?name=datePicker.[ext]!react-date-picker/index.css");
 var timePickerCss = require("file-loader?name=timePicker.[ext]!rc-time-picker/assets/index.css");
-var imageGalleryCss = require("file-loader?name=imageGallery.[ext]!react-image-gallery/styles/css/image-gallery.css");
+var imageGalleryCss = require("file-loader?name=imageGallery.[ext]!../globalcss/image-gallery.css");
 
 const metaAssets = () => {
   return [{

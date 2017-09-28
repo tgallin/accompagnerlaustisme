@@ -36,3 +36,11 @@ export function shallowClone(array) {
 export function uniq(array) {
   return array.filter((v, i, a) => a.indexOf(v) === i);
 }
+
+export function intersect(a, b) {
+    var t;
+    if (b.length > a.length) t = b, b = a, a = t; // indexOf to loop over shorter
+    return a.filter(function (e) {
+        return b.indexOf(e) > -1;
+    });
+}

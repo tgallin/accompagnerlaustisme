@@ -7,6 +7,10 @@ export var client =
   });
 
 export function indexToy(toy) {
+  
+  var catArr = toy.categories ? toy.categories.reduce(( acc, cur ) => acc.concat(cur.name),[]): [];
+  var tagArr = toy.tags ? toy.tags.reduce(( acc, cur ) => acc.concat(cur.name),[]) : [];
+
   client.index({
     index: elasticsearchKeys.indexName,
     type: 'toy',
@@ -15,25 +19,12 @@ export function indexToy(toy) {
       name: toy.name,
       content: toy.content,
       description: toy.description,
-      categories: toy.categories,
-      tags: toy.tags,
+      categories: catArr.join(' '),
+      tags: tagArr.join(' '),
       hasPictures: (toy.pictures && toy.pictures.length > 0),
-      owner: { 
-        id: toy.owner.id, 
-        name: toy.owner.profile.displayName
-      },
-      toyLibrary: toy.toyLibrary ? { 
-        id: toy.toyLibrary.id, 
-        name: toy.toyLibrary.name,
-        street: toy.toyLibrary.address.street,
-        postalCode: toy.toyLibrary.address.postalCode,
-        city: toy.toyLibrary.address.city
-      } : null,
       online: toy.online,
       approved: toy.approved,
       available: toy.available,
-      currentBooking: toy.currentBooking,
-      waitingCount: toy.waiting ? toy.waiting.length : 0,
       created: toy.created,
       updated: toy.updated
     }
@@ -62,9 +53,34 @@ export function removeToyFromIndex(toyId) {
   });
 }
 
+export function searchToys(text) {
+  client.search({
+    index: elasticsearchKeys.indexName,
+    type: 'toy',
+    body: {
+      "query": {
+          "bool": {
+            "should": [
+              { "match": { "name": text }},
+              { "match": { "content": text }},
+              { "match": { "description": text }},
+              { "match": { "categories": text }},
+              { "match": { "tags": text }}
+            ],
+            "filter": [ 
+              { "term":  { "online": true }}
+            ]
+          }
+        }
+    }
+  }, function (error, response) {
+    return response;
+  });
+}
 
 export default {
   client,
   indexToy,
-  removeToyFromIndex
+  removeToyFromIndex,
+  searchToys
 };

@@ -40,8 +40,8 @@ class RenderOwnerInputAutoComplete extends Component {
             <Autocomplete
               {...input}
               value={this.state.value}
-              inputProps={{ id: input.name, size: '38' }}
-              wrapperStyle={{ position: 'relative', display: 'inline-block', width: '328px' }}
+              inputProps={{ id: input.name, size: '32', className: 'form-control' }}
+              wrapperStyle={{ position: 'relative', display: 'inline-block', width: '280px' }}
               items={this.state.users}
               getItemValue={(item) => item.profile.displayName}
               onSelect={(value, user) => {this.setState({ value, users: [user] }); selectUser(user.id);} }
