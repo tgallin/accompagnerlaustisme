@@ -53,10 +53,10 @@ class Toy extends Component {
             <div className="col-xs-12 col-sm-12">
               <div>
                 <div className={'row ' + cx('primary_block')}>
-                  <div className="col-xs-12 col-sm-4 col-md-5">
+                  <div className="col-xs-12 col-sm-7 col-md-6">
                     <ToysImageGallery pictures={toy.pictures} />
                   </div>
-                  <div className={'col-xs-12 col-sm-8 col-md-7'}>
+                  <div className={'col-xs-12 col-sm-5 col-md-6'}>
                     <div className={cx('toy-name')}>
                       {toy.name}
                     </div>

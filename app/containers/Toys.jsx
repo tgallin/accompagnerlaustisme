@@ -47,7 +47,7 @@ class Toys extends Component {
       { !children && 
         <div className="row">
           <ScrollToTopOnMount/>
-          <div className={'col-xs-4 col-sm-3 col-md-2 ' + cx('filters')}>
+          <div className={'col-xs-12 col-sm-4 col-md-3 ' + cx('filters')}>
             <h1>Filtrer</h1>
             <div className={cx('content-header')}>Par catégories :</div>
             <ul className={cx('listNoType')}>
@@ -77,7 +77,7 @@ class Toys extends Component {
             }
             </ul>
           </div>
-          <div className="col-xs-8 col-sm-9 col-md-10">
+          <div className="col-xs-12 col-sm-8 col-md-9">
             {toys && toys.length > 0 &&
               <div>
                 <div className={cx('header')}>Catalogue de jeux</div>
