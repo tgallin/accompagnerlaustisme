@@ -208,6 +208,12 @@
         bottom: 45px;
         font-size: .8em;
         padding: 8px 15px; } }
+    @media (max-width: 400px) {
+      .image-gallery-slide img {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+    } }
 
 .image-gallery-bullets {
   bottom: 20px;

@@ -45,48 +45,59 @@ class Toys extends Component {
     return (
       <div>
       { !children && 
-        <div className="row">
+        <div>
           <ScrollToTopOnMount/>
-          <div className={'col-xs-12 col-sm-4 col-md-3 ' + cx('filters')}>
-            <h1>Filtrer</h1>
-            <div className={cx('content-header')}>Par catégories :</div>
-            <ul className={cx('listNoType')}>
-            {
-              toyCategories.map((cat) => (
-                <li key={cat._id}>
-                <div>
-                  <input type="checkbox" name={'cat_' + cat._id} id={'cat_' + cat._id} className={cx('hide-checkbox')} value={cat.name} checked={catFilters.includes(cat._id)} onClick={() => this.toggleCat(cat._id)}/>
-                  <label htmlFor={'cat_' + cat._id}>{cat.name}</label>
+          <div className="panel-group" id="accordion">
+            <div className="panel panel-default">
+              <div className="panel-heading">
+                <h4 className="panel-title">
+                  <a className="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    Filtrer
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" className="panel-collapse collapse in">
+                <div className="panel-body">
+                  <div className={cx('content-header')}>Par catégories :</div>
+                  <ul className={cx('listNoType')}>
+                  {
+                    toyCategories.map((cat) => (
+                      <li key={cat._id}>
+                      <div>
+                        <input type="checkbox" name={'cat_' + cat._id} id={'cat_' + cat._id} className={cx('hide-checkbox')} value={cat.name} checked={catFilters.includes(cat._id)} onClick={() => this.toggleCat(cat._id)}/>
+                        <label htmlFor={'cat_' + cat._id}>{cat.name}</label>
+                      </div>
+                      </li>
+                    ))
+                  }
+                  </ul>
+                  <div className="clearfix"></div>
+                  <div className={cx('content-header')}>Par mots clés :</div>
+                  <ul className={cx('listNoType')}>
+                  {
+                    toyTags.map((tag) => (
+                      <li key={tag._id}>
+                      <div>
+                        <input type="checkbox" name={'tag_' + tag._id} id={'tag_' + tag._id} className={cx('hide-checkbox')} value={tag.name} checked={tagFilters.includes(tag._id)} onClick={() => this.toggleTag(tag._id)}/>
+                        <label htmlFor={'tag_' + tag._id}>{tag.name}</label>
+                      </div>
+                      </li>
+                    ))
+                  }
+                  </ul>
                 </div>
-                </li>
-              ))
-            }
-            </ul>
-            <div className="clearfix"></div>
-            <div className={cx('content-header')}>Par mots clés :</div>
-            <ul className={cx('listNoType')}>
-            {
-              toyTags.map((tag) => (
-                <li key={tag._id}>
-                <div>
-                  <input type="checkbox" name={'tag_' + tag._id} id={'tag_' + tag._id} className={cx('hide-checkbox')} value={tag.name} checked={tagFilters.includes(tag._id)} onClick={() => this.toggleTag(tag._id)}/>
-                  <label htmlFor={'tag_' + tag._id}>{tag.name}</label>
-                </div>
-                </li>
-              ))
-            }
-            </ul>
+              </div>
+            </div>
           </div>
-          <div className="col-xs-12 col-sm-8 col-md-9">
+          <div>
             {toys && toys.length > 0 &&
               <div>
                 <div className={cx('header')}>Catalogue de jeux</div>
-                
                 {
                   toysToDisplay.map((toy) => (
                     <div key={toy._id}>
                       <ul className={cx('toy_list', 'grid')}>
-                        <li className="col-xs-12 col-sm-4 col-md-5">
+                        <li className="col-xs-12 col-sm-4 col-md-3">
                           <div className={cx('toy-container')}>
                             <div>
                               <div className={cx('toy-image-container')}>

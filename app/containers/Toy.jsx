@@ -42,7 +42,7 @@ class Toy extends Component {
           <ScrollToTopOnMount/>
           
           <div id="columns" className="container">
-          <div className="pull-right">
+          <div className={'pull-right ' + cy('paddingBottom')}>
            {back && back === 'catalog' && <Link to={'/ludotheque/toys'} title='Revenir au catalogue'><i className="fa fa-chevron-left"></i> Retourner au catalogue</Link>
            }
            {back && back === 'search' && <Link to={'/ludotheque/toys'} title='Revenir à la recherche'><i className="fa fa-chevron-left"></i> Retourner aux résultats de la recherche "{searchText}"</Link>
