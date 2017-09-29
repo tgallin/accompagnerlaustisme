@@ -208,7 +208,7 @@
         bottom: 45px;
         font-size: .8em;
         padding: 8px 15px; } }
-    @media (max-width: 400px) {
+    @media (max-width: 480px) {
       .image-gallery-slide img {
         display: block;
         margin: 0 auto;

@@ -76,6 +76,7 @@ ul.toy_list.grid>li .toy-container .toy-image-container {
   padding: 0;
   margin: 13px;
   position: relative;
+  min-height: 200px;
 }
 
 ul.toy_list .toy-image-container {
@@ -111,6 +112,7 @@ ul.toy_list.grid {
 ul.toy_list.grid>li {
   padding-bottom: 20px;
   text-align: center;
+  min-height: 300px;
 }
 
 
