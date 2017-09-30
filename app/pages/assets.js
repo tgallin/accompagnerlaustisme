@@ -2,7 +2,6 @@
 https://github.com/google/web-starter-kit/blob/master/app/index.html
 */
 import { isProduction } from '../../config/app';
-import { google } from '../../config/secrets';
 
 var faviconUrl = require("file-loader?name=[name].[ext]!../images/favicon.ico");
 var datePickerCss = require("file-loader?name=datePicker.[ext]!react-date-picker/index.css");
@@ -12,7 +11,7 @@ var customBootstrapCss = require("file-loader?name=customBootstrap.[ext]!../glob
 
 
 const metaAssets = () => {
-  var metaTags = [{
+  return [{
       charset: 'utf-8'
     },
     // Meta descriptions are commonly used on search engine result pages to
@@ -38,14 +37,6 @@ const metaAssets = () => {
       name: 'viewport',
       content: 'width=device-width, initial-scale=1'
     }];
-    if (google.siteVerification !== '') {
-      metaTags.push({
-          name: 'google-site-verification',
-          content: google.siteVerification
-        }
-      );
-    }
-    return metaTags;
 };
 
 const linkAssets = () => {
