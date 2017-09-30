@@ -3,7 +3,8 @@ export const sessionSecret = process.env.SESSION_SECRET || 'something';
 export const google = {
   clientID: process.env.GOOGLE_CLIENTID || 'something',
   clientSecret: process.env.GOOGLE_SECRET || 'something',
-  callbackURL: process.env.GOOGLE_CALLBACK || 'something'
+  callbackURL: process.env.GOOGLE_CALLBACK || 'something',
+  siteVerification: process.env.GOOGLE_SITE_VERIFICATION || ''
 };
 
 export const facebook = {
