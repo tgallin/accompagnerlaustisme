@@ -17,7 +17,7 @@ class LoginOrRegister extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Formulaire de connexion' }
+      { name: 'description', content: 'Formulaire de connexion. Créez un compte sur le site de l\'association Accompagner l\'autisme pour pouvoir participer aux formations et emprunter des jeux de la ludothèque.'  }
     ];
   }
 

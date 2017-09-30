@@ -17,7 +17,7 @@ class Ludotheque extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Préter et emprunter des jeux' }
+      { name: 'description', content: 'Ludothèque de l\'association accompagner l\'autisme. Dossier d’inscription, bulletin d’adhésion et règlement intérieur. Horaires des permanences. Derniers jeux ajoutés. Accès au catalogue. Recherche' }
     ];
   }
 

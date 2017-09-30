@@ -17,7 +17,7 @@ class Toys extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'catalogue de jeux de la ludothèque accompagner l\'autisme' }
+      { name: 'description', content: 'Catalogue de jeux de la ludothèque Accompagner l\'Autisme' }
     ];
   }
 

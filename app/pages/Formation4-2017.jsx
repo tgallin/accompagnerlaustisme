@@ -17,7 +17,9 @@ class Formation4 extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Formation Entraînement aux Réponses Pivots (PRT)' }
+      { name: 'description', content: `Formation Entraînement aux Réponses Pivots (PRT). 
+      L'objectif de la formation est d'apporter aux parents et aux professionnels des connaissances de base sur l'approche PRT (l'Entraînement Aux Réponses Pivots) 
+      et de les former à utiliser les variables de motivation et l'outil d'autogestion pour promouvoir l'apprentissage du langage chez les adolescents et enfants avec autisme. Ghadeer Barghouthy, Consultante indépendante, certifiée BCBA` }
     ];
   }
 

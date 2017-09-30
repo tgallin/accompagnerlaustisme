@@ -17,7 +17,10 @@ class Formations extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Formations' }
+      { name: 'description', content: `L'association Accompagner l'Autisme organise des formations dispensées par des prestataires certifiés.
+      Ces formations sont conformes aux recommandations de la HAS (Haute Autorité de Santé) et l’Anesm (Agence Nationale de l’Evaluation de la qualité des établissement et Services sociaux et Médico-sociaux).
+      Les formations et sessions de sensibilisation proposées couvrent des thématiques telles que l’adaptation scolaire, le langage, la gestion des troubles du comportement, ..
+      Ces formations sont ouvertes à tous : parents comme professionnels (psychologues, éducateurs spécialisés, AVS, orthophonistes, enseignants,...).` }
     ];
   }
 

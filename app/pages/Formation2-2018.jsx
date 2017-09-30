@@ -17,7 +17,10 @@ class Formation2 extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Formation Enseigner l’écriture aux enfants de maternelle' }
+      { name: 'description', content: `Formation Enseigner l’écriture aux enfants de maternelle. 18 novembre & 19 novembre (matin) 2017. 
+      L’objectif est de prévenir la dysgraphie et les troubles de l’écriture chez les enfants présentant un syndrome autistique.
+      Motricité fine, délier les doigts. Stylos, papier, table et chaise. Latéralisation. Les contingences spatiales. Formes et mouvement. Les erreurs à éviter.
+      Célia CHEYNEL, rééducatrice de l’écriture, formatrice d’enseignants et de rééducateurs` }
     ];
   }
 

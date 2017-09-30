@@ -2,6 +2,7 @@
 https://github.com/google/web-starter-kit/blob/master/app/index.html
 */
 import { isProduction } from '../../config/app';
+import { google } from '../../config/secrets';
 
 var faviconUrl = require("file-loader?name=[name].[ext]!../images/favicon.ico");
 var datePickerCss = require("file-loader?name=datePicker.[ext]!react-date-picker/index.css");
@@ -9,15 +10,16 @@ var timePickerCss = require("file-loader?name=timePicker.[ext]!rc-time-picker/as
 var imageGalleryCss = require("file-loader?name=imageGallery.[ext]!../globalcss/image-gallery.css");
 var customBootstrapCss = require("file-loader?name=customBootstrap.[ext]!../globalcss/custom-bootstrap.css");
 
+
 const metaAssets = () => {
-  return [{
+  var metaTags = [{
       charset: 'utf-8'
     },
     // Meta descriptions are commonly used on search engine result pages to
     // display preview snippets for a given page.
     {
       name: 'description',
-      content: 'Site de l\'Association Accompagner l\'Autisme'
+      content: 'Site de l\'Association Accompagner l\'Autisme, créée en octobre 2016, à Orléans.'
     },
     // Setting IE=edge tells Internet Explorer to use the latest engine to
     //  render the page and execute Javascript
@@ -35,8 +37,15 @@ const metaAssets = () => {
     {
       name: 'viewport',
       content: 'width=device-width, initial-scale=1'
+    }];
+    if (google.siteVerification !== '') {
+      metaTags.push({
+          name: 'google-site-verification',
+          content: google.siteVerification
+        }
+      );
     }
-  ];
+    return metaTags;
 };
 
 const linkAssets = () => {

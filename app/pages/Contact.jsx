@@ -17,7 +17,7 @@ class Contact extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Contact' }
+      { name: 'description', content: 'Formulaire de contact pour nous envoyer un message.' }
     ];
   }
 

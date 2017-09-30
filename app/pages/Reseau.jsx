@@ -17,7 +17,7 @@ class Reseau extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Connaître notre réseau d\'accompagnateurs' }
+      { name: 'description', content: 'Connaître le réseau d\'accompagnateurs de l\'association Accompagner l\'autisme' }
     ];
   }
 

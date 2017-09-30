@@ -17,7 +17,9 @@ class Formation1 extends Component {
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Formation Apprendre à lire et à écrire' }
+      { name: 'description', content: `Formation Apprendre à lire et à écrire. 14 et 15 janvier 2017. Ce cours a pour but de donner les bases nécessaires pour assurer le soutien scolaire d’un élève à besoins particuliers en début de primaire au niveau de l’apprentissage de la lecture et de l’écriture.
+      Vous découvrirez comment l’explication du code, le déchiffrage et la compréhension peuvent être décomposés en étapes pertinentes et adaptées en fonction des particularités de l’élève.
+      Véronique MALLEJAC, Formatrice Epsilon à l’école.` }
     ];
   }
 

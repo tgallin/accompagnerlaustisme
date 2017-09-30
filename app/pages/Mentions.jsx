@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Page from '../pages/Page';
 import MentionsContainer from '../containers/Mentions';
 
+
 class Mentions extends Component {
   getMetaData() {
     return {
