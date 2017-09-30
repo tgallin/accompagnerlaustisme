@@ -22,7 +22,7 @@ module.exports = ({ production = false, browser = false } = {}) => {
     return [
       new webpack.EnvironmentPlugin(['NODE_ENV', 'MONGODB_URI', 
         'SESSION_SECRET', 
-        'GOOGLE_CALLBACK', 'GOOGLE_CLIENTID', 'GOOGLE_SECRET', 'GOOGLE_SITE_VERIFICATION',
+        'GOOGLE_CALLBACK', 'GOOGLE_CLIENTID', 'GOOGLE_SECRET',
         'FACEBOOK_CALLBACK', 'FACEBOOK_CLIENTID', 'FACEBOOK_SECRET',
         'RECAPTCHA_SITE_KEY', 'RECAPTCHA_SECRET_KEY',
         'GMAIL_CLIENTID', 'GMAIL_SECRET', 'GMAIL_REFRESH_TOKEN', 'GMAIL_USER',
@@ -34,7 +34,7 @@ module.exports = ({ production = false, browser = false } = {}) => {
   }
   if (production && browser) {
     return [
-      new webpack.EnvironmentPlugin(['NODE_ENV', 'RECAPTCHA_SITE_KEY', 'RECAPTCHA_SECRET_KEY', 'GOOGLE_ANALYTICS_ID']),
+      new webpack.EnvironmentPlugin(['NODE_ENV', 'RECAPTCHA_SITE_KEY', 'RECAPTCHA_SECRET_KEY', 'GOOGLE_ANALYTICS_ID', 'GOOGLE_SITE_VERIFICATION']),
       new ExtractTextPlugin({
         filename: 'styles/main.css',
         allChunks: true
