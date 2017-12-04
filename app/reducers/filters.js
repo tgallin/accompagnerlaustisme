@@ -1,6 +1,19 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
 
+const expanded = (
+  state = false,
+  action
+) => {
+  switch (action.type) {
+    case types.EXPAND_FILTER:
+      return true;
+    case types.COLLAPSE_FILTER:
+      return false;
+    default:
+      return state;
+  }
+};
 
 const categories = (
   state = [],
@@ -31,6 +44,7 @@ const tags = (
 };
 
 const filtersReducer = combineReducers({
+  expanded,
   categories,
   tags
 });

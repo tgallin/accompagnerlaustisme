@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldArray, reduxForm } from 'redux-form';
 import { Link } from 'react-router';
-import toyValidation from '../js/toyValidation';
+import toyValidation from '../js/validation/toyValidation';
 import RenderCheckboxesAsButtons from '../components/RenderCheckboxesAsButtons.jsx';
 
 import classNames from 'classnames/bind';

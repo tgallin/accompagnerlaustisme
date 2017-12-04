@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import ToyTagForm from '../../components/ToyTagForm';
 import { connect } from 'react-redux';
 import { saveToyTag } from '../../actions/toyLibrary';
-import { matchesProperty } from '../../utils/arrayUtils';
+import { matchesProperty } from '../../js/utils/arrayUtils';
 
 //import styles from 'css/components/adminUsers';
 

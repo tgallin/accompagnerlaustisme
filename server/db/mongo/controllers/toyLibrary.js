@@ -8,7 +8,7 @@ import Counter from '../models/counter';
 import fs from 'fs';
 var Sync = require('sync');
 import { uploadImage, destroyImage } from '../../../image/cloudinaryUploader';
-import { indexToy, removeToyFromIndex } from '../../../search/elasticsearch';
+import { indexToy, removeToyFromIndex, searchToysInIndex } from '../../../search/elasticsearch';
 import { isToyLibraryCentralized } from '../../../../config/app';
 
 /**
@@ -60,6 +60,28 @@ export function allMyToys(req, res) {
       });
     });
   }
+}
+
+/**
+ * POST /toys/search
+ */
+export function searchToys(req, res) {
+  if (req.body.text) {
+    searchToysInIndex(req.body.text, function (err, response) {
+      if (err) {
+        return res.status(500).json({ message: 'Problème lors de la recherche des jeux' });
+      }
+      var toysFound = [];
+      if (response && response.hits && response.hits.total > 0) {
+        toysFound = response.hits.hits;
+      }
+      return res.status(200).json( { text: req.body.text, results: toysFound} );
+    });
+  } else {
+    return res.status(500).json({ message: 'Veuillez renseigner au moins un mot' });
+  }
+  
+
 }
 
 /**
@@ -831,6 +853,7 @@ export default {
   allToys,
   onlineToys,
   allMyToys,
+  searchToys,
   saveToy,
   toggleOnline,
   removeToy,

@@ -1,6 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import { Field } from 'redux-form';
+import { smallToyImageUrl } from '../js/utils/imageUtils';
 
 import classNames from 'classnames/bind';
 import styles from '../css/components/toyCreation';
@@ -92,7 +92,7 @@ const RenderDropzoneInput = ({ input, label, existingPictures, handleRemoveExist
             { existingPictures.map((file, i) => (
               <div className={cx('dz-preview')} key={i}>
                 <div className={cx('dz-image')}>
-                   <img src={file.eager[1].secure_url} />
+                   <img src={smallToyImageUrl(file)} />
                 </div>
                 <div className={cx('dz-details')}>
                   <div className={cx('dz-size-valid')}>

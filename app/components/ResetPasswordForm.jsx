@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import RenderField from '../components/RenderField.jsx';
-import resetPasswordValidation from '../js/resetPasswordValidation';
+import resetPasswordValidation from '../js/validation/resetPasswordValidation';
 
 const ResetPasswordForm = (props) => {
   const { message, handleSubmit, invalid, submitting } = props;

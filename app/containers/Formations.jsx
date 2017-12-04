@@ -38,7 +38,7 @@ const Formations = () => {
       
       <p className={'text-justify ' + cx('content', 'lastPaddingBottom')}>17 & 18 mars 2018 : <Link to="/formations/formation4-2018">Habilités sociales</Link></p>
       
-      <div className={cx('header')}>Formations passées :</div>
+      <div className={cx('header')}>Formations passées</div>
       
       <p className={'text-justify ' + cx('content', 'paddingBottom')}>8 & 9 avril 2017 : <Link to="/formations/formation4-2017"> Entraînement aux Réponses Pivots (PRT)</Link></p>
       

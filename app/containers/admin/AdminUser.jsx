@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
-import { matchesProperty } from '../../utils/arrayUtils';
+import { matchesProperty } from '../../js/utils/arrayUtils';
 import moment from 'moment';
 import UserForm from '../../components/UserForm';
 import { connect } from 'react-redux';

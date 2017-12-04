@@ -1,6 +1,6 @@
 import React from 'react';
 import TimePicker from 'rc-time-picker';
-import { labelColClassName, inputColClassName } from '../utils/componentUtils';
+import { labelColClassName, inputColClassName } from '../js/utils/componentUtils';
 
 const RenderField = ({ input, label, placeholder, help, size, type, meta: { touched, error } }) => (
   <div className={'form-group' + (error && touched ? ' has-error' : '')}>

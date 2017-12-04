@@ -1,5 +1,5 @@
 import React from 'react';
-import { labelColClassName, inputColClassName } from '../utils/componentUtils';
+import { labelColClassName, inputColClassName } from '../js/utils/componentUtils';
 
 const RenderField = ({ input, label, placeholder, help, size, type, readOnly, disabled, meta: { touched, error } }) => (
   <div className={'form-group' + (error && touched ? ' has-error' : '')}>

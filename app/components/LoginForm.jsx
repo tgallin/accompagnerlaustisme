@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import classNames from 'classnames/bind';
 import RenderField from '../components/RenderField.jsx';
-import loginValidation from '../js/loginValidation';
+import loginValidation from '../js/validation/loginValidation';
 
 import styles from '../css/components/login';
 

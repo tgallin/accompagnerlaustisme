@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Page from '../pages/Page';
-import MentionsContainer from '../containers/Mentions';
+import ToysCatalogueContainer from '../containers/ToysCatalogue';
 
-class Mentions extends Component {
+class ToysCatalogue extends Component {
   getMetaData() {
     return {
       title: this.pageTitle(),
@@ -12,12 +12,12 @@ class Mentions extends Component {
   }
 
   pageTitle() {
-    return 'Mentions légales';
+    return 'Catalogue de jeux';
   }
 
   pageMeta() {
     return [
-      { name: 'description', content: 'Mentions légales' }
+      { name: 'description', content: 'Catalogue de jeux de la ludothèque Accompagner l\'Autisme' }
     ];
   }
 
@@ -28,10 +28,11 @@ class Mentions extends Component {
   render() {
     return (
       <Page {...this.getMetaData()}>
-        <MentionsContainer {...this.props} />
+        <ToysCatalogueContainer {...this.props} />
       </Page>
     );
   }
 }
 
-export default Mentions;
+export default ToysCatalogue;
+

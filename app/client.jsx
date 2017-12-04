@@ -8,7 +8,7 @@ import * as types from './types';
 import configureStore from './store/configureStore';
 import { localStorageService } from './services';
 import { typing, getBars } from './actions/bars';
-import fetchDataForRoute from './utils/fetchDataForRoute';
+import fetchDataForRoute from './js/utils/fetchDataForRoute';
 
 
 // Grab the state from a global injected into

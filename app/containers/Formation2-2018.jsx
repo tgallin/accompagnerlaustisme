@@ -102,7 +102,8 @@ const Formation2_2018 = () => {
       <p className={cx('content')}>2-4 rue Gallouedec</p>
       <p className={cx('content', 'paddingBottom')}>45800 St Jean de Braye</p>
       
-      <p className={cx('content', 'lastPaddingBottom')}><Link to="/contact" className="btn btn-info">Inscription obligatoire via le formulaire de contact</Link> validée par le règlement complet 15 jours avant la formation</p>
+      <p className={cx('content')}><Link to="/contact" className={'btn btn-info ' + cx('text-wrap')}>Inscription obligatoire via le formulaire de contact</Link></p>
+      <p className={cx('content', 'lastPaddingBottom')}>validée par le règlement complet 15 jours avant la formation</p>
       
     </div>
   );

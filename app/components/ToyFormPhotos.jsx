@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router';
-import toyValidation from '../js/toyValidation';
+import toyValidation from '../js/validation/toyValidation';
 import RenderDropzoneInput from '../components/RenderDropzoneInput.jsx';
 
 import classNames from 'classnames/bind';

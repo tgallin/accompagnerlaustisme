@@ -18,7 +18,8 @@ import {
   Reseau,
   Ludotheque,
   Toy,
-  Toys,
+  ToysCatalogue,
+  ToysSearchResults,
   About,
   Contact,
   Dashboard,
@@ -108,8 +109,10 @@ export default (store) => {
       <Route path="/formations/formation4-2018" component={Formation4_2018} />
       <Route path="/reseau" component={Reseau} />
       <Route path="/ludotheque" component={Ludotheque} fetchData={fetchOnlineToys}>
-        <Route path="/ludotheque/toys" component={Toys} fetchData={fetchOnlineToys}/>
+        <Route path="/ludotheque/toys" component={ToysCatalogue} fetchData={fetchOnlineToys}/>
         <Route path="/ludotheque/toys/:id" component={Toy} fetchData={fetchOnlineToys}/>
+        <Route path="/ludotheque/search" component={ToysSearchResults} fetchData={fetchOnlineToys}/>
+        <Route path="/ludotheque/search/:id" component={Toy} fetchData={fetchOnlineToys}/>
       </Route>
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
@@ -151,6 +154,7 @@ export default (store) => {
       <Route path="/forgotPassword" component={ForgotPassword} />
       <Route path="/resetPassword/:token" component={ResetPassword} />
       <Route path="/mentionslegales" component={Mentions} />
+      <Route path="*" status={404} component={Home}/>
     </Route>
   );
 };

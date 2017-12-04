@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router';
-import toyValidation from '../js/toyValidation';
+import toyValidation from '../js/validation/toyValidation';
 import RenderField from '../components/RenderField.jsx';
 import RenderTextarea from '../components/RenderTextarea.jsx';
 

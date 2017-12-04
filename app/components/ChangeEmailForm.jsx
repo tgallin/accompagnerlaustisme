@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import RenderField from '../components/RenderField.jsx';
-import changeEmailValidation from '../js/changeEmailValidation';
+import changeEmailValidation from '../js/validation/changeEmailValidation';
 
 
 const ChangeEmailForm = (props) => {

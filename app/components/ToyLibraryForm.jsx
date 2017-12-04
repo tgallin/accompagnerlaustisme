@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import RenderField from '../components/RenderField.jsx';
 import RenderDatePicker from '../components/RenderDatePicker.jsx';
 import RenderTimePicker from '../components/RenderTimePicker.jsx';
-import toyLibraryValidation from '../js/toyLibraryValidation';
+import toyLibraryValidation from '../js/validation/toyLibraryValidation';
 
 import classNames from 'classnames/bind';
 

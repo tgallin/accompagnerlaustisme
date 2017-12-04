@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import contactValidation from '../js/contactValidation';
+import contactValidation from '../js/validation/contactValidation';
 import Captcha from '../components/Captcha.jsx';
 import RenderField from '../components/RenderField.jsx';
 import RenderTextarea from '../components/RenderTextarea.jsx';

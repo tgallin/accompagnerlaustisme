@@ -7,7 +7,7 @@ import AdminToyFormAdmin from '../../components/AdminToyFormAdmin';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { saveToy } from '../../actions/toyLibrary';
-import { matchesProperty, uniq } from '../../utils/arrayUtils';
+import { matchesProperty, uniq } from '../../js/utils/arrayUtils';
 
 class AdminToy extends Component {
 

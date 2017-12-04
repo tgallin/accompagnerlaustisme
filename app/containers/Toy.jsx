@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import {} from '../actions/toyLibrary';
 import ScrollToTopOnMount from '../components/ScrollToTopOnMount';
 import ToysImageGallery from '../components/ToysImageGallery.jsx';
-import { matchesProperty } from '../utils/arrayUtils';
+import ToysSearchForm from './ToysSearchForm';
+import { matchesProperty } from '../js/utils/arrayUtils';
 
 import classNames from 'classnames/bind';
 import styles from 'css/components/toyView';
@@ -40,12 +41,15 @@ class Toy extends Component {
     return (
       <div>
           <ScrollToTopOnMount/>
+          <ToysSearchForm />
           
           <div id="columns" className="container">
           <div className={'pull-right ' + cy('paddingBottom')}>
+           {!back && <Link to={'/ludotheque'} title='Revenir à la ludothèque'><i className="fa fa-chevron-left"></i> Retourner à la ludothèque</Link>
+           }
            {back && back === 'catalog' && <Link to={'/ludotheque/toys'} title='Revenir au catalogue'><i className="fa fa-chevron-left"></i> Retourner au catalogue</Link>
            }
-           {back && back === 'search' && <Link to={'/ludotheque/toys'} title='Revenir à la recherche'><i className="fa fa-chevron-left"></i> Retourner aux résultats de la recherche "{searchText}"</Link>
+           {back && back === 'search' && <Link to={'/ludotheque/search'} title='Revenir à la recherche'><i className="fa fa-chevron-left"></i> Retourner aux résultats de la recherche sur "{searchText}"</Link>
            }
           </div>
           <div className="clearfix"></div>
@@ -160,15 +164,16 @@ class Toy extends Component {
 
 Toy.propTypes = {
   toys: PropTypes.array,
-  toyId: PropTypes.string
+  toyId: PropTypes.string,
+  searchText: PropTypes.string,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     toys: state.toyLibrary.toys,
+    searchText: state.toyLibrary.search.text,
     toyId: ownProps.params.id,
-    back: ownProps.location.query.back,
-    search: ownProps.location.query.search
+    back: ownProps.location.query.back
   };
 }
 

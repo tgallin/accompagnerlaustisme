@@ -44,3 +44,7 @@ ol.listNoType, ul.listNoType {
   padding-left: 20px;
   padding-right: 20px;
 }
+
+.text-wrap {
+  white-space: normal;
+}

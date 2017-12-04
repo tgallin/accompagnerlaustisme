@@ -2,8 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { createAddress } from '../utils/componentUtils';
+import { createAddress } from '../js/utils/componentUtils';
+import { noImageMediumPlaceHolderUrl, mediumToyImageUrl } from '../js/utils/imageUtils';
+import { searchToys } from '../actions/toyLibrary';
 import ScrollToTopOnMount from '../components/ScrollToTopOnMount';
+import ToysSearchForm from './ToysSearchForm';
 import aBlue from '../images/Ableu.png';
 import aYellow from '../images/Ajaune.png';
 import aStripes from '../images/Araye.png';
@@ -21,6 +24,17 @@ moment.locale('fr');
 
 class Ludotheque extends Component {
 
+
+  handleSubmit = (values) => {
+    const {
+      searchToys
+    } = this.props;
+
+    const text = values.searchText;
+    searchToys({text});
+  }
+
+
   render() {
 
     const { toys, toyLibraries, children } = this.props;
@@ -30,6 +44,7 @@ class Ludotheque extends Component {
       { !children && 
         <div>
           <ScrollToTopOnMount/>
+          <ToysSearchForm />
           <div className={cx('header')}><span className={cx('image-a')}><img src={aBlue} alt="A bleu"/></span>L'esprit de la ludothèque AAA</div>
           <p className={'text-justify ' + cx('content', 'paddingBottom')}>Les enfants autistes ont tous une capacité d’apprentissage.
           Pour les aider à apprendre, nous avons recours à des outils ludo-éducatifs pour susciter leur intérêt. Il peut s’agir de jeux ou jouets très basiques mais bien souvent ces outil éducatifs ont une conception bien adaptées aux enfants à besoin spécifique.</p>
@@ -69,13 +84,7 @@ class Ludotheque extends Component {
             ))}
           </div>
           }
-          <div className={cx('searchOrBrowseToys')}>
-            <Link className={'btn btn-info'} to={'/ludotheque/toys'} title='Accéder au catalogue'>
-              <span className={cx('browseToysLink')}>Voir tous les jeux</span>
-            </Link>
-          </div>
-          
-          
+
           {toys && toys.length > 0 &&
             <div>
               <div className={cx('header')}>Les derniers jeux ajoutés <span className={cx('image-a')}><img src={aYellow} alt="A jaune"/></span></div>
@@ -83,14 +92,16 @@ class Ludotheque extends Component {
                 // first 10 toys only
                 toys.slice(0, 10).map((toy) => (
                   <div key={toy._id}>
-                    <ul className={cx('toy_list', 'grid')}>
+                    <ul className={cx('toy-list', 'grid')}>
                       <li className="col-xs-12 col-sm-4 col-md-3">
                         <div className={cx('toy-container')}>
                           <div>
                             <div className={cx('toy-image-container')}>
-                              <Link className={cx('toy_img_link')} to={'/ludotheque/toys/' + toy._id} title={toy.name}>
-                                <div>{toy.pictures && toy.pictures.length > 0 && <img className="img-responsive" src={toy.pictures[0].eager[2].secure_url} alt={toy.name} title={toy.name} />}</div>
-                                <div>{(!toy.pictures || toy.pictures.length == 0) && <img src="http://via.placeholder.com/200x200?text=Aucune+image" /> }</div>
+                              <Link to={'/ludotheque/toys/' + toy._id} title={toy.name}>
+                                <div className={cx('toy-img-link')}>
+                                  {toy.pictures && toy.pictures.length > 0 && <img className="img-responsive" src={mediumToyImageUrl(toy.pictures[0])} alt={toy.name} title={toy.name} />}
+                                  {(!toy.pictures || toy.pictures.length == 0) && <img src={noImageMediumPlaceHolderUrl()}  /> }
+                                </div>
                               </Link>
                             </div>
                           </div>
@@ -108,8 +119,6 @@ class Ludotheque extends Component {
               ))}
             </div>
           }
-
-          
         </div>
       }
       {children}
@@ -121,6 +130,7 @@ class Ludotheque extends Component {
 Ludotheque.propTypes = {
   toys: PropTypes.array,
   toyLibraries: PropTypes.array,
+  searchToys: PropTypes.func.isRequired,
   children: PropTypes.object
 };
 
@@ -133,4 +143,4 @@ function mapStateToProps(state) {
 
 // Read more about where to place `connect` here:
 // https://github.com/rackt/react-redux/issues/75#issuecomment-135436563
-export default connect(mapStateToProps)(Ludotheque);
+export default connect(mapStateToProps, {searchToys})(Ludotheque);

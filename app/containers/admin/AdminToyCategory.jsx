@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import ToyCategoryForm from '../../components/ToyCategoryForm';
 import { connect } from 'react-redux';
 import { saveToyCategory } from '../../actions/toyLibrary';
-import { matchesProperty } from '../../utils/arrayUtils';
+import { matchesProperty } from '../../js/utils/arrayUtils';
 
 //import styles from 'css/components/adminUsers';
 

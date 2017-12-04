@@ -3,7 +3,7 @@ import ToyLibraryForm from '../../components/ToyLibraryForm';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { saveToyLibrary } from '../../actions/toyLibrary';
-import { matchesProperty } from '../../utils/arrayUtils';
+import { matchesProperty } from '../../js/utils/arrayUtils';
 
 class AdminToyLibraryLocation extends Component {
 

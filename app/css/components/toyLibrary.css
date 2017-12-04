@@ -2,9 +2,23 @@
 @import '../common/colors';
 
 .header {
-  @apply --heading;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  color: var(--heading);
+  font-size: 22px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 54px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.resultTitle {
+  color: var(--heading);
+  font-size: 22px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .subheader {
@@ -60,34 +74,34 @@ ul.listNoType {
 }
 
 
-ul.toy_list.grid>li .toy-container {
+ul.toy-list.grid>li .toy-container {
   border: 1px solid #f7f7f7;
   background: #fff;
   padding: 0;
   position: relative;
 }
 
-ul.toy_list.grid>li .toy-container:hover {
+ul.toy-list.grid>li .toy-container:hover {
   border: 1px solid #e0d9d5;
 }
 
-ul.toy_list.grid>li .toy-container .toy-image-container {
+ul.toy-list.grid>li .toy-container .toy-image-container {
   border: 0;
   padding: 0;
-  margin: 13px;
+  margin: 5px;
   position: relative;
   min-height: 200px;
 }
 
-ul.toy_list .toy-image-container {
+ul.toy-list .toy-image-container {
   text-align: center;
 }
 
-ul.toy_list .toy-image-container img {
-  margin: 0 auto;
+ul.toy-list .toy-image-container img {
+  margin: auto;
 }
 
-ul.toy_list .toy-name {
+ul.toy-list .toy-name {
   line-height: 1;
   display: inline-block;
   width: 100%;
@@ -103,20 +117,20 @@ a.toy-name:hover {
   text-decoration: none;
 }
 
-ul.toy_list.grid {
+ul.toy-list.grid {
   margin-top: 0;
   margin-bottom: 6.5px;
   list-style: none;
 }
 
-ul.toy_list.grid>li {
+ul.toy-list.grid>li {
   padding-bottom: 20px;
   text-align: center;
   min-height: 300px;
 }
 
 
-ul.toy_list.grid>li .toy-container h5 {
+ul.toy-list.grid>li .toy-container h5 {
   margin-top: 0;
   min-height: 40px;
   margin-bottom: 0;
@@ -132,12 +146,21 @@ ul.toy_list.grid>li .toy-container h5 {
 .searchOrBrowseToys {
   text-align: center;
   font-size: 16px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
+}
+
+.searchOrBrowseSection {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: inline-block;
 }
 
 .browseToysLink {
-  font-size: 32px;
+  font-size: 28px;
+}
+
+.smallBrowseToysLink {
+  font-size: 16px;
 }
 
 .hide-checkbox {
@@ -191,4 +214,25 @@ ul.toy_list.grid>li .toy-container h5 {
 ul.listNoType {
   list-style-type: none;
   padding-left: 5px;
+}
+
+.toy-img-link {
+  display: flex;
+  min-height: 200px;
+}
+
+.search-control {
+  margin: 0 5px;
+}
+
+@media (max-width: 767px) {
+  .search-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    padding: 0;
+  }
+  .search-label {
+    width: 100%;
+  }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router';
-import toyTagValidation from '../js/toyTagValidation';
+import toyTagValidation from '../js/validation/toyTagValidation';
 import RenderField from '../components/RenderField.jsx';
 
 import classNames from 'classnames/bind';

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Link } from 'react-router';
-import userValidation from '../js/userValidation';
+import userValidation from '../js/validation/userValidation';
 
 import RenderDatePicker from './RenderDatePicker.jsx';
 import RenderField from './RenderField.jsx';

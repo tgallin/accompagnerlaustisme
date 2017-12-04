@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ImageGallery from 'react-image-gallery';
+import { noImageLargePlaceHolderUrl, mediumToyImageUrl, largeToyImageUrl } from '../js/utils/imageUtils';
 
 
 class ToysImageGallery extends Component {
@@ -9,18 +10,16 @@ class ToysImageGallery extends Component {
     const { pictures } = this.props;
     
     const pics = [];
-    var showThumbnails = true;
     
     if (!pictures || pictures.length == 0) {
       pics.push({
-        original: 'http://via.placeholder.com/400x400?text=Aucune+image'
+        original: noImageLargePlaceHolderUrl()
         });
-      showThumbnails = false;
     } else {
       pictures.map(p => {
        pics.push({
-        original: p.secure_url,
-        thumbnail: p.eager[2].secure_url
+        original: largeToyImageUrl(p),
+        thumbnail: mediumToyImageUrl(p)
         });
       });
     }

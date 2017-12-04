@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import RenderField from '../components/RenderField.jsx';
 import RenderDateOfBirthField from '../components/RenderDateOfBirthField.jsx';
-import personalDataValidation from '../js/personalDataValidation';
+import personalDataValidation from '../js/validation/personalDataValidation';
 
 
 const PersonalDataForm = (props) => {

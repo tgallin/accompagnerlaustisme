@@ -3,7 +3,7 @@ import { change } from 'redux-form';
 import { connect } from 'react-redux';
 import Autocomplete from 'react-autocomplete';
 import { fetchUsersByName } from '../fetch-data/fetchUsersData';
-import { labelColClassName, inputColClassName } from '../utils/componentUtils';
+import { labelColClassName, inputColClassName } from '../js/utils/componentUtils';
 
 import classNames from 'classnames/bind';
 

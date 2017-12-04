@@ -5,7 +5,7 @@ import ToyFormCategories from '../../components/ToyFormCategories';
 import ToyFormTags from '../../components/ToyFormTags';
 import { connect } from 'react-redux';
 import { saveToy } from '../../actions/toyLibrary';
-import { matchesProperty, uniq } from '../../utils/arrayUtils';
+import { matchesProperty, uniq } from '../../js/utils/arrayUtils';
 
 class MyToy extends Component {
 

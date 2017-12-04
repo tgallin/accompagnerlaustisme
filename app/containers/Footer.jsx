@@ -4,8 +4,8 @@ import classNames from 'classnames/bind';
 import styles from '../css/components/footer';
 import facebookLogo from '../images/FB-f-Logo__blue_29.png';
 
-var ie10WorkaroundUrl = require("file-loader?name=js/[name].[ext]!../js/ie10-viewport-bug-workaround.js");
-var polyfills = require("file-loader?name=js/[name].[ext]!../js/polyfills.js");
+var ie10WorkaroundUrl = require("file-loader?name=js/[name].[ext]!../js/compatibility/ie10-viewport-bug-workaround.js");
+var polyfills = require("file-loader?name=js/[name].[ext]!../js/compatibility/polyfills.js");
 var customExternal = require("file-loader?name=js/[name].[ext]!../js/custom.js");
 
 const cx = classNames.bind(styles);

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Field, change, FieldArray, reduxForm, formValueSelector } from 'redux-form';
 import moment from 'moment';
 import { Link } from 'react-router';
-import { createAddress } from '../utils/componentUtils';
+import { createAddress } from '../js/utils/componentUtils';
 import RenderOwnerInputAutoComplete from './RenderOwnerInputAutoComplete.jsx';
 import RenderTextarea from './RenderTextarea.jsx';
 import RenderField from './RenderField.jsx';
-import adminToyValidation from '../js/adminToyValidation';
+import adminToyValidation from '../js/validation/adminToyValidation';
 
 moment.locale('fr');
 

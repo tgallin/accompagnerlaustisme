@@ -206,6 +206,40 @@ export function removeTagFromFilter(data) {
   };
 }
 
+export function expandFilter() {
+  return {
+    type: types.EXPAND_FILTER,
+  };
+}
+
+export function collapseFilter() {
+  return {
+    type: types.COLLAPSE_FILTER,
+  };
+}
+
+export function beginSearchToys(text) {
+  return { 
+    type: types.TOY_SEARCH,
+    text: text
+  };
+}
+
+export function searchToysSuccess(data) {
+  return {
+    type: types.TOY_SEARCH_SUCCESS,
+    text: data.text,
+    results: data.results
+  };
+}
+
+export function searchToysError(message) {
+  return {
+    type: types.TOY_SEARCH_ERROR,
+    message
+  };
+}
+
 export function saveToyCategory(data) {
   return (dispatch, getState) => {
 
@@ -386,6 +420,26 @@ export function deleteToy(id) {
   };
 }
 
+export function searchToys(data) {
+  return (dispatch) => {
+    
+    dispatch(beginSearchToys(data.text));
+
+    return makeRequest('post', data, '/toys/search')
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(searchToysSuccess(response.data));
+          dispatch(push('/ludotheque/search'));
+        } else {
+          dispatch(searchToysError('Oops! Something went wrong!'));
+        }
+      })
+      .catch(err => {
+        dispatch(searchToysError(getMessage(err)));
+      });
+  };
+}
+
 export function toggleOnlineToy(data) {
   return (dispatch) => {
     
@@ -424,6 +478,15 @@ export function toggleTagFilter(data) {
     var includedInFilter = toyLibrary.filters && toyLibrary.filters.tags && toyLibrary.filters.tags.includes(data.tagId);
     
     includedInFilter ? dispatch(removeTagFromFilter(data)) : dispatch(addTagInFilter(data));
+  };
+}
+
+export function toggleFilterPanel() {
+  return (dispatch, getState) => {
+
+    const { toyLibrary } = getState();
+
+    toyLibrary.filters.expanded ? dispatch(collapseFilter()) : dispatch(expandFilter());
   };
 }
 

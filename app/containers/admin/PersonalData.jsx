@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import PersonalDataForm from '../../components/PersonalDataForm';
 import { connect } from 'react-redux';
-import { padStart } from '../../utils/stringUtils';
+import { padStart } from '../../js/utils/stringUtils';
 import { updatePersonalData } from '../../actions/users';
 
 class PersonalData extends Component {

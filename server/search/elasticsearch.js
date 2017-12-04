@@ -53,13 +53,14 @@ export function removeToyFromIndex(toyId) {
   });
 }
 
-export function searchToys(text) {
+export function searchToysInIndex(text, callback) {
   client.search({
     index: elasticsearchKeys.indexName,
     type: 'toy',
     body: {
       "query": {
           "bool": {
+            "minimum_should_match": 1,
             "should": [
               { "match": { "name": text }},
               { "match": { "content": text }},
@@ -74,7 +75,10 @@ export function searchToys(text) {
         }
     }
   }, function (error, response) {
-    return response;
+    if (error) {
+      console.log(error);
+    }
+    callback(null, response);
   });
 }
 
@@ -82,5 +86,5 @@ export default {
   client,
   indexToy,
   removeToyFromIndex,
-  searchToys
+  searchToysInIndex
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import RenderField from '../components/RenderField.jsx';
-import forgotPasswordValidation from '../js/forgotPasswordValidation';
+import forgotPasswordValidation from '../js/validation/forgotPasswordValidation';
 
 const ForgotPasswordForm = (props) => {
   const { message, handleSubmit, submitting } = props;

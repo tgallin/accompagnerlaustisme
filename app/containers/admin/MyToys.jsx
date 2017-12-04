@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { deleteToy, toggleOnlineToy } from '../../actions/toyLibrary';
+import { thumbnailToyImageUrl } from '../../js/utils/imageUtils';
 import { isToyLibraryCentralized } from '../../../config/app';
 
 import styles from 'css/components/toyCreation';
@@ -121,7 +122,7 @@ class MyToys extends Component {
                   toys.map((toy, index) => 
                     <tr key={toy._id}>
                       <td className="col-md-2">{toy.name}</td>
-                      <td className="col-md-2">{toy.pictures && toy.pictures.length > 0 ? <img src={toy.pictures[0].eager[0].secure_url} /> : ''}</td>
+                      <td className="col-md-2">{toy.pictures && toy.pictures.length > 0 ? <img src={thumbnailToyImageUrl(toy.pictures[0])} /> : ''}</td>
                       <td className="col-md-2">{toy.approved ? 'Oui' : 'Non'}</td>
                       {toy.approved && 
                         <td className="col-md-2">

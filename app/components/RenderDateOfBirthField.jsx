@@ -2,7 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 import classNames from 'classnames/bind';
 import styles from '../css/common/inputs';
-import { padStart } from '../utils/stringUtils';
+import { padStart } from '../js/utils/stringUtils';
 
 
 const cx = classNames.bind(styles);

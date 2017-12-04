@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import RenderField from '../components/RenderField.jsx';
 import Captcha from '../components/Captcha.jsx';
-import registerValidation from '../js/registerValidation';
+import registerValidation from '../js/validation/registerValidation';
 
 
 const RegisterForm = (props) => {

@@ -25,78 +25,81 @@ const isWaiting = (
   action
 ) => {
   switch (action.type) {
-    case types.MANUAL_LOGIN_USER:
-    case types.SIGNUP_USER:
-    case types.LOGOUT_USER:
-    case types.SEND_MESSAGE:
-    case types.INIT_RESET_PASSWORD:
+    case types.ADMIN_TOY_CAT_DELETE:
+    case types.ADMIN_TOY_CAT_SAVE:
+    case types.ADMIN_TOY_LIB_DELETE:
+    case types.ADMIN_TOY_LIB_SAVE:
+    case types.ADMIN_TOY_SAVE:
+    case types.ADMIN_TOY_TAG_DELETE:
+    case types.ADMIN_TOY_TAG_SAVE:
+    case types.ADMIN_USER_DELETE:
+    case types.ADMIN_USER_SAVE:
     case types.COMPLETE_RESET_PASSWORD:
-    case types.UPDATE_PERSONAL_DATA:
+    case types.INIT_RESET_PASSWORD:
+    case types.LOGOUT_USER:
+    case types.MANUAL_LOGIN_USER:
+    case types.SEND_MESSAGE:
+    case types.SIGNUP_USER:
+    case types.TOY_DELETE:
+    case types.TOY_SAVE:
+    case types.TOY_SEARCH:
     case types.UPDATE_CONTACT_DETAILS:
     case types.UPDATE_EMAIL:
     case types.UPDATE_PASSWORD:
-    case types.ADMIN_USER_SAVE:
-    case types.ADMIN_USER_DELETE:
-    case types.ADMIN_TOY_SAVE:
-    case types.ADMIN_TOY_CAT_SAVE:
-    case types.ADMIN_TOY_TAG_SAVE:
-    case types.ADMIN_TOY_LIB_SAVE:
-    case types.ADMIN_TOY_CAT_DELETE:
-    case types.ADMIN_TOY_TAG_DELETE:
-    case types.ADMIN_TOY_LIB_DELETE:
-    case types.TOY_SAVE:
-    case types.TOY_DELETE:
+    case types.UPDATE_PERSONAL_DATA:
       return true;
-    case types.LOGIN_SUCCESS_USER:
-    case types.SIGNUP_SUCCESS_USER:
-    case types.LOGOUT_SUCCESS_USER:
-    case types.SEND_MESSAGE_SUCCESS:
-    case types.INIT_RESET_PASSWORD_SUCCESS:
-    case types.COMPLETE_RESET_PASSWORD_SUCCESS:
-    case types.UPDATE_PERSONAL_DATA_SUCCESS:  
-    case types.UPDATE_CONTACT_DETAILS_SUCCESS:
-    case types.UPDATE_EMAIL_SUCCESS:
-    case types.UPDATE_PASSWORD_SUCCESS:
-    case types.ADMIN_USER_CREATE_SUCCESS:
-    case types.ADMIN_USER_UPDATE_SUCCESS:
-    case types.ADMIN_USER_DELETE_SUCCESS:
-    case types.ADMIN_TOY_CREATE_SUCCESS:
     case types.ADMIN_TOY_CAT_CREATE_SUCCESS:
-    case types.ADMIN_TOY_TAG_CREATE_SUCCESS:
-    case types.ADMIN_TOY_LIB_CREATE_SUCCESS:
-    case types.ADMIN_TOY_UPDATE_SUCCESS:
-    case types.ADMIN_TOY_CAT_UPDATE_SUCCESS:
-    case types.ADMIN_TOY_TAG_UPDATE_SUCCESS:
-    case types.ADMIN_TOY_LIB_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_CAT_DELETE_ERROR:
     case types.ADMIN_TOY_CAT_DELETE_SUCCESS:
-    case types.ADMIN_TOY_TAG_DELETE_SUCCESS:  
-    case types.ADMIN_TOY_LIB_DELETE_SUCCESS:
-    case types.TOY_CREATE_SUCCESS:
-    case types.TOY_UPDATE_SUCCESS:
-    case types.TOY_DELETE_SUCCESS:
-    case types.LOGIN_ERROR_USER:
-    case types.SIGNUP_ERROR_USER:
-    case types.LOGOUT_ERROR_USER:
-    case types.SEND_MESSAGE_ERROR:
-    case types.INIT_RESET_PASSWORD_ERROR:
-    case types.COMPLETE_RESET_PASSWORD_ERROR:
-    case types.UPDATE_PERSONAL_DATA_ERROR:
-    case types.UPDATE_CONTACT_DETAILS_ERROR:
-    case types.UPDATE_EMAIL_ERROR:
-    case types.UPDATE_PASSWORD_ERROR:
-    case types.ADMIN_USER_SAVE_ERROR:
-    case types.ADMIN_USER_DELETE_ERROR:
-    case types.ADMIN_TOY_SAVE_ERROR:
     case types.ADMIN_TOY_CAT_DUPLICATE:
     case types.ADMIN_TOY_CAT_SAVE_ERROR:
-    case types.ADMIN_TOY_CAT_DELETE_ERROR:
+    case types.ADMIN_TOY_CAT_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_CREATE_SUCCESS:
+    case types.ADMIN_TOY_LIB_CREATE_SUCCESS:
+    case types.ADMIN_TOY_LIB_DELETE_ERROR:
+    case types.ADMIN_TOY_LIB_DELETE_SUCCESS:
+    case types.ADMIN_TOY_LIB_SAVE_ERROR:
+    case types.ADMIN_TOY_LIB_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_SAVE_ERROR:
+    case types.ADMIN_TOY_TAG_CREATE_SUCCESS:
+    case types.ADMIN_TOY_TAG_DELETE_ERROR:
+    case types.ADMIN_TOY_TAG_DELETE_SUCCESS:  
     case types.ADMIN_TOY_TAG_DUPLICATE:
     case types.ADMIN_TOY_TAG_SAVE_ERROR:
-    case types.ADMIN_TOY_TAG_DELETE_ERROR:
-    case types.ADMIN_TOY_LIB_SAVE_ERROR:
-    case types.ADMIN_TOY_LIB_DELETE_ERROR:
-    case types.TOY_SAVE_ERROR:
+    case types.ADMIN_TOY_TAG_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_UPDATE_SUCCESS:
+    case types.ADMIN_USER_CREATE_SUCCESS:
+    case types.ADMIN_USER_DELETE_ERROR:
+    case types.ADMIN_USER_DELETE_SUCCESS:
+    case types.ADMIN_USER_SAVE_ERROR:
+    case types.ADMIN_USER_UPDATE_SUCCESS:
+    case types.COMPLETE_RESET_PASSWORD_ERROR:
+    case types.COMPLETE_RESET_PASSWORD_SUCCESS:
+    case types.INIT_RESET_PASSWORD_ERROR:
+    case types.INIT_RESET_PASSWORD_SUCCESS:
+    case types.LOGIN_ERROR_USER:
+    case types.LOGIN_SUCCESS_USER:
+    case types.LOGOUT_ERROR_USER:
+    case types.LOGOUT_SUCCESS_USER:
+    case types.SEND_MESSAGE_ERROR:
+    case types.SEND_MESSAGE_SUCCESS:
+    case types.SIGNUP_ERROR_USER:
+    case types.SIGNUP_SUCCESS_USER:
+    case types.TOY_CREATE_SUCCESS:
     case types.TOY_DELETE_ERROR:
+    case types.TOY_DELETE_SUCCESS:
+    case types.TOY_SAVE_ERROR:
+    case types.TOY_SEARCH_ERROR:
+    case types.TOY_SEARCH_SUCCESS:
+    case types.TOY_UPDATE_SUCCESS:
+    case types.UPDATE_CONTACT_DETAILS_ERROR:
+    case types.UPDATE_CONTACT_DETAILS_SUCCESS:
+    case types.UPDATE_EMAIL_ERROR:
+    case types.UPDATE_EMAIL_SUCCESS:
+    case types.UPDATE_PASSWORD_ERROR:
+    case types.UPDATE_PASSWORD_SUCCESS:
+    case types.UPDATE_PERSONAL_DATA_ERROR:
+    case types.UPDATE_PERSONAL_DATA_SUCCESS:
       return false;
     default:
       return state;
