@@ -227,10 +227,10 @@ ul.listNoType {
 
 @media (max-width: 767px) {
   .search-control {
-    display: inline-block;
-    width: auto;
+    display: inline-block !important;
+    width: auto !important;
     vertical-align: middle;
-    padding: 0;
+    padding: 0 !important;
   }
   .search-label {
     width: 100%;

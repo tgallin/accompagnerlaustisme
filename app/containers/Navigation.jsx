@@ -52,12 +52,12 @@ class Navigation extends Component {
         </div>
         <div id="navbar" className="navbar-collapse collapse">
           <ul className="nav navbar-nav">
-            <li><Link to="/formations" activeClassName={cx('active')}><img src={star} className={cx('star')}/>Formations</Link></li>
-            <li><Link to="/reseau"activeClassName={cx('active')}><img src={star} className={cx('star')}/>Réseau</Link></li>
-            <li><Link to="/ludotheque"activeClassName={cx('active')}><img src={star} className={cx('star')}/>Ludothèque</Link></li>
-            <li><Link to="/about" activeClassName={cx('active')}><img src={star} className={cx('star')} />Qui sommes nous</Link></li>
-            <li><Link to="/contact" activeClassName={cx('active')}><img src={star} className={cx('star')}/>Contact</Link></li>
-            <li><Link to="/liens" activeClassName={cx('active')}><img src={star} className={cx('star')}/>Liens</Link></li>
+            <li><Link to="/formations" className={cx('navbar-nav-link')} activeClassName={cx('active')}><img src={star} className={cx('star')}/>Formations</Link></li>
+            <li><Link to="/reseau" className={cx('navbar-nav-link')} activeClassName={cx('active')}><img src={star} className={cx('star')}/>Réseau</Link></li>
+            <li><Link to="/ludotheque" className={cx('navbar-nav-link')} activeClassName={cx('active')}><img src={star} className={cx('star')}/>Ludothèque</Link></li>
+            <li><Link to="/about" className={cx('navbar-nav-link')} activeClassName={cx('active')}><img src={star} className={cx('star')} />Qui sommes nous</Link></li>
+            <li><Link to="/contact" className={cx('navbar-nav-link')} activeClassName={cx('active')}><img src={star} className={cx('star')}/>Contact</Link></li>
+            <li><Link to="/liens" className={cx('navbar-nav-link')} activeClassName={cx('active')}><img src={star} className={cx('star')}/>Liens</Link></li>
           </ul>
             { this.renderRightNav() }
         </div>

@@ -24,3 +24,10 @@ a.active:hover {
     padding-right: 2px;
     vertical-align: top;
 }
+
+@media (max-width: 992px) and (min-width: 768px) {
+    .navbar-nav-link {
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+    }
+}
