@@ -41,4 +41,6 @@ export { default as AdminToyLibraryLocations} from 'pages/admin/AdminToyLibraryL
 export { default as AdminToyLibraryLocation} from 'pages/admin/AdminToyLibraryLocation';
 export { default as AdminToyTags} from 'pages/admin/AdminToyTags';
 export { default as AdminToyTag} from 'pages/admin/AdminToyTag';
+export { default as AdminToyBookings} from 'pages/admin/AdminToyBookings';
+export { default as AdminToyBooking} from 'pages/admin/AdminToyBooking';
 export { default as Mentions} from 'pages/Mentions';

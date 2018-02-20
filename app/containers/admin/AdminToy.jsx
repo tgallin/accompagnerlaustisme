@@ -120,7 +120,8 @@ constructor(props) {
       values.copies.forEach((c) => {
         var copy = {
           reference: c.reference,
-          toyLibraryId: c.toyLibraryId
+          toyLibraryId: c.toyLibraryId,
+          currentBookingId: c.currentBookingId
         };
         copies.push(copy);
       });
@@ -207,7 +208,8 @@ constructor(props) {
           toy.copies.forEach(c => {
             var copy = {
               reference: c.reference,
-              toyLibraryId: c.toyLibrary
+              toyLibraryId: c.toyLibrary,
+              currentBookingId: c.currentBooking
             };
             initialtoyData.copies.push(copy);
           });
@@ -290,11 +292,12 @@ constructor(props) {
             message={message}
             initialOwner={initialData.initialOwner}
             initialComments={initialData.comments}
+            initialCopies={initialData.copies}
           />}
           
       </div>
       );
-  };
+  }
 }
 
 AdminToy.propTypes = {

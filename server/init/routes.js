@@ -88,6 +88,7 @@ export default (app) => {
   // toys routes
   if (toyLibraryController) {
     app.get('/toys', toyLibraryController.allToys);
+    app.get('/toys/nameOrRef/:nameOrRef', toyLibraryController.getToysByNameOrRef);
     app.get('/onlinetoys', toyLibraryController.onlineToys);
     app.get('/mytoys', toyLibraryController.allMyToys);
    // app.get('/toys/:id', toyLibraryController.findToy);
@@ -102,9 +103,13 @@ export default (app) => {
     app.get('/toys/tags', toyLibraryController.allTags);
     app.post('/toys/tag', toyLibraryController.saveTag);
     app.delete('/toys/tag/:id', toyLibraryController.removeTag);
-    app.get('/toys/toyLibraries', toyLibraryController.allToyLibraries);
-    app.post('/toys/toyLibrary', toyLibraryController.saveToyLibrary);
-    app.delete('/toys/toyLibrary/:id', toyLibraryController.removeToyLibrary);
+    app.get('/toys/toylibraries', toyLibraryController.allToyLibraries);
+    app.post('/toys/toylibrary', toyLibraryController.saveToyLibrary);
+    app.delete('/toys/toylibrary/:id', toyLibraryController.removeToyLibrary);
+    app.get('/toys/bookings', toyLibraryController.allToyBookings);
+    app.post('/toys/booking', toyLibraryController.saveToyBooking);
+    app.delete('/toys/booking/:id', toyLibraryController.removeToyBooking);
+    app.get('/mytoybookings', toyLibraryController.allMyToyBookings);
   }
   else {
     console.warn(unsupportedMessage('toys routes'));

@@ -83,6 +83,26 @@ export function saveToyLibraryError(message) {
   };
 }
 
+export function beginSaveToyBooking() {
+  return { type: types.ADMIN_TOY_BOOKING_SAVE };
+}
+
+export function saveToyBookingSuccess(data, action) {
+  return {
+    type: action,
+    message: data.message,
+    toyBooking: data.toyBooking
+  };
+}
+
+export function saveToyBookingError(message) {
+  return {
+    type: types.ADMIN_TOY_BOOKING_SAVE_ERROR,
+    message
+  };
+}
+
+
 export function beginDeleteCat() {
   return { type: types.ADMIN_TOY_CAT_DELETE };
 }
@@ -136,6 +156,25 @@ export function deleteToyLibrarySuccess(data) {
 export function deleteToyLibraryError(message) {
   return {
     type: types.ADMIN_TOY_LIB_DELETE_ERROR,
+    message
+  };
+}
+
+export function beginDeleteToyBooking() {
+  return { type: types.ADMIN_TOY_BOOKING_DELETE };
+}
+
+export function deleteToyBookingSuccess(data) {
+  return {
+    type: types.ADMIN_TOY_BOOKING_DELETE_SUCCESS,
+    message: data.message,
+    id: data.id
+  };
+}
+
+export function deleteToyBookingError(message) {
+  return {
+    type: types.ADMIN_TOY_BOOKING_DELETE_ERROR,
     message
   };
 }
@@ -257,6 +296,7 @@ export function saveToyCategory(data) {
       .then(response => {
         if (response.status === 200) {
           var action = data.toyCatId === 0 ? types.ADMIN_TOY_CAT_CREATE_SUCCESS : types.ADMIN_TOY_CAT_UPDATE_SUCCESS;
+          dispatch(push('/dashboard/toyLibrary/categories'));
           dispatch(saveCatSuccess(response.data, action));
         } else {
           dispatch(saveCatError('Oops! Something went wrong!'));
@@ -287,6 +327,7 @@ export function saveToyTag(data) {
       .then(response => {
         if (response.status === 200) {
           var action = data.toyTagId === 0 ? types.ADMIN_TOY_TAG_CREATE_SUCCESS : types.ADMIN_TOY_TAG_UPDATE_SUCCESS;
+          dispatch(push('/dashboard/toyLibrary/tags'));
           dispatch(saveTagSuccess(response.data, action));
         } else {
           dispatch(saveTagError('Oops! Something went wrong!'));
@@ -303,10 +344,11 @@ export function saveToyLibrary(data) {
 
     dispatch(beginSaveToyLibrary());
 
-    return makeRequest('post', data, '/toys/toyLibrary')
+    return makeRequest('post', data, '/toys/toylibrary')
       .then(response => {
         if (response.status === 200) {
           var action = data.toyLibraryId === 0 ? types.ADMIN_TOY_LIB_CREATE_SUCCESS : types.ADMIN_TOY_LIB_UPDATE_SUCCESS;
+          dispatch(push('/dashboard/toyLibrary/locations'));
           dispatch(saveToyLibrarySuccess(response.data, action));
         } else {
           dispatch(saveToyLibraryError('Oops! Something went wrong!'));
@@ -314,6 +356,27 @@ export function saveToyLibrary(data) {
       })
       .catch(err => {
         dispatch(saveToyLibraryError(getMessage(err)));
+      });
+  };
+}
+
+export function saveToyBooking(data) {
+  return (dispatch, getState) => {
+
+    dispatch(beginSaveToyBooking());
+
+    return makeRequest('post', data, '/toys/booking')
+      .then(response => {
+        if (response.status === 200) {
+          var action = data.toyBookingId === 0 ? types.ADMIN_TOY_BOOKING_CREATE_SUCCESS : types.ADMIN_TOY_BOOKING_UPDATE_SUCCESS;
+          dispatch(push('/dashboard/toyLibrary/bookings'));
+          dispatch(saveToyBookingSuccess(response.data, action));
+        } else {
+          dispatch(saveToyBookingError('Oops! Something went wrong!'));
+        }
+      })
+      .catch(err => {
+        dispatch(saveToyBookingError(getMessage(err)));
       });
   };
 }
@@ -361,7 +424,7 @@ export function deleteToyLibrary(id) {
     
     dispatch(beginDeleteToyLibrary());
 
-    return makeRequest('delete', {}, '/toys/toyLibrary/' + id )
+    return makeRequest('delete', {}, '/toys/toylibrary/' + id )
       .then(response => {
         if (response.status === 200) {
           dispatch(deleteToyLibrarySuccess(response.data));
@@ -371,6 +434,25 @@ export function deleteToyLibrary(id) {
       })
       .catch(err => {
         dispatch(deleteToyLibraryError(getMessage(err)));
+      });
+  };
+}
+
+export function deleteToyBooking(id) {
+  return (dispatch) => {
+    
+    dispatch(beginDeleteToyBooking());
+
+    return makeRequest('delete', {}, '/toys/booking/' + id )
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(deleteToyBookingSuccess(response.data));
+        } else {
+          dispatch(deleteToyBookingError('Oops! Something went wrong!'));
+        }
+      })
+      .catch(err => {
+        dispatch(deleteToyBookingError(getMessage(err)));
       });
   };
 }

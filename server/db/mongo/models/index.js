@@ -5,6 +5,6 @@ export default function loadModels() {
   require('./toyLibrary');
   require('./user');
   require('./tempUser');
-  require('./booking');
+  require('./toyBooking');
   require('./counter');
 }

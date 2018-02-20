@@ -23,7 +23,7 @@ handleSubmit = (values) => {
     if (values.openings) {
       values.openings.forEach((op) => {
         var opening = {
-          // op.date is fomratted as "DD/MM/YYYY"
+          // op.date is formatted as "DD/MM/YYYY"
           date: moment(op.date, "DD/MM/YYYY"),
           startTime: moment(op.startTime, "DD/MM/YYYY HH:mm"),
           endTime: moment(op.endTime, "DD/MM/YYYY HH:mm")

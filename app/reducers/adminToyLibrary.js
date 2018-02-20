@@ -6,7 +6,6 @@ const toy = (
   action
 ) => {
   switch (action.type) {
-    case types.ADMIN_TOY_UPDATE_SUCCESS:
     case types.TOY_UPDATE_SUCCESS:
       if (state._id === action.toy._id) {
         return action.toy;
@@ -27,11 +26,14 @@ const toys = (
       return state;
     case types.TOY_CREATE_SUCCESS:  
       return [...state, action.toy];
-    case types.ADMIN_TOY_UPDATE_SUCCESS:
     case types.TOY_UPDATE_SUCCESS:
       return state.map(t => toy(t, action));
     case types.TOY_DELETE_SUCCESS:
       return state.filter(t => t._id !== action.id);
+    case types.ADMIN_TOY_BOOKING_CREATE_SUCCESS:
+    case types.ADMIN_TOY_BOOKING_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_BOOKING_DELETE_SUCCESS:
+      return state.map(t => toy(t, action));
     default:
       return state;
   }
@@ -139,31 +141,72 @@ const toyLibraries = (
   }
 };
 
+const toyBooking = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case types.ADMIN_TOY_BOOKING_UPDATE_SUCCESS:
+      if (state._id === action.toyBooking._id) {
+        return action.toyBooking;
+      }
+      return state;
+    default:
+      return state;
+  }
+};
+
+const toyBookings = (
+  state = [],
+  action
+) => {
+  switch (action.type) {
+    case types.REQUEST_SUCCESS:
+      if (action.data && action.data.toyBookings) return action.data.toyBookings;
+      return state;
+    case types.ADMIN_TOY_BOOKING_CREATE_SUCCESS:  
+      return [...state, action.toyBooking];
+    case types.ADMIN_TOY_BOOKING_UPDATE_SUCCESS:
+      return state.map(t => toyBooking(t, action));
+    case types.ADMIN_TOY_BOOKING_DELETE_SUCCESS:
+      return state.filter(t => t._id !== action.id);  
+    default:
+      return state;
+  }
+};
+
 const message = (
   state = '',
   action
 ) => {
   switch (action.type) {
-    case types.ADMIN_TOY_CREATE_SUCCESS:
+    case types.TOY_CREATE_SUCCESS:
     case types.ADMIN_TOY_CAT_CREATE_SUCCESS:
     case types.ADMIN_TOY_TAG_CREATE_SUCCESS:
     case types.ADMIN_TOY_LIB_CREATE_SUCCESS:
-    case types.ADMIN_TOY_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_BOOKING_CREATE_SUCCESS:
+    case types.TOY_UPDATE_SUCCESS:
     case types.ADMIN_TOY_CAT_UPDATE_SUCCESS:
     case types.ADMIN_TOY_TAG_UPDATE_SUCCESS:  
     case types.ADMIN_TOY_LIB_UPDATE_SUCCESS:
+    case types.ADMIN_TOY_BOOKING_UPDATE_SUCCESS:
+    case types.TOY_DELETE_SUCCESS:
     case types.ADMIN_TOY_CAT_DELETE_SUCCESS:
     case types.ADMIN_TOY_TAG_DELETE_SUCCESS:
     case types.ADMIN_TOY_LIB_DELETE_SUCCESS:  
+    case types.ADMIN_TOY_BOOKING_DELETE_SUCCESS: 
     case types.CREATE_REQUEST:
       return '';
-    case types.ADMIN_TOY_SAVE_ERROR:
+    case types.TOY_SAVE_ERROR:
     case types.ADMIN_TOY_CAT_SAVE_ERROR:
     case types.ADMIN_TOY_TAG_SAVE_ERROR:
     case types.ADMIN_TOY_LIB_SAVE_ERROR:
+    case types.ADMIN_TOY_BOOKING_SAVE_ERROR:
+    case types.TOY_DELETE_ERROR:
     case types.ADMIN_TOY_CAT_DELETE_ERROR:
     case types.ADMIN_TOY_TAG_DELETE_ERROR:
     case types.ADMIN_TOY_LIB_DELETE_ERROR:
+    case types.ADMIN_TOY_BOOKING_DELETE_ERROR:
     case types.ADMIN_TOY_CAT_DUPLICATE:
     case types.ADMIN_TOY_TAG_DUPLICATE:
       return action.message;
@@ -228,16 +271,32 @@ const toyLibrariesPage = (
   }
 };
 
+const toyBookingsPage = (
+  state = 1,
+  action
+) => {
+  switch (action.type) {
+    case types.PREVIOUS_PAGE:
+      return state - 1;
+    case types.NEXT_PAGE:
+      return state + 1;
+    default:
+      return state;
+  }
+};
+
 const adminToyLibraryReducer = combineReducers({
   toys,
   categories,
   tags,
   toyLibraries,
+  toyBookings,
   message,
   toysPage,
   categoriesPage,
   tagsPage,
-  toyLibrariesPage
+  toyLibrariesPage,
+  toyBookingsPage
 });
 
 export default adminToyLibraryReducer;

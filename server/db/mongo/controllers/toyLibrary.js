@@ -3,7 +3,7 @@ import ToyCategory from '../models/toyCategory';
 import ToyTag from '../models/toyTag';
 import ToyLibrary from '../models/toyLibrary';
 import User from '../models/user';
-import Booking from '../models/booking';
+import ToyBooking from '../models/toyBooking';
 import Counter from '../models/counter';
 import fs from 'fs';
 var Sync = require('sync');
@@ -20,6 +20,25 @@ export function allToys(req, res) {
       return res.status(500).json({ message: 'Problème lors de la récupération des jeux' });
     }
     return res.status(200).json( { toys: toys} );
+  });
+}
+
+/**
+ * GET /toys/nameOrRef/:nameOrRef
+ */
+export function getToysByNameOrRef(req, res) {
+  const nameOrRef = req.params.nameOrRef;
+  var queryParts = [];
+  queryParts.push({"name": {$regex : nameOrRef, $options: 'i'}});
+  queryParts.push({"copies.reference": {$regex : nameOrRef, $options: 'i'}});
+  
+  const query = { $or: queryParts };
+  
+  Toy.find(query).sort({name: 1}).exec(function (err, toys) {
+    if (err) {
+      return res.status(500).json({ message: 'Problème lors de la récupération des jeux' });
+    }
+    return res.status(200).json( { toys : toys} );
   });
 }
 
@@ -109,15 +128,54 @@ export function allTags(req, res) {
 }
 
 /**
- * GET /toys/toyLibraries
+ * GET /toys/toylibraries
  */
 export function allToyLibraries(req, res) {
   ToyLibrary.find({}).exec(function (err, toyLibraries) {
     if (err) {
       return res.status(500).json({ message: 'Problème lors de la récupération des ludothèques' });
     }
-    return res.status(200).json( { toyLibraries: toyLibraries} );
+    return res.status(200).json( { toyLibraries: toyLibraries } );
   });
+}
+
+/**
+ * GET /toys/bookings
+ */
+export function allToyBookings(req, res) {
+  ToyBooking.find({}).sort({start: -1}).populate('borrower toy').exec(function (err, toyBookings) {
+    if (err) {
+      return res.status(500).json({ message: 'Problème lors de la récupération des emprunts de jeux' });
+    }
+    return res.status(200).json( { toyBookings: toyBookings } );
+  });
+}
+
+/**
+ * GET /mytoybookings
+ */
+export function allMyToyBookings(req, res) {
+  if (req.user) {
+    
+    const queryUser = {
+      email: req.user.email
+    };
+    
+    User.findOne(queryUser, (err, user) => {
+      if (err) {
+        return res.status(500).json({ message: 'Problème technique lors de la recherche de l\'utilisateur' });
+      }
+
+      const queryToyBookings = { borrower: user._id };
+      
+      ToyBooking.find(queryToyBookings).sort({start: -1}).populate('borrower toy').exec(function (err, toyBookings) {
+        if (err) {
+          return res.status(500).json({ message: 'Problème lors de la récupération de vos emprunts de jeux' });
+        }
+        return res.status(200).json( { mytoybookings: toyBookings} );
+      });
+    });
+  }
 }
 
 /**
@@ -208,7 +266,7 @@ export function saveTag(req, res) {
 }
 
 /**
- * POST /toys/toyLibrary creates or updates a toy library with provided data
+ * POST /toys/toylibrary creates or updates a toy library with provided data
  */
 export function saveToyLibrary(req, res) {
   if (req.body.toyLibraryId !== '') {
@@ -268,6 +326,138 @@ export function saveToyLibrary(req, res) {
       });
     }
   }
+}
+
+/**
+ * POST /toys/toylibrary creates or updates a toy library with provided data
+ */
+export function saveToyBooking(req, res) {
+  if (req.body.toyBookingId !== '') {
+    
+    if (req.body.toyBookingId == 0) {
+      
+      var newToyBooking = new ToyBooking();
+      
+      newToyBooking.borrower = req.body.borrowerId;
+      newToyBooking.toy = req.body.toyId;
+      newToyBooking.reference = req.body.reference;
+      newToyBooking.start = req.body.start;
+      newToyBooking.end = req.body.end;
+      newToyBooking.returnedDate = req.body.returnedDate;
+
+      newToyBooking.save(function(err) {
+        if (err) {
+          return res.status(500).json({ message: 'Problème technique lors de la création' });
+        }
+        updateToyCurrentBooking(req.body.toyId, req.body.reference, function (errMessage, toy) {
+          if (errMessage) {
+            console.log(errMessage);
+          }
+          return res.status(200).json({ toyBooking: newToyBooking, toy: toy, message: 'Emprunt mis à jour avec succès' });
+        });
+      });
+    } else {
+      const query = {
+        _id: req.body.toyBookingId
+      };
+
+      ToyBooking.findOne(query, (err, existingToyBooking) => {
+        if (err) {
+          return res.status(500).json({ message: 'Problème technique lors de la recherche de l\'emprunt' });
+        }
+        if (!existingToyBooking) {
+          return res.status(500).json({ message: 'Cet emprunt n\'existe plus'});
+        }
+        
+        existingToyBooking.borrower = req.body.borrowerId;
+        existingToyBooking.toy = req.body.toyId;
+        existingToyBooking.reference = req.body.reference;
+        existingToyBooking.start = req.body.start;
+        existingToyBooking.end = req.body.end;
+        existingToyBooking.returnedDate = req.body.returnedDate;
+      
+        existingToyBooking.save(function(err) {
+          if (err) {
+            return res.status(500).json({ message: 'Problème technique lors de la mise à jour' });
+          }
+          
+          updateToyCurrentBooking(req.body.toyId, req.body.reference, function (errMessage, toy) {
+            if (errMessage) {
+              console.log(errMessage);
+            }
+            return res.status(200).json({ toyBooking: existingToyBooking, toy: toy, message: 'Emprunt mis à jour avec succès' });
+          });
+        });
+        
+      });
+    }
+  }
+}
+
+export function updateToyCurrentBooking(toyId, reference, returnToyCallback) {
+  
+  const toyBookingQuery = {
+    reference: reference,
+    returnedDate: null
+  };
+
+  ToyBooking.findOne(toyBookingQuery, (err, currentToyBooking) => {
+    
+    if (err) {
+      returnToyCallback('Problème technique lors de la recherche de l\'emprunt courant', null);
+    }
+    
+    var toyQuery ={
+      _id: toyId
+    };
+    
+    if (!currentToyBooking) {
+      Toy.findOne(toyQuery, (err, toy) => {
+        
+        if (err) {
+          returnToyCallback('Problème technique lors de la recherche du jeu', null);
+        }
+        if (toy) {
+
+          toy.copies.forEach((copy) => {
+            if (copy.reference === reference) {
+              copy.currentBooking = undefined;
+            }
+          });
+          toy.save(function(err) {
+            if (err) {
+              returnToyCallback('Problème technique lors de la mise à jour de l\'emprunt courant du jeu', null);
+            }
+            indexationToy(toy._id);
+            returnToyCallback(null, toy);
+          });
+        }
+
+      });
+      
+    } else {
+
+      Toy.findOne(toyQuery, (err, toy) => {
+        if (err) {
+          returnToyCallback('Problème technique lors de la recherche du jeu', null);
+        }
+        if (toy) {
+          toy.copies.forEach((copy) => {
+            if (copy.reference === reference) {
+              copy.currentBooking = currentToyBooking._id;
+            }
+          });
+          toy.save(function(err) {
+            if (err) {
+              returnToyCallback('Problème technique lors de la mise à jour de l\'emprunt courant du jeu', null);
+            }
+            indexationToy(toy._id);
+            returnToyCallback(null, toy);
+          });
+        }
+      });
+    }
+  });
 }
 
 /**
@@ -334,6 +524,31 @@ export function removeToyLibrary(req, res) {
   });
 }
 
+/**
+ * remove a toy booking
+ */
+export function removeToyBooking(req, res) {
+  const toyBookingId = req.params.id;
+  const query = { _id: toyBookingId };
+  
+  ToyBooking.findOne(query, (err, toyBooking) => {
+    if (err) {
+      return res.status(500).send('Problème technique lors de la recherche de l\'emprunt');
+    }
+    toyBooking.remove(function (err, toyBooking) {
+      if (err) {
+        return res.status(500).send('Problème technique lors de la suppression');
+      }
+      updateToyCurrentBooking(toyBooking.toy, toyBooking.reference, function (errMessage, toy) {
+        if (errMessage) {
+          console.log(errMessage);
+        }
+        return res.status(200).send({ id: toyBookingId, toy: toy, message: 'Emprunt supprimé avec succès' });
+      });
+    });
+  });
+}
+
 function addPicture(pictures, req, i, userId, toyId) {
   var file = req.files['pictures['+ i +']'];
   var picture = {
@@ -367,12 +582,7 @@ function removeFile(file) {
 function indexationToy(toyId) {
   Toy.findOne({_id: toyId}).populate('categories tags owner toyLibrary').exec(function (err, toy) {
     if (!err && toy) {
-      Booking.findOne({toy: toyId, returned: null}).sort({start: 'desc'}).exec(function (err, booking) {
-        if (booking) {
-          toy.currentBooking = booking;
-        }
-        indexToy(toy);
-      });
+      indexToy(toy);
     }
   });
 }
@@ -604,7 +814,8 @@ export function saveToy(req, res) {
                   copies.push(
                     {
                      reference:  (!copy.reference || copy.reference === '') ? referencePrefix + getNextSequence.sync(null, 'toy') : copy.reference,
-                     toyLibrary: copy.toyLibraryId && copy.toyLibraryId !== '' ? copy.toyLibraryId : null
+                     toyLibrary: copy.toyLibraryId && copy.toyLibraryId !== '' ? copy.toyLibraryId : null,
+                     currentBooking: copy.currentBookingId && copy.currentBookingId !== '' ? copy.currentBookingId : null
                     }
                   );
                 });
@@ -772,7 +983,6 @@ export function toggleOnline(req, res) {
       }
 
       if (req.body.toyId !== '') {
-        console.log(req.body.toyId);
         
         const query = {
           _id: req.body.toyId
@@ -851,6 +1061,7 @@ export function removeToy(req, res) {
 
 export default {
   allToys,
+  getToysByNameOrRef,
   onlineToys,
   allMyToys,
   searchToys,
@@ -865,5 +1076,9 @@ export default {
   removeTag,
   allToyLibraries,
   saveToyLibrary,
-  removeToyLibrary
+  removeToyLibrary,
+  allToyBookings,
+  saveToyBooking,
+  removeToyBooking,
+  allMyToyBookings
 };

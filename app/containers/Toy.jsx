@@ -79,9 +79,9 @@ class Toy extends Component {
                         <div className={cx('content')}>{toy.description}</div>
                       </div>
                     }
-                    {!toy.available &&
+                    {/*!toy.available &&
                       <div> <span className={cx('label')}>Nombre de personnes sur la liste d'attente :</span> <span>{toy.waiting ? toy.waiting.length : 0}</span></div>
-                    }
+                    */}
                   </div>
                   {/* 
                   <div className="col-xs-12 col-sm-8 col-md-7">

@@ -4,7 +4,7 @@ import { Field, change, FieldArray, reduxForm, formValueSelector } from 'redux-f
 import moment from 'moment';
 import { Link } from 'react-router';
 import { createAddress } from '../js/utils/componentUtils';
-import RenderOwnerInputAutoComplete from './RenderOwnerInputAutoComplete.jsx';
+import RenderUserInputAutoComplete from './RenderUserInputAutoComplete.jsx';
 import RenderTextarea from './RenderTextarea.jsx';
 import RenderField from './RenderField.jsx';
 import adminToyValidation from '../js/validation/adminToyValidation';
@@ -22,7 +22,7 @@ const cy = classNames.bind(inputStyles);
 
 const renderComments = ({ fields, initialComments, meta: { error, submitFailed } }) => {
   return (<div>
-      <button className="btn btn-info" type="button" onClick={() => fields.push({date: moment().format('DD/MM/YYYY')})}>
+      <button className="btn btn-info" type="button" onClick={() => {fields.push({date: moment().format('DD/MM/YYYY')}); initialComments.push({date: moment().format('DD/MM/YYYY')});}}>
         <i className="fa fa-plus"/> Ajouter un commentaire
       </button>
       {submitFailed &&
@@ -34,13 +34,16 @@ const renderComments = ({ fields, initialComments, meta: { error, submitFailed }
       <div key={index} className={cx('comment')}>
         <div className={cx('comment-first-line')}>
         <span>
-          Commentaire #{index + 1} ajouté le {moment(comment.date).format('dddd DD MMMM YYYY')}
+          Commentaire #{index + 1}
         </span>
+        {initialComments.length > index && initialComments[index].date &&
+          <span> ajouté le {moment(initialComments[index].date, 'DD/MM/YYYY').format('dddd DD MMMM YYYY')}</span>
+        }
         <button
           className={'btn btn-danger ' + cx('alignRight')}
           type="button"
           title="Supprimer"
-          onClick={() => fields.remove(index)}
+          onClick={() => {fields.remove(index); initialComments.splice(index, 1);}}
         ><i className="fa fa-trash"/></button>
         </div>
         <Field name={`${comment}.date`} id={`${comment}.date`} component="input" type="hidden"/>
@@ -51,9 +54,10 @@ const renderComments = ({ fields, initialComments, meta: { error, submitFailed }
   );
 };
 
-const renderCopies = ({ fields, toyLibraries, meta: { error, submitFailed } }) => {
+
+const renderCopies = ({ fields, toyLibraries, initialCopies, meta: { error, submitFailed } }) => {
   return (<div>
-      <button className="btn btn-info" type="button" onClick={() => fields.push({})}>
+      <button className="btn btn-info" type="button" onClick={() => {fields.push({}); initialCopies.push({});}}>
         <i className="fa fa-plus"/> Ajouter un exemplaire
       </button>
       {submitFailed &&
@@ -67,19 +71,20 @@ const renderCopies = ({ fields, toyLibraries, meta: { error, submitFailed } }) =
           <span>
             Exemplaire #{index + 1}
           </span>
-          {copy.borrowedBy &&
-            <span className="text-danger">Cet exemplaire est actuellement emprunté, il ne peut donc pas être supprimé.</span>
+          {initialCopies.length > index && initialCopies[index].currentBookingId &&
+            <span className="text-danger"> - Cet exemplaire est actuellement emprunté, il ne peut donc pas être supprimé.</span>
           }
-          {fields.length > 1 && !copy.borrowedBy &&
+          {fields.length > 1 && (initialCopies.length <= index || !initialCopies[index].currentBookingId) &&
           <button
             className={'btn btn-danger ' + cx('alignRight')}
             type="button"
             title="Supprimer"
-            onClick={() => fields.remove(index)}>
+            onClick={() => {fields.remove(index); initialCopies.splice(index, 1);}}>
               <i className="fa fa-trash"/>
           </button>
           }
         </div>
+        <Field name={`${copy}.currentBookingId`} id={`${copy}.currentBookingId`} component="input" type="hidden"/>
         <Field name={`${copy}.reference`} type="text" size="2-10" component={RenderField} readOnly="true" label="Référence" placeholder="Ref. calculée automatiquement"/>
         <div className="form-group">
           <label htmlFor="toyLibrary" className="control-label col-sm-2">Lieu</label>
@@ -107,7 +112,7 @@ const renderCopies = ({ fields, toyLibraries, meta: { error, submitFailed } }) =
 
 let AdminToyFormAdmin = (props) => {
     const { forceOffline, message, handleSubmit, previousPage, invalid,
-      submitting, toyLibraries, initialOwner, initialComments, isApproved } = props;
+      submitting, toyLibraries, initialOwner, initialCopies, initialComments, isApproved } = props;
       
   return (
     <div>
@@ -143,10 +148,10 @@ let AdminToyFormAdmin = (props) => {
         </div>
         
         <Field name="ownerId" id="ownerId" component="input" type="hidden"/>
-        <Field name="owner" id="owner" type="text" size="2-10" initialOwner={initialOwner} component={RenderOwnerInputAutoComplete} label="Propriétaire *" placeholder="Entrez le nom, le prénom ou la raison sociale"/>
+        <Field name="owner" id="owner" type="text" size="2-10" initialUser={initialOwner} formName="adminToy" inputToUpdate="ownerId" component={RenderUserInputAutoComplete} label="Propriétaire *" placeholder="Entrez le nom, le prénom ou la raison sociale"/>
         
         <h3>Exemplaires</h3>
-        <FieldArray name="copies" toyLibraries={toyLibraries} component={renderCopies} />
+        <FieldArray name="copies" toyLibraries={toyLibraries} initialCopies={initialCopies} component={renderCopies} />
 
         <h3>Commentaires</h3>
         <FieldArray name="comments" initialComments={initialComments} component={renderComments} />

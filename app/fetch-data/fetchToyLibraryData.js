@@ -113,8 +113,6 @@ export const fetchToyCategoriesAndTags = () => {
         .catch(() => {
           return results;
         });
-
-      //results.tags = fetchToyTags;
     })
     .catch(() => {
       return [];
@@ -132,3 +130,28 @@ export const fetchToyLibraries = () => {
   .then(res => res.data)
   .catch(() => []);
 };
+
+export const fetchToysAndBookings = () => {
+  return adminToyLibraryService.getToys()
+    .then(response => {
+      var results = response.data;
+
+      return adminToyLibraryService.getToyBookings()
+        .then(res => {
+          results.toyBookings = res.data.toyBookings;
+          return results;
+        })
+        .catch(() => {
+          return results;
+        });
+    })
+    .catch(() => {
+      return [];
+    });
+};
+
+export function fetchToysByNameOrRef(value, callback) {
+  adminToyLibraryService.getToysByNameOrRef(value)
+    .then(res => { callback(res.data.toys); })
+    .catch((e) => { callback([]); });
+}

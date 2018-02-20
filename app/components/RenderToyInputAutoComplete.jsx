@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { change } from 'redux-form';
 import { connect } from 'react-redux';
 import Autocomplete from 'react-autocomplete';
-import { fetchUsersByName } from '../fetch-data/fetchUsersData';
+import { fetchToysByNameOrRef } from '../fetch-data/fetchToyLibraryData';
 import { labelColClassName, inputColClassName } from '../js/utils/componentUtils';
 
 import classNames from 'classnames/bind';
@@ -11,13 +11,13 @@ import styles from '../css/components/autocomplete';
 
 const cx = classNames.bind(styles);
 
-class RenderOwnerInputAutoComplete extends Component {
+class RenderToyInputAutoComplete extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      value: props.initialOwner ? props.initialOwner.profile.displayName : '',
-      users: props.initialOwner ? [props.initialOwner] : [],
+      value: props.initialToy ? props.initialToy.name : '',
+      toys: props.initialToy ? [props.initialToy] : [],
       loading: false
     };
     this.renderItems = this.renderItems.bind(this);
@@ -31,7 +31,7 @@ class RenderOwnerInputAutoComplete extends Component {
 
   render() {
     
-    const { input, label, placeholder, help, size, meta: { touched, error }, selectUser } = this.props;
+    const { input, label, placeholder, help, size, meta: { touched, error }, selectToy, formName, inputToUpdate } = this.props;
     
     return (
       <div className={'form-group' + (error && touched ? ' has-error' : '')}>
@@ -42,21 +42,21 @@ class RenderOwnerInputAutoComplete extends Component {
               value={this.state.value}
               inputProps={{ id: input.name, size: '32', className: 'form-control' }}
               wrapperStyle={{ position: 'relative', display: 'inline-block', width: '280px' }}
-              items={this.state.users}
-              getItemValue={(item) => item.profile.displayName}
-              onSelect={(value, user) => {this.setState({ value, users: [user] }); selectUser(user.id);} }
+              items={this.state.toys}
+              getItemValue={(item) => item.name}
+              onSelect={(value, toy) => {this.setState({ value, toys: [toy] }); selectToy(toy.id, formName, inputToUpdate);} }
               onChange={(event, value) => {
-                this.setState({ value, loading: true, users: [] });
-                selectUser(null);
-                fetchUsersByName(value, (items) => {
-                  this.setState({ users: items, loading: false });
+                this.setState({ value, loading: true, toys: [] });
+                selectToy(null, formName, inputToUpdate);
+                fetchToysByNameOrRef(value, (items) => {
+                  this.setState({ toys: items, loading: false });
                 });
               }}
               renderItem={(item, isHighlighted) => (
                 <div
                   className={cx('item') + (isHighlighted ? ' ' + cx('item-highlighted') : '')}
                   key={item.id}
-                >{item.profile.displayName}</div>
+                >{item.name}</div>
               )}
               renderMenu={(items, value) => (
                 <div className={cx('menu')}>
@@ -65,7 +65,7 @@ class RenderOwnerInputAutoComplete extends Component {
                   ) : this.state.loading ? (
                     <div className={cx('item')}>Chargement...</div>
                   ) : items.length === 0 ? (
-                    <div className={cx('item')}>Aucun utilisateur trouvé pour '{value}'. </div>
+                    <div className={cx('item')}>Aucun jeu trouvé pour '{value}'. </div>
                   ) : this.renderItems(items)}
                 </div>
               )}
@@ -78,10 +78,10 @@ class RenderOwnerInputAutoComplete extends Component {
   }
 }
 
-RenderOwnerInputAutoComplete.propTypes = {
+RenderToyInputAutoComplete.propTypes = {
   input: PropTypes.object.isRequired
 };
 
 export default connect(null, {
-  selectUser: userId => change("adminToy", "ownerId", userId)
-})(RenderOwnerInputAutoComplete);
+  selectToy: (toyId, formName, inputName) => change(formName, inputName, toyId)
+})(RenderToyInputAutoComplete);

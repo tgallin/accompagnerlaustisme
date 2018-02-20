@@ -29,7 +29,8 @@ const isWaiting = (
     case types.ADMIN_TOY_CAT_SAVE:
     case types.ADMIN_TOY_LIB_DELETE:
     case types.ADMIN_TOY_LIB_SAVE:
-    case types.ADMIN_TOY_SAVE:
+    case types.ADMIN_TOY_BOOKING_DELETE:
+    case types.ADMIN_TOY_BOOKING_SAVE:
     case types.ADMIN_TOY_TAG_DELETE:
     case types.ADMIN_TOY_TAG_SAVE:
     case types.ADMIN_USER_DELETE:
@@ -54,20 +55,22 @@ const isWaiting = (
     case types.ADMIN_TOY_CAT_DUPLICATE:
     case types.ADMIN_TOY_CAT_SAVE_ERROR:
     case types.ADMIN_TOY_CAT_UPDATE_SUCCESS:
-    case types.ADMIN_TOY_CREATE_SUCCESS:
     case types.ADMIN_TOY_LIB_CREATE_SUCCESS:
     case types.ADMIN_TOY_LIB_DELETE_ERROR:
     case types.ADMIN_TOY_LIB_DELETE_SUCCESS:
     case types.ADMIN_TOY_LIB_SAVE_ERROR:
     case types.ADMIN_TOY_LIB_UPDATE_SUCCESS:
-    case types.ADMIN_TOY_SAVE_ERROR:
+    case types.ADMIN_TOY_BOOKING_CREATE_SUCCESS:
+    case types.ADMIN_TOY_BOOKING_DELETE_ERROR:
+    case types.ADMIN_TOY_BOOKING_DELETE_SUCCESS:
+    case types.ADMIN_TOY_BOOKING_SAVE_ERROR:
+    case types.ADMIN_TOY_BOOKING_UPDATE_SUCCESS:
     case types.ADMIN_TOY_TAG_CREATE_SUCCESS:
     case types.ADMIN_TOY_TAG_DELETE_ERROR:
     case types.ADMIN_TOY_TAG_DELETE_SUCCESS:  
     case types.ADMIN_TOY_TAG_DUPLICATE:
     case types.ADMIN_TOY_TAG_SAVE_ERROR:
     case types.ADMIN_TOY_TAG_UPDATE_SUCCESS:
-    case types.ADMIN_TOY_UPDATE_SUCCESS:
     case types.ADMIN_USER_CREATE_SUCCESS:
     case types.ADMIN_USER_DELETE_ERROR:
     case types.ADMIN_USER_DELETE_SUCCESS:

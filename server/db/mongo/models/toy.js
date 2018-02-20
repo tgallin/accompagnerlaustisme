@@ -24,7 +24,7 @@ const ToySchema = new mongoose.Schema({
   copies: [{
     reference: String,
     toyLibrary: { type: Schema.Types.ObjectId, ref: 'ToyLibrary' },
-    borrowedBy: { type: Schema.Types.ObjectId, ref: 'User' }
+    currentBooking: { type: Schema.Types.ObjectId, ref: 'ToyBooking' }
   }],
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: Date.now }
@@ -41,7 +41,7 @@ ToySchema
 .virtual('available')
 .get(function () {
   // bookings is null || bookings is empty || bookings all returned
-  var nbCopiesNotYetBorrowed = this.copies ? this.copies.filter(c => !c.borrowedBy).length : 1;
+  var nbCopiesNotYetBorrowed = this.copies ? this.copies.filter(c => !c.currentBooking).length : 1;
   var nbPeopleWaiting = this.waiting ? this.waiting.length : 0;
   return nbCopiesNotYetBorrowed > nbPeopleWaiting;
 });
