@@ -92,7 +92,7 @@
     "postcss-import": "^9.0.0",
     "postcss-loader": "^1.2.1",
     "postcss-reporter": "^3.0.0",
-    "rand-token": "^0.3.0",
+    "rand-token": "^0.4.0",
     "rc-time-picker": "^2.4.1",
     "react": "^15.4.1",
     "react-autocomplete": "^1.7.1",
