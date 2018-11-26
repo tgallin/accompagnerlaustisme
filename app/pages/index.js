@@ -9,6 +9,7 @@ export { default as Formation1_2018} from 'pages/Formation1-2018';
 export { default as Formation2_2018} from 'pages/Formation2-2018';
 export { default as Formation3_2018} from 'pages/Formation3-2018';
 export { default as Formation4_2018} from 'pages/Formation4-2018';
+export { default as Formation1_2019} from 'pages/Formation1-2019';
 export { default as Reseau } from 'pages/Reseau';
 export { default as Ludotheque } from 'pages/Ludotheque';
 export { default as ToysCatalogue } from 'pages/ToysCatalogue';

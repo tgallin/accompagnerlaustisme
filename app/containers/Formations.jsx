@@ -28,17 +28,20 @@ const Formations = () => {
       
       <p className={'text-justify ' + cx('content', 'paddingBottom')}>Ces formations sont ouvertes à tous : parents comme professionnels (psychologues, éducateurs spécialisés, AVS, orthophonistes, enseignants,...)</p>
       
-      <div className={cx('header')}>Agenda 2017-2018<span className={cx('image-a')}><img src={aYellow} alt="A jaune"/></span></div>
+      <div className={cx('header')}>Agenda 2018-2019<span className={cx('image-a')}><img src={aYellow} alt="A jaune"/></span></div>
       
-      <p className={'text-justify ' + cx('content', 'paddingBottom')}>14 & 15 octobre 2017 : <Link to="/formations/formation1-2018">Introduction à l’Analyse du Comportement Appliquée (ABA)</Link></p>
+      <p className={'text-justify ' + cx('content', 'lastPaddingBottom')}>2 & 3 mars 2019 : <Link to="/formations/formation1-2019">Les comportements sexuels</Link></p>
       
-      <p className={'text-justify ' + cx('content', 'paddingBottom')}>18 & 19 novembre (matin) 2017 : <Link to="/formations/formation2-2018">Enseigner l'écriture aux enfants de maternelle</Link></p>
+      
+      <div className={cx('header')}>Formations passées</div>
+      
+      <p className={'text-justify ' + cx('content', 'paddingBottom')}>17 & 18 mars 2018 : <Link to="/formations/formation4-2018">Habilités sociales</Link></p>
       
       <p className={'text-justify ' + cx('content', 'paddingBottom')}>27 & 28 janvier 2018 : <Link to="/formations/formation3-2018">La gestion des troubles du comportement</Link></p>
       
-      <p className={'text-justify ' + cx('content', 'lastPaddingBottom')}>17 & 18 mars 2018 : <Link to="/formations/formation4-2018">Habilités sociales</Link></p>
+      <p className={'text-justify ' + cx('content', 'paddingBottom')}>18 & 19 novembre (matin) 2017 : <Link to="/formations/formation2-2018">Enseigner l'écriture aux enfants de maternelle</Link></p>
       
-      <div className={cx('header')}>Formations passées</div>
+      <p className={'text-justify ' + cx('content', 'paddingBottom')}>14 & 15 octobre 2017 : <Link to="/formations/formation1-2018">Introduction à l’Analyse du Comportement Appliquée (ABA)</Link></p>
       
       <p className={'text-justify ' + cx('content', 'paddingBottom')}>8 & 9 avril 2017 : <Link to="/formations/formation4-2017"> Entraînement aux Réponses Pivots (PRT)</Link></p>
       
