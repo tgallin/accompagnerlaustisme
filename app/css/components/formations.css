@@ -48,3 +48,29 @@ ol.listNoType, ul.listNoType {
 .text-wrap {
   white-space: normal;
 }
+
+.frame-header {
+  line-height: 120px;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.frame-support-banner {
+    height: 200px;      /* equals max image height */
+    white-space: nowrap;
+}
+
+.align-middle {
+    vertical-align: middle;
+}
+
+.header-underlined {
+  @apply --subHeading;
+  padding-top: 30px;
+  padding-bottom: 5px;
+  text-decoration: underline;
+}

@@ -30,8 +30,9 @@ const Formations = () => {
       
       <div className={cx('header')}>Agenda 2018-2019<span className={cx('image-a')}><img src={aYellow} alt="A jaune"/></span></div>
       
-      <p className={'text-justify ' + cx('content', 'lastPaddingBottom')}>2 & 3 mars 2019 : <Link to="/formations/formation1-2019">Les comportements sexuels</Link></p>
+      <p className={'text-justify ' + cx('content', 'paddingBottom')}>2 & 3 mars 2019 : <Link to="/formations/formation1-2019">Les comportements sexuels</Link></p>
       
+      <p className={'text-justify ' + cx('content', 'lastPaddingBottom')}>5 samedis matins de février à juin : <Link to="/formations/formation2-2019">Ateliers pédagogiques GRATUITS</Link></p>
       
       <div className={cx('header')}>Formations passées</div>
       

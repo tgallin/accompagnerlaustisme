@@ -45,6 +45,8 @@ class Ludotheque extends Component {
         <div>
           <ScrollToTopOnMount/>
           <ToysSearchForm />
+          <p className={'alert alert-danger'}><strong>NOUVEAU !</strong><Link to="/formations/formation2-2019" className={cx('link-free-workshops')}>Ateliers pédagogiques GRATUITS </Link></p>
+          
           <div className={cx('header')}><span className={cx('image-a')}><img src={aBlue} alt="A bleu"/></span>L'esprit de la ludothèque AAA</div>
           <p className={'text-justify ' + cx('content', 'paddingBottom')}>Les enfants autistes ont tous une capacité d’apprentissage.
           Pour les aider à apprendre, nous avons recours à des outils ludo-éducatifs pour susciter leur intérêt. Il peut s’agir de jeux ou jouets très basiques mais bien souvent ces outil éducatifs ont une conception bien adaptées aux enfants à besoin spécifique.</p>
