@@ -52,6 +52,7 @@
 .address {
   padding-left: 50px;
   @apply --normal;
+  line-height: 20px;
 }
 
 .openings {
@@ -141,6 +142,10 @@ ul.toy-list.grid>li .toy-container h5 {
 .toyLibraries {
   padding: 16px 12px;
   border-bottom: 2px dotted var(--heading);
+}
+
+.toyLibrary {
+  padding: 5px 0;
 }
 
 .searchOrBrowseToys {

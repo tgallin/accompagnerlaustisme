@@ -11,7 +11,7 @@ export function createAddress(address) {
       lines.push(address.street);
     }
     if (address.complement3) {
-      lines.push(address.postalCode);
+      lines.push(address.complement3);
     }
     if (address.postalCode) {
       lines.push(address.postalCode);

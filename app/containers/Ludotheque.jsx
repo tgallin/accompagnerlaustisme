@@ -67,11 +67,10 @@ class Ludotheque extends Component {
           <div className={cx('toyLibraries')}>
             <div className={cx('header')}><span className={cx('image-a')}><img src={aBlue} alt="A bleu"/></span>Où et quand emprunter</div>
             {toyLibraries.filter(tl => tl.active).map((toyLibrary) => (
-              <div className={cx('toyLibray')} key={toyLibrary._id}>
-                <div className={cx('address')} dangerouslySetInnerHTML={{__html: (toyLibrary.name + '<br/>' + createAddress(toyLibrary.address))}} />
+              <div className={cx('toyLibrary')} key={toyLibrary._id}>
+                <div className={cx('address', 'paddingBottom')} dangerouslySetInnerHTML={{__html: ('<strong>'+toyLibrary.name + '</strong><br/>' + createAddress(toyLibrary.address))}} />
                 {toyLibrary.openings && toyLibrary.openings.length > 0 &&
                 <div className={cx('openings')}>
-                 <div className={cx('subheader')}>Permanences :</div>
                 <ul>
                   {
                     toyLibrary.openings.map((op, index) => (
