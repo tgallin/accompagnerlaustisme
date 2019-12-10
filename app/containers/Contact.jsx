@@ -49,7 +49,7 @@ handleSubmit = (values) => {
       <div>
         <ScrollToTopOnMount/>
         <h3>Association Accompagner l'Autisme</h3>
-        <div className={cx('address-line')}>6, rue Jean Hupeau</div>
+        <div className={cx('address-line')}>46 ter rue Sainte Catherine</div>
         <div className={cx('address-line')}>45000 Orléans</div>
         <br/>
         <div className='well'>
